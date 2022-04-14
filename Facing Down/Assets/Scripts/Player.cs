@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    readonly Inventory Inventory = new Inventory();
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameManager.Player = this;
+        GameManager.Player.Inventory.AddItem(new PrintItem());
     }
 
     // Update is called once per frame
@@ -15,4 +18,9 @@ public class Player : MonoBehaviour
     {
         
     }
+
+    public Inventory GetInventory() {
+        return Inventory;
+	}
+
 }
