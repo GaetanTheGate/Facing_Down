@@ -4,6 +4,7 @@ public class Game : MonoBehaviour
 {
     public static GameController controller;
     public static TimeManager time;
+    public static Player player;
 
     private void Start()
     {
@@ -14,5 +15,7 @@ public class Game : MonoBehaviour
         time = gameObject.GetComponent<TimeManager>();
         if (time == null)
             time = gameObject.AddComponent<TimeManager>();
+
+        player = gameObject.GetComponentInChildren<Player>();
     }
 }

@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public Entity self;
     public DirectionPointer pointer;
     public Camera gameCamera;
+    public Inventory inventory;
 
     public int dashLeft = 2;
 
@@ -31,6 +32,10 @@ public class Player : MonoBehaviour
         camManager = gameCamera.GetComponent<CameraManager>();
         if (camManager == null)
             camManager = gameCamera.gameObject.AddComponent<CameraManager>();
+
+        inventory = self.GetComponent<Inventory>();
+        if (inventory == null)
+            inventory = self.gameObject.AddComponent<Inventory>();
     }
 
     // Update is called once per frame
