@@ -2,31 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedEntity : MonoBehaviour
+public class SpeedEntity : AbstractEntity
 {
     private Rigidbody2D rb;
-    private Entity self;
     private StatEntity stat;
 
-    public void Init()
+    public override void Init()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         if (rb == null)
             rb = gameObject.AddComponent<Rigidbody2D>();
 
-        self = gameObject.GetComponent<Entity>();
-        if (self == null)
-            self = gameObject.AddComponent<Entity>();
-
         stat = gameObject.GetComponent<StatEntity>();
         if (stat == null)
             stat = gameObject.AddComponent<StatEntity>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Init();
     }
 
     // Update is called once per frame

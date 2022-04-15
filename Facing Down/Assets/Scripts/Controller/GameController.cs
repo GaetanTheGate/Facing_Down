@@ -23,15 +23,15 @@ public class GameController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         ComputePress();
         ComputeHeld();
+        ComputeReleased();
 
 
-
-        pointer.x = Input.GetAxis("Mouse X");
-        pointer.y = Input.GetAxis("Mouse Y");
+        pointer.x = Input.GetAxis("Mouse X") * Game.controller.sensibility;
+        pointer.y = Input.GetAxis("Mouse Y") * Game.controller.sensibility;
     }
 
     private void ComputePress()

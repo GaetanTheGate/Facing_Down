@@ -1,23 +1,19 @@
 using UnityEngine;
 
-public class GravityEntity : MonoBehaviour
+public class GravityEntity : AbstractEntity
 {
     private Rigidbody2D rb;
-    private Entity self;
 
-    // Test
-    [Range(0.0f, 360.0f)] public float gravity_direction = 270;
-    [Range(0.0f, 20.0f)] public float gravity_speed = 9.8f;
+    public Velocity gravity = new Velocity();
 
-    public void Init()
+    [Range(0.0f, 360.0f)] public float base_gravity_direction = 270;
+    [Range(0.0f, 50.0f)] public float base_gravity_speed = 9.8f;
+
+    public override void Init()
     {
-
-        self = gameObject.GetComponent<Entity>();
-        if (self == null)
-            self = gameObject.AddComponent<Entity>();
-
-        self.gravity.setAngle(gravity_direction);
-        gravity_direction = self.gravity.getAngle();
+        gravity.setAngle(base_gravity_direction);
+        gravity.setSpeed(base_gravity_speed);
+        base_gravity_direction = gravity.getAngle();
 
         rb = gameObject.GetComponent<Rigidbody2D>();
         if (rb == null)
@@ -26,26 +22,17 @@ public class GravityEntity : MonoBehaviour
         rb.gravityScale = 0;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Init();
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {
         if ( ! rb.simulated)
             return;
 
-        self.gravity.setAngle(gravity_direction);
-        self.gravity.setSpeed(gravity_speed);
-
         ComputeGravity(Time.fixedDeltaTime);
     }
 
     private void ComputeGravity(float deltaTime)
     {
-        rb.velocity += new Velocity(self.gravity).MulToSpeed(deltaTime).MulToSpeed(2).GetAsVector2();
+        rb.velocity += new Velocity(gravity).MulToSpeed(deltaTime).MulToSpeed(2).GetAsVector2();
     }
 }
