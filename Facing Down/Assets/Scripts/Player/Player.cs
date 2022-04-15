@@ -4,7 +4,7 @@ public class Player : MonoBehaviour
 {
     private bool isInBulletTime = false;
 
-    private StatEntity stat;
+    public StatEntity stat;
     private CameraManager camManager;
     public Entity self;
     public DirectionPointer pointer;

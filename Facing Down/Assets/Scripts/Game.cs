@@ -17,5 +17,16 @@ public class Game : MonoBehaviour
             time = gameObject.AddComponent<TimeManager>();
 
         player = gameObject.GetComponentInChildren<Player>();
+
+        Item atkItem = new AttackUpItem();
+        Item atkMultItem = new AttackMultUpItem();
+        player.inventory.AddItem(atkItem);
+        Debug.LogAssertion(player.stat.getAtk() == 110);
+        player.inventory.AddItem(atkMultItem);
+        Debug.LogAssertion(player.stat.getAtk() == 121);
+        player.inventory.RemoveItem(atkItem);
+        Debug.LogAssertion(player.stat.getAtk() == 110);
+        player.inventory.RemoveItem(atkMultItem);
+        Debug.LogAssertion(player.stat.getAtk() == 100);
     }
 }

@@ -27,4 +27,8 @@ public class StatEntity : MonoBehaviour
     {
         atk = baseAtk * atkMultipler;
     }
+
+    public float getAtk() {
+        return atk;
+	}
 }
