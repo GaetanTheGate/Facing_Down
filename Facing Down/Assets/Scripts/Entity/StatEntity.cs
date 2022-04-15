@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StatEntity : MonoBehaviour
+public class StatEntity : AbstractEntity
 {
     [Min(0.0f)] public float baseAtk = 100;
     [Min(0.0f)] public float atkMultipler = 1;
@@ -12,15 +12,9 @@ public class StatEntity : MonoBehaviour
     [Min(0.0f)] public float acceleration = 1;
     [Min(0.0f)] public float maxSpeed = 10;
 
-    public void Init()
+    public override void Init()
     {
         computeAtk();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Init();
     }
 
     public void computeAtk()

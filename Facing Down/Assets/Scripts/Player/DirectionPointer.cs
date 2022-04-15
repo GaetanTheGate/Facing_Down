@@ -56,7 +56,7 @@ public class DirectionPointer : MonoBehaviour
 
     private void posAsJoystick()
     {
-        nextPosition += Game.controller.getPointer() * Game.controller.sensibility;
+        nextPosition += Game.controller.getPointer();
     }
 
     private void ComputeMaxDistance()
