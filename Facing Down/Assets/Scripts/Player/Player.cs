@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
         else
             material.friction = 0.6f;
 
-        self.GetComponent<BoxCollider2D>().sharedMaterial = material;
+        self.GetComponent<CapsuleCollider2D>().sharedMaterial = material;
     }
 
     private void ComputeBulletTime()

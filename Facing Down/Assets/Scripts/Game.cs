@@ -6,7 +6,7 @@ public class Game : MonoBehaviour
     public static TimeManager time;
     public static Player player;
 
-    private void Start()
+    private void Awake()
     {
         controller = gameObject.GetComponent<GameController>();
         if (controller == null)
