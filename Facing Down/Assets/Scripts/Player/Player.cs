@@ -25,15 +25,11 @@ public class Player : AbstractPlayer
         if (inventory == null)
             inventory = self.gameObject.AddComponent<Inventory>();
 
-<<<<<<< Updated upstream
-        self.GetComponent<BoxCollider2D>().sharedMaterial = material;
-    }
-=======
+
         AbstractPlayer player;
->>>>>>> Stashed changes
 
         player = gameObject.GetComponent<PlayerDash>();
-        if(player == null)
+        if (player == null)
         {
             player = gameObject.AddComponent<PlayerDash>();
             player.Init();

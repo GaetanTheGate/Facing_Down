@@ -20,9 +20,9 @@ public class PlayerDash : AbstractPlayer
         if (camManager == null)
             camManager = gameObject.GetComponent<Player>().gameCamera.gameObject.AddComponent<CameraManager>();
 
-        bulletTime = gameObject.GetComponent<Player>().gameCamera.GetComponent<PlayerBulletTime>();
+        bulletTime = gameObject.GetComponent<PlayerBulletTime>();
         if (bulletTime == null)
-            bulletTime = gameObject.GetComponent<Player>().gameCamera.gameObject.AddComponent<PlayerBulletTime>();
+            bulletTime = gameObject.AddComponent<PlayerBulletTime>();
 
 
         self = gameObject.GetComponent<Player>().self;
