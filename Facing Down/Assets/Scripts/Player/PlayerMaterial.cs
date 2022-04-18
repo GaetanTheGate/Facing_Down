@@ -31,6 +31,6 @@ public class PlayerMaterial : AbstractPlayer
         else
             material.friction = slowSpeedFriction;
 
-        self.GetComponent<CapsuleCollider2D>().sharedMaterial = material;
+        self.GetComponent<Collider2D>().sharedMaterial = material;
     }
 }

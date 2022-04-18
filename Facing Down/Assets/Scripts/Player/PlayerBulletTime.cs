@@ -34,7 +34,7 @@ public class PlayerBulletTime : AbstractPlayer
         }
 
         if (isInBulletTime)
-            Game.time.SetGameSpeed(0.05f);
+            Game.time.SetGameSpeed(0.00f);
         else
             Game.time.SetGameSpeed(1.0f);
     }
