@@ -55,10 +55,10 @@ public class Player : AbstractPlayer
             player.Init();
         }
 
-        player = gameObject.GetComponent<PlayerCollisionStructure>();
+        player = gameObject.GetComponent<PlayerOnCollisionStructure>();
         if (player == null)
         {
-            player = gameObject.AddComponent<PlayerCollisionStructure>();
+            player = gameObject.AddComponent<PlayerOnCollisionStructure>();
             player.Init();
         }
     }

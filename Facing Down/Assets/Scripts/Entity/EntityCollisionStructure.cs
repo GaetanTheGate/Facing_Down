@@ -2,29 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCollisionStructure : AbstractPlayer
+public class EntityCollisionStructure : AbstractEntity
 {
-    private Entity self;
-    private StatEntityPlayer statEntityPlayer;
-    private bool isGrounded = false;
-    private bool isWalled = false;
-    private bool isCeilinged = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private GravityEntity gravityEntity;
+    [HideInInspector]
+    public bool isGrounded = false;
+    [HideInInspector]
+    public bool isWalled = false;
+    [HideInInspector]
+    public bool isCeilinged = false;
 
     public override void Init()
     {
-        self = gameObject.GetComponent<Player>().self;
-        statEntityPlayer = self.GetComponent<StatEntityPlayer>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gravityEntity = gameObject.GetComponent<GravityEntity>();
     }
 
     void OnCollisionStay2D(Collision2D col)
@@ -32,6 +22,7 @@ public class PlayerCollisionStructure : AbstractPlayer
         bool groundedTest = false;
         bool walledTest = false;
         bool ceilingedTest = false;
+
         if (col.collider.CompareTag("Terrain"))
         {
             groundedTest = false;
@@ -39,18 +30,19 @@ public class PlayerCollisionStructure : AbstractPlayer
             ceilingedTest = false;
             foreach (ContactPoint2D contact in col.contacts)
             {
-                if (Vector2.Angle(Vector2.down, contact.normal) <= 180.0f && Vector2.Angle(Vector2.down, contact.normal) >= 135.0f)
+                float angle = Vector2.Angle(gravityEntity.gravity.GetAsVector2(), contact.normal);
+                if (angle <= 180.0f && angle >= 135.0f)
                 {
                     groundedTest = true;
-                    if (isGrounded == false) statEntityPlayer.numberOfDashes = 0;
+                    //if (isGrounded == false) statPlayer.numberOfDashes = 0;
                 }
 
-                else if (Vector2.Angle(Vector2.down, contact.normal) < 135.0f && Vector2.Angle(Vector2.down, contact.normal) >= 45.0f)
+                else if (angle < 135.0f && angle >= 45.0f)
                 {
                     walledTest = true;
                 }
 
-                else if (Vector2.Angle(Vector2.down, contact.normal) <= 45.0f && Vector2.Angle(Vector2.down, contact.normal) >= 0.0f)
+                else if (angle <= 45.0f && angle >= 0.0f)
                 {
                     ceilingedTest = true;
                 }
@@ -66,10 +58,10 @@ public class PlayerCollisionStructure : AbstractPlayer
             groundedTest = false;
             foreach (ContactPoint2D contact in col.contacts)
             {
-                if (Vector2.Angle(Vector2.down, contact.normal) <= 180.0f && Vector2.Angle(Vector2.down, contact.normal) >= 135.0f)
+                if (Vector2.Angle(gravityEntity.gravity.GetAsVector2(), contact.normal) <= 180.0f && Vector2.Angle(gravityEntity.gravity.GetAsVector2(), contact.normal) >= 135.0f)
                 {
                     groundedTest = true;
-                    if (isGrounded == false) statEntityPlayer.numberOfDashes = 0;
+                    //if (isGrounded == false) statPlayer.numberOfDashes = 0;
                 }
             }
             isGrounded = groundedTest;

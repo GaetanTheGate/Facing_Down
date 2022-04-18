@@ -39,5 +39,12 @@ public class Entity : AbstractEntity
             entity = gameObject.AddComponent<RotationEntity>();
             entity.Init();
         }
+
+        entity = gameObject.GetComponent<EntityCollisionStructure>();
+        if (entity == null)
+        {
+            entity = gameObject.AddComponent<EntityCollisionStructure>();
+            entity.Init();
+        }
     }
 }
