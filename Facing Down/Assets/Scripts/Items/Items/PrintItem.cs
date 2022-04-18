@@ -5,7 +5,7 @@ using UnityEngine;
 public class PrintItem : Item
 {
 	static PrintItem() {
-		Name = "Pickup Item";
+		ID = "Print";
 	}
 
 	public override void OnPickup() {

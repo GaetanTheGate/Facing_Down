@@ -4,26 +4,27 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-	readonly List<Item> items;
+	readonly Dictionary<string, Item> items;
 
 	public Inventory() {
-		items = new List<Item>();
+		items = new Dictionary<string, Item>();
 	}
 
 	public void AddItem(Item item) {
-		items.Add(item);
+		if (!items.ContainsKey(item.getID()))
+			items.Add(item.getID(), item);
+		items[item.getID()].modifyAmount(1);
 		item.OnPickup();
 	}
 
 	public void RemoveItem(Item item) {
-		items.Remove(item);
+		items[item.getID()].modifyAmount(0);
+		if (items[item.getID()].getAmount() == 0)
+			items.Remove(item.getID());
 		item.OnRemove();
 	}
 
-	public List<Item> GetItems() {
+	public Dictionary<string, Item> GetItems() {
 		return items;
 	}
-
-	
-
 }
