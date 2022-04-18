@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PlayerAttack : AbstractPlayer
 {
-    private float attackCooldown = 0.5f;
-    private float lastAttack = 0.0f;
 
-    private float chargeTimeStart = 0.0f;
+    private float chargeTimePassed = 0.0f;
     private float chargeTime = 1.0f;
+
+    private float attackRecharge = 0.0f;
 
     private PlayerBulletTime bulletTime;
     private CameraManager camManager;
@@ -15,6 +15,14 @@ public class PlayerAttack : AbstractPlayer
     private StatPlayer stat;
 
     private bool attackPressed = false;
+
+    public GameObject attack;
+
+    [Min(0)] public float lenght = 270;
+    [Min(0)] public float range = 3;
+
+    [Min(0)] public float attackCooldown = 0.5f;
+    public Attack.Way behaviour = Attack.Way.Clockwise;
 
     public override void Init()
     {
@@ -42,49 +50,64 @@ public class PlayerAttack : AbstractPlayer
 
     private void ComputeAttack()
     {
-        if (Time.realtimeSinceStartup - lastAttack < attackCooldown)
+        attackRecharge += Time.fixedDeltaTime;
+        chargeTimePassed += Time.fixedDeltaTime;
+
+        if (attackRecharge < attackCooldown)
             return;
 
         if (Game.controller.IsAttackHeld() && !attackPressed)
         {
             attackPressed = true;
-            chargeTimeStart = Time.realtimeSinceStartup;
+            chargeTimePassed = 0;
         }
         else if (!Game.controller.IsAttackHeld() && attackPressed)
         {
             attackPressed = false;
-            lastAttack = Time.realtimeSinceStartup;
+            chargeTimePassed = 0;
+            Game.controller.lowSensitivity = false;
 
             if (bulletTime.isInBulletTime)
             {
                 ComputeSpecial();
 
                 bulletTime.isInBulletTime = false;
-                Game.time.SetGameSpeedInstant(2.0f);
+                Game.time.SetGameSpeedInstant(0.1f);
             }
             else
             {
-                if (Time.realtimeSinceStartup - chargeTimeStart > chargeTime)
-                {
-                    ComputeBounce();
-                    Game.time.SetGameSpeedInstant(1.6f);
-                }
-                else
-                {
-                    ComputeSimpleAttack();
-                    Game.time.SetGameSpeedInstant(1.2f);
-                }
-
+                attackRecharge = 0.0f;
+                ComputeSimpleAttack();
+                Game.time.SetGameSpeedInstant(0.2f);
             }
             camManager.SetZoomPercent(100);
         }
         else if (attackPressed)
-            camManager.SetZoomPercent(Mathf.Min(130.0f, 100 - 30 * ((Time.realtimeSinceStartup - chargeTimeStart) / chargeTime)));
+        {
+            Game.time.SetGameSpeedInstant(0.5f);
+            Game.controller.lowSensitivity = true;
+            camManager.SetZoomPercent(Mathf.Max(90.0f, 100 - 10 * (chargeTimePassed / chargeTime)));
+        }
     }
 
     private void ComputeSimpleAttack()
     {
+        attack.gameObject.transform.position = self.transform.position;
+        attack.gameObject.GetComponent<Attack>().src = self;
+        attack.gameObject.GetComponent<Attack>().angle = pointer.getAngle();
+        attack.gameObject.GetComponent<Attack>().range = range;
+        attack.gameObject.GetComponent<Attack>().lenght = lenght;
+        attack.gameObject.GetComponent<Attack>().timeSpan = attackCooldown/2;
+        attack.gameObject.GetComponent<Attack>().color = Color.white;
+        attack.gameObject.GetComponent<Attack>().behaviour = behaviour;
+        attack.gameObject.GetComponent<Attack>().followEntity = true;
 
+        Instantiate(attack).GetComponent<Attack>().startAttack();
+
+        if (behaviour == Attack.Way.Clockwise)
+            behaviour = Attack.Way.CounterClockwise;
+        else if (behaviour == Attack.Way.CounterClockwise)
+            behaviour = Attack.Way.Clockwise;
     }
 
     private void ComputeBounce()
@@ -93,6 +116,24 @@ public class PlayerAttack : AbstractPlayer
     }
     private void ComputeSpecial()
     {
+        attack.gameObject.transform.position = self.transform.position;
+        attack.gameObject.GetComponent<Attack>().src = self;
+        attack.gameObject.GetComponent<Attack>().angle = pointer.getAngle();
+        attack.gameObject.GetComponent<Attack>().range = 7;
+        attack.gameObject.GetComponent<Attack>().lenght = 360;
+        attack.gameObject.GetComponent<Attack>().timeSpan = 2;
+        attack.gameObject.GetComponent<Attack>().color = Color.red;
+        attack.gameObject.GetComponent<Attack>().behaviour = behaviour;
+        attack.gameObject.GetComponent<Attack>().followEntity = false;
 
+        Instantiate(attack).GetComponent<Attack>().startAttack();
+
+        if (behaviour == Attack.Way.Clockwise)
+            behaviour = Attack.Way.CounterClockwise;
+        else if (behaviour == Attack.Way.CounterClockwise)
+            behaviour = Attack.Way.Clockwise;
+
+        attack.gameObject.GetComponent<Attack>().behaviour = behaviour;
+        Instantiate(attack).GetComponent<Attack>().startAttack();
     }
 }

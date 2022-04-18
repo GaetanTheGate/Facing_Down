@@ -8,7 +8,7 @@ public class PlayerDash : AbstractPlayer
     private Entity self;
     private StatPlayer stat;
 
-    private float chargeTimeStart = 0.0f;
+    private float chargeTimePassed = 0.0f;
     private float chargeTime = 1.0f;
     private bool movePressed = false;
 
@@ -39,13 +39,14 @@ public class PlayerDash : AbstractPlayer
 
     private void ComputeDash()
     {
+        chargeTimePassed += Time.fixedDeltaTime;
         if (stat.numberOfDashes >= stat.maxDashes)
             return;
 
         if (Game.controller.IsMovementHeld() && !movePressed)
         {
             movePressed = true;
-            chargeTimeStart = Time.realtimeSinceStartup;
+            chargeTimePassed = 0;
         }
         else if (!Game.controller.IsMovementHeld() && movePressed)
         {
@@ -61,7 +62,7 @@ public class PlayerDash : AbstractPlayer
             }
             else
             {
-                if (Time.realtimeSinceStartup - chargeTimeStart > chargeTime)
+                if (chargeTimePassed > chargeTime)
                 {
                     ComputeMegaDash();
                     Game.time.SetGameSpeedInstant(1.6f);
@@ -76,7 +77,7 @@ public class PlayerDash : AbstractPlayer
             camManager.SetZoomPercent(100);
         }
         else if (movePressed)
-            camManager.SetZoomPercent(Mathf.Min(130.0f, 100 + 30 * ((Time.realtimeSinceStartup - chargeTimeStart) / chargeTime)));
+            camManager.SetZoomPercent(Mathf.Min(130.0f, 100 + 30 * (chargeTimePassed / chargeTime)));
     }
 
     private void ComputeMegaDash()

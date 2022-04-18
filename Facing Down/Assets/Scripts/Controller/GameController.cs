@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
 
     private Vector2 pointer = new Vector2(0.0f, 0.0f);
 
+    public bool lowSensitivity = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +32,8 @@ public class GameController : MonoBehaviour
         ComputeReleased();
 
 
-        pointer.x = Input.GetAxis("Mouse X") * Game.controller.sensibility;
-        pointer.y = Input.GetAxis("Mouse Y") * Game.controller.sensibility;
+        pointer.x = Input.GetAxis("Mouse X") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
+        pointer.y = Input.GetAxis("Mouse Y") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
     }
 
     private void ComputePress()

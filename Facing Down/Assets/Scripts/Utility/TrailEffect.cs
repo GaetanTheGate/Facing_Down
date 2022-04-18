@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TrailEffect : MonoBehaviour
+{
+    public float timeSpan = 1.0f;
+    public float timeGap = 0.0f;
+    private float timeStart = 0.0f;
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if(Time.realtimeSinceStartup - timeStart >= timeGap)
+        {
+            GameObject self = Instantiate(gameObject);
+            foreach (Component component in self.GetComponents(typeof(Component))){
+                if (component.GetType() == typeof(Transform))
+                    continue;
+                if (component.GetType() == typeof(SpriteRenderer))
+                    continue;
+
+                Destroy(component);
+            }
+            foreach (Component child in self.GetComponentsInChildren(typeof(Transform)))
+            {
+                if (child.gameObject == self.gameObject)
+                    continue;
+                Destroy(child.gameObject);
+            }
+            self.AddComponent<DestroyWhileFading>();
+            self.GetComponent<DestroyWhileFading>().timeSpan = timeSpan;
+
+            self.transform.SetParent(transform.parent);
+            timeStart = Time.realtimeSinceStartup;
+        }
+    }
+}
