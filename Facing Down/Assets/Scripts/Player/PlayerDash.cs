@@ -6,13 +6,11 @@ public class PlayerDash : AbstractPlayer
     private CameraManager camManager;
     private DirectionPointer pointer;
     private Entity self;
-    private StatEntity stat;
+    private StatPlayer stat;
 
     private float chargeTimeStart = 0.0f;
     private float chargeTime = 1.0f;
     private bool movePressed = false;
-
-    public int dashLeft = 200;
 
     public override void Init()
     {
@@ -28,9 +26,9 @@ public class PlayerDash : AbstractPlayer
         self = gameObject.GetComponent<Player>().self;
         pointer = gameObject.GetComponent<Player>().pointer;
 
-        stat = self.gameObject.GetComponent<StatEntity>();
+        stat = gameObject.GetComponent<StatPlayer>();
         if (stat == null)
-            stat = self.gameObject.AddComponent<StatEntity>(); ;
+            stat = gameObject.AddComponent<StatPlayer>();
     }
 
     // Update is called once per frame
@@ -41,7 +39,7 @@ public class PlayerDash : AbstractPlayer
 
     private void ComputeDash()
     {
-        if (dashLeft <= 0)
+        if (stat.numberOfDashes >= stat.maxDashes)
             return;
 
         if (Game.controller.IsMovementHeld() && !movePressed)
@@ -52,7 +50,7 @@ public class PlayerDash : AbstractPlayer
         else if (!Game.controller.IsMovementHeld() && movePressed)
         {
             movePressed = false;
-            dashLeft -= 1;
+            stat.numberOfDashes += 1;
 
             if (bulletTime.isInBulletTime)
             {
@@ -83,12 +81,12 @@ public class PlayerDash : AbstractPlayer
 
     private void ComputeMegaDash()
     {
-        self.GetComponent<Rigidbody2D>().velocity = new Velocity(stat.acceleration * 2, pointer.getAngle()).GetAsVector2();
+        self.GetComponent<Rigidbody2D>().velocity = new Velocity(stat.statEntity.acceleration * 2, pointer.getAngle()).GetAsVector2();
     }
 
     private void ComputeSimpleDash()
     {
-        self.GetComponent<Rigidbody2D>().velocity = new Velocity(stat.acceleration * 1.25f, pointer.getAngle()).GetAsVector2();
+        self.GetComponent<Rigidbody2D>().velocity = new Velocity(stat.statEntity.acceleration * 1.25f, pointer.getAngle()).GetAsVector2();
     }
 
     private void ComputeRedirect()

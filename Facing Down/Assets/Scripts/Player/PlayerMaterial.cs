@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMaterial : AbstractPlayer
 {
-    private StatEntity stat;
+    private StatPlayer stat;
     private Entity self;
 
     [Range(0.0f, 1.0f)] public float highSpeedFriction = 0.1f;
@@ -11,9 +11,9 @@ public class PlayerMaterial : AbstractPlayer
     {
         self = gameObject.GetComponent<Player>().self;
 
-        stat = self.gameObject.GetComponent<StatEntity>();
+        stat = gameObject.GetComponent<StatPlayer>();
         if (stat == null)
-            stat = self.gameObject.AddComponent<StatEntity>(); ;
+            stat = gameObject.AddComponent<StatPlayer>();
     }
 
     // Update is called once per frame
@@ -26,7 +26,7 @@ public class PlayerMaterial : AbstractPlayer
     {
         PhysicsMaterial2D material = new PhysicsMaterial2D();
         material.bounciness = 0;
-        if (new Velocity(self.GetComponent<Rigidbody2D>().velocity).getSpeed() > stat.maxSpeed / 3)
+        if (new Velocity(self.GetComponent<Rigidbody2D>().velocity).getSpeed() > stat.statEntity.maxSpeed / 3)
             material.friction = highSpeedFriction;
         else
             material.friction = slowSpeedFriction;

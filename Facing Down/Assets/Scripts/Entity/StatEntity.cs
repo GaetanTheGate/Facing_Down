@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StatEntity
+public class StatEntity : MonoBehaviour
 {
     [Min(0.0f)] public float baseAtk = 100;
     [Min(0.0f)] public float atkMultipler = 1;

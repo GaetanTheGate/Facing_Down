@@ -12,7 +12,7 @@ public class PlayerAttack : AbstractPlayer
     private CameraManager camManager;
     private DirectionPointer pointer;
     private Entity self;
-    private StatEntity stat;
+    private StatPlayer stat;
 
     private bool attackPressed = false;
 
@@ -30,9 +30,9 @@ public class PlayerAttack : AbstractPlayer
         self = gameObject.GetComponent<Player>().self;
         pointer = gameObject.GetComponent<Player>().pointer;
 
-        stat = self.gameObject.GetComponent<StatEntity>();
+        stat = gameObject.GetComponent<StatPlayer>();
         if (stat == null)
-            stat = self.gameObject.AddComponent<StatEntity>(); ;
+            stat = gameObject.AddComponent<StatPlayer>(); ;
     }
 
     void FixedUpdate()

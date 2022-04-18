@@ -10,12 +10,12 @@ public class AttackMultUpItem : Item
 
 	private readonly float multiplierAdd = 0.1f;
 	public override void OnPickup() {
-		Game.player.stat.atkMultipler += multiplierAdd;
-		Game.player.stat.computeAtk();
+		Game.player.stat.statEntity.atkMultipler += multiplierAdd;
+		Game.player.stat.statEntity.computeAtk();
 	}
 
 	public override void OnRemove() {
-		Game.player.stat.atkMultipler -= multiplierAdd;
-		Game.player.stat.computeAtk();
+		Game.player.stat.statEntity.atkMultipler -= multiplierAdd;
+		Game.player.stat.statEntity.computeAtk();
 	}
 }

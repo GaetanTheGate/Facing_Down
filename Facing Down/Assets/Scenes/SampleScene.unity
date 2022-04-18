@@ -6882,6 +6882,7 @@ GameObject:
   - component: {fileID: 888815641}
   - component: {fileID: 888815640}
   - component: {fileID: 888815642}
+  - component: {fileID: 888815643}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -6901,7 +6902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea543872afad994f939506c87e5a7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stat: {fileID: 0}
+  stat: {fileID: 888815643}
   self: {fileID: 1046915592}
   pointer: {fileID: 1316602803}
   gameCamera: {fileID: 1644314268}
@@ -6935,6 +6936,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c6531b359f8cc4bb954650577aa7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &888815643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888815639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32feda7c95d73134794c509c7755d6cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statEntity: {fileID: 1046915593}
+  numberOfDashes: 0
+  maxDashes: 10
 --- !u!1 &943720705
 GameObject:
   m_ObjectHideFlags: 0
@@ -9014,27 +9030,20 @@ Transform:
   m_Father: {fileID: 888815641}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1046915590
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &1046915590
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1046915588}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 2
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2786dcbe8c1f7242b24687a24b85b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  base_gravity_direction: 270
+  base_gravity_speed: 9.8
 --- !u!212 &1046915591
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9114,8 +9123,8 @@ MonoBehaviour:
   atkMultipler: 1
   critRate: 5
   critDmg: 150
-  acceleration: 10
-  maxSpeed: 50
+  acceleration: 5
+  maxSpeed: 25
 --- !u!114 &1046915594
 MonoBehaviour:
   m_ObjectHideFlags: 0

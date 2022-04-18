@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : AbstractPlayer
 {
-    public StatEntity stat;
+    public StatPlayer stat;
     private CameraManager camManager;
     public Entity self;
     public DirectionPointer pointer;
@@ -15,9 +15,9 @@ public class Player : AbstractPlayer
 
     public override void Init()
     {
-        stat = self.GetComponent<StatEntity>();
+        stat = GetComponent<StatPlayer>();
         if (stat == null)
-            stat = self.gameObject.AddComponent<StatEntity>();
+            stat = gameObject.AddComponent<StatPlayer>();
 
 
         inventory = self.GetComponent<Inventory>();
@@ -52,6 +52,13 @@ public class Player : AbstractPlayer
         if (player == null)
         {
             player = gameObject.AddComponent<PlayerMaterial>();
+            player.Init();
+        }
+
+        player = gameObject.GetComponent<PlayerCollisionStructure>();
+        if (player == null)
+        {
+            player = gameObject.AddComponent<PlayerCollisionStructure>();
             player.Init();
         }
     }

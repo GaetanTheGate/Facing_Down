@@ -6,11 +6,10 @@ public class Entity : AbstractEntity
     {
         AbstractEntity entity;
 
-        entity = gameObject.GetComponent<StatEntity>();
-        if (entity == null)
+        StatEntity statEntity = gameObject.GetComponent<StatEntity>();
+        if (statEntity == null)
         {
-            entity = gameObject.AddComponent<StatEntity>();
-            entity.Init();
+            statEntity = gameObject.AddComponent<StatEntity>();
         }
 
         Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
