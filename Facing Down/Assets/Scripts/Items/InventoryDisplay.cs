@@ -23,7 +23,6 @@ public class InventoryDisplay : MonoBehaviour
 	}
 
     public void removeItemDisplay(Item item) {
-        Debug.Log("REMOVING");
         Destroy(itemDisplays[item.getID()]);
         itemDisplays.Remove(item.getID());
         int index = 0;
