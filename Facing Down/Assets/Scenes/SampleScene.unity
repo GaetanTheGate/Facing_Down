@@ -180,8 +180,8 @@ MonoBehaviour:
   atkMultipler: 1
   critRate: 5
   critDmg: 150
-  acceleration: 5
-  maxSpeed: 25
+  acceleration: 10
+  maxSpeed: 50
 --- !u!114 &272039495
 MonoBehaviour:
   m_ObjectHideFlags: 0
