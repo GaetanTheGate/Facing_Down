@@ -12,7 +12,6 @@ public class Player : AbstractPlayer
 
 
 
-    private bool attackPressed = false;
 
     public override void Init()
     {
@@ -32,6 +31,13 @@ public class Player : AbstractPlayer
         if (player == null)
         {
             player = gameObject.AddComponent<PlayerDash>();
+            player.Init();
+        }
+
+        player = gameObject.GetComponent<PlayerAttack>();
+        if (player == null)
+        {
+            player = gameObject.AddComponent<PlayerAttack>();
             player.Init();
         }
 
