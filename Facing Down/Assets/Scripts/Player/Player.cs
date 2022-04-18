@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Player : AbstractPlayer
 {
-
-    private StatEntity stat;
+    public StatEntity stat;
+    private CameraManager camManager;
     public Entity self;
     public DirectionPointer pointer;
     public Camera gameCamera;

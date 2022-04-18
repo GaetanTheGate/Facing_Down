@@ -21,4 +21,8 @@ public class StatEntity : AbstractEntity
     {
         atk = baseAtk * atkMultipler;
     }
+
+    public float getAtk() {
+        return atk;
+	}
 }
