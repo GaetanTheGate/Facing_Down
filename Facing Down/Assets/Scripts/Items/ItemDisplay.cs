@@ -21,4 +21,12 @@ public class ItemDisplay : MonoBehaviour {
         GetComponentInChildren<Image>().rectTransform.position = pos;
         GetComponentInChildren<Text>().rectTransform.position = pos;
     }
+
+    public void update() {
+        GetComponentInChildren<Text>().text = item.getAmount().ToString();
+    }
+
+	public void OnDestroy() {
+        foreach (Transform child in transform) Destroy(child.gameObject);
+	}
 }

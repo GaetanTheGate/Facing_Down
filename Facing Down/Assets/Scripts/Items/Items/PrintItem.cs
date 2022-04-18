@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PrintItem : Item
 {
-	static PrintItem() {
+	public PrintItem() {
 		ID = "Print";
 	}
 

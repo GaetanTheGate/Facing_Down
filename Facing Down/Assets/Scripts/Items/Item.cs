@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Item{
-    protected static string ID;
-    protected int amount = 0;
+    protected string ID;
+    protected int amount;
+
+    public Item() {
+        amount = 1;
+	}
 
     public string getID() {
         return ID;

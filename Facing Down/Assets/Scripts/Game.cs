@@ -18,4 +18,25 @@ public class Game : MonoBehaviour
 
         player = gameObject.GetComponentInChildren<Player>();
     }
+
+	private void Update() {
+		if(Input.GetKeyDown(KeyCode.A)) {
+            player.inventory.AddItem(new AttackMultUpItem());
+		}
+		if(Input.GetKeyDown(KeyCode.Z)) {
+            player.inventory.AddItem(new AttackUpItem());
+		}
+		if(Input.GetKeyDown(KeyCode.E)) {
+            player.inventory.AddItem(new PrintItem());
+		}
+        if(Input.GetKeyDown(KeyCode.Q)) {
+            player.inventory.RemoveItem(new AttackMultUpItem());
+		}
+		if(Input.GetKeyDown(KeyCode.S)) {
+            player.inventory.RemoveItem(new AttackUpItem());
+		}
+		if(Input.GetKeyDown(KeyCode.D)) {
+            player.inventory.RemoveItem(new PrintItem());
+		}
+	}
 }

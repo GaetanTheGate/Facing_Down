@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackMultUpItem : Item
 {
-	static AttackMultUpItem() {
+	public AttackMultUpItem() {
 		ID = "AttackMultUp";
 	}
 

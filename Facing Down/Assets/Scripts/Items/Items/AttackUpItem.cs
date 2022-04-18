@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackUpItem : Item
 {
-	static AttackUpItem() {
+	public AttackUpItem() {
 		ID = "AttackUp";
 	}
 
