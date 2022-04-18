@@ -16,4 +16,8 @@ public class StatEntity
     {
         atk = baseAtk * atkMultipler;
     }
+
+    public float getAtk() {
+        return atk;
+	}
 }
