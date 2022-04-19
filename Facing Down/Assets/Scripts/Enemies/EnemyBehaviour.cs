@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundEnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : MonoBehaviour
 {
-
     public int damage = 1;
 
     // Start is called before the first frame update
@@ -23,8 +22,8 @@ public class GroundEnemyBehaviour : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            PlayerBehaviour playerBehaviour = collision.collider.GetComponent<PlayerBehaviour>();
-            playerBehaviour.getHit(damage);
+            StatPlayer statPlayer = collision.collider.GetComponentInParent<StatPlayer>();
+            statPlayer.takeDamage(damage);
         }
     }
 }

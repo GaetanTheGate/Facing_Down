@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrapBehaviour : MonoBehaviour
+public class EnemyBehaviourTrigger : MonoBehaviour
 {
+    public int damage = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +22,8 @@ public class TrapBehaviour : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            PlayerBehaviour playerBehaviour = collision.GetComponent<PlayerBehaviour>();
-            playerBehaviour.getHitTrap(2);
+            StatPlayer statPlayer = collision.GetComponentInParent<StatPlayer>();
+            statPlayer.takeDamage(damage);
         }
     }
 }
