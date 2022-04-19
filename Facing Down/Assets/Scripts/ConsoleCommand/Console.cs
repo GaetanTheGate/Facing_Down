@@ -12,10 +12,6 @@ public class Console : MonoBehaviour
 	string input = "";
 	string output = "";
 
-	public static ConsoleCommand PRINT_DEBUG;
-	public static ConsoleCommand<string> PRINT_STR;
-	public List<AbstractConsoleCommand> commandList;
-
 	List<string> lastInputs;
 	int scrollIndex = 0;
 
@@ -31,10 +27,6 @@ public class Console : MonoBehaviour
 	}
 
 	private void Awake() {
-		PRINT_DEBUG = new ConsoleCommand("print_debug", "Prints \"CONSOLE : Print Debug\" in the debug console", "print_debug", () => { Debug.Log("CONSOLE : Print Debug"); });
-		PRINT_STR = new ConsoleCommand<string>("print_str", "Prints \"CONSOLE : <str>\" in the debug console", "print_str <string>", (str) => { Debug.Log("CONSOLE : " + str); });
-
-		commandList = new List<AbstractConsoleCommand> {PRINT_DEBUG, PRINT_STR};
 		lastInputs = new List<string>();
 	}
 
@@ -48,6 +40,40 @@ public class Console : MonoBehaviour
 		return false;
 	}
 
+	void HandleSpecialKeys() {
+		if (Event.current.type == EventType.KeyDown) {
+			if (Event.current.keyCode == KeyCode.Return) {
+				HandleInput();
+				input = "";
+			}
+			else if (Event.current.keyCode == KeyCode.UpArrow) {
+				scrollIndex = Utility.mod(scrollIndex - 1, lastInputs.Count + 1);
+				if (scrollIndex == lastInputs.Count) input = "";
+				else input = lastInputs[scrollIndex];
+			}
+			else if (Event.current.keyCode == KeyCode.DownArrow) {
+				scrollIndex = Utility.mod(scrollIndex + 1, lastInputs.Count + 1);
+				if (scrollIndex == lastInputs.Count) input = "";
+				else input = lastInputs[scrollIndex];
+			}
+		}
+	}
+
+	void HandleOutputArea() {
+		if (output != "") {
+			GUI.Box(new Rect(0, Screen.height - 60f, Screen.width, 30f), "");
+			GUI.Label(new Rect(5f, Screen.height - 55f, Screen.width - 10f, 20f), output);
+		}
+	}
+
+	void HandleInputArea() {
+		GUI.Box(new Rect(0, Screen.height - 30f, Screen.width, 30f), "");
+		GUI.backgroundColor = new Color(0, 0, 0, 0);
+		GUI.SetNextControlName("Console");
+		input = GUI.TextField(new Rect(10f, Screen.height - 25f, Screen.width - 20f, 20f), input);
+		input = Regex.Replace(input, @"[^a-zA-Z0-9 _]", "");
+		GUI.FocusControl("Console");
+	}
 	public void OnGUI() {
 		if (PreventKeyRepeat()) return;
 
@@ -57,35 +83,9 @@ public class Console : MonoBehaviour
 		}
 		if (!toggled) return;
 
-		if (Event.current.type == EventType.KeyDown) {
-			if (Event.current.keyCode == KeyCode.Return) {
-				HandleInput();
-				input = "";
-			}
-			else if (Event.current.keyCode == KeyCode.UpArrow) {
-				scrollIndex = Utility.mod(scrollIndex - 1, lastInputs.Count + 1);
-				Debug.Log("Scrolled Up to " + scrollIndex + " (out of " + lastInputs.Count + ")");
-				if (scrollIndex == lastInputs.Count) input = "";
-				else input = lastInputs[scrollIndex];
-			}
-			else if (Event.current.keyCode == KeyCode.DownArrow) {
-				scrollIndex = Utility.mod(scrollIndex + 1, lastInputs.Count + 1);
-				Debug.Log("Scrolled Down to " + scrollIndex + " (out of " + lastInputs.Count + ")");
-				if (scrollIndex == lastInputs.Count) input = "";
-				else input = lastInputs[scrollIndex];
-			}
-		}
-
-		if (output != "") {
-			GUI.Box(new Rect(0, Screen.height - 60f, Screen.width, 30f), "");
-			GUI.Label(new Rect(5f, Screen.height - 55f, Screen.width - 10f, 20f), output);
-		}
-		GUI.Box(new Rect(0, Screen.height - 30f, Screen.width, 30f), "");
-		GUI.backgroundColor = new Color(0, 0, 0, 0);
-		GUI.SetNextControlName("Console");
-		input = GUI.TextField(new Rect(10f, Screen.height - 25f, Screen.width - 20f, 20f), input);
-		input = Regex.Replace(input, @"[^a-zA-Z0-9 _]", "");
-		GUI.FocusControl("Console");
+		HandleSpecialKeys();
+		HandleOutputArea();
+		HandleInputArea();
 	}
 
 	public void HandleInput() {
@@ -95,21 +95,31 @@ public class Console : MonoBehaviour
 		scrollIndex = lastInputs.Count;
 
 		string[] splitInput = input.Split(' ');
-		for (int i = 0; i < commandList.Count; ++i) {
-			if (splitInput[0] == commandList[i].getID()) {
-				if (commandList[i] as ConsoleCommand != null) {
-					(commandList[i] as ConsoleCommand).Invoke();
-					return;
-				}
-				else if (commandList[i] as ConsoleCommand<string> != null) {
-					if (splitInput.Length < 2) 
-						output = "Not enough arguments for " + commandList[i].getFormat();
-					else 
-						(commandList[i] as ConsoleCommand<string>).Invoke(splitInput[1]);
-					return;
-				}
+		AbstractConsoleCommand command = CommandList.getCommand(splitInput[0], splitInput.Length - 1);
+		if (command == null) {
+			output = CommandList.getErrorMessage();
+			return;
+		}
+		if (splitInput.Length == 1) {
+			if ((command as ConsoleCommand) != null) {
+				(command as ConsoleCommand).Invoke();
+				return;
 			}
 		}
-		output = "Command " + input + " not found";
+		if (splitInput.Length == 2) {
+			if ((command as ConsoleCommand<string>) != null) {
+				(command as ConsoleCommand<string>).Invoke(splitInput[1]);
+				return;
+			}
+			if ((command as ConsoleCommand<int>) != null) {
+				int arg;
+				if (!int.TryParse(splitInput[1], out arg)) {
+					output = "Format invalid : \"" + splitInput[1] + "\" does not seem to be an integer.";
+					return;
+				}
+				(command as ConsoleCommand<int>).Invoke(arg);
+				return;
+			}
+		}
 	}
 }
