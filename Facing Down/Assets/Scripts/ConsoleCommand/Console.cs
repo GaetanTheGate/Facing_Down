@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 public class Console : MonoBehaviour
 {
 	bool alreadyPressed = false;
-	List<KeyCode> usedKeys = new List<KeyCode> { KeyCode.Quote };
+	List<KeyCode> noRepeatKeys = new List<KeyCode> { KeyCode.Quote };
     bool toggled = false;
 
 	string input = "";
@@ -35,10 +35,11 @@ public class Console : MonoBehaviour
 		PRINT_STR = new ConsoleCommand<string>("print_str", "Prints \"CONSOLE : <str>\" in the debug console", "print_str <string>", (str) => { Debug.Log("CONSOLE : " + str); });
 
 		commandList = new List<AbstractConsoleCommand> {PRINT_DEBUG, PRINT_STR};
+		lastInputs = new List<string>();
 	}
 
-	private bool IgnoreIrrelevantEvents() {
-		if (!(usedKeys.Contains(Event.current.keyCode))) return false;
+	private bool PreventKeyRepeat() {
+		if (!noRepeatKeys.Contains(Event.current.keyCode)) return false;
 		if (Event.current.type == EventType.KeyDown) {
 			if (alreadyPressed) return true;
 			alreadyPressed = true;
@@ -48,7 +49,7 @@ public class Console : MonoBehaviour
 	}
 
 	public void OnGUI() {
-		if (IgnoreIrrelevantEvents()) return;
+		if (PreventKeyRepeat()) return;
 
 		if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Quote) {
 			Toggle();
@@ -56,9 +57,23 @@ public class Console : MonoBehaviour
 		}
 		if (!toggled) return;
 
-		if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Return) {
-			HandleInput();
-			input = "";
+		if (Event.current.type == EventType.KeyDown) {
+			if (Event.current.keyCode == KeyCode.Return) {
+				HandleInput();
+				input = "";
+			}
+			else if (Event.current.keyCode == KeyCode.UpArrow) {
+				scrollIndex = Utility.mod(scrollIndex - 1, lastInputs.Count + 1);
+				Debug.Log("Scrolled Up to " + scrollIndex + " (out of " + lastInputs.Count + ")");
+				if (scrollIndex == lastInputs.Count) input = "";
+				else input = lastInputs[scrollIndex];
+			}
+			else if (Event.current.keyCode == KeyCode.DownArrow) {
+				scrollIndex = Utility.mod(scrollIndex + 1, lastInputs.Count + 1);
+				Debug.Log("Scrolled Down to " + scrollIndex + " (out of " + lastInputs.Count + ")");
+				if (scrollIndex == lastInputs.Count) input = "";
+				else input = lastInputs[scrollIndex];
+			}
 		}
 
 		if (output != "") {
@@ -77,6 +92,8 @@ public class Console : MonoBehaviour
 		output = "";
 		lastInputs.Add(input);
 		if (lastInputs.Count > 20) lastInputs.RemoveAt(0);
+		scrollIndex = lastInputs.Count;
+
 		string[] splitInput = input.Split(' ');
 		for (int i = 0; i < commandList.Count; ++i) {
 			if (splitInput[0] == commandList[i].getID()) {
