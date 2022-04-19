@@ -16,8 +16,18 @@ public class Entity : AbstractEntity
         if (rb == null)
         {
             rb = gameObject.AddComponent<Rigidbody2D>();
+            rb.freezeRotation = true;
+            if (rb.CompareTag("Player"))
+            {
+                rb.interpolation = RigidbodyInterpolation2D.Extrapolate;
+                rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+            }
+            else if (rb.CompareTag("Enemy"))
+            {
+                rb.mass = 10;
+            }
         }
-        rb.freezeRotation = true;
+        
 
         entity = gameObject.GetComponent<GravityEntity>();
         if (entity == null)

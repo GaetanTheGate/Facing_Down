@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479095185107698591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.858791, y: -2.47224, z: 0.118547164}
+  m_LocalPosition: {x: -3.4662378, y: 0.0123475045, z: 0.118547164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,11 +99,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followEntity: 1
   src: {fileID: 0}
-  angle: 82.17079
+  angle: -12.0879545
   timeSpan: 0.15
   lenght: 270
   range: 3
-  behaviour: 0
+  behaviour: 1
   color: {r: 1, g: 1, b: 1, a: 1}
   isAttacking: 0
 --- !u!60 &1479095185107698585

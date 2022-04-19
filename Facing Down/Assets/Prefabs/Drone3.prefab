@@ -150,7 +150,7 @@ MonoBehaviour:
   - {fileID: 6180464659276183126}
   - {fileID: 6180464659818348789}
   animator: {fileID: 6180464658978433784}
-  aggroDistance: 5
+  aggroDistance: 0
 --- !u!114 &629106046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,8 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2786dcbe8c1f7242b24687a24b85b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity_direction: 270
-  gravity_speed: 0.5
+  base_gravity_direction: 270
+  base_gravity_speed: 9.8
 --- !u!114 &379317917
 MonoBehaviour:
   m_ObjectHideFlags: 0
