@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6180464658978433787}
   - component: {fileID: 6180464658978433784}
   - component: {fileID: 6180464658978433785}
-  - component: {fileID: 629106046}
+  - component: {fileID: 7871384194363220218}
   - component: {fileID: 379317916}
   - component: {fileID: 379317917}
   m_Layer: 11
@@ -151,7 +151,7 @@ MonoBehaviour:
   - {fileID: 6180464659818348789}
   animator: {fileID: 6180464658978433784}
   aggroDistance: 0
---- !u!114 &629106046
+--- !u!114 &7871384194363220218
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6180464658978433543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e365f521f6c9b3747a99f0a241518058, type: 3}
+  m_Script: {fileID: 11500000, guid: ea306f8bb28f8b942ae5ddad6188bcff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1

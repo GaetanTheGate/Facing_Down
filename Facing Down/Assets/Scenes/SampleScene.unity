@@ -208,6 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad009292beaab1d4a989b19a796968c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitPoints: 10
   baseAtk: 100
   atkMultipler: 1
   critRate: 5
@@ -239,9 +240,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  isIframeTrap: 0
+  isIframe: 0
   naturalColor: {r: 1, g: 1, b: 1, a: 1}
-  hpText: {fileID: 640469008979653010}
 --- !u!70 &272039497
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -7144,9 +7144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32feda7c95d73134794c509c7755d6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statEntity: {fileID: 272039494}
+  statEntity: {fileID: 0}
+  hpText: {fileID: 640469008979653010}
   numberOfDashes: 0
-  maxDashes: 100
+  maxDashes: 10
 --- !u!114 &888815644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9168,7 +9169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6180464659912303289, guid: bad257a2a1f2a714cb9299425b6b0cda, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6180464659912303289, guid: bad257a2a1f2a714cb9299425b6b0cda, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10794,7 +10795,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6180464659912303289, guid: bad257a2a1f2a714cb9299425b6b0cda, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6180464659912303289, guid: bad257a2a1f2a714cb9299425b6b0cda, type: 3}
       propertyPath: m_LocalPosition.x
