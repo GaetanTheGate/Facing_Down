@@ -143,9 +143,9 @@ GameObject:
   - component: {fileID: 272039495}
   - component: {fileID: 272039494}
   - component: {fileID: 272039493}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerEntity
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -783,9 +783,9 @@ GameObject:
   - component: {fileID: 654794327}
   - component: {fileID: 654794329}
   - component: {fileID: 654794328}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7127,11 +7127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d2925e02a8191499739790baffe912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: {fileID: 1479095185107698591, guid: 02b64495df10b22458039a99d00f1f53, type: 3}
-  lenght: 270
-  range: 3
-  attackCooldown: 0.3
-  behaviour: 1
+  weaponChosen: 0
 --- !u!1 &943720705
 GameObject:
   m_ObjectHideFlags: 0
@@ -9234,6 +9230,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spike (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1024944267504436257, guid: 6ea62b307bde85e4685b5f84ce8ab6d0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ea62b307bde85e4685b5f84ce8ab6d0, type: 3}
 --- !u!1 &1316602802
@@ -9348,7 +9348,7 @@ GameObject:
   - component: {fileID: 1487821704}
   - component: {fileID: 1487821703}
   - component: {fileID: 1487821702}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Terrain
   m_TagString: Terrain
   m_Icon: {fileID: 0}
@@ -9936,6 +9936,10 @@ PrefabInstance:
     - target: {fileID: 1024944267504436257, guid: 6ea62b307bde85e4685b5f84ce8ab6d0, type: 3}
       propertyPath: m_Name
       value: Spike
+      objectReference: {fileID: 0}
+    - target: {fileID: 1024944267504436257, guid: 6ea62b307bde85e4685b5f84ce8ab6d0, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ea62b307bde85e4685b5f84ce8ab6d0, type: 3}
