@@ -16,13 +16,13 @@ public class PlayerAttack : AbstractPlayer
 
     private bool attackPressed = false;
 
-    public GameObject attack;
+    public Weapon weapon = new Katana();
+    public ChooseWeapon weaponChosen = ChooseWeapon.Katana;
 
-    [Min(0)] public float lenght = 270;
-    [Min(0)] public float range = 3;
-
-    [Min(0)] public float attackCooldown = 0.5f;
-    public Attack.Way behaviour = Attack.Way.Clockwise;
+    public enum ChooseWeapon
+    {
+        Katana, Wings
+    }
 
     public override void Init()
     {
@@ -45,6 +45,19 @@ public class PlayerAttack : AbstractPlayer
 
     void FixedUpdate()
     {
+        switch (weaponChosen)
+        {
+            case ChooseWeapon.Katana:
+                if (weapon.GetType().Equals(typeof(Katana)))
+                    break;
+                weapon = new Katana();
+                break;
+            case ChooseWeapon.Wings:
+                if (weapon.GetType().Equals(typeof(Wings)))
+                    break;
+                weapon = new Wings();
+                break;
+        }
         ComputeAttack();
     }
 
@@ -53,7 +66,7 @@ public class PlayerAttack : AbstractPlayer
         attackRecharge += Time.fixedDeltaTime;
         chargeTimePassed += Time.fixedDeltaTime;
 
-        if (attackRecharge < attackCooldown)
+        if (attackRecharge < weapon.GetBaseCooldown())
             return;
 
         if (Game.controller.IsAttackHeld() && !attackPressed)
@@ -92,22 +105,7 @@ public class PlayerAttack : AbstractPlayer
 
     private void ComputeSimpleAttack()
     {
-        attack.gameObject.transform.position = self.transform.position;
-        attack.gameObject.GetComponent<Attack>().src = self;
-        attack.gameObject.GetComponent<Attack>().angle = pointer.getAngle();
-        attack.gameObject.GetComponent<Attack>().range = range;
-        attack.gameObject.GetComponent<Attack>().lenght = lenght;
-        attack.gameObject.GetComponent<Attack>().timeSpan = attackCooldown/2;
-        attack.gameObject.GetComponent<Attack>().color = Color.white;
-        attack.gameObject.GetComponent<Attack>().behaviour = behaviour;
-        attack.gameObject.GetComponent<Attack>().followEntity = true;
-
-        Instantiate(attack).GetComponent<Attack>().startAttack();
-
-        if (behaviour == Attack.Way.Clockwise)
-            behaviour = Attack.Way.CounterClockwise;
-        else if (behaviour == Attack.Way.CounterClockwise)
-            behaviour = Attack.Way.Clockwise;
+        weapon.Attack(pointer.getAngle(), self);
     }
 
     private void ComputeBounce()
@@ -116,24 +114,6 @@ public class PlayerAttack : AbstractPlayer
     }
     private void ComputeSpecial()
     {
-        attack.gameObject.transform.position = self.transform.position;
-        attack.gameObject.GetComponent<Attack>().src = self;
-        attack.gameObject.GetComponent<Attack>().angle = pointer.getAngle();
-        attack.gameObject.GetComponent<Attack>().range = 7;
-        attack.gameObject.GetComponent<Attack>().lenght = 360;
-        attack.gameObject.GetComponent<Attack>().timeSpan = 2;
-        attack.gameObject.GetComponent<Attack>().color = Color.red;
-        attack.gameObject.GetComponent<Attack>().behaviour = behaviour;
-        attack.gameObject.GetComponent<Attack>().followEntity = false;
-
-        Instantiate(attack).GetComponent<Attack>().startAttack();
-
-        if (behaviour == Attack.Way.Clockwise)
-            behaviour = Attack.Way.CounterClockwise;
-        else if (behaviour == Attack.Way.CounterClockwise)
-            behaviour = Attack.Way.Clockwise;
-
-        attack.gameObject.GetComponent<Attack>().behaviour = behaviour;
-        Instantiate(attack).GetComponent<Attack>().startAttack();
+        weapon.Special(pointer.getAngle(), self);
     }
 }
