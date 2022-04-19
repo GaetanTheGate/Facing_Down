@@ -49,6 +49,18 @@ public abstract class Attack : MonoBehaviour
         timePassed = 0.0f;
         isAttacking = true;
 
+
+        Vector3 pos;
+        if (followEntity)
+            pos = new Vector3(src.transform.position.x, src.transform.position.y, src.transform.position.z);
+        else
+            pos = startPos;
+
+        pos += Behaviour(0);
+
+        transform.position = pos;
+
+
         GetComponent<SpriteRenderer>().color = color;
     }
 

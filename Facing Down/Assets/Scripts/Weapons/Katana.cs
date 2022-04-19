@@ -74,7 +74,7 @@ public class Katana : Weapon
         laser.GetComponent<LaserAttack>().angle = angle;
         laser.GetComponent<LaserAttack>().range = teleportPoint.getSpeed();
         laser.GetComponent<LaserAttack>().lenght = self.transform.localScale.x;
-        laser.GetComponent<LaserAttack>().timeSpan = 0.05f;
+        laser.GetComponent<LaserAttack>().timeSpan = 0.1f;
         laser.GetComponent<LaserAttack>().followEntity = false;
 
         laser.GetComponent<LaserAttack>().startAttack();

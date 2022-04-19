@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1479095185107698591
+--- !u!1 &3810632486164990651
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1479095185107698586}
-  - component: {fileID: 1479095185107698587}
-  - component: {fileID: 1479095185107698585}
-  - component: {fileID: -8663561174333009586}
+  - component: {fileID: 669933484287918779}
+  - component: {fileID: 9108879411784341684}
+  - component: {fileID: 19152239011351221}
+  - component: {fileID: 1539939449893719842}
+  - component: {fileID: 3211505932266060260}
   m_Layer: 0
   m_Name: Katana
   m_TagString: Untagged
@@ -19,31 +20,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1479095185107698586
+--- !u!4 &669933484287918779
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479095185107698591}
+  m_GameObject: {fileID: 3810632486164990651}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-<<<<<<< HEAD:Facing Down/Assets/Scripts/Attack/Attack.prefab
-  m_LocalPosition: {x: -3.4662378, y: 0.0123475045, z: 0.118547164}
-=======
-  m_LocalPosition: {x: 2.8248465, y: 3.4383316, z: 0.118547164}
->>>>>>> Weapon:Facing Down/Assets/Resources/Prefabs/Weapons/Katana.prefab
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1479095185107698587
+--- !u!212 &9108879411784341684
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479095185107698591}
+  m_GameObject: {fileID: 3810632486164990651}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -88,37 +85,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-<<<<<<< HEAD:Facing Down/Assets/Scripts/Attack/Attack.prefab
---- !u!114 &1479095185107698584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479095185107698591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a40fbc980b61b94c8a3b6299b2b930b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  followEntity: 1
-  src: {fileID: 0}
-  angle: -12.0879545
-  timeSpan: 0.15
-  lenght: 270
-  range: 3
-  behaviour: 1
-  color: {r: 1, g: 1, b: 1, a: 1}
-  isAttacking: 0
-=======
->>>>>>> Weapon:Facing Down/Assets/Resources/Prefabs/Weapons/Katana.prefab
---- !u!60 &1479095185107698585
+--- !u!60 &19152239011351221
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479095185107698591}
+  m_GameObject: {fileID: 3810632486164990651}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -145,17 +118,32 @@ PolygonCollider2D:
       - {x: 0.5, y: -0.02734375}
       - {x: 0.5, y: 0.015625}
       - {x: 0.0703125, y: 0.25}
---- !u!114 &-8663561174333009586
+--- !u!114 &1539939449893719842
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479095185107698591}
+  m_GameObject: {fileID: 3810632486164990651}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b543da1f2d5ecd445a898f79da22a76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeSpan: 0.2
-  timeGap: 0
+  timeSpan: 0.5
+  timeGap: 0.01
+--- !u!114 &3211505932266060260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3810632486164990651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59a8c8cfa34686f4fb935124ff1bdbe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 2
+  tagsToHit:
+  - Enemy
