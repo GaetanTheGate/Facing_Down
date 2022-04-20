@@ -6,14 +6,19 @@ using System.Text.RegularExpressions;
 public class Console : MonoBehaviour
 {
 	bool alreadyPressed = false;
-	List<KeyCode> noRepeatKeys = new List<KeyCode> { KeyCode.Quote };
+	List<KeyCode> noRepeatKeys;
     bool toggled = false;
 
 	string input = "";
 	string output = "";
 
 	List<string> lastInputs;
-	int scrollIndex = 0;
+	int scrollIndex;
+
+	List<string> previews;
+	int previewIndex;
+	string preview;
+	bool tabPressed;
 
 	readonly Rect inputTextRect = new Rect(10f, Screen.height - 25f, Screen.width - 20f, 20f);
 	readonly Rect inputPreviewRect = new Rect(12f, Screen.height - 25f, Screen.width - 20f, 20f);
@@ -33,7 +38,12 @@ public class Console : MonoBehaviour
 	}
 
 	private void Awake() {
+		noRepeatKeys = new List<KeyCode> { KeyCode.Quote, KeyCode.Tab };
 		lastInputs = new List<string>();
+		scrollIndex = -1;
+		previews = new List<string>();
+		previewIndex = 0;
+		tabPressed = false;
 	}
 
 	private bool PreventKeyRepeat() {
@@ -54,13 +64,25 @@ public class Console : MonoBehaviour
 			}
 			else if (Event.current.keyCode == KeyCode.UpArrow) {
 				scrollIndex = Utility.mod(scrollIndex - 1, lastInputs.Count + 1);
+				Debug.Log(scrollIndex);
 				if (scrollIndex == lastInputs.Count) input = "";
 				else input = lastInputs[scrollIndex];
+				ClearPreview();
 			}
 			else if (Event.current.keyCode == KeyCode.DownArrow) {
 				scrollIndex = Utility.mod(scrollIndex + 1, lastInputs.Count + 1);
+				Debug.Log(scrollIndex);
 				if (scrollIndex == lastInputs.Count) input = "";
 				else input = lastInputs[scrollIndex];
+				ClearPreview();
+			}
+			else if (Event.current.keyCode == KeyCode.Tab) {
+				if (previews.Count == 0) return;
+				if (!tabPressed) tabPressed = true;
+				else previewIndex = Utility.mod(previewIndex + 1, previews.Count);
+				if (input.Split(' ').Length <= 1) 
+					input = previews[previewIndex].Split(' ')[0];
+				UpdatePreview();
 			}
 		}
 	}
@@ -72,21 +94,38 @@ public class Console : MonoBehaviour
 		}
 	}
 
+	void ClearPreview() {
+		previewIndex = 0;
+		tabPressed = false;
+		if (input == "") previews.Clear();
+		else previews = CommandList.getCommandPreview(input);
+		UpdatePreview();
+	}
+
+	void UpdatePreview() {
+		if (previewIndex >= 0 && previewIndex < previews.Count) preview = previews[previewIndex];
+		else preview = "";
+	}
+
+	void OnInputChange() {
+		scrollIndex = lastInputs.Count;
+		ClearPreview();
+	}
+
 	void HandleInputArea() {
 		GUI.Box(inputAreaRect, "");
 		GUI.backgroundColor = new Color(0, 0, 0, 0);
-		if (input != "") {
-			List<string> previewCommands = CommandList.getCommandPreview(input);
-			if (previewCommands.Count > 0) {
-				GUI.contentColor = new Color(0.5f, 0.5f, 0.5f);
-				GUI.Label(inputPreviewRect, previewCommands[0]);
-				GUI.contentColor = new Color(1, 1, 1);
-			}
-		}
+
+		GUI.contentColor = new Color(0.5f, 0.5f, 0.5f);
+		GUI.Label(inputPreviewRect, preview);
+		GUI.contentColor = new Color(1, 1, 1);
+
+		string previousInput = input;
 		GUI.SetNextControlName("Console");
 		input = GUI.TextField(inputTextRect, input);
 		input = Regex.Replace(input, @"[^a-zA-Z0-9 _]", "");
 		input = Regex.Replace(input, @" +", " ");
+		if (previousInput != input) OnInputChange();
 		GUI.FocusControl("Console");
 	}
 	public void OnGUI() {
