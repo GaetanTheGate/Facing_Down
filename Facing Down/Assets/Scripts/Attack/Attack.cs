@@ -8,12 +8,19 @@ public abstract class Attack : MonoBehaviour
 
     public bool followEntity = true;
 
-    public float timeSpan = 0.1f;
+    public float timeSpan = 0.2f;
+    public float startDelay = 0.0f;
+    public float endDelay = 0.0f;
     public Entity src;
     public float angle = 0.0f;
     public float lenght = 1.0f;
     public float range = 1.0f;
     public Color color = Color.white;
+
+    public float acceleration = 2.0f;
+
+    public delegate void endAttackEvent(Entity self, float angle);
+    public event endAttackEvent onEndAttack;
 
     private void Awake()
     {
@@ -24,13 +31,17 @@ public abstract class Attack : MonoBehaviour
     {
         if ( !isAttacking)
             return;
+
         timePassed += Time.fixedDeltaTime;
-        if (timePassed >= timeSpan)
+        if (timePassed - startDelay >= timeSpan + endDelay)
+        {
+            if (onEndAttack != null) onEndAttack(src, angle);
             Destroy(gameObject);
+        }
 
-
-        float percentageTime = timePassed / timeSpan ;
+        float percentageTime = (timePassed - startDelay) / timeSpan ;
         percentageTime = percentageTime > 1 ? 1 : percentageTime;
+        percentageTime = percentageTime < 0 ? 0 : percentageTime;
 
         Vector3 pos;
         if (followEntity)
@@ -38,7 +49,7 @@ public abstract class Attack : MonoBehaviour
         else
             pos = startPos;
         
-        pos += Behaviour(percentageTime);
+        pos += Behaviour(Mathf.Pow(percentageTime, acceleration));
 
         transform.position = pos;
     }

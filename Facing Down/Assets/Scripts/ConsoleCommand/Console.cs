@@ -64,14 +64,12 @@ public class Console : MonoBehaviour
 			}
 			else if (Event.current.keyCode == KeyCode.UpArrow) {
 				scrollIndex = Utility.mod(scrollIndex - 1, lastInputs.Count + 1);
-				Debug.Log(scrollIndex);
 				if (scrollIndex == lastInputs.Count) input = "";
 				else input = lastInputs[scrollIndex];
 				ClearPreview();
 			}
 			else if (Event.current.keyCode == KeyCode.DownArrow) {
 				scrollIndex = Utility.mod(scrollIndex + 1, lastInputs.Count + 1);
-				Debug.Log(scrollIndex);
 				if (scrollIndex == lastInputs.Count) input = "";
 				else input = lastInputs[scrollIndex];
 				ClearPreview();
@@ -175,5 +173,7 @@ public class Console : MonoBehaviour
 				return;
 			}
 		}
+
+		ClearPreview();
 	}
 }
