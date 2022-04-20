@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class AttackMultUpItem : Item
 {
-	public AttackMultUpItem() {
-		ID = "AttackMultUp";
-	}
+	public AttackMultUpItem() : base("AttackMultUp", ItemRarity.UNCOMMON, ItemType.FIRE) {}
 
 	private readonly float multiplierAdd = 0.1f;
 	public override void OnPickup() {
@@ -17,5 +15,9 @@ public class AttackMultUpItem : Item
 	public override void OnRemove() {
 		Game.player.stat.statEntity.atkMultipler -= multiplierAdd;
 		Game.player.stat.statEntity.computeAtk();
+	}
+
+	public override Item makeCopy() {
+		return new AttackMultUpItem();
 	}
 }

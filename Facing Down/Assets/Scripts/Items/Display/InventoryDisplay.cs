@@ -18,7 +18,7 @@ public class InventoryDisplay : MonoBehaviour
         ItemDisplay newItemDisplay = Instantiate<ItemDisplay>(itemDisplay);
         newItemDisplay.transform.SetParent(transform);
         newItemDisplay.Init(item);
-        newItemDisplay.setPosition(ROOT_POSITION + X_OFFSET * (itemDisplays.Count % 18) + Y_OFFSET * (itemDisplays.Count / 18));
+        newItemDisplay.setPosition(ROOT_POSITION + X_OFFSET * (itemDisplays.Count % ROW_SIZE) + Y_OFFSET * (itemDisplays.Count / ROW_SIZE));
         itemDisplays.Add(item.getID(), newItemDisplay);
 	}
 
