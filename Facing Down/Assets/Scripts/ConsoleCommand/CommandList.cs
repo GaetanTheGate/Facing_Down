@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 public static class CommandList
 {
@@ -33,5 +34,36 @@ public static class CommandList
 
 	public static string getErrorMessage() {
 		return errorMessage;
+	}
+
+	public static List<string> getCommandPreview(string input) {
+		List<string> previews = new List<string>();
+		string[] splitInput = input.Split(' ');
+		string inputID = splitInput[0];
+		int inputArgCount = splitInput.Length - 1;
+		//Checking all command IDs to find potential previews
+		foreach (string commandId in commandList.Keys) {
+			if (Regex.Match(commandId, @"^" + inputID + ".*").Success) {
+				//Checking all command formats to find those with more args than the input
+				foreach(int argCount in commandList[commandId].Keys) {
+					if (argCount >= inputArgCount) {
+						string preview = input;
+						//Handling case where the function id must be previewed
+						if (inputArgCount == 0) preview += commandList[commandId][argCount].getFormat().Substring(input.Length);
+						//Handling case where arguments must be previewed
+						else {
+							int argNum = inputArgCount + 1;
+							if (splitInput[inputArgCount] == "") argNum--;
+							else preview += " ";
+							for (; argNum <= argCount; ++argNum) {
+								preview += commandList[commandId][argCount].getFormat().Split(' ')[argNum] + " ";
+							}
+						}
+						previews.Add(preview);
+					}
+				}
+			}
+		}
+		return previews;
 	}
 }

@@ -15,6 +15,12 @@ public class Console : MonoBehaviour
 	List<string> lastInputs;
 	int scrollIndex = 0;
 
+	readonly Rect inputTextRect = new Rect(10f, Screen.height - 25f, Screen.width - 20f, 20f);
+	readonly Rect inputPreviewRect = new Rect(12f, Screen.height - 25f, Screen.width - 20f, 20f);
+	readonly Rect inputAreaRect = new Rect(0, Screen.height - 30f, Screen.width, 30f);
+	readonly Rect outputTextRect = new Rect(5f, Screen.height - 55f, Screen.width - 10f, 20f);
+	readonly Rect outputAreaRect = new Rect(0, Screen.height - 60f, Screen.width, 30f);
+
 	private void Toggle() {
 		if (toggled) {
 			toggled = false;
@@ -61,17 +67,26 @@ public class Console : MonoBehaviour
 
 	void HandleOutputArea() {
 		if (output != "") {
-			GUI.Box(new Rect(0, Screen.height - 60f, Screen.width, 30f), "");
-			GUI.Label(new Rect(5f, Screen.height - 55f, Screen.width - 10f, 20f), output);
+			GUI.Box(outputAreaRect, "");
+			GUI.Label(outputTextRect, output);
 		}
 	}
 
 	void HandleInputArea() {
-		GUI.Box(new Rect(0, Screen.height - 30f, Screen.width, 30f), "");
+		GUI.Box(inputAreaRect, "");
 		GUI.backgroundColor = new Color(0, 0, 0, 0);
+		if (input != "") {
+			List<string> previewCommands = CommandList.getCommandPreview(input);
+			if (previewCommands.Count > 0) {
+				GUI.contentColor = new Color(0.5f, 0.5f, 0.5f);
+				GUI.Label(inputPreviewRect, previewCommands[0]);
+				GUI.contentColor = new Color(1, 1, 1);
+			}
+		}
 		GUI.SetNextControlName("Console");
-		input = GUI.TextField(new Rect(10f, Screen.height - 25f, Screen.width - 20f, 20f), input);
+		input = GUI.TextField(inputTextRect, input);
 		input = Regex.Replace(input, @"[^a-zA-Z0-9 _]", "");
+		input = Regex.Replace(input, @" +", " ");
 		GUI.FocusControl("Console");
 	}
 	public void OnGUI() {
