@@ -173,5 +173,7 @@ public class Console : MonoBehaviour
 				return;
 			}
 		}
+
+		ClearPreview();
 	}
 }
