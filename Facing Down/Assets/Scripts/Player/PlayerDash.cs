@@ -40,8 +40,6 @@ public class PlayerDash : AbstractPlayer
     private void ComputeDash()
     {
         chargeTimePassed += Time.fixedDeltaTime;
-        if (stat.numberOfDashes >= stat.maxDashes)
-            return;
 
         if (Game.controller.IsMovementHeld() && !movePressed)
         {
@@ -51,26 +49,20 @@ public class PlayerDash : AbstractPlayer
         else if (!Game.controller.IsMovementHeld() && movePressed)
         {
             movePressed = false;
-            stat.numberOfDashes += 1;
 
             if (bulletTime.isInBulletTime)
             {
                 ComputeRedirect();
-
-                bulletTime.isInBulletTime = false;
-                Game.time.SetGameSpeedInstant(2.0f);
             }
             else
             {
                 if (chargeTimePassed > chargeTime)
                 {
                     ComputeMegaDash();
-                    Game.time.SetGameSpeedInstant(1.6f);
                 }
                 else
                 {
                     ComputeSimpleDash();
-                    Game.time.SetGameSpeedInstant(1.2f);
                 }
 
             }
@@ -82,16 +74,31 @@ public class PlayerDash : AbstractPlayer
 
     private void ComputeMegaDash()
     {
+        if (stat.numberOfDashes >= stat.maxDashes)
+            return;
+
+        stat.numberOfDashes += 2;
+        if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(1.6f);
+
         self.GetComponent<Rigidbody2D>().velocity = new Velocity(stat.statEntity.acceleration * 2, pointer.getAngle()).GetAsVector2();
     }
 
     private void ComputeSimpleDash()
     {
+        if (stat.numberOfDashes >= stat.maxDashes)
+            return;
+
+        stat.numberOfDashes += 1;
+        if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(1.2f);
+
         self.GetComponent<Rigidbody2D>().velocity = new Velocity(stat.statEntity.acceleration * 1.25f, pointer.getAngle()).GetAsVector2();
     }
 
     private void ComputeRedirect()
     {
+        bulletTime.isInBulletTime = false;
+        if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(2.0f);
+
         Velocity newVelo = new Velocity(self.GetComponent<Rigidbody2D>().velocity);
         newVelo.setAngle(pointer.getAngle());
 
