@@ -10,7 +10,7 @@ public class Katana : Weapon
         baseRange = 3;
         baseLenght = 180;
         baseSpan = 0.2f;
-        baseCooldown = 0.3f;
+        baseCooldown = 0.1f;
 
         attackPath = "Prefabs/Weapons/Katana";
         specialPath = "Prefabs/Weapons/Katana";
