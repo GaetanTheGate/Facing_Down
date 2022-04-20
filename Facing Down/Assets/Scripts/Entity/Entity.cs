@@ -27,11 +27,6 @@ public class Entity : AbstractEntity
                 rb.mass = 10;
             }
         }
-        EntityDeathObserver entityDeathObserver = gameObject.GetComponent<EntityDeathObserver>();
-        if(entityDeathObserver == null)
-        {
-            entityDeathObserver = gameObject.AddComponent<EntityDeathObserver>();
-        }
         
 
         entity = gameObject.GetComponent<GravityEntity>();

@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AerialEnemyMovement : MonoBehaviour
+public class Drone3Movement : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float movementSpeed = 100;
     public Transform[] flags;
     private Transform nextFlag;
     private int tempNext = 0;
-    public Animator animator;
+    private Animator animator;
     private Transform playerTransform;
     private GameObject player;
     public float aggroDistance = 5;
@@ -23,12 +23,7 @@ public class AerialEnemyMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = Game.player.self.gameObject;
         playerTransform = player.transform;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        animator = gameObject.GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -65,6 +60,11 @@ public class AerialEnemyMovement : MonoBehaviour
             wasFollowingPlayer = false;
         }
         animator.SetFloat("speed", rb.velocity.x);
+    }
+
+    public void disableMovement()
+    {
+        enabled = false;
     }
 
 }

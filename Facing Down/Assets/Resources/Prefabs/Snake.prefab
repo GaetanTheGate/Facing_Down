@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 8108250909575902101}
   - component: {fileID: 8108250909575902123}
   - component: {fileID: 8108250909575902120}
-  - component: {fileID: 479669485842341676}
+  - component: {fileID: 3858694651871169149}
   - component: {fileID: 961033858}
   m_Layer: 11
-  m_Name: GroundEnemy
+  m_Name: Snake
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,7 +164,7 @@ Animator:
   m_GameObject: {fileID: 8108250909575902097}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1a5616b471c0f934cb9602d9b84143ba, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2668340cbf1cf4344a786419ea322f7a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -173,7 +173,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &479669485842341676
+--- !u!114 &3858694651871169149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8108250909575902097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea306f8bb28f8b942ae5ddad6188bcff, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fe3619c5e089544980e075bb76700df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
