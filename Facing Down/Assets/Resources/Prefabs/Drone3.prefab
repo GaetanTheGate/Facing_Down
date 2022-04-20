@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 7871384194363220218}
   - component: {fileID: 379317916}
   - component: {fileID: 379317917}
+  - component: {fileID: 8587477913929482738}
+  - component: {fileID: 173149260}
   m_Layer: 11
   m_Name: Drone3
   m_TagString: Enemy
@@ -149,8 +151,7 @@ MonoBehaviour:
   flags:
   - {fileID: 6180464659276183126}
   - {fileID: 6180464659818348789}
-  animator: {fileID: 6180464658978433784}
-  aggroDistance: 0
+  aggroDistance: 5
 --- !u!114 &7871384194363220218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +189,79 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 307d637f88383ae4dba0a45ca98b4880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8587477913929482738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180464658978433543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad009292beaab1d4a989b19a796968c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 10
+  baseAtk: 100
+  atkMultipler: 1
+  critRate: 5
+  critDmg: 150
+  acceleration: 1
+  maxSpeed: 10
+  onHit:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6180464658978433785}
+        m_TargetAssemblyTypeName: AerialEnemyMovement, Assembly-CSharp
+        m_MethodName: disableMovement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7871384194363220218}
+        m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+        m_MethodName: disableBehaviour
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 173149260}
+        m_TargetAssemblyTypeName: Drone3Death, Assembly-CSharp
+        m_MethodName: die
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &173149260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180464658978433543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ec66ad57dd7664b8f14452d876c47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6180464659276183121
