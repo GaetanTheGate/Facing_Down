@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour
+public class SpikeBehaviour : MonoBehaviour
 {
     public int damage = 1;
 
@@ -18,11 +18,11 @@ public class EnemyBehaviour : MonoBehaviour
         
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            StatPlayer statPlayer = collision.collider.GetComponentInParent<StatPlayer>();
+            StatPlayer statPlayer = collision.GetComponentInParent<StatPlayer>();
             statPlayer.takeDamage(damage);
         }
     }

@@ -21,7 +21,7 @@ public class PlayerAttack : AbstractPlayer
 
     public enum ChooseWeapon
     {
-        Katana, Wings
+        Katana, Wings, WarAxe, Daggers
     }
 
     public override void Init()
@@ -57,6 +57,16 @@ public class PlayerAttack : AbstractPlayer
                     break;
                 weapon = new Wings();
                 break;
+            case ChooseWeapon.WarAxe:
+                if (weapon.GetType().Equals(typeof(WarAxe)))
+                    break;
+                weapon = new WarAxe();
+                break;
+            case ChooseWeapon.Daggers:
+                if (weapon.GetType().Equals(typeof(Daggers)))
+                    break;
+                weapon = new Daggers();
+                break;
         }
         ComputeAttack();
     }
@@ -66,8 +76,7 @@ public class PlayerAttack : AbstractPlayer
         attackRecharge += Time.fixedDeltaTime;
         chargeTimePassed += Time.fixedDeltaTime;
 
-        if (attackRecharge < weapon.GetBaseCooldown())
-            return;
+        
 
         if (Game.controller.IsAttackHeld() && !attackPressed)
         {
@@ -83,28 +92,31 @@ public class PlayerAttack : AbstractPlayer
             if (bulletTime.isInBulletTime)
             {
                 ComputeSpecial();
-
-                bulletTime.isInBulletTime = false;
-                Game.time.SetGameSpeedInstant(0.1f);
             }
             else
             {
-                attackRecharge = 0.0f;
                 ComputeSimpleAttack();
-                Game.time.SetGameSpeedInstant(0.2f);
             }
             camManager.SetZoomPercent(100);
         }
         else if (attackPressed)
         {
-            Game.time.SetGameSpeedInstant(0.5f);
+            if(weapon.isAuto) ComputeSimpleAttack();
+
             Game.controller.lowSensitivity = true;
             camManager.SetZoomPercent(Mathf.Max(90.0f, 100 - 10 * (chargeTimePassed / chargeTime)));
+            if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.6f);
         }
     }
 
     private void ComputeSimpleAttack()
     {
+        if (attackRecharge < weapon.GetBaseCooldown())
+            return;
+
+        attackRecharge = 0.0f;
+        if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.2f);
+
         weapon.Attack(pointer.getAngle(), self);
     }
 
@@ -114,6 +126,8 @@ public class PlayerAttack : AbstractPlayer
     }
     private void ComputeSpecial()
     {
+        bulletTime.isInBulletTime = false;
         weapon.Special(pointer.getAngle(), self);
+        if(!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.1f);
     }
 }

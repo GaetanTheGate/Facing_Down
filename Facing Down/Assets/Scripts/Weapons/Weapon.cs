@@ -15,6 +15,8 @@ public abstract class Weapon
     protected string attackPath = "Prefabs/Weapons/Katana";
     protected string specialPath = "Prefabs/Weapons/Katana";
 
+    public bool isAuto = false;
+
     public abstract void Attack(float angle, Entity self);
     public abstract void Special(float angle, Entity self);
 

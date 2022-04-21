@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class StatEntity : MonoBehaviour
 {
@@ -14,10 +15,15 @@ public class StatEntity : MonoBehaviour
     [Min(0.0f)] public float acceleration = 1;
     [Min(0.0f)] public float maxSpeed = 10;
 
-    [HideInInspector]
-    public delegate void hitEvent(int damage);
-    [HideInInspector]
-    public static event hitEvent onHit;
+    public UnityEvent onHit;
+    public UnityEvent onDeath;
+    private Animator animator;
+
+    public void Start()
+    {
+        animator = gameObject.GetComponent<Animator>();
+        if (animator != null) animator.SetFloat("hp", hitPoints);
+    }
 
     public void computeAtk()
     {
@@ -32,6 +38,8 @@ public class StatEntity : MonoBehaviour
     {
         hitPoints -= damage;
         Debug.Log("entité : " + this.name + " hp = " + hitPoints);
-        if (onHit != null) onHit(damage);
+        if (animator != null) animator.SetFloat("hp", hitPoints);
+        if(onHit != null && hitPoints > 0) onHit.Invoke();
+        if (onDeath != null && hitPoints <= 0) onDeath.Invoke();
     }
 }
