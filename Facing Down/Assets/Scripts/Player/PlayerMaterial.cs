@@ -26,7 +26,7 @@ public class PlayerMaterial : AbstractPlayer
     {
         PhysicsMaterial2D material = new PhysicsMaterial2D();
         material.bounciness = 0;
-        if (new Velocity(self.GetComponent<Rigidbody2D>().velocity).getSpeed() > stat.statEntity.maxSpeed / 3)
+        if (new Velocity(self.GetComponent<Rigidbody2D>().velocity).getSpeed() > stat.maxSpeed / 3)
             material.friction = highSpeedFriction;
         else
             material.friction = slowSpeedFriction;

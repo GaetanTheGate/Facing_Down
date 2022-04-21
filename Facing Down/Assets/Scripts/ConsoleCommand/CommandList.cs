@@ -10,7 +10,9 @@ public static class CommandList
 	static CommandList() {
 		commandList = new Dictionary<string, Dictionary<int, AbstractConsoleCommand>>();
 		add(new ConsoleCommand("print_debug", "Prints \"CONSOLE : DEBUG\" into Debug.Log.", "print_debug", () => { Debug.Log("CONSOLE : DEBUG"); }));
-		add(new ConsoleCommand<string>("print_str", "Prints \"CONSOLE : <str>\" into Debug.Log.", "print_str <str>", (str) => { Debug.Log("CONSOLE : " + str);}));
+		add(new ConsoleCommand<string>("print_str", "Prints \"CONSOLE : <str>\" into Debug.Log.", "print_str <str>", (ID) => { Debug.Log("CONSOLE : " + ID);}));
+		add(new ConsoleCommand<string>("add_item", "Adds 1 of the specified item to the inventory.", "add_item <ID>", (ID) => {AdvancedCommandFunctions.AddItem(ID, 1);}));
+		add(new ConsoleCommand<string, int>("add_item", "Adds <amount> of the specified item to the inventory.", "add_item <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.AddItem(ID, amount);}));
 	}
 
 	static void add(AbstractConsoleCommand command) {
@@ -65,5 +67,17 @@ public static class CommandList
 			}
 		}
 		return previews;
+	}
+
+	private static class AdvancedCommandFunctions {
+		public static void AddItem(string name, int amount) {
+			Item item;
+			if (name == "PrintItem") item = new PrintItem();
+			else item = ItemPool.GetByID(name);
+			if (item != null) {
+				item.setAmount(amount);
+				Game.player.inventory.AddItem(item);
+			}
+		}
 	}
 }

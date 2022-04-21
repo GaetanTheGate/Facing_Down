@@ -16,10 +16,11 @@ public class Inventory : MonoBehaviour
 			UI.inventoryDisplay.addItemDisplay(item);
 		}
 		else {
-			items[item.getID()].modifyAmount(1);
+			items[item.getID()].modifyAmount(item.getAmount());
 			UI.inventoryDisplay.update(item);
 		}
-		item.OnPickup();
+		for (int i = 0; i < item.getAmount(); ++i)
+			item.OnPickup();
 	}
 
 	public void RemoveItem(Item item) {
@@ -32,6 +33,24 @@ public class Inventory : MonoBehaviour
 			UI.inventoryDisplay.update(item);
 		}
 		item.OnRemove();
+	}
+
+	public float OnTakeDamage(float damage) {
+		List<Item> delayedItems = new List<Item>();
+		foreach (Item item in items.Values) {
+			if (item.getPriority() == ItemPriority.LATE) delayedItems.Add(item);
+			else damage = item.OnTakeDamage(damage);
+		}
+		foreach (Item item in delayedItems) {
+			damage = item.OnTakeDamage(damage);
+		}
+		return damage;
+	}
+
+	public void OnDeath() {
+		foreach (Item item in items.Values) {
+			if (item.OnDeath()) break;
+		}
 	}
 
 	public Dictionary<string, Item> GetItems() {
