@@ -23,7 +23,8 @@ public class GenerateDonjon : MonoBehaviour
     void Update() {
         if(Input.GetKeyDown(KeyCode.G)){
             initGenerate();
-            generateSpecificRoom();
+            //generateSpecificRoom();
+            generate();
         }
     }
 
@@ -39,6 +40,7 @@ public class GenerateDonjon : MonoBehaviour
 
     public void initGenerate(){
         GameObject gameManager = new GameObject("GameManager");
+        DontDestroyOnLoad(gameManager);
         GameObject player = Resources.Load("Donjon/Player",typeof(GameObject)) as GameObject;
         player = Instantiate(player);
         player.transform.SetParent(gameManager.transform);
@@ -48,7 +50,6 @@ public class GenerateDonjon : MonoBehaviour
         GameObject newRoom = getSpecifyRoom(nameInitRoom);
         newRoom = Instantiate(newRoom);
         newRoom.name = newRoom.name.Substring(0,newRoom.name.IndexOf('(')) + '-' + idRoom++;
-        //print(newRoom.name);
         newRoom.transform.SetParent(gameManager.transform);
         
         rooms.Add(newRoom.GetComponent<Room>());
@@ -67,18 +68,16 @@ public class GenerateDonjon : MonoBehaviour
             }
         }
 
-        print("Donjon");
-        foreach(Room room in rooms){
-            print(room.name);
-            foreach(Door door in room.doors){
-                print("  " + door + " linked to " + door.roomBehind);
-            }
-        }
+        //afficheDonjon();
     }
 
     public void generateSpecificRoom(){
         initRoom.doors[0].generateSpecific(getSpecifyRoom("Room2"));
         initRoom.doors[0].roomBehind.doors[1].generateSpecific(getSpecifyRoom("Room3"));
+        //afficheDonjon();
+    }
+
+    public void afficheDonjon(){
         print("Donjon");
         foreach(Room room in rooms){
             print(room.name);
@@ -87,5 +86,4 @@ public class GenerateDonjon : MonoBehaviour
             }
         }
     }
-
 }
