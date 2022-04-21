@@ -19,6 +19,8 @@ public static class ItemPool
 		Add(new MagmaticCoating());
 		Add(new StoneArmor());
 		Add(new ImpenetrableRoots());
+		Add(new ArtificialWings());
+		Add(new ClayClone());
 	}
 
 	public static void InitSeed(int s) {

@@ -47,6 +47,12 @@ public class Inventory : MonoBehaviour
 		return damage;
 	}
 
+	public void OnDeath() {
+		foreach (Item item in items.Values) {
+			if (item.OnDeath()) break;
+		}
+	}
+
 	public Dictionary<string, Item> GetItems() {
 		return items;
 	}

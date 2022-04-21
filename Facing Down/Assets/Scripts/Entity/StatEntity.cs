@@ -20,7 +20,7 @@ public class StatEntity : MonoBehaviour
     public UnityEvent onDeath;
     private Animator animator;
 
-    public void Start()
+    public virtual void Start()
     {
         currentHitPoints = maxHitPoints;
         animator = gameObject.GetComponent<Animator>();
@@ -42,6 +42,10 @@ public class StatEntity : MonoBehaviour
         Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
         if(onHit != null && currentHitPoints > 0) onHit.Invoke();
+        checkifDead();
+    }
+
+    public virtual void checkifDead() {
         if (onDeath != null && currentHitPoints <= 0) onDeath.Invoke();
     }
 }

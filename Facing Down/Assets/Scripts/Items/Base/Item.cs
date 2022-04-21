@@ -41,6 +41,9 @@ public abstract class Item{
 
     public virtual float OnTakeDamage(float damage) { return damage; }
 
+    //Return true to stop going through the inventory
+    public virtual bool OnDeath() { return false; }
+
     public void setAmount(int amount) {
         this.amount = amount;
 	}

@@ -8,11 +8,11 @@ public class MagmaticCoating : Item
 
 	private readonly float critRate = 10;
 	public override void OnPickup() {
-		Game.player.stat.statEntity.critRate += critRate;
+		Game.player.stat.critRate += critRate;
 	}
 
 	public override void OnRemove() {
-		Game.player.stat.statEntity.critRate -= critRate;
+		Game.player.stat.critRate -= critRate;
 	}
 
 	public override Item makeCopy() {

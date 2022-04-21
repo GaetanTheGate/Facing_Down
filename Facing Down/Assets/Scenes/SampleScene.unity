@@ -168,7 +168,6 @@ GameObject:
   - component: {fileID: 272039497}
   - component: {fileID: 272039496}
   - component: {fileID: 272039495}
-  - component: {fileID: 272039494}
   - component: {fileID: 272039493}
   m_Layer: 10
   m_Name: PlayerEntity
@@ -191,32 +190,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeSpan: 0.5
   timeGap: 0.1
---- !u!114 &272039494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 272039492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad009292beaab1d4a989b19a796968c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHitPoints: 10
-  currentHitPoints: 0
-  baseAtk: 100
-  atkMultipler: 1
-  critRate: 5
-  critDmg: 150
-  acceleration: 10
-  maxSpeed: 50
-  onHit:
-    m_PersistentCalls:
-      m_Calls: []
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &272039495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7211,7 +7184,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32feda7c95d73134794c509c7755d6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statEntity: {fileID: 0}
+  maxHitPoints: 10
+  currentHitPoints: 0
+  baseAtk: 100
+  atkMultipler: 1
+  critRate: 5
+  critDmg: 150
+  acceleration: 1
+  maxSpeed: 10
+  onHit:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
   hpText: {fileID: 640469008979653010}
   numberOfDashes: 0
   maxDashes: 10

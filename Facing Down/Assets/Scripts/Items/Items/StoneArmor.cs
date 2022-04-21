@@ -8,12 +8,12 @@ public class StoneArmor : Item
 
 	private readonly int maxHPAdd = 1;
 	public override void OnPickup() {
-		Game.player.stat.statEntity.maxHitPoints += maxHPAdd;
-		Game.player.stat.statEntity.currentHitPoints += maxHPAdd;
+		Game.player.stat.maxHitPoints += maxHPAdd;
+		Game.player.stat.currentHitPoints += maxHPAdd;
 	}
 
 	public override void OnRemove() {
-		Game.player.stat.statEntity.maxHitPoints -= maxHPAdd;
+		Game.player.stat.maxHitPoints -= maxHPAdd;
 	}
 
 	public override Item makeCopy() {

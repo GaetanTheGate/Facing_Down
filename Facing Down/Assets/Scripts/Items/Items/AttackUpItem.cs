@@ -8,13 +8,13 @@ public class AttackUpItem : Item
 
 	private int attackBuff = 10;
 	public override void OnPickup() {
-		Game.player.stat.statEntity.baseAtk += attackBuff;
-		Game.player.stat.statEntity.computeAtk();
+		Game.player.stat.baseAtk += attackBuff;
+		Game.player.stat.computeAtk();
 	}
 
 	public override void OnRemove() {
-		Game.player.stat.statEntity.baseAtk -= attackBuff;
-		Game.player.stat.statEntity.computeAtk();
+		Game.player.stat.baseAtk -= attackBuff;
+		Game.player.stat.computeAtk();
 	}
 
 	public override Item makeCopy() {
