@@ -9,9 +9,7 @@ public class SpeedEntity : AbstractEntity
 
     public override void Init()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
-        if (rb == null)
-            rb = gameObject.AddComponent<Rigidbody2D>();
+        rb = Entity.initRigidBody(gameObject);
 
         stat = gameObject.GetComponent<StatEntity>();
         if (stat == null)

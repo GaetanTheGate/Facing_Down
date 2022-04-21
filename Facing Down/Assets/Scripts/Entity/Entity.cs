@@ -2,16 +2,9 @@ using UnityEngine;
 
 public class Entity : AbstractEntity
 {
-    public override void Init()
+
+    public static Rigidbody2D initRigidBody(GameObject gameObject)
     {
-        AbstractEntity entity;
-
-        StatEntity statEntity = gameObject.GetComponent<StatEntity>();
-        if (statEntity == null)
-        {
-            statEntity = gameObject.AddComponent<StatEntity>();
-        }
-
         Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
         if (rb == null)
         {
@@ -27,7 +20,21 @@ public class Entity : AbstractEntity
                 rb.mass = 10;
             }
         }
-        
+        return rb;
+    }
+
+    public override void Init()
+    {
+        AbstractEntity entity;
+
+        StatEntity statEntity = gameObject.GetComponent<StatEntity>();
+        if (statEntity == null)
+        {
+            statEntity = gameObject.AddComponent<StatEntity>();
+        }
+
+        initRigidBody(gameObject);
+
 
         entity = gameObject.GetComponent<GravityEntity>();
         if (entity == null)

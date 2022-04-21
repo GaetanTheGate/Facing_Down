@@ -30,6 +30,7 @@ public class Drone3Death : MonoBehaviour
 
     public void die()
     {
+        BroadcastMessage("deathEvent");
         isDead = true;
     }
 }

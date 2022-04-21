@@ -16,9 +16,7 @@ public class RotationEntity : AbstractEntity
             gravity = gameObject.AddComponent<GravityEntity>();
 
 
-        rb = gameObject.GetComponent<Rigidbody2D>();
-        if (rb == null)
-            rb = gameObject.AddComponent<Rigidbody2D>();
+        rb = Entity.initRigidBody(gameObject);
     }
 
     // Update is called once per frame

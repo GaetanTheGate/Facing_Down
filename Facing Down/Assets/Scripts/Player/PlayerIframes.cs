@@ -29,7 +29,7 @@ public class PlayerIframes : MonoBehaviour
     private IEnumerator startIframeRoutine(float duration)
     {
         //if (isTouchingTrap) isIframeTrap = true;
-        Physics2D.IgnoreLayerCollision(10, 11, true);
+        //Physics2D.IgnoreLayerCollision(10, 11, true);
         int numberOfFlashes = (int)duration + 1;
         float totalWait = duration;
         //Color oldColor = sp.color;
@@ -50,7 +50,7 @@ public class PlayerIframes : MonoBehaviour
                 sp.color = naturalColor;
             }
         }
-        Physics2D.IgnoreLayerCollision(10, 11, false);
+        //Physics2D.IgnoreLayerCollision(10, 11, false);
         /*if (isTouchingTrap) 
         {
             isIframeTrap = false;

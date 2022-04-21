@@ -10,7 +10,7 @@ public class Drone3Behaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -19,7 +19,7 @@ public class Drone3Behaviour : MonoBehaviour
         
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    /*private void OnCollisionStay2D(Collision2D collision)
     {
         if (isActive)
         {
@@ -29,6 +29,23 @@ public class Drone3Behaviour : MonoBehaviour
                 statPlayer.takeDamage(damage);
             }
         }
+    }*/
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (isActive)
+        {
+            if (collision.CompareTag("Player"))
+            {
+                StatPlayer statPlayer = collision.GetComponentInParent<StatPlayer>();
+                statPlayer.takeDamage(damage);
+            }
+        }
+    }
+
+    private void deathEvent()
+    {
+        disableBehaviour();
     }
 
     public void disableBehaviour()

@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 272039495}
   - component: {fileID: 272039494}
   - component: {fileID: 272039493}
+  - component: {fileID: 272039500}
   m_Layer: 10
   m_Name: PlayerEntity
   m_TagString: Player
@@ -324,6 +325,22 @@ Transform:
   m_Father: {fileID: 888815641}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &272039500
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272039492}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.15}
+  m_Size: {x: 0.35, y: 0.65}
+  m_Direction: 0
 --- !u!1 &286930345
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +396,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1384956119}
     m_Modifications:
+    - target: {fileID: 1223448023399230971, guid: 1963798f0d4da484db0941cec990f070, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8108250909575902097, guid: 1963798f0d4da484db0941cec990f070, type: 3}
       propertyPath: m_Name
       value: Snake (1)
@@ -425,6 +446,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8108250909575902100, guid: 1963798f0d4da484db0941cec990f070, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8108250909575902102, guid: 1963798f0d4da484db0941cec990f070, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -7213,7 +7238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d2925e02a8191499739790baffe912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponChosen: 3
+  weaponChosen: 0
 --- !u!4 &912899308 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8108250909575902100, guid: 1963798f0d4da484db0941cec990f070, type: 3}

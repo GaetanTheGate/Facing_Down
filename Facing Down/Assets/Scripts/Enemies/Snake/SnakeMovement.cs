@@ -43,8 +43,13 @@ public class SnakeMovement : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    /*private void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.CompareTag("Terrain")) transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+    }*/
+
+    public void childTriggerExitGround()
+    {
+        transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
     }
 }

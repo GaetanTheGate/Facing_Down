@@ -8,6 +8,7 @@ public class Game : MonoBehaviour
 
     private void Awake()
     {
+        Physics2D.IgnoreLayerCollision(10, 12, true);
         controller = gameObject.GetComponent<GameController>();
         if (controller == null)
             controller = gameObject.AddComponent<GameController>();

@@ -15,9 +15,7 @@ public class GravityEntity : AbstractEntity
         gravity.setSpeed(base_gravity_speed);
         base_gravity_direction = gravity.getAngle();
 
-        rb = gameObject.GetComponent<Rigidbody2D>();
-        if (rb == null)
-            rb = gameObject.AddComponent<Rigidbody2D>();
+        rb = Entity.initRigidBody(gameObject);
 
         rb.gravityScale = 0;
     }
