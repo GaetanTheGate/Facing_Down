@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FieryAlloy : Item
 {
-	public FieryAlloy() : base("AttackMultUp", ItemRarity.UNCOMMON, ItemType.FIRE) {}
+	public FieryAlloy() : base("FieryAlloy", ItemRarity.UNCOMMON, ItemType.FIRE) {}
 
 	private readonly float multiplierAdd = 0.1f;
 	public override void OnPickup() {
