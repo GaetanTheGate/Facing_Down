@@ -29,6 +29,13 @@ public class ball_bouncing : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.C)){
+            print("position : ");
+            print("x : " + gameObject.transform.position.x);
+            print("y : " + gameObject.transform.position.y);
+            
+        }
+
     }
 
     void OnCollisionEnter2D(Collision2D collision2D){

@@ -18,10 +18,6 @@ public class Door : MonoBehaviour
     public Room currentRoom;
 
 
-    void Start(){
-        //generateRoom();
-    }
-
     void Update(){
         if (Input.GetKeyDown(KeyCode.LeftControl)){
             Destroy(GameObject.Find("GameManager"));
@@ -29,10 +25,47 @@ public class Door : MonoBehaviour
     }
     
     public void OnTriggerEnter2D(Collider2D collider2D){
-        if (collider2D.CompareTag("Player")){  
+        if (collider2D.CompareTag("Player")){
             if (roomBehind != null){
-                //TO DO : changer la position du joueur
-                collider2D.transform.position = new Vector2(0,-3);
+                print("room behind");
+                float x = 0;
+                float y = 0;
+
+                Door door = null;
+                foreach(Door d in roomBehind.doors){
+                    if(d.roomBehind == currentRoom){
+                        door = d;
+                        break;
+                    }
+                }
+
+                switch(door.onSide){
+                    case side.right :
+                        x = door.transform.position.x - 1;
+                        y = collider2D.transform.position.y;
+                        break;
+                    case side.left :
+
+                        x = door.transform.position.x + 1;
+                        y = collider2D.transform.position.y;
+                        break;
+                    case side.up :
+                        x = collider2D.transform.position.x;
+                        y = door.transform.position.y - 1;
+                        break;
+                    case side.down :
+                        x = door.transform.position.x + 1;
+                        y = collider2D.transform.position.y;
+                        break;
+                    default :
+                        print("null");
+                        break;  
+
+                }
+
+                collider2D.transform.position = new Vector2(x,y);
+
+
                 StartCoroutine(changeScene(GameObject.Find("GameManager")));
             
             }
@@ -40,6 +73,21 @@ public class Door : MonoBehaviour
                 print("no room behind");
             }
             
+        }
+    }
+
+    public void generateSpecific(GameObject r){
+        r = Instantiate(r);
+        r.name = r.name.Substring(0,r.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
+        r.transform.SetParent(GameObject.Find("GameManager").transform);
+        GenerateDonjon.rooms.Insert(0,r.GetComponent<Room>());
+        roomBehind = r.GetComponent<Room>();
+        initCurrentRoom(roomBehind);
+        foreach(Door d in roomBehind.doors){
+            if (d.roomBehind == null && d.onSide == getOppositeSide(onSide)){
+                d.roomBehind = currentRoom;
+                break;
+            }
         }
     }
 
@@ -53,6 +101,7 @@ public class Door : MonoBehaviour
             int indexRoom = Random.Range(0,validateRooms.Count);
             GameObject newRoom = validateRooms[indexRoom];
             newRoom = Instantiate(newRoom);
+            newRoom.name = newRoom.name.Substring(0,newRoom.name.IndexOf('(')) + GenerateDonjon.idRoom++;
             newRoom.transform.SetParent(GameObject.Find("GameManager").transform);
             GenerateDonjon.rooms.Insert(0,newRoom.GetComponent<Room>());
             roomBehind = newRoom.GetComponent<Room>();
@@ -119,24 +168,19 @@ public class Door : MonoBehaviour
 
      private IEnumerator changeScene(GameObject entity){
         GameObject[] gameManagers = GameObject.FindGameObjectsWithTag("GameManager");
-        print("enter changeScene");
-        foreach(GameObject go in gameManagers){
-            print(go.scene.name);
-        }
+        
+    
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(roomBehind.name.Substring(0,roomBehind.name.IndexOf('(')), LoadSceneMode.Additive);
         while(!asyncOperation.isDone){
             yield return null;
         }
         
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(roomBehind.name.Substring(0,roomBehind.name.IndexOf('('))));
-             
+        
 
         SceneManager.MoveGameObjectToScene(entity,SceneManager.GetSceneByName(roomBehind.name.Substring(0,roomBehind.name.IndexOf('('))));
         
-        print("exit changeScene");
-        foreach(GameObject go in gameManagers){
-            print(go.scene.name);
-        }
+        
         SceneManager.UnloadSceneAsync(currentRoom.name.Substring(0,currentRoom.name.IndexOf('(')));
     }
 }
