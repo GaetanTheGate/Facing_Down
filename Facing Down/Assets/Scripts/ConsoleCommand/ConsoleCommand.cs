@@ -50,3 +50,14 @@ public class ConsoleCommand<T> : AbstractConsoleCommand {
         command.Invoke(value);
 	}
 }
+
+public class ConsoleCommand<T1, T2> : AbstractConsoleCommand {
+    private Action<T1, T2> command;
+	public ConsoleCommand(string id, string description, string format, Action<T1, T2> command) : base(id, description, format) {
+        this.command = command;
+    }
+    
+    public void Invoke(T1 v1, T2 v2) {
+        command.Invoke(v1, v2);
+	}
+}

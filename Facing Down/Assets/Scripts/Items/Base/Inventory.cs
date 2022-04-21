@@ -11,15 +11,17 @@ public class Inventory : MonoBehaviour
 	}
 
 	public void AddItem(Item item) {
+		Debug.Log(item.getAmount());
 		if (!items.ContainsKey(item.getID())) {
 			items.Add(item.getID(), item);
 			UI.inventoryDisplay.addItemDisplay(item);
 		}
 		else {
-			items[item.getID()].modifyAmount(1);
+			items[item.getID()].modifyAmount(item.getAmount());
 			UI.inventoryDisplay.update(item);
 		}
-		item.OnPickup();
+		for (int i = 0; i < item.getAmount(); ++i)
+			item.OnPickup();
 	}
 
 	public void RemoveItem(Item item) {

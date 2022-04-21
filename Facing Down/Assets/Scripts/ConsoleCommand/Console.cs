@@ -173,6 +173,18 @@ public class Console : MonoBehaviour
 				return;
 			}
 		}
+		if (splitInput.Length == 3) {
+			if ((command as ConsoleCommand<string, int>) != null) {
+				string arg1 = splitInput[1];
+				int arg2;
+				if (!int.TryParse(splitInput[2], out arg2)) {
+					output = "Format invalid : \"" + splitInput[2] + "\" does not seem to be an integer.";
+					return;
+				}
+				(command as ConsoleCommand<string, int>).Invoke(arg1, arg2);
+				return;
+			}
+		}
 
 		ClearPreview();
 	}

@@ -41,6 +41,10 @@ public abstract class Item{
 
     public virtual float OnTakeDamage(float damage) { return damage; }
 
+    public void setAmount(int amount) {
+        this.amount = amount;
+	}
+
     public void modifyAmount(int modif) {
         amount += modif;
 	}
