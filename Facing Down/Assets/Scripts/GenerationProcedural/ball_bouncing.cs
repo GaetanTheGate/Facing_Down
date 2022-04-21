@@ -9,7 +9,6 @@ public class ball_bouncing : MonoBehaviour
     private int speed = 7;
     private int hightJump = 4;
     private Vector2 initPos;
-    private bool canJump = true;
 
     void Start(){
         initPos = gameObject.transform.position;
@@ -21,12 +20,8 @@ public class ball_bouncing : MonoBehaviour
         if (Input.GetKey(KeyCode.Q)){
             transform.Translate(Vector2.left * Time.deltaTime * speed);
         }
-        if(Input.GetKeyDown(KeyCode.Space) && canJump){
-            canJump = false;
-            float initY = transform.position.y;
-            while(transform.position.y < initY + hightJump){
-                transform.Translate(Vector2.up * Time.deltaTime * speed);
-            }
+        if(Input.GetKey(KeyCode.Space)){
+            transform.Translate(Vector2.up * Time.deltaTime * speed*2);
         }
 
         if (Input.GetKeyDown(KeyCode.C)){
@@ -38,7 +33,4 @@ public class ball_bouncing : MonoBehaviour
 
     }
 
-    void OnCollisionEnter2D(Collision2D collision2D){
-        canJump = true;
-    }
 }

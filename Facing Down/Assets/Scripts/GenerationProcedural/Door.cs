@@ -18,7 +18,6 @@ public class Door : MonoBehaviour
     public Room roomBehind;
     public Room currentRoom;
 
-    public bool isTrigger;
 
     
 
@@ -32,7 +31,6 @@ public class Door : MonoBehaviour
     
     public void OnTriggerEnter2D(Collider2D collider2D){
         if (collider2D.CompareTag("Player")){
-            isTrigger = true;
             if (roomBehind != null){
                 float x = 0;
                 float y = 0;

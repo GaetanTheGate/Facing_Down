@@ -39,14 +39,20 @@ public class GenerateDonjon : MonoBehaviour
     }
 
     public void initGenerate(){
+
+        //Création d'un gameManager qui permet la gestion du donjon (stocke le joueur ainsi que toute les salles générées) 
         GameObject gameManager = new GameObject("GameManager");
         DontDestroyOnLoad(gameManager);
+
         GameObject player = Resources.Load("Donjon/Player",typeof(GameObject)) as GameObject;
         player = Instantiate(player);
         player.transform.SetParent(gameManager.transform);
+
+
         foreach(Object o in Resources.LoadAll("Donjon/Rooms", typeof(GameObject))){
             roomsPrefabs.Add((GameObject) o);
         }
+        
         GameObject newRoom = getSpecifyRoom(nameInitRoom);
         newRoom = Instantiate(newRoom);
         newRoom.name = newRoom.name.Substring(0,newRoom.name.IndexOf('(')) + '-' + idRoom++;
@@ -59,6 +65,8 @@ public class GenerateDonjon : MonoBehaviour
     }
 
     public void generate(){
+
+        //prends une porte aléatoire de la première salle a traité et lui ajoute une salle si possible
         while(rooms.Count <= nbRoom){
             Room processRoom = rooms[0];
             int i = Random.Range(0,processRoom.doors.Count);
@@ -73,7 +81,7 @@ public class GenerateDonjon : MonoBehaviour
 
     public void generateSpecificRoom(){
         initRoom.doors[0].generateSpecific(getSpecifyRoom("Room2"));
-        initRoom.doors[0].roomBehind.doors[1].generateSpecific(getSpecifyRoom("Room3"));
+        initRoom.doors[0].roomBehind.doors[1].generateSpecific(getSpecifyRoom("Room2"));
         //afficheDonjon();
     }
 
