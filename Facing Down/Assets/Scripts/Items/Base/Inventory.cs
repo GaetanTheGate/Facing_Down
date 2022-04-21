@@ -34,6 +34,18 @@ public class Inventory : MonoBehaviour
 		item.OnRemove();
 	}
 
+	public float OnTakeDamage(float damage) {
+		List<Item> delayedItems = new List<Item>();
+		foreach (Item item in items.Values) {
+			if (item.getPriority() == ItemPriority.LATE) delayedItems.Add(item);
+			else damage = item.OnTakeDamage(damage);
+		}
+		foreach (Item item in delayedItems) {
+			damage = item.OnTakeDamage(damage);
+		}
+		return damage;
+	}
+
 	public Dictionary<string, Item> GetItems() {
 		return items;
 	}

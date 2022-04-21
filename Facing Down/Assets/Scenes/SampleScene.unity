@@ -203,7 +203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad009292beaab1d4a989b19a796968c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 10
+  maxHitPoints: 10
+  currentHitPoints: 0
   baseAtk: 100
   atkMultipler: 1
   critRate: 5

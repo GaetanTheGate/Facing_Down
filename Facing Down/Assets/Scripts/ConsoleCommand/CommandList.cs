@@ -12,9 +12,9 @@ public static class CommandList
 		add(new ConsoleCommand("print_debug", "Prints \"CONSOLE : DEBUG\" into Debug.Log.", "print_debug", () => { Debug.Log("CONSOLE : DEBUG"); }));
 		add(new ConsoleCommand<string>("print_str", "Prints \"CONSOLE : <str>\" into Debug.Log.", "print_str <str>", (str) => { Debug.Log("CONSOLE : " + str);}));
 		add(new ConsoleCommand<string>("add_item", "Adds a specified item to the inventory.", "add_item <ID>", (str) => {
-			Item item = ItemPool.getByID(str);
+			Item item = ItemPool.GetByID(str);
 			if (item != null)
-				Game.player.inventory.AddItem(ItemPool.getByID(str)); 
+				Game.player.inventory.AddItem(ItemPool.GetByID(str)); 
 		}));
 	}
 

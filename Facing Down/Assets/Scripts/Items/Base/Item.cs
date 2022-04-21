@@ -7,13 +7,17 @@ public abstract class Item{
     protected int amount;
     private ItemRarity rarity;
     private ItemType type;
+    private ItemPriority priority;
 
-    public Item(string id, ItemRarity rarity, ItemType type) {
+    public Item(string id, ItemRarity rarity, ItemType type, ItemPriority priority) {
         this.ID = id;
         this.rarity = rarity;
         this.type = type;
+        this.priority = priority;
         amount = 1;
 	}
+
+    public Item(string id, ItemRarity rarity, ItemType type) : this(id, rarity, type, ItemPriority.IMMEDIATE) { }
 
     public string getID() {
         return ID;
@@ -28,8 +32,14 @@ public abstract class Item{
         return type;
 	}
 
+    public ItemPriority getPriority() {
+        return priority;
+	}
+
     public virtual void OnPickup() {}
     public virtual void OnRemove() {}
+
+    public virtual float OnTakeDamage(float damage) { return damage; }
 
     public void modifyAmount(int modif) {
         amount += modif;

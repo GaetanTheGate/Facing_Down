@@ -3,7 +3,8 @@ using UnityEngine.Events;
 
 public class StatEntity : MonoBehaviour
 {
-    [Min(0.0f)] public int hitPoints = 10;
+    [Min(0.0f)] public float maxHitPoints = 10;
+    [HideInInspector] public float currentHitPoints;
 
     [Min(0.0f)] public float baseAtk = 100;
     [Min(0.0f)] public float atkMultipler = 1;
@@ -21,8 +22,9 @@ public class StatEntity : MonoBehaviour
 
     public void Start()
     {
+        currentHitPoints = maxHitPoints;
         animator = gameObject.GetComponent<Animator>();
-        if (animator != null) animator.SetFloat("hp", hitPoints);
+        if (animator != null) animator.SetFloat("hp", currentHitPoints);
     }
 
     public void computeAtk()
@@ -34,12 +36,13 @@ public class StatEntity : MonoBehaviour
         return atk;
 	}
 
-    public void takeDamage(int damage)
+    public void takeDamage(float damage)
     {
-        hitPoints -= damage;
-        Debug.Log("entité : " + this.name + " hp = " + hitPoints);
-        if (animator != null) animator.SetFloat("hp", hitPoints);
-        if(onHit != null && hitPoints > 0) onHit.Invoke();
-        if (onDeath != null && hitPoints <= 0) onDeath.Invoke();
+        damage = Game.player.inventory.OnTakeDamage(damage);
+        currentHitPoints -= damage;
+        Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
+        if (animator != null) animator.SetFloat("hp", currentHitPoints);
+        if(onHit != null && currentHitPoints > 0) onHit.Invoke();
+        if (onDeath != null && currentHitPoints <= 0) onDeath.Invoke();
     }
 }

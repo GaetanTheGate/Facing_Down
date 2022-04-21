@@ -18,7 +18,7 @@ public class StatPlayer : MonoBehaviour
     {
         statEntity = GetComponent<Player>().self.GetComponent<StatEntity>();
         playerIframes = statEntity.GetComponent<PlayerIframes>();
-        hpText.text = statEntity.hitPoints.ToString();
+        hpText.text = statEntity.currentHitPoints.ToString();
     }
 
     public void takeDamage(int damage, float iframeDuration = 2.0f)
@@ -26,7 +26,7 @@ public class StatPlayer : MonoBehaviour
         if (!playerIframes.isIframe)
         {
             statEntity.takeDamage(damage);
-            hpText.text = statEntity.hitPoints.ToString();
+            hpText.text = statEntity.currentHitPoints.ToString();
             playerIframes.getIframe(iframeDuration);
         }
     }
