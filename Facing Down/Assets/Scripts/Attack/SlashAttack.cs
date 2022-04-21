@@ -5,12 +5,17 @@ public class SlashAttack : Attack
     public Way way;
     public override Vector3 Behaviour(float percentage)
     {
+        float relativeScaleY;
+        if (way == Way.Clockwise)
+            relativeScaleY = -1;
+        else
+            relativeScaleY = 1;
         float percentageTime = percentage - 0.5f;
 
         float relativeRange = range * 2.0f * (0.5f - Mathf.Abs(percentageTime));
 
         float radius = Mathf.Max(src.transform.localScale.x, src.transform.localScale.y, src.transform.localScale.z) / 2 + relativeRange / 2.0f;
-        transform.localScale = new Vector3(relativeRange, transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(relativeRange, relativeScaleY * relativeRange, transform.localScale.z);
 
         float relativeAngle;
         if (way == Way.CounterClockwise)

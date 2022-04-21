@@ -34,9 +34,9 @@ public class StatEntity : MonoBehaviour
         return atk;
 	}
 
-    public void takeDamage(int damage)
+    public void takeDamage(float damage)
     {
-        hitPoints -= damage;
+        hitPoints -= (int)damage;
         Debug.Log("entité : " + this.name + " hp = " + hitPoints);
         if (animator != null) animator.SetFloat("hp", hitPoints);
         if(onHit != null) onHit.Invoke();
