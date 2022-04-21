@@ -21,7 +21,6 @@ public abstract class Item{
     public int getAmount() {
         return amount;
 	}
-
     public ItemRarity GetRarity() {
         return rarity;
 	}
