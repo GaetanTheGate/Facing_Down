@@ -39,7 +39,7 @@ public class StatEntity : MonoBehaviour
         hitPoints -= damage;
         Debug.Log("entité : " + this.name + " hp = " + hitPoints);
         if (animator != null) animator.SetFloat("hp", hitPoints);
-        if(onHit != null) onHit.Invoke();
+        if(onHit != null && hitPoints > 0) onHit.Invoke();
         if (onDeath != null && hitPoints <= 0) onDeath.Invoke();
     }
 }
