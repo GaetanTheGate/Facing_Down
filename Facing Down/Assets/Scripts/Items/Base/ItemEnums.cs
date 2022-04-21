@@ -1,5 +1,5 @@
 public enum ItemType {
-    FIRE, WATER, AIR, EARTH
+    FIRE, THUNDER, WIND, EARTH
 }
 
 public enum ItemRarity {

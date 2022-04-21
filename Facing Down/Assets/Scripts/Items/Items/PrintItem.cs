@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PrintItem : Item
 {
-	public PrintItem() : base("PrintItem", ItemRarity.LEGENDARY, ItemType.AIR) {}
+	public PrintItem() : base("PrintItem", ItemRarity.LEGENDARY, ItemType.WIND) {}
 
 	public override void OnPickup() {
 		Debug.Log("Item Picked Up");

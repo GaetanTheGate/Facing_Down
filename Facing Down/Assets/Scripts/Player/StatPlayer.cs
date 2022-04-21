@@ -21,10 +21,11 @@ public class StatPlayer : MonoBehaviour
         hpText.text = statEntity.currentHitPoints.ToString();
     }
 
-    public void takeDamage(int damage, float iframeDuration = 2.0f)
+    public void takeDamage(float damage, float iframeDuration = 2.0f)
     {
         if (!playerIframes.isIframe)
         {
+            damage = Game.player.inventory.OnTakeDamage(damage);
             statEntity.takeDamage(damage);
             hpText.text = statEntity.currentHitPoints.ToString();
             playerIframes.getIframe(iframeDuration);

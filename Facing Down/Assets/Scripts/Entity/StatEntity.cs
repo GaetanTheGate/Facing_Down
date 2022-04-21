@@ -38,7 +38,6 @@ public class StatEntity : MonoBehaviour
 
     public void takeDamage(float damage)
     {
-        damage = Game.player.inventory.OnTakeDamage(damage);
         currentHitPoints -= damage;
         Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
