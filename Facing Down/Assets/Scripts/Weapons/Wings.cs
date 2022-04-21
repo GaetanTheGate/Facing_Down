@@ -14,8 +14,8 @@ public class Wings : Weapon
         baseSpan = 0.3f;
         baseCooldown = 0.1f;
 
-        attackPath = "Prefabs/Weapons/Katana";
-        specialPath = "Prefabs/Weapons/Katana";
+        attackPath = "Prefabs/Weapons/Wings";
+        specialPath = "Prefabs/Weapons/Wings";
     }
 
 

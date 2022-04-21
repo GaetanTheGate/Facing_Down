@@ -15,8 +15,8 @@ public class Daggers : Weapon
         baseSpan = 0.1f;
         baseCooldown = -0.07f;
 
-        attackPath = "Prefabs/Weapons/Katana";
-        specialPath = "Prefabs/Weapons/Katana";
+        attackPath = "Prefabs/Weapons/Daggers";
+        specialPath = "Prefabs/Weapons/Daggers";
     }
 
     private HalfSlashAttack.Way way = HalfSlashAttack.Way.CounterClockwise;
@@ -70,8 +70,8 @@ public class Daggers : Weapon
 
             swing1.GetComponent<HalfSlashAttack>().src = self;
             swing1.GetComponent<HalfSlashAttack>().acceleration = 1.5f;
-            swing1.GetComponent<HalfSlashAttack>().range = baseRange * 1.25f;
-            swing1.GetComponent<HalfSlashAttack>().lenght = baseLenght * 1.25f;
+            swing1.GetComponent<HalfSlashAttack>().range = baseRange * 1.5f;
+            swing1.GetComponent<HalfSlashAttack>().lenght = baseLenght * 1.5f;
 
             swing1.GetComponent<HalfSlashAttack>().startDelay = 0.1f;
             swing1.GetComponent<HalfSlashAttack>().endDelay = 0.3f;
@@ -82,9 +82,9 @@ public class Daggers : Weapon
             GameObject swing2 = GameObject.Instantiate(swing1);
 
             swing1.GetComponent<HalfSlashAttack>().way = HalfSlashAttack.Way.CounterClockwise;
-            swing1.GetComponent<HalfSlashAttack>().angle = angle - 20;
+            swing1.GetComponent<HalfSlashAttack>().angle = angle + 45;
             swing2.GetComponent<HalfSlashAttack>().way = HalfSlashAttack.Way.Clockwise;
-            swing2.GetComponent<HalfSlashAttack>().angle = angle + 20;
+            swing2.GetComponent<HalfSlashAttack>().angle = angle - 45;
 
 
             swing1.GetComponent<HalfSlashAttack>().onEndAttack += EndSpecialAttack;

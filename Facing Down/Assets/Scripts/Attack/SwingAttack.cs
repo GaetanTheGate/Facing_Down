@@ -7,10 +7,16 @@ public class SwingAttack : Attack
     public Way way;
     public override Vector3 Behaviour(float percentage)
     {
+        float relativeScaleY;
+        if (way == Way.Clockwise)
+            relativeScaleY = -1;
+        else
+            relativeScaleY = 1;
+
         float percentageTime = percentage - 0.5f;
 
         float radius = Mathf.Max(src.transform.localScale.x, src.transform.localScale.y, src.transform.localScale.z) / 2 + range / 2.0f;
-        transform.localScale = new Vector3(range, transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(range, relativeScaleY * range, transform.localScale.z);
 
         float relativeAngle;
         if (way == Way.CounterClockwise)

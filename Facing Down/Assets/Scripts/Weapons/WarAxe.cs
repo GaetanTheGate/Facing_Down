@@ -14,8 +14,8 @@ public class WarAxe : Weapon
         baseEDelay = 0.1f;
         baseCooldown = 0.1f;
 
-        attackPath = "Prefabs/Weapons/Katana";
-        specialPath = "Prefabs/Weapons/Katana";
+        attackPath = "Prefabs/Weapons/WarAxe";
+        specialPath = "Prefabs/Weapons/WarAxe";
     }
 
     private SwingAttack.Way way = SwingAttack.Way.CounterClockwise;

@@ -8,6 +8,11 @@ public class HalfSlashAttack : Attack
     public InOut inOut;
     public override Vector3 Behaviour(float percentage)
     {
+        float relativeScaleY;
+        if (way == Way.Clockwise)
+            relativeScaleY = -1;
+        else
+            relativeScaleY = 1;
         float percentageTime = percentage;
         if(inOut == InOut.Out)
             percentageTime = 1 - percentageTime;
@@ -16,13 +21,13 @@ public class HalfSlashAttack : Attack
         float relativeRange = range * percentageTime;
 
         float radius = Mathf.Max(src.transform.localScale.x, src.transform.localScale.y, src.transform.localScale.z) / 2 + relativeRange / 2.0f;
-        transform.localScale = new Vector3(relativeRange, transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(relativeRange, relativeScaleY * relativeRange, transform.localScale.z);
 
         float relativeAngle = lenght * (1 - percentageTime);
         if (way == Way.CounterClockwise)
-            relativeAngle *= 1;
-        else
             relativeAngle *= -1;
+        else
+            relativeAngle *= 1;
 
         relativeAngle += angle;
 
