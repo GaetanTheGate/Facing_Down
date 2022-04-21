@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackMultUpItem : Item
+public class FieryAlloy : Item
 {
-	public AttackMultUpItem() : base("AttackMultUp", ItemRarity.UNCOMMON, ItemType.FIRE) {}
+	public FieryAlloy() : base("AttackMultUp", ItemRarity.UNCOMMON, ItemType.FIRE) {}
 
 	private readonly float multiplierAdd = 0.1f;
 	public override void OnPickup() {
@@ -18,6 +18,6 @@ public class AttackMultUpItem : Item
 	}
 
 	public override Item makeCopy() {
-		return new AttackMultUpItem();
+		return new FieryAlloy();
 	}
 }

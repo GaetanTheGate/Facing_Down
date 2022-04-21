@@ -16,7 +16,6 @@ public static class ItemPool
 
 		add(new AttackUpItem());
 		add(new FieryAlloy());
-		add(new StoneArmor());
 	}
 
 	public static void InitSeed(int s) {
