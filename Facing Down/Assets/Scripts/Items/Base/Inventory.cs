@@ -11,7 +11,6 @@ public class Inventory : MonoBehaviour
 	}
 
 	public void AddItem(Item item) {
-		Debug.Log(item.getAmount());
 		if (!items.ContainsKey(item.getID())) {
 			items.Add(item.getID(), item);
 			UI.inventoryDisplay.addItemDisplay(item);

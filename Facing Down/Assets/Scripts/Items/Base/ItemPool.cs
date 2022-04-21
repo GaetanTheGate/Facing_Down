@@ -31,7 +31,6 @@ public static class ItemPool
 	}
 
 	public static Item GetByID(string id) {
-		if (id == "PrintItem") return new PrintItem(); //TODO : Retirer cette ligne de debug une fois inutile
 		foreach (Dictionary<string, Item> rarityPool in items.Values) {
 			if (rarityPool.ContainsKey(id)) return rarityPool[id].makeCopy();
 		}

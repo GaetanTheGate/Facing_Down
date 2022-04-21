@@ -71,7 +71,6 @@ public static class CommandList
 
 	private static class AdvancedCommandFunctions {
 		public static void AddItem(string name, int amount) {
-			Debug.Log(amount);
 			Item item;
 			if (name == "PrintItem") item = new PrintItem();
 			else item = ItemPool.GetByID(name);
