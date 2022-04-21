@@ -7190,8 +7190,8 @@ MonoBehaviour:
   atkMultipler: 1
   critRate: 5
   critDmg: 150
-  acceleration: 1
-  maxSpeed: 10
+  acceleration: 10
+  maxSpeed: 50
   onHit:
     m_PersistentCalls:
       m_Calls: []
