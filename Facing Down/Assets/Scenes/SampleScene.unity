@@ -168,7 +168,6 @@ GameObject:
   - component: {fileID: 272039497}
   - component: {fileID: 272039496}
   - component: {fileID: 272039495}
-  - component: {fileID: 272039494}
   - component: {fileID: 272039493}
   - component: {fileID: 272039500}
   m_Layer: 10
@@ -192,31 +191,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeSpan: 0.5
   timeGap: 0.1
---- !u!114 &272039494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 272039492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad009292beaab1d4a989b19a796968c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitPoints: 10
-  baseAtk: 100
-  atkMultipler: 1
-  critRate: 5
-  critDmg: 150
-  acceleration: 10
-  maxSpeed: 50
-  onHit:
-    m_PersistentCalls:
-      m_Calls: []
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &272039495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,6 +442,7 @@ GameObject:
   - component: {fileID: 421833233}
   - component: {fileID: 421833232}
   - component: {fileID: 421833231}
+  - component: {fileID: 421833237}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -580,6 +555,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &421833237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421833230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd3d23824912fc4f8e022991b3cb198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &646532945
 GameObject:
   m_ObjectHideFlags: 0
@@ -7222,7 +7209,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32feda7c95d73134794c509c7755d6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statEntity: {fileID: 0}
+  maxHitPoints: 10
+  currentHitPoints: 0
+  baseAtk: 100
+  atkMultipler: 1
+  critRate: 5
+  critDmg: 150
+  acceleration: 10
+  maxSpeed: 50
+  onHit:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
   hpText: {fileID: 640469008979653010}
   numberOfDashes: 0
   maxDashes: 10
