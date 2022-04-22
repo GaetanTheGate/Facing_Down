@@ -21,7 +21,7 @@ public class PlayerAttack : AbstractPlayer
 
     public enum ChooseWeapon
     {
-        Katana, Wings, WarAxe, Daggers
+        Katana, Wings, WarAxe, Daggers, Gun
     }
 
     public override void Init()
@@ -66,6 +66,11 @@ public class PlayerAttack : AbstractPlayer
                 if (weapon.GetType().Equals(typeof(Daggers)))
                     break;
                 weapon = new Daggers();
+                break;
+            case ChooseWeapon.Gun:
+                if (weapon.GetType().Equals(typeof(Gun)))
+                    break;
+                weapon = new Gun();
                 break;
         }
         ComputeAttack();

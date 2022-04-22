@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwingAttack : Attack
+public class SwingAttack : MeleeAttack
 {
     public Way way;
     public override Vector3 Behaviour(float percentage)
