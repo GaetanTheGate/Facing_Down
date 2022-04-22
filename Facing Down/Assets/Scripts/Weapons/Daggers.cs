@@ -53,10 +53,14 @@ public class Daggers : Weapon
 
     public override void Special(float angle, Entity self)
     {
-        startVelo = self.GetComponent<Rigidbody2D>().velocity;
+        canAttack = false;
 
+        startVelo = self.GetComponent<Rigidbody2D>().velocity;
+        startDelay = baseSpan;
         SpecialAttack(self, angle);
     }
+
+    private float startDelay = 0.0f;
 
     private void SpecialAttack(Entity self, float angle)
     {
@@ -108,6 +112,7 @@ public class Daggers : Weapon
         swing.GetComponent<HalfSlashAttack>().range = baseRange * 0.75f;
         swing.GetComponent<HalfSlashAttack>().lenght = baseLenght * 0.75f;
         swing.GetComponent<HalfSlashAttack>().timeSpan = 0.1f / countMax;
+        swing.GetComponent<HalfSlashAttack>().startDelay = startDelay;
         swing.GetComponent<HalfSlashAttack>().endDelay = 0.05f / countMax;
         swing.GetComponent<HalfSlashAttack>().followEntity = false;
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
@@ -118,6 +123,7 @@ public class Daggers : Weapon
         swing.GetComponent<HalfSlashAttack>().startAttack();
         ++count;
 
+        startDelay = 0.0f;
 
         if (way == HalfSlashAttack.Way.Clockwise)
             way = HalfSlashAttack.Way.CounterClockwise;
@@ -129,5 +135,6 @@ public class Daggers : Weapon
     {
         count = 0;
         Game.time.SetGameSpeedInstant(1.0f);
+        canAttack = true;
     }
 }

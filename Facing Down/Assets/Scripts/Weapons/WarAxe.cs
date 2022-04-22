@@ -49,6 +49,7 @@ public class WarAxe : Weapon
 
     public override void Special(float angle, Entity self)
     {
+        canAttack = false;
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
         swing.transform.position = self.transform.position;
         swing.AddComponent<SwingAttack>();
@@ -71,7 +72,10 @@ public class WarAxe : Weapon
     private void nextSpin(Entity self, float angle)
     {
         if (self.GetComponent<EntityCollisionStructure>().isGrounded)
+        {
+            canAttack = true;
             return;
+        }
 
         self.transform.rotation = Quaternion.Euler(0, 0, angle);
 
