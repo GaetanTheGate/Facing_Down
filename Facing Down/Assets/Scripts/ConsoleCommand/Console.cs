@@ -152,26 +152,42 @@ public class Console : MonoBehaviour
 			output = CommandList.getErrorMessage();
 			return;
 		}
-		if (splitInput.Length == 1) {
-			if ((command as ConsoleCommand) != null) {
-				(command as ConsoleCommand).Invoke();
-				return;
-			}
-		}
-		if (splitInput.Length == 2) {
-			if ((command as ConsoleCommand<string>) != null) {
-				(command as ConsoleCommand<string>).Invoke(splitInput[1]);
-				return;
-			}
-			if ((command as ConsoleCommand<int>) != null) {
-				int arg;
-				if (!int.TryParse(splitInput[1], out arg)) {
-					output = "Format invalid : \"" + splitInput[1] + "\" does not seem to be an integer.";
+		try {
+			if (splitInput.Length == 1) {
+				if ((command as ConsoleCommand) != null) {
+					(command as ConsoleCommand).Invoke();
 					return;
 				}
-				(command as ConsoleCommand<int>).Invoke(arg);
-				return;
 			}
+			if (splitInput.Length == 2) {
+				if ((command as ConsoleCommand<string>) != null) {
+					(command as ConsoleCommand<string>).Invoke(splitInput[1]);
+					return;
+				}
+				if ((command as ConsoleCommand<int>) != null) {
+					int arg;
+					if (!int.TryParse(splitInput[1], out arg)) {
+						output = "Format invalid : \"" + splitInput[1] + "\" does not seem to be an integer.";
+						return;
+					}
+					(command as ConsoleCommand<int>).Invoke(arg);
+					return;
+				}
+			}
+			if (splitInput.Length == 3) {
+				if ((command as ConsoleCommand<string, int>) != null) {
+					string arg1 = splitInput[1];
+					int arg2;
+					if (!int.TryParse(splitInput[2], out arg2)) {
+						output = "Format invalid : \"" + splitInput[2] + "\" does not seem to be an integer.";
+						return;
+					}
+					(command as ConsoleCommand<string, int>).Invoke(arg1, arg2);
+					return;
+				}
+			}
+		} catch(CommandRuntimeException e) {
+			output = e.Message;
 		}
 		if (splitInput.Length == 3) {
 			if ((command as ConsoleCommand<string, int>) != null) {
@@ -185,6 +201,7 @@ public class Console : MonoBehaviour
 				return;
 			}
 		}
+
 
 		ClearPreview();
 	}

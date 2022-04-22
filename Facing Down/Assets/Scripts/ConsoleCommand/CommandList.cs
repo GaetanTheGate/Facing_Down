@@ -3,24 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
 
+/// <summary>
+/// Static class CommandList registers all the commands recognized by the console.
+/// </summary>
 public static class CommandList
 {
 	static Dictionary<string, Dictionary<int, AbstractConsoleCommand>> commandList;
 	static string errorMessage;
+
+	/// <summary>
+	/// Registers all the commands.
+	/// </summary>
+	/// To add new commands, add a line there following the others' patterns. 
+	/// If the command is not recognized, you may need to add a class in ConsoleCommand.cs and / or a handle method in Console.cs -> HandleInput()
 	static CommandList() {
 		commandList = new Dictionary<string, Dictionary<int, AbstractConsoleCommand>>();
-		add(new ConsoleCommand("print_debug", "Prints \"CONSOLE : DEBUG\" into Debug.Log.", "print_debug", () => { Debug.Log("CONSOLE : DEBUG"); }));
-		add(new ConsoleCommand<string>("print_str", "Prints \"CONSOLE : <str>\" into Debug.Log.", "print_str <str>", (ID) => { Debug.Log("CONSOLE : " + ID);}));
-		add(new ConsoleCommand<string>("add_item", "Adds 1 of the specified item to the inventory.", "add_item <ID>", (ID) => {AdvancedCommandFunctions.AddItem(ID, 1);}));
-		add(new ConsoleCommand<string, int>("add_item", "Adds <amount> of the specified item to the inventory.", "add_item <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.AddItem(ID, amount);}));
+		Add(new ConsoleCommand("print_debug", "Prints \"CONSOLE : DEBUG\" into Debug.Log.", "print_debug", () => { Debug.Log("CONSOLE : DEBUG"); }));
+		Add(new ConsoleCommand<string>("print_str", "Prints \"CONSOLE : <str>\" into Debug.Log.", "print_str <str>", (ID) => { Debug.Log("CONSOLE : " + ID);}));
+		Add(new ConsoleCommand<string>("add_item", "Adds 1 of the specified item to the inventory.", "add_item <ID>", (ID) => {AdvancedCommandFunctions.AddItem(ID, 1);}));
+		Add(new ConsoleCommand<string, int>("add_item", "Adds <amount> of the specified item to the inventory.", "add_item <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.AddItem(ID, amount);}));
 	}
 
-	static void add(AbstractConsoleCommand command) {
+	/// <summary>
+	/// Registers a new command.
+	/// </summary>
+	/// <exception cref="CommandAlreadyExistsException">Raised if a command with the same name and number of arguments has already been added.</exception>
+	/// <param name="command">The command to register</param>
+	static void Add(AbstractConsoleCommand command) {
 		if (!commandList.ContainsKey(command.getID()))
 			commandList.Add(command.getID(), new Dictionary<int, AbstractConsoleCommand>());
+		if (commandList[command.getID()].ContainsKey(command.getFormat().Split(' ').Length - 1)) throw new System.Exception("Can't register \"" + command.getFormat() + "\" : a command with the same name and number of args already exists.");
 		commandList[command.getID()].Add(command.getFormat().Split(' ').Length - 1, command);
 	}
 
+	/// <summary>
+	/// Gets a command from its id and its number of args. Sets errorMessage to get in case of an error.
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="argCount"></param>
+	/// <returns></returns>
 	public static AbstractConsoleCommand getCommand(string id, int argCount) {
 		if (!commandList.ContainsKey(id)) {
 			errorMessage = "Command " + id + " not found.";
@@ -74,10 +95,9 @@ public static class CommandList
 			Item item;
 			if (name == "PrintItem") item = new PrintItem();
 			else item = ItemPool.GetByID(name);
-			if (item != null) {
-				item.setAmount(amount);
-				Game.player.inventory.AddItem(item);
-			}
+			if (item == null) throw new CommandRuntimeException("Item " + name + " not found");
+			item.setAmount(amount);
+			Game.player.inventory.AddItem(item);
 		}
 	}
 }
