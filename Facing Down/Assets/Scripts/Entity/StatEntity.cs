@@ -39,7 +39,7 @@ public class StatEntity : MonoBehaviour
     public void takeDamage(float damage)
     {
         currentHitPoints -= damage;
-        Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
+        //Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
         if(onHit != null && currentHitPoints > 0) onHit.Invoke();
         checkifDead();

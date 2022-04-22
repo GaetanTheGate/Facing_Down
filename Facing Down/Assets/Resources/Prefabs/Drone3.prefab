@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 6180464658978433784}
   - component: {fileID: 7598232662881890678}
   - component: {fileID: 6180464658978433785}
+  - component: {fileID: 7732461433555852802}
   - component: {fileID: 379317916}
   - component: {fileID: 379317917}
   - component: {fileID: 8587477913929482738}
@@ -224,6 +225,18 @@ MonoBehaviour:
   - {fileID: 6180464659276183126}
   - {fileID: 6180464659818348789}
   aggroDistance: 5
+--- !u!114 &7732461433555852802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180464658978433543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 189ecb9923fe42d4494a32ff9248ec21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &379317916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,7 +275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad009292beaab1d4a989b19a796968c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 10
+  maxHitPoints: 10
+  currentHitPoints: 0
   baseAtk: 100
   atkMultipler: 1
   critRate: 5

@@ -24,6 +24,12 @@ public class Daggers : Weapon
     public override void Attack(float angle, Entity self)
     {
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+        AudioSource audioSource = swing.GetComponent<AudioSource>();
+        if(audioSource != null)
+        {
+            AudioClip clip = (AudioClip)Resources.Load("sound_effects/swish-13", typeof(AudioClip));
+            if (clip != null) audioSource.PlayOneShot(clip);
+        }
         swing.transform.position = self.transform.position;
         swing.AddComponent<HalfSlashAttack>();
 
