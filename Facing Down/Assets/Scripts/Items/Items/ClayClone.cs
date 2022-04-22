@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ClayClone : Item {
-	public ClayClone() : base("ClayClone", ItemRarity.LEGENDARY, ItemType.EARTH) { }
+	public ClayClone() : base("ClayClone", ItemRarity.LEGENDARY, ItemType.EARTH, ItemPriority.DELAYED) { }
 
 	public override bool OnDeath() {
 		Game.player.stat.currentHitPoints = Game.player.stat.maxHitPoints;

@@ -38,7 +38,7 @@ public class Inventory : MonoBehaviour
 	public float OnTakeDamage(float damage) {
 		List<Item> delayedItems = new List<Item>();
 		foreach (Item item in items.Values) {
-			if (item.getPriority() == ItemPriority.LATE) delayedItems.Add(item);
+			if (item.getPriority() == ItemPriority.DELAYED) delayedItems.Add(item);
 			else damage = item.OnTakeDamage(damage);
 		}
 		foreach (Item item in delayedItems) {
@@ -48,8 +48,13 @@ public class Inventory : MonoBehaviour
 	}
 
 	public void OnDeath() {
+		List<Item> delayedItems = new List<Item>();
 		foreach (Item item in items.Values) {
-			if (item.OnDeath()) break;
+			if (item.getPriority() == ItemPriority.DELAYED) delayedItems.Add(item);
+			else item.OnDeath();
+		}
+		foreach (Item item in delayedItems) {
+			if (item.OnDeath()) break; ;
 		}
 	}
 
