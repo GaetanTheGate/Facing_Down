@@ -38,7 +38,7 @@ public class Console : MonoBehaviour
 	}
 
 	private void Awake() {
-		noRepeatKeys = new List<KeyCode> { KeyCode.Quote, KeyCode.Tab };
+		noRepeatKeys = new List<KeyCode> { KeyCode.Comma, KeyCode.Tab };
 		lastInputs = new List<string>();
 		scrollIndex = -1;
 		previews = new List<string>();
@@ -129,7 +129,7 @@ public class Console : MonoBehaviour
 	public void OnGUI() {
 		if (PreventKeyRepeat()) return;
 
-		if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Quote) {
+		if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Comma) {
 			Toggle();
 			alreadyPressed = true;
 		}
