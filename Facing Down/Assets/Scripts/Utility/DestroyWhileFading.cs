@@ -5,20 +5,20 @@ using UnityEngine;
 public class DestroyWhileFading : MonoBehaviour
 {
     public float timeSpan = 1.0f;
-    private float startTime = 0.0f;
+    private float timePassed = 0.0f;
     private SpriteRenderer sprite;
 
     // Start is called before the first frame update
     void Awake()
     {
-        startTime = Time.realtimeSinceStartup;
+        timePassed = 0.0f;
         sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float timePassed = Time.realtimeSinceStartup - startTime;
+        timePassed += Time.fixedDeltaTime;
         if (timePassed >= timeSpan)
             Destroy(gameObject);
         Color color = sprite.color;
