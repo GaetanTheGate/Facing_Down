@@ -26,7 +26,7 @@ public static class CommandList
 	/// <summary>
 	/// Registers a new command.
 	/// </summary>
-	/// <exception cref="CommandAlreadyExistsException">Raised if a command with the same name and number of arguments has already been added.</exception>
+	/// <exception cref="System.Exception">Raised if a command with the same name and number of arguments has already been added.</exception>
 	/// <param name="command">The command to register</param>
 	static void Add(AbstractConsoleCommand command) {
 		if (!commandList.ContainsKey(command.getID()))
@@ -51,6 +51,12 @@ public static class CommandList
 		return commandList[id][argCount];
 	}
 
+	/// <summary>
+	/// Gets a list of the function formats starting by the given string
+	/// </summary>
+	/// <example><c>GetCommandPreview("addIt");</c> may return a list containing "addItem ID", "addItem ID amount".</example>
+	/// <param name="input">The string from which the function formats must be deduced</param>
+	/// <returns>A list of the previews, as strings</returns>
 	public static List<string> getCommandPreview(string input) {
 		List<string> previews = new List<string>();
 		string[] splitInput = input.Split(' ');
@@ -82,12 +88,22 @@ public static class CommandList
 		return previews;
 	}
 
+	/// <summary>
+	/// static class AdvancedCommandFunctions contains command functions to lighten their registration in CommandList
+	/// </summary>
 	private static class AdvancedCommandFunctions {
-		public static void AddItem(string name, int amount) {
+
+		/// <summary>
+		/// Adds items to the player inventory
+		/// </summary>
+		/// <param name="ID">The item's ID</param>
+		/// <param name="amount">The amount of items to add</param>
+		/// <exception cref="CommandRuntimeException">Thrown if there is no item corresponding to the given ID</exception>
+		public static void AddItem(string ID, int amount) {
 			Item item;
-			if (name == "PrintItem") item = new PrintItem();
-			else item = ItemPool.GetByID(name);
-			if (item == null) throw new CommandRuntimeException("Item " + name + " not found");
+			if (ID == "PrintItem") item = new PrintItem();
+			else item = ItemPool.GetByID(ID);
+			if (item == null) throw new CommandRuntimeException("Item " + ID + " not found");
 			item.setAmount(amount);
 			Game.player.inventory.AddItem(item);
 		}
