@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
@@ -14,7 +13,7 @@ public static class CommandList
 	/// Registers all the commands.
 	/// </summary>
 	/// To add new commands, add a line there following the others' patterns. 
-	/// If the command is not recognized, you may need to add a class in ConsoleCommand.cs and / or a handle method in Console.cs -> HandleInput()
+	/// If the command is not recognized, you may need to add a class in ConsoleCommand.cs and / or a handle method in Console.cs -> HandleInput().
 	static CommandList() {
 		commandList = new Dictionary<string, Dictionary<int, AbstractConsoleCommand>>();
 		Add(new ConsoleCommand("printDebug", "Prints \"CONSOLE : DEBUG\" into Debug.Log.", "printDebug", () => { Debug.Log("CONSOLE : DEBUG"); }));
@@ -27,7 +26,7 @@ public static class CommandList
 	/// Registers a new command.
 	/// </summary>
 	/// <exception cref="System.Exception">Raised if a command with the same name and number of arguments has already been added.</exception>
-	/// <param name="command">The command to register</param>
+	/// <param name="command">The command to register.</param>
 	static void Add(AbstractConsoleCommand command) {
 		if (!commandList.ContainsKey(command.getID()))
 			commandList.Add(command.getID(), new Dictionary<int, AbstractConsoleCommand>());
@@ -38,9 +37,10 @@ public static class CommandList
 	/// <summary>
 	/// Gets a command from its id and its number of args. Sets errorMessage to get in case of an error.
 	/// </summary>
-	/// <param name="id"></param>
-	/// <param name="argCount"></param>
-	/// <returns></returns>
+	/// <param name="id">The command's id.</param>
+	/// <param name="argCount">The number of params passed to the command.</param>
+	/// <returns>The corresponding command.</returns>
+	/// <exception cref="CommandRuntimeException">Thrown if no command is found.</exception>
 	public static AbstractConsoleCommand getCommand(string id, int argCount) {
 		if (!commandList.ContainsKey(id)) {
 			throw new CommandRuntimeException("Command " + id + " not found.");
@@ -52,11 +52,11 @@ public static class CommandList
 	}
 
 	/// <summary>
-	/// Gets a list of the function formats starting by the given string
+	/// Gets a list of the function formats starting by the given string.
 	/// </summary>
 	/// <example><c>GetCommandPreview("addIt");</c> may return a list containing "addItem ID", "addItem ID amount".</example>
-	/// <param name="input">The string from which the function formats must be deduced</param>
-	/// <returns>A list of the previews, as strings</returns>
+	/// <param name="input">The string from which the function formats must be deduced.</param>
+	/// <returns>A list of the previews, as strings.</returns>
 	public static List<string> getCommandPreview(string input) {
 		List<string> previews = new List<string>();
 		string[] splitInput = input.Split(' ');
@@ -89,16 +89,16 @@ public static class CommandList
 	}
 
 	/// <summary>
-	/// static class AdvancedCommandFunctions contains command functions to lighten their registration in CommandList
+	/// static class AdvancedCommandFunctions contains command functions to lighten their registration in CommandList.
 	/// </summary>
 	private static class AdvancedCommandFunctions {
 
 		/// <summary>
-		/// Adds items to the player inventory
+		/// Adds items to the player inventory.
 		/// </summary>
-		/// <param name="ID">The item's ID</param>
-		/// <param name="amount">The amount of items to add</param>
-		/// <exception cref="CommandRuntimeException">Thrown if there is no item corresponding to the given ID</exception>
+		/// <param name="ID">The item's ID.</param>
+		/// <param name="amount">The amount of items to add.</param>
+		/// <exception cref="CommandRuntimeException">Thrown if there is no item corresponding to the given ID.</exception>
 		public static void AddItem(string ID, int amount) {
 			Item item;
 			if (ID == "PrintItem") item = new PrintItem();
