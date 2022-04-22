@@ -33,7 +33,7 @@ public class Daggers : Weapon
         swing.GetComponent<HalfSlashAttack>().lenght = baseLenght;
         swing.GetComponent<HalfSlashAttack>().timeSpan = baseSpan;
         swing.GetComponent<HalfSlashAttack>().endDelay = baseEDelay;
-        swing.GetComponent<HalfSlashAttack>().followEntity = false;
+        swing.GetComponent<HalfSlashAttack>().followEntity = true;
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
         swing.GetComponent<HalfSlashAttack>().way = way;
         swing.GetComponent<HalfSlashAttack>().angle = angle;
