@@ -101,7 +101,7 @@ public class PlayerAttack : AbstractPlayer
         }
         else if (attackPressed)
         {
-            if(weapon.isAuto) ComputeSimpleAttack();
+            if(weapon.IsAuto()) ComputeSimpleAttack();
 
             Game.controller.lowSensitivity = true;
             camManager.SetZoomPercent(Mathf.Max(90.0f, 100 - 10 * (chargeTimePassed / chargeTime)));
@@ -111,7 +111,7 @@ public class PlayerAttack : AbstractPlayer
 
     private void ComputeSimpleAttack()
     {
-        if (attackRecharge < weapon.GetBaseCooldown())
+        if (attackRecharge < weapon.GetBaseCooldown() ||  ! weapon.CanAttack())
             return;
 
         attackRecharge = 0.0f;
@@ -126,6 +126,9 @@ public class PlayerAttack : AbstractPlayer
     }
     private void ComputeSpecial()
     {
+        if ( ! weapon.CanAttack())
+            return;
+
         bulletTime.isInBulletTime = false;
         weapon.Special(pointer.getAngle(), self);
         if(!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.1f);
