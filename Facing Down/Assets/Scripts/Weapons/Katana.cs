@@ -13,7 +13,7 @@ public class Katana : Weapon
         baseCooldown = 0.1f;
 
         attackPath = "Prefabs/Weapons/Katana";
-        specialPath = "Prefabs/Weapons/Katana";
+        specialPath = "Prefabs/Weapons/KatanaDash";
     }
 
     private SlashAttack.Way way = SlashAttack.Way.CounterClockwise;
@@ -25,6 +25,7 @@ public class Katana : Weapon
         swing.AddComponent<SlashAttack>();
 
         swing.GetComponent<SlashAttack>().src = self;
+        swing.GetComponent<SlashAttack>().acceleration = 3.0f;
         swing.GetComponent<SlashAttack>().angle = angle;
         swing.GetComponent<SlashAttack>().range = baseRange;
         swing.GetComponent<SlashAttack>().lenght = baseLenght;
@@ -74,7 +75,8 @@ public class Katana : Weapon
         laser.GetComponent<LaserAttack>().angle = angle;
         laser.GetComponent<LaserAttack>().range = teleportPoint.getSpeed();
         laser.GetComponent<LaserAttack>().lenght = self.transform.localScale.x;
-        laser.GetComponent<LaserAttack>().timeSpan = 0.1f;
+        laser.GetComponent<LaserAttack>().timeSpan = 0.00f;
+        laser.GetComponent<LaserAttack>().endDelay = 0.05f;
         laser.GetComponent<LaserAttack>().followEntity = false;
 
         laser.GetComponent<LaserAttack>().startAttack();
