@@ -52,6 +52,7 @@ public class Console : MonoBehaviour
 		previews = new List<string>();
 		previewIndex = 0;
 		tabPressed = false;
+		CommandList.setConsole(this);
 	}
 
 	/// <summary>
@@ -109,6 +110,14 @@ public class Console : MonoBehaviour
 			GUI.Box(outputAreaRect, "");
 			GUI.Label(outputTextRect, output);
 		}
+	}
+
+	/// <summary>
+	/// Sets the output message.
+	/// </summary>
+	/// <param name="output">The new output message.</param>
+	public void SetOutput(string output) {
+		this.output = output;
 	}
 
 	/// <summary>
