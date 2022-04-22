@@ -23,11 +23,11 @@ public class Inventory : MonoBehaviour
 	public void AddItem(Item item) {
 		if (!items.ContainsKey(item.getID())) {
 			items.Add(item.getID(), item);
-			UI.inventoryDisplay.addItemDisplay(item);
+			UI.inventoryDisplay.AddItemDisplay(item);
 		}
 		else {
 			items[item.getID()].modifyAmount(item.getAmount());
-			UI.inventoryDisplay.update(item);
+			UI.inventoryDisplay.UpdateItemDisplay(item);
 		}
 		for (int i = 0; i < item.getAmount(); ++i)
 			item.OnPickup();
@@ -41,10 +41,10 @@ public class Inventory : MonoBehaviour
 		items[item.getID()].modifyAmount(-1);
 		if (items[item.getID()].getAmount() == 0) {
 			items.Remove(item.getID());
-			UI.inventoryDisplay.removeItemDisplay(item);
+			UI.inventoryDisplay.RemoveItemDisplay(item);
 		}
 		else {
-			UI.inventoryDisplay.update(item);
+			UI.inventoryDisplay.UpdateItemDisplay(item);
 		}
 		item.OnRemove();
 	}
