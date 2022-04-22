@@ -15,7 +15,8 @@ public abstract class Weapon
     protected string attackPath = "Prefabs/Weapons/Katana";
     protected string specialPath = "Prefabs/Weapons/Katana";
 
-    public bool isAuto = false;
+    protected bool isAuto = false;
+    protected bool canAttack = true;
 
     public abstract void Attack(float angle, Entity self);
     public abstract void Special(float angle, Entity self);
@@ -24,4 +25,8 @@ public abstract class Weapon
     {
         return baseSDelay + baseSpan + baseEDelay +baseCooldown;
     }
+
+    public bool IsAuto() => isAuto ? true : false;
+
+    public bool CanAttack() => canAttack ? true : false;
 }
