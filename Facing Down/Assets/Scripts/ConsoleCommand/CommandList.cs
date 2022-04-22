@@ -9,7 +9,6 @@ using System.Text.RegularExpressions;
 public static class CommandList
 {
 	static Dictionary<string, Dictionary<int, AbstractConsoleCommand>> commandList;
-	static string errorMessage;
 
 	/// <summary>
 	/// Registers all the commands.
@@ -44,19 +43,12 @@ public static class CommandList
 	/// <returns></returns>
 	public static AbstractConsoleCommand getCommand(string id, int argCount) {
 		if (!commandList.ContainsKey(id)) {
-			errorMessage = "Command " + id + " not found.";
-			return null;
+			throw new CommandRuntimeException("Command " + id + " not found.");
 		}
 		if (!commandList[id].ContainsKey(argCount)) {
-			errorMessage = "Invalid number of arguments (" + argCount + ") for command " + id + ".";
-			return null;
+			throw new CommandRuntimeException("Invalid number of arguments (" + argCount + ") for command " + id + ".");
 		}
-		errorMessage = "No error, this should never appear.";
 		return commandList[id][argCount];
-	}
-
-	public static string getErrorMessage() {
-		return errorMessage;
 	}
 
 	public static List<string> getCommandPreview(string input) {

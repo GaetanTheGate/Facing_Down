@@ -146,13 +146,9 @@ public class Console : MonoBehaviour
 		if (lastInputs.Count > 20) lastInputs.RemoveAt(0);
 		scrollIndex = lastInputs.Count;
 
-		string[] splitInput = input.Split(' ');
-		AbstractConsoleCommand command = CommandList.getCommand(splitInput[0], splitInput.Length - 1);
-		if (command == null) {
-			output = CommandList.getErrorMessage();
-			return;
-		}
 		try {
+			string[] splitInput = input.Split(' ');
+			AbstractConsoleCommand command = CommandList.getCommand(splitInput[0], splitInput.Length - 1);
 			if (splitInput.Length == 1) {
 				if ((command as ConsoleCommand) != null) {
 					(command as ConsoleCommand).Invoke();
@@ -188,18 +184,6 @@ public class Console : MonoBehaviour
 			}
 		} catch(CommandRuntimeException e) {
 			output = e.Message;
-		}
-		if (splitInput.Length == 3) {
-			if ((command as ConsoleCommand<string, int>) != null) {
-				string arg1 = splitInput[1];
-				int arg2;
-				if (!int.TryParse(splitInput[2], out arg2)) {
-					output = "Format invalid : \"" + splitInput[2] + "\" does not seem to be an integer.";
-					return;
-				}
-				(command as ConsoleCommand<string, int>).Invoke(arg1, arg2);
-				return;
-			}
 		}
 
 
