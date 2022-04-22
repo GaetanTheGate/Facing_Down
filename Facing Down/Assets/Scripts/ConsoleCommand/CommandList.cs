@@ -17,10 +17,10 @@ public static class CommandList
 	/// If the command is not recognized, you may need to add a class in ConsoleCommand.cs and / or a handle method in Console.cs -> HandleInput()
 	static CommandList() {
 		commandList = new Dictionary<string, Dictionary<int, AbstractConsoleCommand>>();
-		Add(new ConsoleCommand("print_debug", "Prints \"CONSOLE : DEBUG\" into Debug.Log.", "print_debug", () => { Debug.Log("CONSOLE : DEBUG"); }));
-		Add(new ConsoleCommand<string>("print_str", "Prints \"CONSOLE : <str>\" into Debug.Log.", "print_str <str>", (ID) => { Debug.Log("CONSOLE : " + ID);}));
-		Add(new ConsoleCommand<string>("add_item", "Adds 1 of the specified item to the inventory.", "add_item <ID>", (ID) => {AdvancedCommandFunctions.AddItem(ID, 1);}));
-		Add(new ConsoleCommand<string, int>("add_item", "Adds <amount> of the specified item to the inventory.", "add_item <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.AddItem(ID, amount);}));
+		Add(new ConsoleCommand("printDebug", "Prints \"CONSOLE : DEBUG\" into Debug.Log.", "printDebug", () => { Debug.Log("CONSOLE : DEBUG"); }));
+		Add(new ConsoleCommand<string>("printStr", "Prints \"CONSOLE : <str>\" into Debug.Log.", "printStr <str>", (ID) => { Debug.Log("CONSOLE : " + ID);}));
+		Add(new ConsoleCommand<string>("addItem", "Adds 1 of the specified item to the inventory.", "addItem <ID>", (ID) => {AdvancedCommandFunctions.AddItem(ID, 1);}));
+		Add(new ConsoleCommand<string, int>("addItem", "Adds <amount> of the specified item to the inventory.", "addItem <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.AddItem(ID, amount);}));
 	}
 
 	/// <summary>
