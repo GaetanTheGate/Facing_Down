@@ -24,7 +24,7 @@ public static class CommandHandler
 				return;
 			}
 			if ((command as ConsoleCommand<int>) != null) {
-				int arg = getIntFromInput(splitInput[1]);
+				int arg = GetIntFromInput(splitInput[1]);
 				(command as ConsoleCommand<int>).Invoke(arg);
 				return;
 			}
@@ -32,14 +32,20 @@ public static class CommandHandler
 		if (splitInput.Length == 3) {
 			if ((command as ConsoleCommand<string, int>) != null) {
 				string arg1 = splitInput[1];
-				int arg2 = getIntFromInput(splitInput[2]);
+				int arg2 = GetIntFromInput(splitInput[2]);
 				(command as ConsoleCommand<string, int>).Invoke(arg1, arg2);
 				return;
 			}
 		}
 	}
 
-	private static int getIntFromInput(string input) {
+	/// <summary>
+	/// Gets the int value from a string.
+	/// </summary>
+	/// <param name="input"></param>
+	/// <returns></returns>
+	/// <exception cref="CommandRuntimeException"></exception>
+	private static int GetIntFromInput(string input) {
 		if (!int.TryParse(input, out int i)) {
 			throw new CommandRuntimeException("Format invalid : \"" + input + "\" does not seem to be an integer.");
 		}

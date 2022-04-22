@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 /// </summary>
 public static class CommandList
 {
-	static Dictionary<string, Dictionary<int, AbstractConsoleCommand>> commandList;
+	static readonly Dictionary<string, Dictionary<int, AbstractConsoleCommand>> commandList;
 
 	/// <summary>
 	/// Registers all the commands.
@@ -16,8 +16,8 @@ public static class CommandList
 	/// If the command is not recognized, you may need to add a class in ConsoleCommand.cs and / or a handle method in Console.cs -> HandleInput().
 	static CommandList() {
 		commandList = new Dictionary<string, Dictionary<int, AbstractConsoleCommand>>();
-		Add(new ConsoleCommand("printDebug", "Prints \"CONSOLE : DEBUG\" into Debug.Log.", "printDebug", () => { Debug.Log("CONSOLE : DEBUG"); }));
-		Add(new ConsoleCommand<string>("printStr", "Prints \"CONSOLE : <str>\" into Debug.Log.", "printStr <str>", (ID) => { Debug.Log("CONSOLE : " + ID);}));
+		Add(new ConsoleCommand("printDebug", "Prints \"CONSOLE : DEBUG\".", "printDebug", () => { AdvancedCommandFunctions.Print("CONSOLE : DEBUG"); }));
+		Add(new ConsoleCommand<string>("printStr", "Prints \"CONSOLE : <str>\" into Debug.Log.", "printStr <str>", (str) => { AdvancedCommandFunctions.Print("CONSOLE : " + str);}));
 		Add(new ConsoleCommand<string>("addItem", "Adds 1 of the specified item to the inventory.", "addItem <ID>", (ID) => {AdvancedCommandFunctions.AddItem(ID, 1);}));
 		Add(new ConsoleCommand<string, int>("addItem", "Adds <amount> of the specified item to the inventory.", "addItem <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.AddItem(ID, amount);}));
 	}
@@ -88,10 +88,27 @@ public static class CommandList
 		return previews;
 	}
 
+	public static void setConsole(Console c) {
+		AdvancedCommandFunctions.setConsole(c);
+	}
+
 	/// <summary>
 	/// static class AdvancedCommandFunctions contains command functions to lighten their registration in CommandList.
 	/// </summary>
 	private static class AdvancedCommandFunctions {
+		private static Console console;
+		/// <summary>
+		/// Sets the console in order to display output messages.
+		/// </summary>
+		/// <param name="c">The console to set.</param>
+		public static void setConsole(Console c) {
+			console = c;
+		}
+
+		public static void Print(string message) {
+			if (console != null) console.SetOutput(message);
+			else Debug.Log(message);
+		}
 
 		/// <summary>
 		/// Adds items to the player inventory.
