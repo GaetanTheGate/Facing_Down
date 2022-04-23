@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : Weapon
+public class DimensionBreaker : Weapon
 {
-    public Gun()
+    public DimensionBreaker()
     {
         baseAtk = 10;
         baseRange = 30;
-        baseSpan = 0.1f;
-        baseCooldown = 0.0f;
+        baseSDelay = attackWeapon.getSDelay();
+        baseSpan = attackWeapon.getSpan();
+        baseEDelay = attackWeapon.getEDelay();
+        baseCooldown = attackWeapon.getBaseCooldown();
 
         isAuto = true;
 
@@ -17,31 +19,27 @@ public class Gun : Weapon
         specialPath = "Prefabs/Weapons/Gun";
     }
 
-    private Weapon attackWeapon = new Katana();
-    private Weapon specialWeapon = new Katana();
+    private Weapon attackWeapon = EnumWeapon.getRandomWeapon();
+    private Weapon specialWeapon = EnumWeapon.getRandomWeapon();
 
     public override void WeaponAttack(float angle, Entity self)
     {
         GetAttack(angle, self).startAttack();
+        attackWeapon = EnumWeapon.getRandomWeapon();
+        baseSDelay = attackWeapon.getSDelay();
+        baseSpan = attackWeapon.getSpan();
+        baseEDelay = attackWeapon.getEDelay();
+        baseCooldown = attackWeapon.getBaseCooldown();
     }
 
     public override void WeaponSpecial(float angle, Entity self)
     {
         GetSpecial(angle, self).startAttack();
+        specialWeapon = EnumWeapon.getRandomWeapon();
     }
 
     private Attack InitBullet(float angle, Entity self)
-    {/*
-        GameObject bullet = GameObject.Instantiate(Resources.Load(bulletPath, typeof(GameObject)) as GameObject);
-        bullet.AddComponent<ProjectileAttack>();
-
-        bullet.GetComponent<ProjectileAttack>().src = self;
-        bullet.GetComponent<ProjectileAttack>().tagsToDestroyOn.Add("Enemy");
-        bullet.GetComponent<ProjectileAttack>().angle = angle;
-        bullet.GetComponent<ProjectileAttack>().acceleration = 1.0f;
-        bullet.GetComponent<ProjectileAttack>().endDelay = 5;
-        bullet.GetComponent<ProjectileAttack>().speed = baseRange;
-        */
+    {
         return attackWeapon.GetAttack(angle, self);
     }
 
@@ -59,12 +57,9 @@ public class Gun : Weapon
         gun.GetComponent<GunAttack>().src = self;
         gun.GetComponent<GunAttack>().timeSpan = baseSpan;
         gun.GetComponent<GunAttack>().lenght = 1;
-        gun.GetComponent<GunAttack>().followEntity = forceUnFollow;
+        gun.GetComponent<GunAttack>().followEntity = false;
 
-        float randomAngle = angle;
-        randomAngle += Random.Range(-5.0f, 5.0f);
-
-        gun.GetComponent<GunAttack>().angle = randomAngle;
+        gun.GetComponent<GunAttack>().angle = angle;
         gun.GetComponent<GunAttack>().attack = attackWeapon;
 
         return gun.GetComponent<GunAttack>();
@@ -77,14 +72,15 @@ public class Gun : Weapon
         bullet.GetComponent<GunAttack>().transform.position = startPos;
 
         bullet.GetComponent<GunAttack>().src = self;
-        bullet.GetComponent<GunAttack>().startDelay = 1f;
-        bullet.GetComponent<GunAttack>().timeSpan = 1f;
-        bullet.GetComponent<GunAttack>().endDelay = 1f;
+        bullet.GetComponent<GunAttack>().startDelay = 1.0f + specialWeapon.getSDelay();
+        bullet.GetComponent<GunAttack>().timeSpan = specialWeapon.getSpan();
+        bullet.GetComponent<GunAttack>().endDelay = specialWeapon.getEDelay();
         bullet.GetComponent<GunAttack>().lenght = 1;
         bullet.GetComponent<GunAttack>().followEntity = false;
 
         bullet.GetComponent<GunAttack>().angle = angle;
         bullet.GetComponent<GunAttack>().attack = specialWeapon;
+        bullet.GetComponent<GunAttack>().isSpecial = true;
 
         return bullet.GetComponent<GunAttack>();
     }

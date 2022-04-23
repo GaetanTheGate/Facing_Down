@@ -18,10 +18,28 @@ public abstract class Weapon
     protected bool isAuto = false;
     protected bool canAttack = true;
 
-    public abstract void Attack(float angle, Entity self);
-    public abstract void Special(float angle, Entity self);
+    public bool forceUnFollow = true;
+    public Vector3 startPos;
 
-    public float GetBaseCooldown()
+    public abstract void WeaponAttack(float angle, Entity self);
+    public abstract void WeaponSpecial(float angle, Entity self);
+
+    public abstract Attack GetAttack(float angle, Entity self);
+    public abstract Attack GetSpecial(float angle, Entity self);
+
+    public void Attack(float angle, Entity self)
+    {
+        startPos = self.transform.position;
+        WeaponAttack(angle, self);
+    }
+
+    public void Special(float angle, Entity self)
+    {
+        startPos = self.transform.position;
+        WeaponSpecial(angle, self);
+    }
+
+    public float GetCooldown()
     {
         return baseSDelay + baseSpan + baseEDelay + baseCooldown;
     }
@@ -29,4 +47,12 @@ public abstract class Weapon
     public bool IsAuto() => isAuto ? true : false;
 
     public bool CanAttack() => canAttack ? true : false;
+
+    public string getAttackPath() => attackPath;
+    public string getSpecialPath() => specialPath;
+
+    public float getSDelay() => baseSDelay;
+    public float getEDelay() => baseEDelay;
+    public float getSpan() => baseSpan;
+    public float getBaseCooldown() => baseCooldown;
 }

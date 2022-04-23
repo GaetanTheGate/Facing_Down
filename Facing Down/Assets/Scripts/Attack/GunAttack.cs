@@ -6,14 +6,20 @@ public class GunAttack : MeleeAttack
 {
     private bool hasShot = false;
 
-    public Attack attack;
+    public Weapon attack;
+    public bool isSpecial = false;
     public override Vector3 Behaviour(float percentage)
     {
         if( ! hasShot && percentage > 0)
         {
             hasShot = true;
-            attack.transform.position = transform.position;
-            attack.startAttack();
+
+            attack.forceUnFollow = false;
+            attack.startPos = transform.position;
+            if(isSpecial)
+                attack.WeaponSpecial(angle, src);
+            else
+                attack.WeaponAttack(angle, src);
         }
 
         float radius = Mathf.Max(src.transform.localScale.x, src.transform.localScale.y, src.transform.localScale.z) / 2 + transform.localScale.x / 2;
@@ -31,5 +37,25 @@ public class GunAttack : MeleeAttack
         relativePos.z = 0;
 
         return relativePos;
+    }
+
+    private void computeNewAttack(Attack attack)
+    {
+
+        if (attack.GetType().IsSubclassOf(typeof(MeleeAttack)))
+        {
+            MeleeAttack newAttack = (MeleeAttack)attack;
+            newAttack.followEntity = false;
+
+        }
+        else if (attack.GetType().IsSubclassOf(typeof(ProjectileAttack)))
+        {
+        }
+        else if (attack.GetType().IsSubclassOf(typeof(CompositeAttack)))
+        {
+            CompositeAttack newAttack = (CompositeAttack)attack;
+            foreach (Attack subAttack in newAttack.attackList)
+                computeNewAttack(subAttack);
+        }
     }
 }

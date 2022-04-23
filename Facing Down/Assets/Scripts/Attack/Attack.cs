@@ -20,7 +20,8 @@ public abstract class Attack : MonoBehaviour
 
     void Awake()
     {
-        GetComponent<SpriteRenderer>().color = new Color(color.r, color.g, color.b, 0);
+        if(GetComponent<SpriteRenderer>() != null)
+            GetComponent<SpriteRenderer>().color = new Color(color.r, color.g, color.b, 0);
     }
 
     public void startAttack()
@@ -32,7 +33,9 @@ public abstract class Attack : MonoBehaviour
         ComputeAttack(0.0f);
 
 
-        GetComponent<SpriteRenderer>().color = color;
+
+        if (GetComponent<SpriteRenderer>() != null)
+            GetComponent<SpriteRenderer>().color = color;
     }
 
     protected abstract void onStart();
