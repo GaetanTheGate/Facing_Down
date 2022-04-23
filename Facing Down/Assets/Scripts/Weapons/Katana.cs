@@ -53,7 +53,7 @@ public class Katana : Weapon
 
         float radius = Mathf.Max(self.transform.localScale.x, self.transform.localScale.y);
         float distanceMax = baseRange * 3;
-        Vector3 angleDash = new Velocity(5, angle).GetAsVector2();
+        Vector3 angleDash = new Velocity(self.GetComponent<Rigidbody2D>().velocity).setAngle(angle).GetAsVector2();
         RaycastHit2D resultHit = Physics2D.Raycast(self.transform.position, angleDash, distanceMax + radius, LayerMask.GetMask("Terrain"));
 
         Velocity teleportPoint;
