@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DimensionBreaker : Weapon
+public class DimensionBreaker : MeleeWeapon
 {
     public DimensionBreaker()
     {
-        baseAtk = 10;
-        baseRange = 30;
+        attackWeapon = EnumWeapon.getRandomWeapon();
+        specialWeapon = EnumWeapon.getRandomWeapon();
+
         baseSDelay = attackWeapon.getSDelay();
         baseSpan = attackWeapon.getSpan();
         baseEDelay = attackWeapon.getEDelay();
@@ -19,8 +20,8 @@ public class DimensionBreaker : Weapon
         specialPath = "Prefabs/Weapons/Gun";
     }
 
-    private Weapon attackWeapon = EnumWeapon.getRandomWeapon();
-    private Weapon specialWeapon = EnumWeapon.getRandomWeapon();
+    private Weapon attackWeapon;
+    private Weapon specialWeapon;
 
     public override void WeaponAttack(float angle, Entity self)
     {
@@ -36,16 +37,6 @@ public class DimensionBreaker : Weapon
     {
         GetSpecial(angle, self).startAttack();
         specialWeapon = EnumWeapon.getRandomWeapon();
-    }
-
-    private Attack InitBullet(float angle, Entity self)
-    {
-        return attackWeapon.GetAttack(angle, self);
-    }
-
-    private Attack InitLaser(float angle, Entity self)
-    {
-        return specialWeapon.GetSpecial(angle, self);
     }
 
     public override Attack GetAttack(float angle, Entity self)

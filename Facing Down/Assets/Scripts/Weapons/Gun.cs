@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : Weapon
+public class Gun : MeleeWeapon
 {
     public Gun()
     {
@@ -17,8 +17,8 @@ public class Gun : Weapon
         specialPath = "Prefabs/Weapons/Gun";
     }
 
-    private Weapon attackWeapon = new Katana();
-    private Weapon specialWeapon = new Katana();
+    private Weapon attackWeapon = new Bullet();
+    private Weapon specialWeapon = new Bullet();
 
     public override void WeaponAttack(float angle, Entity self)
     {
@@ -28,26 +28,6 @@ public class Gun : Weapon
     public override void WeaponSpecial(float angle, Entity self)
     {
         GetSpecial(angle, self).startAttack();
-    }
-
-    private Attack InitBullet(float angle, Entity self)
-    {/*
-        GameObject bullet = GameObject.Instantiate(Resources.Load(bulletPath, typeof(GameObject)) as GameObject);
-        bullet.AddComponent<ProjectileAttack>();
-
-        bullet.GetComponent<ProjectileAttack>().src = self;
-        bullet.GetComponent<ProjectileAttack>().tagsToDestroyOn.Add("Enemy");
-        bullet.GetComponent<ProjectileAttack>().angle = angle;
-        bullet.GetComponent<ProjectileAttack>().acceleration = 1.0f;
-        bullet.GetComponent<ProjectileAttack>().endDelay = 5;
-        bullet.GetComponent<ProjectileAttack>().speed = baseRange;
-        */
-        return attackWeapon.GetAttack(angle, self);
-    }
-
-    private Attack InitLaser(float angle, Entity self)
-    {
-        return specialWeapon.GetSpecial(angle, self);
     }
 
     public override Attack GetAttack(float angle, Entity self)
@@ -77,7 +57,7 @@ public class Gun : Weapon
         bullet.GetComponent<GunAttack>().transform.position = startPos;
 
         bullet.GetComponent<GunAttack>().src = self;
-        bullet.GetComponent<GunAttack>().startDelay = 1f;
+        bullet.GetComponent<GunAttack>().startDelay = 0.0f;
         bullet.GetComponent<GunAttack>().timeSpan = 1f;
         bullet.GetComponent<GunAttack>().endDelay = 1f;
         bullet.GetComponent<GunAttack>().lenght = 1;
@@ -85,6 +65,7 @@ public class Gun : Weapon
 
         bullet.GetComponent<GunAttack>().angle = angle;
         bullet.GetComponent<GunAttack>().attack = specialWeapon;
+        bullet.GetComponent<GunAttack>().isSpecial = true;
 
         return bullet.GetComponent<GunAttack>();
     }

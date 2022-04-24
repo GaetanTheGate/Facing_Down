@@ -19,7 +19,7 @@ public class PlayerAttack : AbstractPlayer
     private bool attackPressed = false;
 
     public Weapon weapon = new Katana();
-    public EnumWeapon.WeaponChoice weaponChosen = EnumWeapon.WeaponChoice.DimensionBreaker;
+    public EnumWeapon.WeaponChoice weaponChosen = EnumWeapon.WeaponChoice.Katana;
 
     public override void Init()
     {

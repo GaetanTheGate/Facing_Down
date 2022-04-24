@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WarAxe : Weapon
+public class WarAxe : MeleeWeapon
 {
     public WarAxe()
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Katana : Weapon
+public class Katana : MeleeWeapon
 {
     public Katana()
     {

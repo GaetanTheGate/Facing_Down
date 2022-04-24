@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wings : Weapon
+public class Wings : MeleeWeapon
 {
     private float difference = 20.0f;
     public Wings()
