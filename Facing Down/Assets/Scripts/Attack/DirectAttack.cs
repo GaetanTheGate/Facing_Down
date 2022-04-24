@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DirectAttack : Attack
+public class DirectAttack : MeleeAttack
 {
     public override Vector3 Behaviour(float percentage)
     {
