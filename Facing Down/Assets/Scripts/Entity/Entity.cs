@@ -43,13 +43,6 @@ public class Entity : AbstractEntity
             entity.Init();
         }
 
-        entity = gameObject.GetComponent<SpeedEntity>();
-        if (entity == null)
-        {
-            entity = gameObject.AddComponent<SpeedEntity>();
-            entity.Init();
-        }
-
         entity = gameObject.GetComponent<RotationEntity>();
         if (entity == null)
         {
