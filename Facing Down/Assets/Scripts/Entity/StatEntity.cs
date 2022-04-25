@@ -39,10 +39,10 @@ public class StatEntity : MonoBehaviour
         Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
         if(onHit != null && currentHitPoints > 0) onHit.Invoke();
-        checkifDead();
+        checkIfDead();
     }
 
-    public virtual void checkifDead() {
+    public virtual void checkIfDead() {
         if (onDeath != null && currentHitPoints <= 0) onDeath.Invoke();
     }
 }
