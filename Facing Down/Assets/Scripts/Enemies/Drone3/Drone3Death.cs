@@ -13,12 +13,6 @@ public class Drone3Death : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (isDead)

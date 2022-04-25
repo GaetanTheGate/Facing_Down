@@ -5,7 +5,7 @@ using UnityEngine;
 public class Drone3Movement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public float movementSpeed = 100;
+    public float movementSpeed = 200;
     public Transform[] flags;
     private Transform nextFlag;
     private int tempNext = 0;
@@ -35,9 +35,6 @@ public class Drone3Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Debug.Log("isFollowing : " + isFollowingPlayer);
-        //Debug.Log("Distance : " + Vector2.Distance(transform.position, playerTransform.position));
-        //Debug.Log("Angle : " + Vector2.Angle(transform.position, playerTransform.position));
         nearestFlag = flags[0];
         foreach (Transform flag in flags)
         {
@@ -45,7 +42,6 @@ public class Drone3Movement : MonoBehaviour
         }
         if (Vector2.Distance(nearestFlag.position, playerTransform.position) <= aggroDistance)
         {
-
             nextFlag = playerTransform;
             isFollowingPlayer = true;
             wasFollowingPlayer = true;
@@ -68,6 +64,7 @@ public class Drone3Movement : MonoBehaviour
         else if (isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) < shootingRangeMin)
         {
             rb.velocity = new Vector2(transform.position.x - nextFlag.position.x, transform.position.y - nextFlag.position.y).normalized * movementSpeed * Time.deltaTime;
+            drone3Attack.attackPlayer(nextFlag.position);
         }
         else if (isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) >= shootingRangeMin && Vector2.Distance(nextFlag.position, transform.position) < shootingRangeMax)
         {
@@ -82,7 +79,7 @@ public class Drone3Movement : MonoBehaviour
         }
         animator.SetFloat("speed", rb.velocity.x);
 
-        if(isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) >= shootingRangeMin && Vector2.Distance(nextFlag.position, transform.position) < shootingRangeMax)
+        if(isFollowingPlayer /*&& Vector2.Distance(nextFlag.position, transform.position) >= shootingRangeMin && Vector2.Distance(nextFlag.position, transform.position) < shootingRangeMax*/)
         {
             if (nextFlag.position.x < transform.position.x && isFlipped == false)
             {

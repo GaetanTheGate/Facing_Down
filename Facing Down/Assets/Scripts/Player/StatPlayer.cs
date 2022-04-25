@@ -38,8 +38,8 @@ public class StatPlayer : StatEntity
         }
     }
 
-	public override void checkifDead() {
+	public override void checkIfDead() {
         if (currentHitPoints <= 0) Game.player.inventory.OnDeath();
-		base.checkifDead();
+		base.checkIfDead();
 	}
 }
