@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Katana : MeleeWeapon
 {
-    public Katana()
+    public Katana(string target) : base(target)
     {
         baseAtk = 100;
         baseRange = 3;
@@ -60,6 +60,8 @@ public class Katana : MeleeWeapon
 
         swing.GetComponent<SlashAttack>().way = way;
 
+        AddHitAttack(swing, baseAtk);
+
         return swing.GetComponent<SlashAttack>();
     }
 
@@ -88,6 +90,8 @@ public class Katana : MeleeWeapon
         laser.GetComponent<LaserAttack>().timeSpan = 0.00f;
         laser.GetComponent<LaserAttack>().endDelay = 0.05f;
         laser.GetComponent<LaserAttack>().followEntity = false;
+
+        AddHitAttack(laser, baseAtk * 5);
 
         return laser.GetComponent<LaserAttack>();
     }

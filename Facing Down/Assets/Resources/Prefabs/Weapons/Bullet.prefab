@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5075762484707607045}
   - component: {fileID: 4989108519737765403}
   - component: {fileID: -4362174343944753988}
-  - component: {fileID: -7919503957542428455}
   - component: {fileID: 8777982008633986855}
   m_Layer: 0
   m_Name: Bullet
@@ -100,20 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeSpan: 0.1
   timeGap: 0.005
---- !u!114 &-7919503957542428455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3191340602012224183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59a8c8cfa34686f4fb935124ff1bdbe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  tagsToHit: []
 --- !u!61 &8777982008633986855
 BoxCollider2D:
   m_ObjectHideFlags: 0

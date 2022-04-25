@@ -8,14 +8,13 @@ public class Drone3Attack : MonoBehaviour
     private float timePassed = 0f;
     private bool isAttacking = false;
 
-    private Bullet bullet = new Bullet();
+    private Bullet bullet = new Bullet("Player");
 
     private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        bullet.targetPlayer = true;
         animator = gameObject.GetComponent<Animator>();
     }
 

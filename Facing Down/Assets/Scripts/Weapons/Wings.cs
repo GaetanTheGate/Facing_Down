@@ -5,7 +5,7 @@ using UnityEngine;
 public class Wings : MeleeWeapon
 {
     private float difference = 20.0f;
-    public Wings()
+    public Wings(string target) : base(target)
     {
 
         baseAtk = 40;
@@ -37,6 +37,7 @@ public class Wings : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().timeSpan = baseSpan;
         swing.GetComponent<HalfSlashAttack>().followEntity = forceUnFollow;
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
+        AddHitAttack(swing, baseAtk);
 
         GameObject swing2 = GameObject.Instantiate(swing);
         swing.GetComponent<HalfSlashAttack>().onEndAttack += onEndAttack;
@@ -69,6 +70,7 @@ public class Wings : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().timeSpan = baseSpan * 2;
         swing.GetComponent<HalfSlashAttack>().followEntity = forceUnFollow;
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
+        AddHitAttack(swing, baseAtk);
 
         GameObject swing2 = GameObject.Instantiate(swing);
         swing.GetComponent<HalfSlashAttack>().onEndAttack += onEndSpecial;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WarAxe : MeleeWeapon
 {
-    public WarAxe()
+    public WarAxe(string target) : base(target)
     {
         baseAtk = 300;
         baseRange = 3.5f;
@@ -63,6 +63,7 @@ public class WarAxe : MeleeWeapon
         swing.GetComponent<SwingAttack>().way = SwingAttack.Way.Clockwise;
 
         swing.GetComponent<SwingAttack>().onEndAttack += nextSpin;
+        AddHitAttack(swing, baseAtk);
         swing.GetComponent<SwingAttack>().startAttack();
     }
 
@@ -83,6 +84,7 @@ public class WarAxe : MeleeWeapon
         swing.GetComponent<SwingAttack>().endDelay = baseEDelay;
 
         swing.GetComponent<SwingAttack>().way = way;
+        AddHitAttack(swing, baseAtk);
 
         return swing.GetComponent<SwingAttack>();
     }
@@ -105,6 +107,7 @@ public class WarAxe : MeleeWeapon
         swing.GetComponent<SwingAttack>().way = SwingAttack.Way.Clockwise;
 
         swing.GetComponent<SwingAttack>().onEndAttack += nextSpin;
+        AddHitAttack(swing, baseAtk);
 
         return swing.GetComponent<SwingAttack>();
     }
