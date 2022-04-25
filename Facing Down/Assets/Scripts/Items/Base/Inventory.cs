@@ -66,6 +66,18 @@ public class Inventory : MonoBehaviour
 			damage = item.OnTakeDamage(damage);
 		}
 		return damage;
+	} //TODO : retirer quand il sera entièrement remplacé par OnTakeDamage(DamageInfo)
+	
+	public DammageInfo OnTakeDamage(DammageInfo damage) {
+		List<Item> delayedItems = new List<Item>();
+		foreach (Item item in items.Values) {
+			if (item.getPriority() == ItemPriority.DELAYED) delayedItems.Add(item);
+			else damage = item.OnTakeDamage(damage);
+		}
+		foreach (Item item in delayedItems) {
+			damage = item.OnTakeDamage(damage);
+		}
+		return damage;
 	}
 
 	/// <summary>

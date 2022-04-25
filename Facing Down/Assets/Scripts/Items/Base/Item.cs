@@ -64,7 +64,8 @@ public abstract class Item{
     /// </summary>
     /// <param name="damage">The amount of damage taken.</param>
     /// <returns>The new amount of damage that will be taken.</returns>
-    public virtual float OnTakeDamage(float damage) { return damage; }
+    public virtual float OnTakeDamage(float damage) { return damage; } //TODO : Retirer quand il sera entièrement remplacé par OnTakeDamage(DamageInfo)
+    public virtual DammageInfo OnTakeDamage(DammageInfo damage) { return damage; }
 
     /// <summary>
     /// Effect when the player dies.
