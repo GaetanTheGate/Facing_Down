@@ -2,18 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedEntity : AbstractEntity
+public class SpeedEntity : AbstractPlayer
 {
     private Rigidbody2D rb;
-    private StatEntity stat;
+    private StatPlayer stat;
 
     public override void Init()
     {
-        rb = Entity.initRigidBody(gameObject);
+        rb = gameObject.GetComponent<Player>().self.gameObject.GetComponent<Rigidbody2D>();
+        stat = gameObject.GetComponent<Player>().stat;
 
-        stat = gameObject.GetComponent<StatEntity>();
-        if (stat == null)
-            stat = gameObject.AddComponent<StatEntity>();
     }
 
     // Update is called once per frame
@@ -23,12 +21,7 @@ public class SpeedEntity : AbstractEntity
     }
 
     private void CheckMaxSpeedLimit()
-    {/*
-        if (self.velocity.getSpeed() > stat.maxSpeed)
-        {
-            self.velocity.setSpeed(stat.maxSpeed);
-        }
-        */
+    {
         Velocity selfVelo = new Velocity(rb.velocity);
         if (selfVelo.getSpeed() > stat.maxSpeed)
         {

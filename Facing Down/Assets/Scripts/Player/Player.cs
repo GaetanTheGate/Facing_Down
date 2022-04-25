@@ -15,9 +15,9 @@ public class Player : AbstractPlayer
 
     public override void Init()
     {
-        stat = GetComponent<StatPlayer>();
-        if (stat == null)
-            stat = gameObject.AddComponent<StatPlayer>();
+        //stat = GetComponent<StatPlayer>();
+        //if (stat == null)
+        //    stat = gameObject.AddComponent<StatPlayer>();
 
 
         inventory = self.GetComponent<Inventory>();

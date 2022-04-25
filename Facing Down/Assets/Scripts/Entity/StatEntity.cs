@@ -13,9 +13,6 @@ public class StatEntity : MonoBehaviour
     [Min(0.0f)] public float critRate = 5;
     [Min(100.0f)] public float critDmg = 150;
 
-    [Min(0.0f)] public float acceleration = 1;
-    [Min(0.0f)] public float maxSpeed = 10;
-
     public UnityEvent onHit;
     public UnityEvent onDeath;
     private Animator animator;
@@ -36,7 +33,7 @@ public class StatEntity : MonoBehaviour
         return atk;
 	}
 
-    public void takeDamage(float damage)
+    public virtual void takeDamage(float damage)
     {
         currentHitPoints -= (int)damage;
         Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);

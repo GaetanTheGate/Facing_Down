@@ -9,8 +9,16 @@ public class StatPlayer : StatEntity
 
     public Text hpText;
 
+    [Min(0.0f)] public float acceleration = 1;
+    [Min(0.0f)] public float maxSpeed = 50;
+
     [Min(0)] public int numberOfDashes = 0;
     [Min(0)] public int maxDashes = 10;
+
+    [Min(0)] public float specialCooldown = 10;
+    [Min(0)] public float specialDuration = 2;
+    [Min(0)] public int maxSpecial = 3;
+    [Min(0)] public float specialLeft = 3;
 
     public override void Start()
     {
@@ -19,14 +27,14 @@ public class StatPlayer : StatEntity
         hpText.text = currentHitPoints.ToString();
     }
 
-    public void takeDamage(float damage, float iframeDuration = 2.0f)
+    public override void takeDamage(float damage)
     {
         if (!playerIframes.isIframe)
         {
             damage = Game.player.inventory.OnTakeDamage(damage);
             base.takeDamage(damage);
             hpText.text = currentHitPoints.ToString();
-            playerIframes.getIframe(iframeDuration);
+            playerIframes.getIframe(2f);
         }
     }
 

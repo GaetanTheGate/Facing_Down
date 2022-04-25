@@ -35,9 +35,7 @@ public class PlayerAttack : AbstractPlayer
         self = gameObject.GetComponent<Player>().self;
         pointer = gameObject.GetComponent<Player>().pointer;
 
-        stat = gameObject.GetComponent<StatPlayer>();
-        if (stat == null)
-            stat = gameObject.AddComponent<StatPlayer>(); ;
+        stat = gameObject.GetComponent<Player>().stat;
     }
 
     void FixedUpdate()

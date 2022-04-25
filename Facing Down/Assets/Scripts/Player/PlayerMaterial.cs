@@ -11,9 +11,7 @@ public class PlayerMaterial : AbstractPlayer
     {
         self = gameObject.GetComponent<Player>().self;
 
-        stat = gameObject.GetComponent<StatPlayer>();
-        if (stat == null)
-            stat = gameObject.AddComponent<StatPlayer>();
+        stat = gameObject.GetComponent<Player>().stat;
     }
 
     // Update is called once per frame
