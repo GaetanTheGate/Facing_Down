@@ -37,7 +37,7 @@ public class Drone3Behaviour : MonoBehaviour
         {
             if (collision.CompareTag("Player"))
             {
-                StatPlayer statPlayer = collision.GetComponentInParent<StatPlayer>();
+                StatPlayer statPlayer = collision.GetComponent<StatPlayer>();
                 statPlayer.takeDamage(damage);
             }
         }

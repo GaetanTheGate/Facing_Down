@@ -19,20 +19,11 @@ public class AttackHit : MonoBehaviour
         {
             if (collision.CompareTag(tag))
             {
-                if (!entitiesHit.ContainsKey(collision.gameObject))
-                {
-                    StatEntity statEntity = collision.GetComponent<StatEntity>();
-                    statEntity.takeDamage(damage * dmgMultiplier);
-                    entitiesHit.Add(collision.gameObject, false);
-                    waitForAttack(2.0f, collision.gameObject);
-}
-                else if (entitiesHit[collision.gameObject])
-                {
-                    StatEntity statEntity = collision.GetComponent<StatEntity>();
-                    statEntity.takeDamage(damage * dmgMultiplier);
-                    entitiesHit[collision.gameObject] = false;
-                    waitForAttack(2.0f, collision.gameObject);
-                }
+                StatEntity statEntity = collision.GetComponent<StatEntity>();
+                statEntity.takeDamage(damage * dmgMultiplier);
+                if (!entitiesHit.ContainsKey(collision.gameObject)) entitiesHit.Add(collision.gameObject, false);
+                else if (entitiesHit[collision.gameObject]) entitiesHit[collision.gameObject] = false;
+                waitForAttack(2.0f, collision.gameObject);
             }
         }
     }
