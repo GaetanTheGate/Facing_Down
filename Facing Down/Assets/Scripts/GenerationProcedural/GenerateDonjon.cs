@@ -7,13 +7,15 @@ using System.Text.RegularExpressions;
 public class GenerateDonjon : MonoBehaviour
 {
 
-    public static int nbRoom = 3;
+    public static int nbRoom = 10;
     public static int idRoom = 0;
 
     public string nameInitRoom;
     private Room initRoom;
     
     public static List<Room> rooms = new List<Room>();
+
+    public static List<Room> roomsForMap = new List<Room>();
     public static List<GameObject> roomsPrefabs = new List<GameObject>();
     void Awake(){
         
@@ -23,8 +25,8 @@ public class GenerateDonjon : MonoBehaviour
     void Update() {
         if(Input.GetKeyDown(KeyCode.G)){
             initGenerate();
-            //generateSpecificRoom();
-            generate();
+            generateSpecificRoom();
+            //generate();
         }
     }
 
@@ -33,6 +35,15 @@ public class GenerateDonjon : MonoBehaviour
         foreach(GameObject room in roomsPrefabs){
             if (room.name == name){
                 return room;
+            }
+        }
+        return null;
+    }
+
+    public static Door getNextDoor(Room room){
+        foreach(Door door in room.doors){
+            if(door.roomBehind == null){
+                return door;
             }
         }
         return null;
@@ -59,6 +70,7 @@ public class GenerateDonjon : MonoBehaviour
         newRoom.transform.SetParent(gameManager.transform);
         
         rooms.Add(newRoom.GetComponent<Room>());
+        roomsForMap.Add(newRoom.GetComponent<Room>());
         initRoom = newRoom.GetComponent<Room>();
         
         Door.initCurrentRoom(initRoom);
@@ -67,25 +79,29 @@ public class GenerateDonjon : MonoBehaviour
     public void generate(){
 
         //prends une porte aléatoire de la première salle a traité et lui ajoute une salle si possible
-        while(rooms.Count <= nbRoom){
+        for(int i = 0; i < nbRoom; i+=1){
             Room processRoom = rooms[0];
-            int i = Random.Range(0,processRoom.doors.Count);
-            Door processDoor = processRoom.doors[i];
-            if(!processDoor.generateRoom()){
-                nbRoom -= 1;
+            Door processDoor = getNextDoor(processRoom);
+            if (processDoor != null){
+                processDoor.generateRoom();
+            }
+            else{
+                rooms.Remove(processRoom);
+            }
+            if (rooms.Count == 0){
+                break;
             }
         }
-
-        //afficheDonjon();
+        Map.generateMap(initRoom);
     }
 
     public void generateSpecificRoom(){
-        initRoom.doors[0].generateSpecific(getSpecifyRoom("Room2"));
-        initRoom.doors[0].roomBehind.doors[1].generateSpecific(getSpecifyRoom("Room2"));
-        //afficheDonjon();
+        initRoom.doors[0].generateSpecific(getSpecifyRoom("Room5"));
+        initRoom.doors[0].roomBehind.doors[3].generateSpecific(getSpecifyRoom("Room7"));
+        Map.generateMap(initRoom);
     }
 
-    public void afficheDonjon(){
+    public void dysplayDonjonInConsole(){
         print("Donjon");
         foreach(Room room in rooms){
             print(room.name);

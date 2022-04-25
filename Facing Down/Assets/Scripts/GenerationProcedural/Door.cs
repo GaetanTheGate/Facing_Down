@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class Door : MonoBehaviour
 {
     public enum side{
-        right,
-        left,
-        up, 
-        down
+        Right,
+        Left,
+        Up, 
+        Down
 
     }
 
@@ -44,22 +45,22 @@ public class Door : MonoBehaviour
                 }
 
                 switch(door.onSide){
-                    case side.right :
+                    case side.Right :
                         x = door.transform.position.x - 1;
-                        y = collider2D.transform.position.y;
+                        y = door.transform.position.y;
                         break;
-                    case side.left :
+                    case side.Left :
 
                         x = door.transform.position.x + 1;
-                        y = collider2D.transform.position.y;
+                        y = door.transform.position.y;
                         break;
-                    case side.up :
-                        x = collider2D.transform.position.x;
+                    case side.Up :
+                        x = door.transform.position.x;
                         y = door.transform.position.y - 1;
                         break;
-                    case side.down :
+                    case side.Down :
                         x = door.transform.position.x + 1;
-                        y = collider2D.transform.position.y;
+                        y = door.transform.position.y;
                         break;
                     default :
                         print("null");
@@ -102,7 +103,6 @@ public class Door : MonoBehaviour
     public bool generateRoom() {
         if (roomBehind == null){
             print("génération salle");
-            GenerateDonjon.nbRoom -= 1;
             
             List<GameObject> validateRooms = selectRooms();
             int indexRoom = Random.Range(0,validateRooms.Count);
@@ -112,6 +112,7 @@ public class Door : MonoBehaviour
             newRoom.name = newRoom.name.Substring(0,newRoom.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
             newRoom.transform.SetParent(GameObject.Find("GameManager").transform);
             GenerateDonjon.rooms.Insert(0,newRoom.GetComponent<Room>());
+            GenerateDonjon.roomsForMap.Add(newRoom.GetComponent<Room>());
             roomBehind = newRoom.GetComponent<Room>();
 
             initCurrentRoom(roomBehind);
@@ -135,16 +136,16 @@ public class Door : MonoBehaviour
     public List<GameObject> selectRooms(){
         List<GameObject> validateRoom = new List<GameObject>();
         foreach(GameObject go in GenerateDonjon.roomsPrefabs){
-            if (onSide == side.right && go.GetComponent<Room>().hasDoorOnLeft){
+            if (onSide == side.Right && go.GetComponent<Room>().hasDoorOnLeft){
                 validateRoom.Add(go);
             }
-            if (onSide == side.left && go.GetComponent<Room>().hasDoorOnRight){
+            if (onSide == side.Left && go.GetComponent<Room>().hasDoorOnRight){
                 validateRoom.Add(go);
             }
-            if (onSide == side.up && go.GetComponent<Room>().hasDoorOnDown){
+            if (onSide == side.Up && go.GetComponent<Room>().hasDoorOnDown){
                 validateRoom.Add(go);
             }
-            if (onSide == side.down && go.GetComponent<Room>().hasDoorOnUp){
+            if (onSide == side.Down && go.GetComponent<Room>().hasDoorOnUp){
                 validateRoom.Add(go);
             }
         }
@@ -159,27 +160,29 @@ public class Door : MonoBehaviour
 
 
     public side getOppositeSide(side mySide){
-        if (mySide == side.right){
-            return side.left;
+        if (mySide == side.Right){
+            return side.Left;
         }
-        else if (mySide == side.left){
-            return side.right;
+        else if (mySide == side.Left){
+            return side.Right;
         }
-        else if (mySide == side.up){
-            return side.down;
+        else if (mySide == side.Up){
+            return side.Down;
         }
         else{
-            return side.up;
+            return side.Up;
         }
     }
 
      private void changeScene(){      
         
+        //recupère tous les gamesObjects qu'ils soient actif ou non
         List<GameObject> gameObjects = new List<GameObject>();
         foreach(Object o in GameObject.FindObjectsOfType(typeof(GameObject), true)){
             gameObjects.Add((GameObject) o);
         }
 
+        //recupère tous les gamesObject qui sont des rooms
         List<GameObject> rooms = new List<GameObject>();
         foreach(GameObject go in gameObjects){
             if (go.CompareTag("Room")){
@@ -187,6 +190,24 @@ public class Door : MonoBehaviour
             }
         }
 
+        //recupère tous les gamesObject qui sont des mapIcon
+        List<GameObject> mapIcons = new List<GameObject>();
+        foreach(GameObject go in gameObjects){
+            if (go.CompareTag("MapIcon")){
+                mapIcons.Add(go);
+            }
+        }
+
+        //Passe à bleue la couleur de mapIcon de roomBehind
+        foreach(GameObject mapIcon in mapIcons){
+            mapIcon.GetComponent<Image>().color = Color.white;
+            if (mapIcon.name.Contains(roomBehind.name)){
+                mapIcon.GetComponent<Image>().color = Color.blue;
+            }
+        }
+
+
+        //active roomBehind
         foreach(GameObject room in rooms){
             room.SetActive(false);
             if (room.name == roomBehind.name){
@@ -194,6 +215,7 @@ public class Door : MonoBehaviour
             }
         }
     
+
         SceneManager.LoadScene(roomBehind.name.Substring(0,roomBehind.name.IndexOf('-')));
 
     }

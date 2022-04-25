@@ -50,6 +50,7 @@ MonoBehaviour:
   hasDoorOnDown: 0
   doors:
   - {fileID: 6363832625897112738}
+  mapIcon: {fileID: 6382990261580551832, guid: 468378a27f4e350d89d49e3a43bcf323, type: 3}
 --- !u!1 &5748330201041098570
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,4 +124,3 @@ MonoBehaviour:
   onSide: 0
   roomBehind: {fileID: 0}
   currentRoom: {fileID: 0}
-  isTrigger: 0

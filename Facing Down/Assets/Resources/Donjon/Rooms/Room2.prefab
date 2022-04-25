@@ -52,6 +52,7 @@ MonoBehaviour:
   doors:
   - {fileID: 7913283553979584769}
   - {fileID: 7637323919746041905}
+  mapIcon: {fileID: 4635468890825035805, guid: 10c4c6a86ecbf1a54bca0cc62b43721b, type: 3}
 --- !u!1 &3050864981187062043
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,7 +100,6 @@ MonoBehaviour:
   onSide: 0
   roomBehind: {fileID: 0}
   currentRoom: {fileID: 0}
-  isTrigger: 0
 --- !u!61 &6402277243500777735
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -173,7 +173,6 @@ MonoBehaviour:
   onSide: 1
   roomBehind: {fileID: 0}
   currentRoom: {fileID: 0}
-  isTrigger: 0
 --- !u!61 &3438123540047201194
 BoxCollider2D:
   m_ObjectHideFlags: 0

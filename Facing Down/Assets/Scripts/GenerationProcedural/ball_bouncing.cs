@@ -7,7 +7,6 @@ public class ball_bouncing : MonoBehaviour
 {
 
     private int speed = 7;
-    private int hightJump = 4;
     private Vector2 initPos;
 
     void Start(){
@@ -25,12 +24,12 @@ public class ball_bouncing : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.C)){
-            print("position : ");
-            print("x : " + gameObject.transform.position.x);
-            print("y : " + gameObject.transform.position.y);
-            
+            transform.position = new Vector2(0,0);
         }
 
+        if (Input.GetKeyDown(KeyCode.M)){
+            GameObject.Find("Map").GetComponent<Canvas>().enabled = !GameObject.Find("Map").GetComponent<Canvas>().enabled;
+        }
     }
 
 }

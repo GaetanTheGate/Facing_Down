@@ -184,6 +184,12 @@ public class Console : MonoBehaviour
 				(command as ConsoleCommand<string, int>).Invoke(arg1, arg2);
 				return;
 			}
+			if ((command as ConsoleCommand<string, string>) != null) {
+				string arg1 = splitInput[1];
+				string arg2 = splitInput[2];
+				(command as ConsoleCommand<string, string>).Invoke(arg1, arg2);
+				return;
+			}
 		}
 
 		ClearPreview();
