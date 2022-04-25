@@ -82,7 +82,6 @@ GameObject:
   - component: {fileID: 669933484287918779}
   - component: {fileID: 9108879411784341684}
   - component: {fileID: 1539939449893719842}
-  - component: {fileID: 3211505932266060260}
   - component: {fileID: 8247370606253343561}
   m_Layer: 0
   m_Name: Daggers
@@ -171,21 +170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeSpan: 0.1
   timeGap: 0.005
---- !u!114 &3211505932266060260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3810632486164990651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59a8c8cfa34686f4fb935124ff1bdbe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  tagsToHit:
-  - Enemy
 --- !u!82 &8247370606253343561
 AudioSource:
   m_ObjectHideFlags: 0

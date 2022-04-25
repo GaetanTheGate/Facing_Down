@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Daggers : MeleeWeapon
 {
-    public Daggers()
+    public Daggers(string target) : base(target)
     {
         isAuto = true;
 
@@ -98,6 +98,7 @@ public class Daggers : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
         swing.GetComponent<HalfSlashAttack>().way = way;
         swing.GetComponent<HalfSlashAttack>().angle = angle;
+        AddHitAttack(swing, baseAtk);
 
         return swing.GetComponent<HalfSlashAttack>();
     }
@@ -120,6 +121,7 @@ public class Daggers : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().way = way;
         swing.GetComponent<HalfSlashAttack>().angle = angle;
         swing.GetComponent<HalfSlashAttack>().onEndAttack += SpecialAttack;
+        AddHitAttack(swing, baseAtk);
 
         return swing.GetComponent<HalfSlashAttack>();
     }
@@ -140,6 +142,7 @@ public class Daggers : MeleeWeapon
         swing1.GetComponent<HalfSlashAttack>().timeSpan = 0.1f;
         swing1.GetComponent<HalfSlashAttack>().followEntity = false;
         swing1.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
+        AddHitAttack(swing1, baseAtk);
 
         GameObject swing2 = GameObject.Instantiate(swing1);
 

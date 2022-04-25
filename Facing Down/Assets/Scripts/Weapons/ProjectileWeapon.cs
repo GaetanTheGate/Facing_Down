@@ -5,4 +5,9 @@ using UnityEngine;
 public abstract class ProjectileWeapon : Weapon
 {
     protected float baseSpeed;
+
+    public ProjectileWeapon(string target) : base(target)
+    {
+
+    }
 }

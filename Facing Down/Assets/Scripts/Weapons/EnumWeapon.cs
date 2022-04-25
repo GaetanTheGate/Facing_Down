@@ -4,22 +4,22 @@ using UnityEngine;
 
 public static class EnumWeapon
 {
-    public static Weapon GetWeapon(WeaponChoice weapon)
+    public static Weapon GetWeapon(WeaponChoice weapon, string target)
     {
         switch (weapon)
         {
             case WeaponChoice.Katana:
-                return new Katana();
+                return new Katana(target);
             case WeaponChoice.Wings:
-                return new Wings();
+                return new Wings(target);
             case WeaponChoice.WarAxe:
-                return new WarAxe();
+                return new WarAxe(target);
             case WeaponChoice.Daggers:
-                return new Daggers();
+                return new Daggers(target);
             case WeaponChoice.Gun:
-                return new Gun();
+                return new Gun(target);
             case WeaponChoice.DimensionBreaker:
-                return new DimensionBreaker();
+                return new DimensionBreaker(target);
         }
         return null;
     }
@@ -44,11 +44,11 @@ public static class EnumWeapon
         return null;
     }
 
-    public static Weapon getRandomWeapon()
+    public static Weapon getRandomWeapon(string target)
     {
         WeaponChoice choice = (WeaponChoice)Random.Range(0, System.Enum.GetValues(typeof(WeaponChoice)).Length - 1);
 
-        return GetWeapon(choice);
+        return GetWeapon(choice, target);
     }
 
     public static WeaponChoice getRandomWeaponChoice()

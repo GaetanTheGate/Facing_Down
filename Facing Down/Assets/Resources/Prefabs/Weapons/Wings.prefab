@@ -85,7 +85,6 @@ GameObject:
   - component: {fileID: 2828464324802794598}
   - component: {fileID: 2212117937266803263}
   - component: {fileID: 2377567154749878933}
-  - component: {fileID: -7895166675207326396}
   - component: {fileID: 1253103971553403959}
   m_Layer: 0
   m_Name: Wings
@@ -175,21 +174,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeSpan: 0.5
   timeGap: 0.01
---- !u!114 &-7895166675207326396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3829227757670382515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59a8c8cfa34686f4fb935124ff1bdbe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  tagsToHit:
-  - Enemy
 --- !u!82 &1253103971553403959
 AudioSource:
   m_ObjectHideFlags: 0

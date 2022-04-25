@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Gun : MeleeWeapon
 {
-    public Gun()
+    public Gun(string target) : base(target)
     {
-        baseAtk = 10;
-        baseRange = 30;
+        attackWeapon = new Bullet(target);
+        specialWeapon = new Bullet(target);
+
         baseSpan = 0.1f;
         baseCooldown = 0.0f;
 
@@ -17,8 +18,8 @@ public class Gun : MeleeWeapon
         specialPath = "Prefabs/Weapons/Gun";
     }
 
-    private Weapon attackWeapon = new Bullet();
-    private Weapon specialWeapon = new Bullet();
+    private Weapon attackWeapon;
+    private Weapon specialWeapon;
 
     public override void WeaponAttack(float angle, Entity self)
     {
