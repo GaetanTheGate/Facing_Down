@@ -51,11 +51,6 @@ public class Inventory : MonoBehaviour
 
 	//Effect handlers
 
-	/// <summary>
-	/// Effect upon taking damage
-	/// </summary>
-	/// <param name="damage">The damage that will be taken.</param>
-	/// <returns>The modified damage.</returns>
 	public float OnTakeDamage(float damage) {
 		List<Item> delayedItems = new List<Item>();
 		foreach (Item item in items.Values) {
@@ -68,7 +63,19 @@ public class Inventory : MonoBehaviour
 		return damage;
 	} //TODO : retirer quand il sera entièrement remplacé par OnTakeDamage(DamageInfo)
 	
-	public DammageInfo OnTakeDamage(DammageInfo damage) {
+	public DamageInfo OnTakeDamage(DamageInfo damage) {
+		List<Item> delayedItems = new List<Item>();
+		foreach (Item item in items.Values) {
+			if (item.getPriority() == ItemPriority.DELAYED) delayedItems.Add(item);
+			else damage = item.OnTakeDamage(damage);
+		}
+		foreach (Item item in delayedItems) {
+			damage = item.OnTakeDamage(damage);
+		}
+		return damage;
+	}
+	
+	public DamageInfo OnDealDamage(DamageInfo damage) {
 		List<Item> delayedItems = new List<Item>();
 		foreach (Item item in items.Values) {
 			if (item.getPriority() == ItemPriority.DELAYED) delayedItems.Add(item);
@@ -91,6 +98,50 @@ public class Inventory : MonoBehaviour
 		}
 		foreach (Item item in delayedItems) {
 			if (item.OnDeath()) break; ;
+		}
+	}
+
+	public void OnEnemyKill() {
+		foreach (Item item in items.Values) {
+			item.OnEnemyKill();
+		}
+	}
+
+	public void OnGroundCollisionEnter(Collision collision) {
+		foreach (Item item in items.Values) {
+			item.OnGroundCollisionEnter(collision);
+		}
+	}
+	public void OnGroundCollisionLeave(Collision collision) {
+		foreach (Item item in items.Values) {
+			item.OnGroundCollisionLeave(collision);
+		}
+	}
+	
+	public void OnBullettimeActivate() {
+		foreach (Item item in items.Values) {
+			item.OnBullettimeActivate();
+		}
+	}
+
+	public void OnRoomFinish() {
+		foreach (Item item in items.Values) {
+			item.OnRoomFinish();
+		}
+	}
+	public void OnDash() {
+		foreach (Item item in items.Values) {
+			item.OnDash();
+		}
+	}
+	public void OnRedirect() {
+		foreach (Item item in items.Values) {
+			item.OnMegaDash();
+		}
+	}
+	public void OnMegaDash() {
+		foreach (Item item in items.Values) {
+			item.OnMegaDash();
 		}
 	}
 

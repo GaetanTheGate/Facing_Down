@@ -65,13 +65,31 @@ public abstract class Item{
     /// <param name="damage">The amount of damage taken.</param>
     /// <returns>The new amount of damage that will be taken.</returns>
     public virtual float OnTakeDamage(float damage) { return damage; } //TODO : Retirer quand il sera entièrement remplacé par OnTakeDamage(DamageInfo)
-    public virtual DammageInfo OnTakeDamage(DammageInfo damage) { return damage; }
+    public virtual DamageInfo OnTakeDamage(DamageInfo damage) { return damage; }
+
+    public virtual DamageInfo OnDealDamage(DamageInfo damage) { return damage; }
 
     /// <summary>
     /// Effect when the player dies.
     /// </summary>
-    /// <returns>True if the death is prevented. WARNING : Death_preventing effects should be only on delayed items</returns>
+    /// <returns>True if the death is prevented. WARNING : Death preventing effects should be only on delayed items</returns>
     public virtual bool OnDeath() { return false; }
+
+    public virtual void OnEnemyKill() {}
+
+    public virtual void OnGroundCollisionEnter(Collision collision) {}
+
+    public virtual void OnGroundCollisionLeave(Collision collision) {}
+
+    public virtual void OnBullettimeActivate() {}
+
+    public virtual void OnRoomFinish() {}
+
+    public virtual void OnDash() {}
+
+    public virtual void OnRedirect() {}
+
+    public virtual void OnMegaDash() {}
 
     public void setAmount(int amount) {
         this.amount = amount;
