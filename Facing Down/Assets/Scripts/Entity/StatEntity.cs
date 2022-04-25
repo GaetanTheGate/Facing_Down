@@ -36,6 +36,10 @@ public class StatEntity : MonoBehaviour
         return atk;
 	}
 
+    public void Heal(float amount) {
+        currentHitPoints = Mathf.Max(maxHitPoints, currentHitPoints + amount);
+	}
+
     public void takeDamage(float damage)
     {
         currentHitPoints -= damage;
