@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WarAxe : Weapon
+public class WarAxe : MeleeWeapon
 {
     public WarAxe()
     {
@@ -20,25 +20,9 @@ public class WarAxe : Weapon
 
     private SwingAttack.Way way = SwingAttack.Way.CounterClockwise;
 
-    public override void Attack(float angle, Entity self)
+    public override void WeaponAttack(float angle, Entity self)
     {
-        GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
-        swing.transform.position = self.transform.position;
-        swing.AddComponent<SwingAttack>();
-
-        swing.GetComponent<SwingAttack>().src = self;
-        swing.GetComponent<SwingAttack>().acceleration = 0.7f;
-        swing.GetComponent<SwingAttack>().angle = angle;
-        swing.GetComponent<SwingAttack>().range = baseRange;
-        swing.GetComponent<SwingAttack>().lenght = baseLenght;
-        swing.GetComponent<SwingAttack>().timeSpan = baseSpan;
-        swing.GetComponent<SwingAttack>().followEntity = true;
-        swing.GetComponent<SwingAttack>().startDelay = baseSDelay;
-        swing.GetComponent<SwingAttack>().endDelay = baseEDelay;
-
-        swing.GetComponent<SwingAttack>().way = way;
-
-        swing.GetComponent<SwingAttack>().startAttack();
+        GetAttack(angle, self).GetComponent<SwingAttack>().startAttack();
 
 
         if (way == SwingAttack.Way.Clockwise)
@@ -47,26 +31,11 @@ public class WarAxe : Weapon
             way = SwingAttack.Way.Clockwise;
     }
 
-    public override void Special(float angle, Entity self)
+    public override void WeaponSpecial(float angle, Entity self)
     {
         canAttack = false;
-        GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
-        swing.transform.position = self.transform.position;
-        swing.AddComponent<SwingAttack>();
 
-        swing.GetComponent<SwingAttack>().src = self;
-        swing.GetComponent<SwingAttack>().acceleration = 0.6f;
-        swing.GetComponent<SwingAttack>().angle = 90 - 10 / 2;
-        swing.GetComponent<SwingAttack>().range = baseRange;
-        swing.GetComponent<SwingAttack>().lenght = 10;
-        swing.GetComponent<SwingAttack>().timeSpan = 0.01f;
-        swing.GetComponent<SwingAttack>().startDelay = 1.0f;
-        swing.GetComponent<SwingAttack>().followEntity = true;
-
-        swing.GetComponent<SwingAttack>().way = SwingAttack.Way.Clockwise;
-
-        swing.GetComponent<SwingAttack>().onEndAttack += nextSpin;
-        swing.GetComponent<SwingAttack>().startAttack();
+        GetSpecial(angle, self).startAttack();
     }
 
     private void nextSpin(Entity self, float angle)
@@ -80,7 +49,7 @@ public class WarAxe : Weapon
         self.transform.rotation = Quaternion.Euler(0, 0, angle);
 
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
-        swing.transform.position = self.transform.position;
+        swing.transform.position = startPos;
         swing.AddComponent<SwingAttack>();
 
         swing.GetComponent<SwingAttack>().src = self;
@@ -89,11 +58,54 @@ public class WarAxe : Weapon
         swing.GetComponent<SwingAttack>().range = baseRange;
         swing.GetComponent<SwingAttack>().lenght = 10;
         swing.GetComponent<SwingAttack>().timeSpan = 0.01f;
-        swing.GetComponent<SwingAttack>().followEntity = true;
+        swing.GetComponent<SwingAttack>().followEntity = forceUnFollow;
 
         swing.GetComponent<SwingAttack>().way = SwingAttack.Way.Clockwise;
 
         swing.GetComponent<SwingAttack>().onEndAttack += nextSpin;
         swing.GetComponent<SwingAttack>().startAttack();
+    }
+
+    public override Attack GetAttack(float angle, Entity self)
+    {
+        GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+        swing.transform.position = startPos;
+        swing.AddComponent<SwingAttack>();
+
+        swing.GetComponent<SwingAttack>().src = self;
+        swing.GetComponent<SwingAttack>().acceleration = 0.7f;
+        swing.GetComponent<SwingAttack>().angle = angle;
+        swing.GetComponent<SwingAttack>().range = baseRange;
+        swing.GetComponent<SwingAttack>().lenght = baseLenght;
+        swing.GetComponent<SwingAttack>().timeSpan = baseSpan;
+        swing.GetComponent<SwingAttack>().followEntity = forceUnFollow;
+        swing.GetComponent<SwingAttack>().startDelay = baseSDelay;
+        swing.GetComponent<SwingAttack>().endDelay = baseEDelay;
+
+        swing.GetComponent<SwingAttack>().way = way;
+
+        return swing.GetComponent<SwingAttack>();
+    }
+
+    public override Attack GetSpecial(float angle, Entity self)
+    {
+        GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+        swing.transform.position = startPos;
+        swing.AddComponent<SwingAttack>();
+
+        swing.GetComponent<SwingAttack>().src = self;
+        swing.GetComponent<SwingAttack>().acceleration = 0.6f;
+        swing.GetComponent<SwingAttack>().angle = 90 - 10 / 2;
+        swing.GetComponent<SwingAttack>().range = baseRange;
+        swing.GetComponent<SwingAttack>().lenght = 10;
+        swing.GetComponent<SwingAttack>().timeSpan = 0.01f;
+        swing.GetComponent<SwingAttack>().startDelay = 1.0f;
+        swing.GetComponent<SwingAttack>().followEntity = forceUnFollow;
+
+        swing.GetComponent<SwingAttack>().way = SwingAttack.Way.Clockwise;
+
+        swing.GetComponent<SwingAttack>().onEndAttack += nextSpin;
+
+        return swing.GetComponent<SwingAttack>();
     }
 }

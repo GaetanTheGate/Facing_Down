@@ -153,14 +153,18 @@ public class Velocity
         return angleDeg;
     }
 
-    public void setSpeed(float speed)
+    public Velocity setSpeed(float speed)
     {
         this.speed = speed;
+
+        return this;
     }
 
-    public void setAngle(float angle)
+    public Velocity setAngle(float angle)
     {
         this.angleDeg = angle;
         ModulateAngle();
+
+        return this;
     }
 }
