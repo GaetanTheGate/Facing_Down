@@ -3,8 +3,8 @@ using UnityEngine.Events;
 
 public class StatEntity : MonoBehaviour
 {
-    [Min(0.0f)] public float maxHitPoints = 10;
-    [HideInInspector] public float currentHitPoints;
+    [Min(0)] public int maxHitPoints = 10;
+    [HideInInspector] public int currentHitPoints;
 
     [Min(0.0f)] public float baseAtk = 100;
     [Min(0.0f)] public float atkMultipler = 1;
@@ -38,8 +38,8 @@ public class StatEntity : MonoBehaviour
 
     public void takeDamage(float damage)
     {
-        currentHitPoints -= damage;
-        //Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
+        currentHitPoints -= (int)damage;
+        Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
         if(onHit != null && currentHitPoints > 0) onHit.Invoke();
         checkifDead();
