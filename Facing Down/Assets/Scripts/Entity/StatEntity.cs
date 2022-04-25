@@ -34,7 +34,7 @@ public class StatEntity : MonoBehaviour
 	}
 
     public void Heal(float amount) {
-        currentHitPoints = Mathf.Max(maxHitPoints, currentHitPoints + amount);
+        currentHitPoints = Mathf.Max(maxHitPoints, currentHitPoints + Mathf.CeilToInt(amount));
 	}
 
     public virtual void takeDamage(float damage)
