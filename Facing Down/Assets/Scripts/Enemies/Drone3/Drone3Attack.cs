@@ -8,11 +8,14 @@ public class Drone3Attack : MonoBehaviour
     private float timePassed = 0f;
     private bool isAttacking = false;
 
+    private Bullet bullet = new Bullet();
+
     private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        bullet.targetPlayer = true;
         animator = gameObject.GetComponent<Animator>();
     }
 
@@ -31,12 +34,12 @@ public class Drone3Attack : MonoBehaviour
             {
                 if (playerPosition.y > gameObject.transform.position.y)
                 {
-                    animator.SetTrigger("attackForwardUp");
+                    animator.SetTrigger("attackUp");
                     StartCoroutine(startAttackAnimationRoutine(animator.GetCurrentAnimatorStateInfo(0).length, playerPosition));
                 }
                 else
                 {
-                    animator.SetTrigger("attackForwardDown");
+                    animator.SetTrigger("attackDown");
                     StartCoroutine(startAttackAnimationRoutine(animator.GetCurrentAnimatorStateInfo(0).length, playerPosition));
                 }
             }
@@ -57,10 +60,14 @@ public class Drone3Attack : MonoBehaviour
 
     private void fire(Vector2 targetPosition)
     {
-        Debug.Log("fire");
-        GameObject bullet = GameObject.Instantiate(Resources.Load("Prefabs/Ammo/Bullet", typeof(GameObject)) as GameObject);
-        bullet.transform.position = gameObject.transform.position;
-        //bullet.GetComponent<BulletMovement>().moveToPosition(targetPosition);
+        bullet.Attack(AngleBetweenVector2(gameObject.transform.position, targetPosition), gameObject.GetComponent<Entity>());
         isAttacking = false;
+    }
+
+    private float AngleBetweenVector2(Vector2 vec1, Vector2 vec2)
+    {
+        Vector2 diference = vec2 - vec1;
+        float sign = (vec2.y < vec1.y) ? -1.0f : 1.0f;
+        return Vector2.Angle(Vector2.right, diference) * sign;
     }
 }

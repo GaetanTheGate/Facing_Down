@@ -15,7 +15,6 @@ public class Drone3Movement : MonoBehaviour
     public float aggroDistance = 5f;
     public float shootingRangeMin = 2f;
     public float shootingRangeMax = 3f;
-    private bool isBacking = false;
     private bool isFollowingPlayer = false;
     private bool wasFollowingPlayer = false;
     private Transform nearestFlag;
@@ -36,6 +35,9 @@ public class Drone3Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Debug.Log("isFollowing : " + isFollowingPlayer);
+        //Debug.Log("Distance : " + Vector2.Distance(transform.position, playerTransform.position));
+        //Debug.Log("Angle : " + Vector2.Angle(transform.position, playerTransform.position));
         nearestFlag = flags[0];
         foreach (Transform flag in flags)
         {
@@ -79,7 +81,23 @@ public class Drone3Movement : MonoBehaviour
             wasFollowingPlayer = false;
         }
         animator.SetFloat("speed", rb.velocity.x);
-        if( (!isFlipped && rb.velocity.x < 0) || (isFlipped && rb.velocity.x > 0) )
+
+        if(isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) >= shootingRangeMin && Vector2.Distance(nextFlag.position, transform.position) < shootingRangeMax)
+        {
+            if (nextFlag.position.x < transform.position.x && isFlipped == false)
+            {
+                isFlipped = true;
+                animator.SetBool("isFlipped", isFlipped);
+                gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
+            }
+            else if (nextFlag.position.x >= transform.position.x && isFlipped == true)
+            {
+                isFlipped = false;
+                animator.SetBool("isFlipped", isFlipped);
+                gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
+            }
+        }
+        else if( (!isFlipped && rb.velocity.x < 0) || (isFlipped && rb.velocity.x > 0) )
         {
             isFlipped = !isFlipped;
             animator.SetBool("isFlipped", isFlipped);

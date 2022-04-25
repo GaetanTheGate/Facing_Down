@@ -225,6 +225,8 @@ MonoBehaviour:
   - {fileID: 6180464659276183126}
   - {fileID: 6180464659818348789}
   aggroDistance: 5
+  shootingRangeMin: 3
+  shootingRangeMax: 5
 --- !u!114 &7732461433555852802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 189ecb9923fe42d4494a32ff9248ec21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 2
 --- !u!114 &379317916
 MonoBehaviour:
   m_ObjectHideFlags: 0

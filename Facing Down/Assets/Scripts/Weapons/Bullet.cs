@@ -28,6 +28,11 @@ public class Bullet : ProjectileWeapon
 
         bullet.GetComponent<ProjectileAttack>().src = self;
         bullet.GetComponent<ProjectileAttack>().tagsToDestroyOn.Add(targetPlayer ? "Player" : "Enemy");
+        if(targetPlayer)
+            bullet.GetComponent<AttackHit>().tagsToHit.Add("Player");
+        else
+            bullet.GetComponent<AttackHit>().tagsToHit.Add("Enemy");
+
         bullet.GetComponent<ProjectileAttack>().angle = angle;
         bullet.GetComponent<ProjectileAttack>().acceleration = 1.0f;
         bullet.GetComponent<ProjectileAttack>().endDelay = baseEDelay;
@@ -45,7 +50,11 @@ public class Bullet : ProjectileWeapon
         bullet.transform.position = startPos;
 
         bullet.GetComponent<ProjectileAttack>().src = self;
-        bullet.GetComponent<ProjectileAttack>().tagsToDestroyOn.Add(targetPlayer ? "Player" : "Enemy");
+        bullet.GetComponent<ProjectileAttack>().tagsToDestroyOn.Add(targetPlayer ? "Terrain" : "Enemy");
+        if (targetPlayer)
+            bullet.GetComponent<AttackHit>().tagsToHit.Add("Player");
+        else
+            bullet.GetComponent<AttackHit>().tagsToHit.Add("Enemy");
         bullet.GetComponent<ProjectileAttack>().acceleration = 1.0f;
         bullet.GetComponent<ProjectileAttack>().endDelay = baseEDelay;
         bullet.GetComponent<ProjectileAttack>().speed = baseSpeed;
