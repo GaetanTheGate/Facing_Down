@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttack : AbstractPlayer
@@ -17,12 +19,7 @@ public class PlayerAttack : AbstractPlayer
     private bool attackPressed = false;
 
     public Weapon weapon = new Katana();
-    public ChooseWeapon weaponChosen = ChooseWeapon.Katana;
-
-    public enum ChooseWeapon
-    {
-        Katana, Wings, WarAxe, Daggers
-    }
+    public EnumWeapon.WeaponChoice weaponChosen = EnumWeapon.WeaponChoice.Katana;
 
     public override void Init()
     {
@@ -45,28 +42,9 @@ public class PlayerAttack : AbstractPlayer
 
     void FixedUpdate()
     {
-        switch (weaponChosen)
+        if ( ! weapon.GetType().Equals(EnumWeapon.GetWeaponType(weaponChosen)))
         {
-            case ChooseWeapon.Katana:
-                if (weapon.GetType().Equals(typeof(Katana)))
-                    break;
-                weapon = new Katana();
-                break;
-            case ChooseWeapon.Wings:
-                if (weapon.GetType().Equals(typeof(Wings)))
-                    break;
-                weapon = new Wings();
-                break;
-            case ChooseWeapon.WarAxe:
-                if (weapon.GetType().Equals(typeof(WarAxe)))
-                    break;
-                weapon = new WarAxe();
-                break;
-            case ChooseWeapon.Daggers:
-                if (weapon.GetType().Equals(typeof(Daggers)))
-                    break;
-                weapon = new Daggers();
-                break;
+            weapon = EnumWeapon.GetWeapon(weaponChosen);
         }
         ComputeAttack();
     }
@@ -101,7 +79,7 @@ public class PlayerAttack : AbstractPlayer
         }
         else if (attackPressed)
         {
-            if(weapon.isAuto) ComputeSimpleAttack();
+            if(weapon.IsAuto()) ComputeSimpleAttack();
 
             Game.controller.lowSensitivity = true;
             camManager.SetZoomPercent(Mathf.Max(90.0f, 100 - 10 * (chargeTimePassed / chargeTime)));
@@ -111,7 +89,7 @@ public class PlayerAttack : AbstractPlayer
 
     private void ComputeSimpleAttack()
     {
-        if (attackRecharge < weapon.GetBaseCooldown())
+        if (attackRecharge < weapon.GetCooldown() ||  ! weapon.CanAttack())
             return;
 
         attackRecharge = 0.0f;
@@ -126,6 +104,9 @@ public class PlayerAttack : AbstractPlayer
     }
     private void ComputeSpecial()
     {
+        if ( ! weapon.CanAttack())
+            return;
+
         bulletTime.isInBulletTime = false;
         weapon.Special(pointer.getAngle(), self);
         if(!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.1f);

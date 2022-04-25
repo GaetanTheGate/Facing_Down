@@ -1,8 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
 
+/// <summary>
+/// Manages the in-game command console.
+/// </summary>
 public class Console : MonoBehaviour
 {
 	bool alreadyPressed = false;
@@ -26,6 +28,9 @@ public class Console : MonoBehaviour
 	readonly Rect outputTextRect = new Rect(5f, Screen.height - 55f, Screen.width - 10f, 20f);
 	readonly Rect outputAreaRect = new Rect(0, Screen.height - 60f, Screen.width, 30f);
 
+	/// <summary>
+	/// Enables / Disables the console, and pauses the game.
+	/// </summary>
 	private void Toggle() {
 		if (toggled) {
 			toggled = false;
@@ -37,6 +42,9 @@ public class Console : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Initializes values.
+	/// </summary>
 	private void Awake() {
 		noRepeatKeys = new List<KeyCode> { KeyCode.Comma, KeyCode.Tab };
 		lastInputs = new List<string>();
@@ -44,8 +52,13 @@ public class Console : MonoBehaviour
 		previews = new List<string>();
 		previewIndex = 0;
 		tabPressed = false;
+		CommandList.setConsole(this);
 	}
 
+	/// <summary>
+	/// Prevents keys that should not be continuously pressed to be handled twice without releasing them.
+	/// </summary>
+	/// <returns>True if the input should be ignored, else returns false.</returns>
 	private bool PreventKeyRepeat() {
 		if (!noRepeatKeys.Contains(Event.current.keyCode)) return false;
 		if (Event.current.type == EventType.KeyDown) {
@@ -56,11 +69,15 @@ public class Console : MonoBehaviour
 		return false;
 	}
 
+	/// <summary>
+	/// Handles keys with special effects, such as Tab or Return.
+	/// </summary>
 	void HandleSpecialKeys() {
 		if (Event.current.type == EventType.KeyDown) {
 			if (Event.current.keyCode == KeyCode.Return) {
 				HandleInput();
 				input = "";
+				ClearPreview();
 			}
 			else if (Event.current.keyCode == KeyCode.UpArrow) {
 				scrollIndex = Utility.mod(scrollIndex - 1, lastInputs.Count + 1);
@@ -85,6 +102,9 @@ public class Console : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Displays the output area.
+	/// </summary>
 	void HandleOutputArea() {
 		if (output != "") {
 			GUI.Box(outputAreaRect, "");
@@ -92,6 +112,17 @@ public class Console : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Sets the output message.
+	/// </summary>
+	/// <param name="output">The new output message.</param>
+	public void SetOutput(string output) {
+		this.output = output;
+	}
+
+	/// <summary>
+	/// Clears the preview
+	/// </summary>
 	void ClearPreview() {
 		previewIndex = 0;
 		tabPressed = false;
@@ -100,16 +131,25 @@ public class Console : MonoBehaviour
 		UpdatePreview();
 	}
 
+	/// <summary>
+	/// Updates the preview string from current index and the preview list.
+	/// </summary>
 	void UpdatePreview() {
 		if (previewIndex >= 0 && previewIndex < previews.Count) preview = previews[previewIndex];
 		else preview = "";
 	}
 
+	/// <summary>
+	/// Triggered on input change from the keyboard. Clears scroll and preview informations.
+	/// </summary>
 	void OnInputChange() {
 		scrollIndex = lastInputs.Count;
 		ClearPreview();
 	}
 
+	/// <summary>
+	/// Displays the input (and preview) area and retrieves the input.
+	/// </summary>
 	void HandleInputArea() {
 		GUI.Box(inputAreaRect, "");
 		GUI.backgroundColor = new Color(0, 0, 0, 0);
@@ -126,6 +166,9 @@ public class Console : MonoBehaviour
 		if (previousInput != input) OnInputChange();
 		GUI.FocusControl("Console");
 	}
+	/// <summary>
+	/// Listens to events and acts accordingly.
+	/// </summary>
 	public void OnGUI() {
 		if (PreventKeyRepeat()) return;
 
@@ -140,52 +183,18 @@ public class Console : MonoBehaviour
 		HandleInputArea();
 	}
 
+	/// <summary>
+	/// Handles the Return keypress.
+	/// </summary>
 	public void HandleInput() {
 		output = "";
 		lastInputs.Add(input);
 		if (lastInputs.Count > 20) lastInputs.RemoveAt(0);
 		scrollIndex = lastInputs.Count;
-
-		string[] splitInput = input.Split(' ');
-		AbstractConsoleCommand command = CommandList.getCommand(splitInput[0], splitInput.Length - 1);
-		if (command == null) {
-			output = CommandList.getErrorMessage();
-			return;
+		try {
+			CommandHandler.ExecuteCommand(input);
+		} catch(CommandRuntimeException e) {
+			output = e.Message;
 		}
-		if (splitInput.Length == 1) {
-			if ((command as ConsoleCommand) != null) {
-				(command as ConsoleCommand).Invoke();
-				return;
-			}
-		}
-		if (splitInput.Length == 2) {
-			if ((command as ConsoleCommand<string>) != null) {
-				(command as ConsoleCommand<string>).Invoke(splitInput[1]);
-				return;
-			}
-			if ((command as ConsoleCommand<int>) != null) {
-				int arg;
-				if (!int.TryParse(splitInput[1], out arg)) {
-					output = "Format invalid : \"" + splitInput[1] + "\" does not seem to be an integer.";
-					return;
-				}
-				(command as ConsoleCommand<int>).Invoke(arg);
-				return;
-			}
-		}
-		if (splitInput.Length == 3) {
-			if ((command as ConsoleCommand<string, int>) != null) {
-				string arg1 = splitInput[1];
-				int arg2;
-				if (!int.TryParse(splitInput[2], out arg2)) {
-					output = "Format invalid : \"" + splitInput[2] + "\" does not seem to be an integer.";
-					return;
-				}
-				(command as ConsoleCommand<string, int>).Invoke(arg1, arg2);
-				return;
-			}
-		}
-
-		ClearPreview();
 	}
 }

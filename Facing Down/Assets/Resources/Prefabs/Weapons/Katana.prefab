@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeSpan: 0.5
-  timeGap: 0.01
+  timeGap: 0.005
 --- !u!114 &3886325996179325104
 MonoBehaviour:
   m_ObjectHideFlags: 0
