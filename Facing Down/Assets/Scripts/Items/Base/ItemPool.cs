@@ -36,6 +36,7 @@ public static class ItemPool
 		Add(new HardeningPlates());
 		Add(new SylvanBreastplate());
 		Add(new Lightness());
+		Add(new InvisibilityCloak());
 	}
 
 	public static void InitSeed(int s) {
