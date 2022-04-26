@@ -11,6 +11,7 @@ public class StatPlayer : StatEntity
 
     private float rawAcceleration;
     private float acceleration = 10;
+    [Min(0.0f)] public float maxAcceleration = 20;
     [Min(0.0f)] public float maxSpeed = 50;
 
     [Min(0)] public int numberOfDashes = 0;
@@ -31,7 +32,7 @@ public class StatPlayer : StatEntity
 
     public void ModifyAcceleration(float amount) {
         rawAcceleration += amount;
-        acceleration = Mathf.Max(0, Mathf.Min(rawAcceleration, maxSpeed));
+        acceleration = Mathf.Max(0, Mathf.Min(rawAcceleration, maxAcceleration));
 	}
 
     public float getAcceleration() {
