@@ -51,7 +51,6 @@ public class PlayerDash : AbstractPlayer
         else if (!Game.controller.IsMovementHeld() && movePressed)
         {
             movePressed = false;
-            stat.numberOfDashes += 1;
 
             if (bulletTime.isInBulletTime)
             {
@@ -62,6 +61,7 @@ public class PlayerDash : AbstractPlayer
             }
             else
             {
+                self.transform.position += new Vector3(0, Mathf.Epsilon, 0);
                 if (chargeTimePassed > chargeTime)
                 {
                     ComputeMegaDash();
