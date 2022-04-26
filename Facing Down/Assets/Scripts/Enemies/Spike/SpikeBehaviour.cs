@@ -23,7 +23,7 @@ public class SpikeBehaviour : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             StatPlayer statPlayer = collision.GetComponent<StatPlayer>();
-            statPlayer.takeDamage(damage);
+            statPlayer.TakeDamage(new DamageInfo(null, statPlayer.gameObject.GetComponent<Entity>(), damage));
         }
     }
 }

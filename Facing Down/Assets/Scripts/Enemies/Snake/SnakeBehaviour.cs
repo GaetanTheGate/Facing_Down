@@ -36,7 +36,7 @@ public class SnakeBehaviour : MonoBehaviour
             if (collision.CompareTag("Player"))
             {
                 StatPlayer statPlayer = collision.GetComponent<StatPlayer>();
-                statPlayer.takeDamage(damage);
+                statPlayer.TakeDamage(new DamageInfo(gameObject.GetComponent<Entity>(), statPlayer.gameObject.GetComponent<Entity>(), damage));
             }
         }
     }
