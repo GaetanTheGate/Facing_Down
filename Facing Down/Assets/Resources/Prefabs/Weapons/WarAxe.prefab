@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1680198222837456502}
   - component: {fileID: 741444026266997511}
   - component: {fileID: -1095697715553424512}
-  - component: {fileID: 6150038622572834351}
   - component: {fileID: 4875980541295202306}
   m_Layer: 0
   m_Name: WarAxe
@@ -101,21 +100,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeSpan: 0.5
   timeGap: 0.01
---- !u!114 &6150038622572834351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2569863743124627225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59a8c8cfa34686f4fb935124ff1bdbe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 5
-  tagsToHit:
-  - Enemy
 --- !u!82 &4875980541295202306
 AudioSource:
   m_ObjectHideFlags: 0

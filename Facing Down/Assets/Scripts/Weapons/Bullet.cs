@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Bullet : ProjectileWeapon
 {
-    public bool targetPlayer = false;
-
     private float angleRange = 20.0f;
-    public Bullet()
+    public Bullet(string target) : base(target)
     {
 
-        baseAtk = 5f;
+        baseAtk = 1f;
         baseSpeed = 20.0f;
         baseSpan = 0.0f;
         baseEDelay = 5.0f;
@@ -27,17 +25,15 @@ public class Bullet : ProjectileWeapon
         bullet.transform.position = startPos;
 
         bullet.GetComponent<ProjectileAttack>().src = self;
-        bullet.GetComponent<ProjectileAttack>().tagsToDestroyOn.Add(targetPlayer ? "Player" : "Enemy");
-        if(targetPlayer)
-            bullet.GetComponent<AttackHit>().tagsToHit.Add("Player");
-        else
-            bullet.GetComponent<AttackHit>().tagsToHit.Add("Enemy");
+        bullet.GetComponent<ProjectileAttack>().tagsToDestroyOn.Add(target);
 
         bullet.GetComponent<ProjectileAttack>().angle = angle;
         bullet.GetComponent<ProjectileAttack>().acceleration = 1.0f;
         bullet.GetComponent<ProjectileAttack>().endDelay = baseEDelay;
         bullet.GetComponent<ProjectileAttack>().speed = baseSpeed;
 
+
+        AddHitAttack(bullet, baseAtk);
         return bullet.GetComponent<ProjectileAttack>();
     }
 
@@ -50,15 +46,13 @@ public class Bullet : ProjectileWeapon
         bullet.transform.position = startPos;
 
         bullet.GetComponent<ProjectileAttack>().src = self;
-        bullet.GetComponent<ProjectileAttack>().tagsToDestroyOn.Add(targetPlayer ? "Terrain" : "Enemy");
-        if (targetPlayer)
-            bullet.GetComponent<AttackHit>().tagsToHit.Add("Player");
-        else
-            bullet.GetComponent<AttackHit>().tagsToHit.Add("Enemy");
+        bullet.GetComponent<ProjectileAttack>().tagsToDestroyOn.Add(target);
+
         bullet.GetComponent<ProjectileAttack>().acceleration = 1.0f;
         bullet.GetComponent<ProjectileAttack>().endDelay = baseEDelay;
         bullet.GetComponent<ProjectileAttack>().speed = baseSpeed;
         bullet.GetComponent<ProjectileAttack>().angle = Random.Range(angle - angleRange, angle + angleRange);
+        AddHitAttack(bullet, baseAtk);
 
         GameObject attack = new GameObject();
         attack.AddComponent<CompositeAttack>();

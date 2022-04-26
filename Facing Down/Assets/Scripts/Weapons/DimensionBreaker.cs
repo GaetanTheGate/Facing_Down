@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class DimensionBreaker : MeleeWeapon
 {
-    public DimensionBreaker()
+    public DimensionBreaker(string target) : base(target)
     {
-        attackWeapon = EnumWeapon.getRandomWeapon();
-        specialWeapon = EnumWeapon.getRandomWeapon();
+        attackWeapon = EnumWeapon.getRandomWeapon(target);
+        specialWeapon = EnumWeapon.getRandomWeapon(target);
 
         baseSDelay = attackWeapon.getSDelay();
         baseSpan = attackWeapon.getSpan();
@@ -26,7 +26,7 @@ public class DimensionBreaker : MeleeWeapon
     public override void WeaponAttack(float angle, Entity self)
     {
         GetAttack(angle, self).startAttack();
-        attackWeapon = EnumWeapon.getRandomWeapon();
+        attackWeapon = EnumWeapon.getRandomWeapon(target);
         baseSDelay = attackWeapon.getSDelay();
         baseSpan = attackWeapon.getSpan();
         baseEDelay = attackWeapon.getEDelay();
@@ -36,7 +36,7 @@ public class DimensionBreaker : MeleeWeapon
     public override void WeaponSpecial(float angle, Entity self)
     {
         GetSpecial(angle, self).startAttack();
-        specialWeapon = EnumWeapon.getRandomWeapon();
+        specialWeapon = EnumWeapon.getRandomWeapon(target);
     }
 
     public override Attack GetAttack(float angle, Entity self)

@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e3f83dbd37088542ad8bc587b0d11e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 100
+  movementSpeed: 200
   flags:
   - {fileID: 6180464659276183126}
   - {fileID: 6180464659818348789}
@@ -284,8 +284,6 @@ MonoBehaviour:
   atkMultipler: 1
   critRate: 5
   critDmg: 150
-  acceleration: 1
-  maxSpeed: 10
   onHit:
     m_PersistentCalls:
       m_Calls:

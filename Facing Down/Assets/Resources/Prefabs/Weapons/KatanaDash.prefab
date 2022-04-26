@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8032773971778343842}
   - component: {fileID: 4391622576281572722}
   - component: {fileID: 3792618715496086250}
-  - component: {fileID: 927224266975115182}
   m_Layer: 0
   m_Name: KatanaDash
   m_TagString: Untagged
@@ -99,21 +98,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeSpan: 0.05
   timeGap: 0.01
---- !u!114 &927224266975115182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2776748030933507899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59a8c8cfa34686f4fb935124ff1bdbe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 5
-  tagsToHit:
-  - Enemy
 --- !u!1 &8206896719558377516
 GameObject:
   m_ObjectHideFlags: 0

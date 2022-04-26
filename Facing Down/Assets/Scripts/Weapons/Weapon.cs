@@ -4,6 +4,10 @@ using UnityEngine;
 
 public abstract class Weapon
 {
+    protected string target;
+
+    public Weapon(string target) => this.target = target;
+
     protected float baseAtk = 100.0f;
     protected float baseSpan = 1.0f;
     protected float baseSDelay = 0.0f;
@@ -53,4 +57,11 @@ public abstract class Weapon
     public float getEDelay() => baseEDelay;
     public float getSpan() => baseSpan;
     public float getBaseCooldown() => baseCooldown;
+
+    protected void AddHitAttack(GameObject gameObject, float damage)
+    {
+        gameObject.AddComponent<AttackHit>();
+        gameObject.GetComponent<AttackHit>().damage = damage;
+        gameObject.GetComponent<AttackHit>().tagsToHit.Add(target);
+    }
 }
