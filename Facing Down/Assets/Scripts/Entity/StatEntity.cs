@@ -37,9 +37,19 @@ public class StatEntity : MonoBehaviour
         currentHitPoints = Mathf.Max(maxHitPoints, currentHitPoints + Mathf.CeilToInt(amount));
 	}
 
+    [System.Obsolete("Damage should be passed as a DamageInfo instead of an int")]
     public virtual void takeDamage(float damage)
     {
         currentHitPoints -= (int)damage;
+        Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
+        if (animator != null) animator.SetFloat("hp", currentHitPoints);
+        if(onHit != null && currentHitPoints > 0) onHit.Invoke();
+        checkifDead();
+    }
+
+    public virtual void TakeDamage(DamageInfo damage)
+    {
+        currentHitPoints -= (int)damage.amount;
         Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
         if(onHit != null && currentHitPoints > 0) onHit.Invoke();

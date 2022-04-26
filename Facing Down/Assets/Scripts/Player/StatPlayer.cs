@@ -27,12 +27,24 @@ public class StatPlayer : StatEntity
         hpText.text = currentHitPoints.ToString();
     }
 
+    [System.Obsolete("Damage should be passed as a DamageInfo instead of a float.")]
     public override void takeDamage(float damage)
     {
         if (!playerIframes.isIframe)
         {
             damage = Game.player.inventory.OnTakeDamage(damage);
             base.takeDamage(damage);
+            hpText.text = currentHitPoints.ToString();
+            playerIframes.getIframe(2f);
+        }
+    }
+    
+    public override void TakeDamage(DamageInfo damage)
+    {
+        if (!playerIframes.isIframe)
+        {
+            damage = Game.player.inventory.OnTakeDamage(damage);
+            base.TakeDamage(damage);
             hpText.text = currentHitPoints.ToString();
             playerIframes.getIframe(2f);
         }
