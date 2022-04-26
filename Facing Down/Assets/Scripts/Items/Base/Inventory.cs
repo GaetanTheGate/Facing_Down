@@ -21,24 +21,28 @@ public class Inventory : MonoBehaviour
 	/// </summary>
 	/// <param name="item">The item to add. The item's amount is taken into account.</param>
 	public void AddItem(Item item) {
-		if (!items.ContainsKey(item.GetID())) {
-			items.Add(item.GetID(), item);
-			UI.inventoryDisplay.AddItemDisplay(item);
+		for (int i = 0; i < item.GetAmount(); ++i) {
+			if (!items.ContainsKey(item.GetID())) {
+				items.Add(item.GetID(), item.MakeCopy());
+				UI.inventoryDisplay.AddItemDisplay(item);
+			}
+			else {
+				items[item.GetID()].ModifyAmount(1);
+			}
+			items[item.GetID()].OnPickup();
 		}
-		else {
-			items[item.GetID()].ModifyAmount(item.GetAmount());
-			UI.inventoryDisplay.UpdateItemDisplay(item);
-		}
-		for (int i = 0; i < item.GetAmount(); ++i)
-			item.OnPickup();
+		UI.inventoryDisplay.UpdateItemDisplay(item);
 	}
 
 	/// <summary>
 	/// Removes 1 of the item from the inventory.
 	/// </summary>
 	/// <param name="item">The item to remove.</param>
-	public void RemoveItem(Item item) {
+	/// <returns>True if the item has been removed, else returns false</returns>
+	public bool RemoveItem(Item item) {
+		if (!items.ContainsKey(item.GetID())) return false;
 		items[item.GetID()].ModifyAmount(-1);
+		items[item.GetID()].OnRemove();
 		if (items[item.GetID()].GetAmount() == 0) {
 			items.Remove(item.GetID());
 			UI.inventoryDisplay.RemoveItemDisplay(item);
@@ -46,7 +50,7 @@ public class Inventory : MonoBehaviour
 		else {
 			UI.inventoryDisplay.UpdateItemDisplay(item);
 		}
-		item.OnRemove();
+		return true;
 	}
 
 	//Effect handlers

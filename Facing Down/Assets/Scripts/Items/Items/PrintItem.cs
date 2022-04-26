@@ -5,11 +5,11 @@ public class PrintItem : Item
 	public PrintItem() : base("PrintItem", ItemRarity.LEGENDARY, ItemType.WIND) {}
 
 	public override void OnPickup() {
-		Debug.Log("Item Picked Up");
+		Debug.Log("Item Picked Up. New amount = " + amount);
 	}
 
 	public override void OnRemove() {
-		Debug.Log("Item Removed");
+		Debug.Log("Item Removed. New amount = " + amount);
 	}
 
 	public override DamageInfo OnTakeDamage(DamageInfo damage) {
