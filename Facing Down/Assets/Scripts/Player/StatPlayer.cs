@@ -9,7 +9,8 @@ public class StatPlayer : StatEntity
 
     public Text hpText;
 
-    [Min(0.0f)] public float acceleration = 1;
+    private float rawAcceleration;
+    private float acceleration = 10;
     [Min(0.0f)] public float maxSpeed = 50;
 
     [Min(0)] public int numberOfDashes = 0;
@@ -25,7 +26,17 @@ public class StatPlayer : StatEntity
         base.Start();
         playerIframes = GetComponentInChildren<PlayerIframes>();
         hpText.text = currentHitPoints.ToString();
+        rawAcceleration = acceleration;
     }
+
+    public void ModifyAcceleration(float amount) {
+        rawAcceleration += amount;
+        acceleration = Mathf.Max(0, Mathf.Min(rawAcceleration, maxSpeed));
+	}
+
+    public float getAcceleration() {
+        return acceleration;
+	}
 
     [System.Obsolete("Damage should be passed as a DamageInfo instead of a float.")]
     public override void takeDamage(float damage)

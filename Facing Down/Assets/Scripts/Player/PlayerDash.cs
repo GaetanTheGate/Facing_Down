@@ -86,7 +86,7 @@ public class PlayerDash : AbstractPlayer
         stat.numberOfDashes += 2;
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(1.6f);
 
-        self.GetComponent<Rigidbody2D>().velocity = new Velocity(stat.acceleration * 1.5f, pointer.getAngle()).GetAsVector2();
+        self.GetComponent<Rigidbody2D>().velocity = new Velocity(stat.getAcceleration() * 1.5f, pointer.getAngle()).GetAsVector2();
     }
 
     private void ComputeSimpleDash()
@@ -97,7 +97,7 @@ public class PlayerDash : AbstractPlayer
         stat.numberOfDashes += 1;
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(1.2f);
 
-        self.GetComponent<Rigidbody2D>().velocity = new Velocity(stat.acceleration, pointer.getAngle()).GetAsVector2();
+        self.GetComponent<Rigidbody2D>().velocity = new Velocity(stat.getAcceleration(), pointer.getAngle()).GetAsVector2();
     }
 
     private void ComputeRedirect()

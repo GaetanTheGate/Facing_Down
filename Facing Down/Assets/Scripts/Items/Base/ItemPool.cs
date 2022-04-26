@@ -30,6 +30,11 @@ public static class ItemPool
 		Add(new ArtificialWings());
 		Add(new ClayClone());
 		Add(new VoraciousFlames());
+		Add(new FocusAmber());
+		Add(new BatteryPack());
+		Add(new HardeningPlates());
+		Add(new SylvanBreastplate());
+		Add(new Lightness());
 	}
 
 	public static void InitSeed(int s) {
