@@ -9,7 +9,9 @@ public class StatPlayer : StatEntity
 
     public Text hpText;
 
-    [Min(0.0f)] public float acceleration = 1;
+    private float rawAcceleration;
+    private float acceleration = 10;
+    [Min(0.0f)] public float maxAcceleration = 20;
     [Min(0.0f)] public float maxSpeed = 50;
 
     [Min(0)] public int numberOfDashes = 0;
@@ -25,8 +27,19 @@ public class StatPlayer : StatEntity
         base.Start();
         playerIframes = GetComponentInChildren<PlayerIframes>();
         hpText.text = currentHitPoints.ToString();
+        rawAcceleration = acceleration;
     }
 
+    public void ModifyAcceleration(float amount) {
+        rawAcceleration += amount;
+        acceleration = Mathf.Max(0, Mathf.Min(rawAcceleration, maxAcceleration));
+	}
+
+    public float getAcceleration() {
+        return acceleration;
+	}
+
+    [System.Obsolete("Damage should be passed as a DamageInfo instead of a float.")]
     public override void takeDamage(float damage)
     {
         if (!playerIframes.isIframe)
@@ -37,9 +50,28 @@ public class StatPlayer : StatEntity
             playerIframes.getIframe(2f);
         }
     }
+    
+    public override void TakeDamage(DamageInfo damage)
+    {
+        if (!playerIframes.isIframe)
+        {
+            damage = Game.player.inventory.OnTakeDamage(damage);
+            base.TakeDamage(damage);
+            hpText.text = currentHitPoints.ToString();
+            playerIframes.getIframe(2f);
+        }
+    }
 
 	public override void checkIfDead() {
         if (currentHitPoints <= 0) Game.player.inventory.OnDeath();
 		base.checkIfDead();
+	}
+
+    /// <summary>
+    /// Gives back special charges to the player.
+    /// </summary>
+    /// <param name="amount">The amount of special charge to give.</param>
+    public void ReloadSpecial(float amount) {
+        specialLeft = Mathf.Max(maxSpecial, specialLeft + amount);
 	}
 }

@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ItemPool registers all the Items.
+/// </summary>
 public static class ItemPool
 {
 	private static Dictionary<ItemRarity, Dictionary<string, Item>> items;
-	private static Dictionary<ItemRarity, int> rarityDistribution;
+	private static Dictionary<ItemRarity, int> rarityDistribution; //Weights for each rarity.
 	private static int totalRarityWeight;
 	private static System.Random random;
+
+	/// <summary>
+	/// Initializes values
+	/// </summary>
+	/// New Items should be added here.
     static ItemPool() {
 		random = new System.Random(Random.Range(int.MinValue, int.MaxValue));
 		items = new Dictionary<ItemRarity, Dictionary<string, Item>>();
@@ -21,39 +29,67 @@ public static class ItemPool
 		Add(new ImpenetrableRoots());
 		Add(new ArtificialWings());
 		Add(new ClayClone());
+		Add(new VoraciousFlames());
+		Add(new HeartOfTheStorm());
+		Add(new FocusAmber());
+		Add(new BatteryPack());
+		Add(new HardeningPlates());
+		Add(new SylvanBreastplate());
+		Add(new Lightness());
+		Add(new InvisibilityCloak());
 	}
 
 	public static void InitSeed(int s) {
 		random = new System.Random(s);
 	}
 
+	/// <summary>
+	/// Adds an Item to the pool.
+	/// </summary>
+	/// <param name="item">The Item to add.</param>
 	private static void Add(Item item) {
 		if (!items.ContainsKey(item.GetRarity())) items.Add(item.GetRarity(), new Dictionary<string, Item>());
-		items[item.GetRarity()].Add(item.getID(), item);
+		items[item.GetRarity()].Add(item.GetID(), item);
 	}
 
+	/// <summary>
+	/// Returns the item correspoding to an ID.
+	/// </summary>
+	/// <param name="id">The item's ID.</param>
+	/// <returns>The item if found, else returns null.</returns>
 	public static Item GetByID(string id) {
 		foreach (Dictionary<string, Item> rarityPool in items.Values) {
-			if (rarityPool.ContainsKey(id)) return rarityPool[id].makeCopy();
+			if (rarityPool.ContainsKey(id)) return rarityPool[id].MakeCopy();
 		}
 		return null;
 	}
 
+	/// <summary>
+	/// Initializes totalRarityWeight from rarityDistribution.
+	/// </summary>
 	private static void ComputeTotalRarityWeight() {
 		totalRarityWeight = 0;
 		foreach (int weight in rarityDistribution.Values) totalRarityWeight += weight;
 	}
 
+	/// <summary>
+	/// Chooses a random rarity from the rarityDistribution.
+	/// </summary>
+	/// <returns>The choosen rarity.</returns>
+	/// <exception cref="System.Exception">Thrown if no rarity is choosen. Should never happen.</exception>
 	public static ItemRarity GetRandomRarity() {
 		int r = random.Next() % totalRarityWeight;
 		foreach(ItemRarity rarity in rarityDistribution.Keys) {
 			r -= rarityDistribution[rarity];
 			if (r < 0) return rarity;
 		}
-		Debug.Log("ERROR");
-		return ItemRarity.COMMON; // Should never reach this, but the IDE detects an error if it's not there
+		throw new System.Exception("Unable to choose a rarity");
 	}
 
+	/// <summary>
+	/// Get a random item, using the rarity distribution.
+	/// </summary>
+	/// <returns>A randomly choosen item from the pool.</returns>
 	public static Item GetRandomItem() {
 		List<Item> rarityPool = new List<Item>(items[GetRandomRarity()].Values);
 		return rarityPool[random.Next() % rarityPool.Count];

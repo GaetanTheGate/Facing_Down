@@ -32,15 +32,17 @@ public class Katana : MeleeWeapon
 
     public override void WeaponSpecial(float angle, Entity self)
     {
-        LaserAttack laser = (LaserAttack) GetSpecial(angle, self);
-
+        LaserAttack laser = (LaserAttack)GetSpecial(angle, self);
         self.GetComponent<Rigidbody2D>().velocity = new Velocity(self.GetComponent<Rigidbody2D>().velocity).setAngle(angle).GetAsVector2();
 
-        Vector3 teleportPointVector = new Velocity(laser.range, angle).GetAsVector2();
-        self.transform.position = laser.transform.position + teleportPointVector;
-        self.transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
 
         laser.startAttack();
+
+        Vector3 teleportPointVector = new Velocity(laser.rangeCollide - Mathf.Max(self.transform.localScale.x, self.transform.localScale.y), angle).GetAsVector2();
+        self.transform.position = laser.posStartLaser + teleportPointVector;
+        self.transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
+
+
     }
 
     public override Attack GetAttack(float angle, Entity self)
@@ -67,17 +69,6 @@ public class Katana : MeleeWeapon
 
     public override Attack GetSpecial(float angle, Entity self)
     {
-        float radius = Mathf.Max(self.transform.localScale.x, self.transform.localScale.y);
-        float distanceMax = baseRange * 3;
-        Vector3 angleDash = new Velocity(1.0f, angle).GetAsVector2();
-        RaycastHit2D resultHit = Physics2D.Raycast(startPos, angleDash, distanceMax + radius, LayerMask.GetMask("Terrain"));
-
-        float teleportPoint;
-        if (resultHit.collider == null)
-            teleportPoint = distanceMax;
-        else
-            teleportPoint = resultHit.distance - radius;
-
         GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();
@@ -85,7 +76,7 @@ public class Katana : MeleeWeapon
 
         laser.GetComponent<LaserAttack>().src = self;
         laser.GetComponent<LaserAttack>().angle = angle;
-        laser.GetComponent<LaserAttack>().range = teleportPoint;
+        laser.GetComponent<LaserAttack>().range = baseRange * 3;
         laser.GetComponent<LaserAttack>().lenght = self.transform.localScale.x;
         laser.GetComponent<LaserAttack>().timeSpan = 0.00f;
         laser.GetComponent<LaserAttack>().endDelay = 0.05f;

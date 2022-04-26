@@ -7,7 +7,7 @@ public class Gun : MeleeWeapon
     public Gun(string target) : base(target)
     {
         attackWeapon = new Bullet(target);
-        specialWeapon = new Bullet(target);
+        specialWeapon = new Laser(target);
 
         baseSpan = 0.1f;
         baseCooldown = 0.0f;
@@ -58,9 +58,9 @@ public class Gun : MeleeWeapon
         bullet.GetComponent<GunAttack>().transform.position = startPos;
 
         bullet.GetComponent<GunAttack>().src = self;
-        bullet.GetComponent<GunAttack>().startDelay = 0.0f;
-        bullet.GetComponent<GunAttack>().timeSpan = 1f;
-        bullet.GetComponent<GunAttack>().endDelay = 1f;
+        bullet.GetComponent<GunAttack>().startDelay = 1.0f;
+        bullet.GetComponent<GunAttack>().timeSpan = 1;
+        bullet.GetComponent<GunAttack>().endDelay = 0.5f;
         bullet.GetComponent<GunAttack>().lenght = 1;
         bullet.GetComponent<GunAttack>().followEntity = false;
 

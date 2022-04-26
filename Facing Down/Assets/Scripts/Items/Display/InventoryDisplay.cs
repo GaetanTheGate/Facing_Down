@@ -1,7 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// InventoryDisplay manages the inventory display on the UI.
+/// </summary>
 public class InventoryDisplay : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -13,26 +15,37 @@ public class InventoryDisplay : MonoBehaviour
 
     readonly Dictionary<string, ItemDisplay> itemDisplays = new Dictionary<string, ItemDisplay>();
 
-
-    public void addItemDisplay(Item item) {
+    /// <summary>
+    /// Adds a new item to the display.
+    /// </summary>
+    /// <param name="item">The Item to add. Should be an item from the player's inventory.</param>
+    public void AddItemDisplay(Item item) {
         ItemDisplay newItemDisplay = Instantiate<ItemDisplay>(itemDisplay);
         newItemDisplay.transform.SetParent(transform);
         newItemDisplay.Init(item);
-        newItemDisplay.setPosition(ROOT_POSITION + X_OFFSET * (itemDisplays.Count % ROW_SIZE) + Y_OFFSET * (itemDisplays.Count / ROW_SIZE));
-        itemDisplays.Add(item.getID(), newItemDisplay);
+        newItemDisplay.SetPosition(ROOT_POSITION + X_OFFSET * (itemDisplays.Count % ROW_SIZE) + Y_OFFSET * (itemDisplays.Count / ROW_SIZE));
+        itemDisplays.Add(item.GetID(), newItemDisplay);
 	}
 
-    public void removeItemDisplay(Item item) {
-        Destroy(itemDisplays[item.getID()]);
-        itemDisplays.Remove(item.getID());
+    /// <summary>
+    /// Removes an item from the display. Should only be called from the inventory.
+    /// </summary>
+    /// <param name="item">The item to be removed. Should be an item from the player's inventory.</param>
+    public void RemoveItemDisplay(Item item) {
+        Destroy(itemDisplays[item.GetID()]);
+        itemDisplays.Remove(item.GetID());
         int index = 0;
         foreach (string ID in itemDisplays.Keys) {
-            itemDisplays[ID].setPosition(ROOT_POSITION + X_OFFSET * (index % 18) + Y_OFFSET * (index / 18));
+            itemDisplays[ID].SetPosition(ROOT_POSITION + X_OFFSET * (index % 18) + Y_OFFSET * (index / 18));
             index += 1;
         }
 	}
 
-    public void update(Item item) {
-        itemDisplays[item.getID()].update();
+    /// <summary>
+    /// Updates an item. Should only be called from the inventory.
+    /// </summary>
+    /// <param name="item">The item to update. Should be an item from the player's inventory.</param>
+    public void UpdateItemDisplay(Item item) {
+        itemDisplays[item.GetID()].UpdateDisplay();
 	}
 }

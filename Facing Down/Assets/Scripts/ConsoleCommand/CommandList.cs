@@ -20,6 +20,8 @@ public static class CommandList
 		Add(new ConsoleCommand<string>("printStr", "Prints \"CONSOLE : <str>\" into Debug.Log.", "printStr <str>", (str) => { AdvancedCommandFunctions.Print("CONSOLE : " + str);}));
 		Add(new ConsoleCommand<string>("addItem", "Adds 1 of the specified item to the inventory.", "addItem <ID>", (ID) => {AdvancedCommandFunctions.AddItem(ID, 1);}));
 		Add(new ConsoleCommand<string, int>("addItem", "Adds <amount> of the specified item to the inventory.", "addItem <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.AddItem(ID, amount);}));
+		Add(new ConsoleCommand<string>("removeItem", "Remove 1 of the specified item from the inventory.", "removeItem <ID>", (ID) => {AdvancedCommandFunctions.RemoveItem(ID, 1);}));
+		Add(new ConsoleCommand<string, int>("removeItem", "Remove <amount> of the specified item from the inventory.", "removeItem <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.RemoveItem(ID, amount);}));
 	}
 
 	/// <summary>
@@ -121,8 +123,18 @@ public static class CommandList
 			if (ID == "PrintItem") item = new PrintItem();
 			else item = ItemPool.GetByID(ID);
 			if (item == null) throw new CommandRuntimeException("Item " + ID + " not found");
-			item.setAmount(amount);
+			item.SetAmount(amount);
 			Game.player.inventory.AddItem(item);
+		}
+
+		public static void RemoveItem (string ID, int amount) {
+			Item item;
+			if (ID == "PrintItem") item = new PrintItem();
+			else item = ItemPool.GetByID(ID);
+			if (item == null) throw new CommandRuntimeException("Item " + ID + " not found");
+			for (int i = 0; i < amount; ++i) {
+				if (!Game.player.inventory.RemoveItem(item)) break;
+			}
 		}
 	}
 }

@@ -16,7 +16,7 @@ public class StoneArmor : Item
 		Game.player.stat.maxHitPoints -= maxHPAdd;
 	}
 
-	public override Item makeCopy() {
+	public override Item MakeCopy() {
 		return new StoneArmor();
 	}
 }
