@@ -17,6 +17,7 @@ public class Map : MonoBehaviour
         imageGo.transform.SetParent(GameObject.Find("Map").transform);
         imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>("Donjon/IconMap/" + room.name.Substring(0,room.name.IndexOf('-')));
         imageGo.GetComponent<Image>().color = Color.blue;
+        imageGo.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(50,50);
 
         generateIconMap(room, null, new Vector2(0,0));
         
@@ -32,6 +33,7 @@ public class Map : MonoBehaviour
                 imageGo.AddComponent<Image>();
                 imageGo.transform.SetParent(GameObject.Find("Map").transform);
                 imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>("Donjon/IconMap/" + door.roomBehind.name.Substring(0,door.roomBehind.name.IndexOf('-')));
+                imageGo.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(50,50);
 
                 Vector2 newCoordinates;
 
@@ -56,6 +58,10 @@ public class Map : MonoBehaviour
                         imageGo.transform.position = newCoordinates;
                         generateIconMap(door.roomBehind, door.currentRoom, newCoordinates);
                         break;
+                    default :
+                        print("unknown side");
+                        break;
+
                 }
             }
         }

@@ -36,34 +36,36 @@ public class Door : MonoBehaviour
                 float x = 0;
                 float y = 0;
 
-                Door door = null;
+
+                //récupération de la porte connecté à currentRoom dans roomBehind
+                Door doorBehind = null;
                 foreach(Door d in roomBehind.doors){
                     if(d.roomBehind == currentRoom){
-                        door = d;
+                        doorBehind = d;
                         break;
                     }
                 }
 
-                switch(door.onSide){
+                switch(doorBehind.onSide){
                     case side.Right :
-                        x = door.transform.position.x - 1;
-                        y = door.transform.position.y;
+                        x = doorBehind.transform.position.x - 2;
+                        y = doorBehind.transform.position.y;
                         break;
                     case side.Left :
 
-                        x = door.transform.position.x + 1;
-                        y = door.transform.position.y;
+                        x = doorBehind.transform.position.x + 2;
+                        y = doorBehind.transform.position.y;
                         break;
                     case side.Up :
-                        x = door.transform.position.x;
-                        y = door.transform.position.y - 1;
+                        x = doorBehind.transform.position.x;
+                        y = doorBehind.transform.position.y - 2;
                         break;
                     case side.Down :
-                        x = door.transform.position.x + 1;
-                        y = door.transform.position.y;
+                        x = doorBehind.transform.position.x + 2;
+                        y = doorBehind.transform.position.y;
                         break;
                     default :
-                        print("null");
+                        print("unknown side");
                         break;  
 
                 }
@@ -112,17 +114,23 @@ public class Door : MonoBehaviour
             newRoom.name = newRoom.name.Substring(0,newRoom.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
             newRoom.transform.SetParent(GameObject.Find("GameManager").transform);
             GenerateDonjon.rooms.Insert(0,newRoom.GetComponent<Room>());
-            GenerateDonjon.roomsForMap.Add(newRoom.GetComponent<Room>());
             roomBehind = newRoom.GetComponent<Room>();
 
             initCurrentRoom(roomBehind);
             
             foreach(Door door in roomBehind.doors){
-                if(door.onSide == getOppositeSide(onSide) && door.roomBehind == null){
+                if(door.onSide == getOppositeSide(onSide)){
                     door.roomBehind = currentRoom;
                     break;
                 }
             }
+
+            foreach(Door door in newRoom.GetComponent<Room>().doors){
+                if (door.roomBehind == null){
+                    GenerateDonjon.processDoors.Add(door);
+                }
+            }
+
             return true;
             
         }
