@@ -37,6 +37,15 @@ public static class CommandHandler
 				return;
 			}
 		}
+		if (splitInput.Length == 4) {
+			if ((command as ConsoleCommand<string, int, int>) != null) {
+				string arg1 = splitInput[1];
+				int arg2 = GetIntFromInput(splitInput[2]);
+				int arg3 = GetIntFromInput(splitInput[3]);
+				(command as ConsoleCommand<string, int, int>).Invoke(arg1, arg2, arg3);
+				return;
+			}
+		}
 	}
 
 	/// <summary>
