@@ -58,11 +58,11 @@ public class Bullet : ProjectileWeapon
         attack.AddComponent<CompositeAttack>();
         attack.GetComponent<CompositeAttack>().attackList.Add(bullet.GetComponent<ProjectileAttack>());
 
-        for (int i = 0; i < numberOfShot - 1; ++i)
+        for (int i = 1; i < numberOfShot; ++i)
         {
             GameObject newBullet = GameObject.Instantiate(bullet);
             newBullet.GetComponent<ProjectileAttack>().angle = Random.Range(angle - angleRange, angle + angleRange);
-            newBullet.GetComponent<ProjectileAttack>().startDelay = (i + 1) * (1.0f / numberOfShot);
+            newBullet.GetComponent<ProjectileAttack>().startDelay = i * (1.0f / numberOfShot);
 
             attack.GetComponent<CompositeAttack>().attackList.Add(newBullet.GetComponent<ProjectileAttack>());
         }

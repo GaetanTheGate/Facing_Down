@@ -6,6 +6,7 @@ public class GunAttack : MeleeAttack
 {
     private bool hasShot = false;
 
+    public bool forceUnfollow = false;
     public Weapon attack;
     public bool isSpecial = false;
     public override Vector3 Behaviour(float percentage)
@@ -14,9 +15,9 @@ public class GunAttack : MeleeAttack
         {
             hasShot = true;
 
-            attack.forceUnFollow = false;
-            attack.startPos = transform.position;
-            if(isSpecial)
+            attack.forceUnFollow = forceUnfollow;
+            attack.startPos = transform.GetChild(0).position;
+            if (isSpecial)
                 attack.WeaponSpecial(angle, src);
             else
                 attack.WeaponAttack(angle, src);
@@ -57,5 +58,23 @@ public class GunAttack : MeleeAttack
             foreach (Attack subAttack in newAttack.attackList)
                 computeNewAttack(subAttack);
         }
+    }
+
+    private Vector2 RotatePoint(Vector2 c, float angle, Vector2 p)
+    {
+        float sin = Mathf.Sin(angle * Mathf.Deg2Rad);
+        float cos = Mathf.Cos(angle * Mathf.Deg2Rad);
+
+        // translate point back to origin:
+        Vector2 newP = p-c;
+
+        // rotate point
+        float xnew = p.x * cos - p.y * sin;
+        float ynew = p.x * sin + p.y * cos;
+
+        // translate point back:
+        newP.x = xnew + c.x;
+        newP.y = ynew + c.y;
+        return newP;
     }
 }

@@ -23,7 +23,7 @@ public class DirectionPointer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate()
     {
         ComputePosition();
         ComputeMaxDistance();
