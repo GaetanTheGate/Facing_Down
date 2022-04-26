@@ -65,4 +65,12 @@ public class StatPlayer : StatEntity
         if (currentHitPoints <= 0) Game.player.inventory.OnDeath();
 		base.checkIfDead();
 	}
+
+    /// <summary>
+    /// Gives back special charges to the player.
+    /// </summary>
+    /// <param name="amount">The amount of special charge to give.</param>
+    public void ReloadSpecial(float amount) {
+        specialLeft = Mathf.Max(maxSpecial, specialLeft + amount);
+	}
 }
