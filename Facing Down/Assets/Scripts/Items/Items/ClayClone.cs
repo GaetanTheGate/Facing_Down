@@ -11,7 +11,7 @@ public class ClayClone : Item {
 		return true;
 	}
 
-	public override Item makeCopy() {
+	public override Item MakeCopy() {
 		return new ClayClone();
 	}
 }

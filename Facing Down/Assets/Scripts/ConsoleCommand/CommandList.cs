@@ -121,7 +121,7 @@ public static class CommandList
 			if (ID == "PrintItem") item = new PrintItem();
 			else item = ItemPool.GetByID(ID);
 			if (item == null) throw new CommandRuntimeException("Item " + ID + " not found");
-			item.setAmount(amount);
+			item.SetAmount(amount);
 			Game.player.inventory.AddItem(item);
 		}
 	}

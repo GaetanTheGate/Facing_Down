@@ -17,7 +17,7 @@ public class AttackUpItem : Item
 		Game.player.stat.computeAtk();
 	}
 
-	public override Item makeCopy() {
+	public override Item MakeCopy() {
 		return new AttackUpItem();
 	}
 }

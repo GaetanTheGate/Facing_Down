@@ -16,7 +16,7 @@ public class ImpenetrableRoots : Item
 		return damage;
 	}
 
-	public override Item makeCopy() {
+	public override Item MakeCopy() {
 		return new ImpenetrableRoots();
 	}
 }

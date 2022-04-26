@@ -37,20 +37,20 @@ public abstract class Item{
 
     //getters
 
-    public string getID() {
+    public string GetID() {
         return ID;
 	}
-    public int getAmount() {
+    public int GetAmount() {
         return amount;
 	}
     public ItemRarity GetRarity() {
         return rarity;
 	}
-    public ItemType getType() {
+    public ItemType GetItemType() {
         return type;
 	}
 
-    public ItemPriority getPriority() {
+    public ItemPriority GetPriority() {
         return priority;
 	}
 
@@ -91,11 +91,11 @@ public abstract class Item{
 
     public virtual void OnMegaDash() {}
 
-    public void setAmount(int amount) {
+    public void SetAmount(int amount) {
         this.amount = amount;
 	}
 
-    public void modifyAmount(int modif) {
+    public void ModifyAmount(int modif) {
         amount += modif;
 	}
 
@@ -103,5 +103,5 @@ public abstract class Item{
     /// 
     /// </summary>
     /// <returns>A copy of the item.</returns>
-    public abstract Item makeCopy();
+    public abstract Item MakeCopy();
 }

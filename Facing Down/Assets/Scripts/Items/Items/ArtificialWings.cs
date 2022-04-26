@@ -13,7 +13,7 @@ public class ArtificialWings : Item {
 		Game.player.stat.maxDashes += 1;
 	}
 
-	public override Item makeCopy() {
+	public override Item MakeCopy() {
 		return new ArtificialWings();
 	}
 }

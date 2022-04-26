@@ -24,7 +24,7 @@ public class InventoryDisplay : MonoBehaviour
         newItemDisplay.transform.SetParent(transform);
         newItemDisplay.Init(item);
         newItemDisplay.SetPosition(ROOT_POSITION + X_OFFSET * (itemDisplays.Count % ROW_SIZE) + Y_OFFSET * (itemDisplays.Count / ROW_SIZE));
-        itemDisplays.Add(item.getID(), newItemDisplay);
+        itemDisplays.Add(item.GetID(), newItemDisplay);
 	}
 
     /// <summary>
@@ -32,8 +32,8 @@ public class InventoryDisplay : MonoBehaviour
     /// </summary>
     /// <param name="item">The item to be removed. Should be an item from the player's inventory.</param>
     public void RemoveItemDisplay(Item item) {
-        Destroy(itemDisplays[item.getID()]);
-        itemDisplays.Remove(item.getID());
+        Destroy(itemDisplays[item.GetID()]);
+        itemDisplays.Remove(item.GetID());
         int index = 0;
         foreach (string ID in itemDisplays.Keys) {
             itemDisplays[ID].SetPosition(ROOT_POSITION + X_OFFSET * (index % 18) + Y_OFFSET * (index / 18));
@@ -46,6 +46,6 @@ public class InventoryDisplay : MonoBehaviour
     /// </summary>
     /// <param name="item">The item to update. Should be an item from the player's inventory.</param>
     public void UpdateItemDisplay(Item item) {
-        itemDisplays[item.getID()].UpdateDisplay();
+        itemDisplays[item.GetID()].UpdateDisplay();
 	}
 }

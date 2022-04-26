@@ -59,7 +59,7 @@ public class PrintItem : Item
 	}
 
 
-	public override Item makeCopy() {
+	public override Item MakeCopy() {
 		return new PrintItem();
 	}
 }

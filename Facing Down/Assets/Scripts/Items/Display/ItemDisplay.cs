@@ -17,9 +17,9 @@ public class ItemDisplay : MonoBehaviour {
         this.item = item;
         transform.position = new Vector3(150, 150, 0);
 
-        GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(spriteFolderPath + item.getID());
+        GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(spriteFolderPath + item.GetID());
         GetComponentInChildren<Image>().rectTransform.sizeDelta = new Vector2(imageSize, imageSize);
-        GetComponentInChildren<Text>().text = item.getAmount().ToString();
+        GetComponentInChildren<Text>().text = item.GetAmount().ToString();
         GetComponentInChildren<Text>().rectTransform.sizeDelta = new Vector2(imageSize, imageSize);
     }
 
@@ -36,7 +36,7 @@ public class ItemDisplay : MonoBehaviour {
     /// Update the display value from its item.
     /// </summary>
     public void UpdateDisplay() {
-        GetComponentInChildren<Text>().text = item.getAmount().ToString();
+        GetComponentInChildren<Text>().text = item.GetAmount().ToString();
     }
 
 	public void OnDestroy() {

@@ -12,7 +12,7 @@ public class HornOfPlenty : Item
 		Game.player.stat.Heal(amount * healAmount * Game.player.stat.maxHitPoints);
 	}
 
-	public override Item makeCopy() {
+	public override Item MakeCopy() {
 		return new HornOfPlenty();
 	}
 }

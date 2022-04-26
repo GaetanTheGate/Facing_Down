@@ -29,6 +29,7 @@ public static class ItemPool
 		Add(new ImpenetrableRoots());
 		Add(new ArtificialWings());
 		Add(new ClayClone());
+		Add(new VoraciousFlames());
 	}
 
 	public static void InitSeed(int s) {
@@ -41,7 +42,7 @@ public static class ItemPool
 	/// <param name="item">The Item to add.</param>
 	private static void Add(Item item) {
 		if (!items.ContainsKey(item.GetRarity())) items.Add(item.GetRarity(), new Dictionary<string, Item>());
-		items[item.GetRarity()].Add(item.getID(), item);
+		items[item.GetRarity()].Add(item.GetID(), item);
 	}
 
 	/// <summary>
@@ -51,7 +52,7 @@ public static class ItemPool
 	/// <returns>The item if found, else returns null.</returns>
 	public static Item GetByID(string id) {
 		foreach (Dictionary<string, Item> rarityPool in items.Values) {
-			if (rarityPool.ContainsKey(id)) return rarityPool[id].makeCopy();
+			if (rarityPool.ContainsKey(id)) return rarityPool[id].MakeCopy();
 		}
 		return null;
 	}
