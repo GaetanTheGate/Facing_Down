@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SlashAttack : Attack
+public class SlashAttack : MeleeAttack
 {
     public Way way;
     public override Vector3 Behaviour(float percentage)

@@ -9,11 +9,8 @@ public class PlayerOnCollisionStructure : AbstractPlayer
     private bool isEnteringGround = false;
     public override void Init()
     {
-        statPlayer = gameObject.GetComponent<StatPlayer>();
-        if (statPlayer == null)
-        {
-            statPlayer = gameObject.AddComponent<StatPlayer>();
-        }
+
+        statPlayer = gameObject.GetComponent<Player>().stat;
         entityCollisionStructure = gameObject.GetComponent<Player>().self.GetComponent<EntityCollisionStructure>();
         if(entityCollisionStructure == null)
         {

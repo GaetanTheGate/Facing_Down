@@ -6,12 +6,13 @@ public class TrailEffect : MonoBehaviour
 {
     public float timeSpan = 1.0f;
     public float timeGap = 0.0f;
-    private float timeStart = 0.0f;
+    private float timePassed = 0.0f;
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Time.realtimeSinceStartup - timeStart >= timeGap)
+        timePassed += Time.fixedDeltaTime;
+        if (timePassed >= timeGap)
         {
             GameObject self = Instantiate(gameObject);
             foreach (Component component in self.GetComponents(typeof(Component))){
@@ -32,7 +33,7 @@ public class TrailEffect : MonoBehaviour
             self.GetComponent<DestroyWhileFading>().timeSpan = timeSpan;
 
             self.transform.SetParent(transform.parent);
-            timeStart = Time.realtimeSinceStartup;
+            timePassed = 0.0f;
         }
     }
 }

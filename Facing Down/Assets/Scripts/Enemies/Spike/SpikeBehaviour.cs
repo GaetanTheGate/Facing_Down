@@ -22,7 +22,7 @@ public class SpikeBehaviour : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            StatPlayer statPlayer = collision.GetComponentInParent<StatPlayer>();
+            StatPlayer statPlayer = collision.GetComponent<StatPlayer>();
             statPlayer.takeDamage(damage);
         }
     }

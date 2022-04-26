@@ -26,13 +26,16 @@ public class PlayerIframes : MonoBehaviour
         StartCoroutine(startIframeRoutine(duration));
     }
 
+    public void getIframeItem(float duration)
+    {
+        isIframe = true;
+        StartCoroutine(startIframeItemRoutine(duration));
+    }
+
     private IEnumerator startIframeRoutine(float duration)
     {
-        //if (isTouchingTrap) isIframeTrap = true;
-        //Physics2D.IgnoreLayerCollision(10, 11, true);
         int numberOfFlashes = (int)duration + 1;
         float totalWait = duration;
-        //Color oldColor = sp.color;
         for (int i = 0; i < numberOfFlashes; i++)
         {
             if (totalWait >= 1.0f)
@@ -50,16 +53,15 @@ public class PlayerIframes : MonoBehaviour
                 sp.color = naturalColor;
             }
         }
-        //Physics2D.IgnoreLayerCollision(10, 11, false);
-        /*if (isTouchingTrap) 
-        {
-            isIframeTrap = false;
-            isTouchingTrap = false;
-        } */
 
         if (isIframe)
         {
             isIframe = false;
         }
+    }
+
+    private IEnumerator startIframeItemRoutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
     }
 }

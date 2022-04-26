@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class AbstractConsoleCommand
+/// <summary>
+/// The abstract class from which all the console command inherit.
+/// </summary>
+public abstract class AbstractConsoleCommand
 {
     private string id;
     private string description;

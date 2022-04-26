@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HalfSlashAttack : Attack
+public class HalfSlashAttack : MeleeAttack
 {
     public Way way;
     public InOut inOut;

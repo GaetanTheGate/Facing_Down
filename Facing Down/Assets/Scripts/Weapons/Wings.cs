@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wings : Weapon
+public class Wings : MeleeWeapon
 {
     private float difference = 20.0f;
-    public Wings()
+    public Wings(string target) : base(target)
     {
 
         baseAtk = 40;
@@ -19,10 +19,15 @@ public class Wings : Weapon
     }
 
 
-    public override void Attack(float angle, Entity self)
+    public override void WeaponAttack(float angle, Entity self)
+    {
+        GetAttack(angle, self).startAttack();
+    }
+
+    public override Attack GetAttack(float angle, Entity self)
     {
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
-        swing.transform.position = self.transform.position;
+        swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
 
         swing.GetComponent<HalfSlashAttack>().src = self;
@@ -30,8 +35,9 @@ public class Wings : Weapon
         swing.GetComponent<HalfSlashAttack>().range = baseRange;
         swing.GetComponent<HalfSlashAttack>().lenght = baseLenght - difference;
         swing.GetComponent<HalfSlashAttack>().timeSpan = baseSpan;
-        swing.GetComponent<HalfSlashAttack>().followEntity = true;
+        swing.GetComponent<HalfSlashAttack>().followEntity = forceUnFollow;
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
+        AddHitAttack(swing, baseAtk);
 
         GameObject swing2 = GameObject.Instantiate(swing);
         swing.GetComponent<HalfSlashAttack>().onEndAttack += onEndAttack;
@@ -43,14 +49,18 @@ public class Wings : Weapon
         swing2.GetComponent<HalfSlashAttack>().angle = angle + difference;
         swing2.GetComponent<HalfSlashAttack>().way = HalfSlashAttack.Way.CounterClockwise;
 
-        swing.GetComponent<HalfSlashAttack>().startAttack();
-        swing2.GetComponent<HalfSlashAttack>().startAttack();
+        GameObject attack = new GameObject();
+        attack.AddComponent<CompositeAttack>();
+        attack.GetComponent<CompositeAttack>().attackList.Add(swing.GetComponent<HalfSlashAttack>());
+        attack.GetComponent<CompositeAttack>().attackList.Add(swing2.GetComponent<HalfSlashAttack>());
+
+        return attack.GetComponent<CompositeAttack>();
     }
 
-    public override void Special(float angle, Entity self)
+    public override Attack GetSpecial(float angle, Entity self)
     {
         GameObject swing = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
-        swing.transform.position = self.transform.position;
+        swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
 
         swing.GetComponent<HalfSlashAttack>().src = self;
@@ -58,8 +68,9 @@ public class Wings : Weapon
         swing.GetComponent<HalfSlashAttack>().range = baseRange * 3;
         swing.GetComponent<HalfSlashAttack>().lenght = baseLenght - difference;
         swing.GetComponent<HalfSlashAttack>().timeSpan = baseSpan * 2;
-        swing.GetComponent<HalfSlashAttack>().followEntity = true;
+        swing.GetComponent<HalfSlashAttack>().followEntity = forceUnFollow;
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
+        AddHitAttack(swing, baseAtk);
 
         GameObject swing2 = GameObject.Instantiate(swing);
         swing.GetComponent<HalfSlashAttack>().onEndAttack += onEndSpecial;
@@ -71,8 +82,20 @@ public class Wings : Weapon
         swing2.GetComponent<HalfSlashAttack>().angle = angle + difference;
         swing2.GetComponent<HalfSlashAttack>().way = HalfSlashAttack.Way.CounterClockwise;
 
-        swing.GetComponent<HalfSlashAttack>().startAttack();
-        swing2.GetComponent<HalfSlashAttack>().startAttack();
+
+        GameObject attack = new GameObject();
+        attack.AddComponent<CompositeAttack>();
+        attack.GetComponent<CompositeAttack>().attackList.Add(swing.GetComponent<HalfSlashAttack>());
+        attack.GetComponent<CompositeAttack>().attackList.Add(swing2.GetComponent<HalfSlashAttack>());
+
+        return attack.GetComponent<CompositeAttack>();
+    }
+
+    public override void WeaponSpecial(float angle, Entity self)
+    {
+        canAttack = false;
+
+        GetSpecial(angle, self).startAttack();
     }
 
 
@@ -87,5 +110,7 @@ public class Wings : Weapon
         Debug.Log(angle);
         Velocity newVelo = new Velocity(baseAtk / 3, angle + 180 + difference);
         self.GetComponent<Rigidbody2D>().velocity += newVelo.GetAsVector2();
+
+        canAttack = true;
     }
 }
