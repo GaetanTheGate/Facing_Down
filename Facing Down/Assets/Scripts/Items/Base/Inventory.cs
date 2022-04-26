@@ -140,7 +140,7 @@ public class Inventory : MonoBehaviour
 	}
 	public void OnRedirect() {
 		foreach (Item item in items.Values) {
-			item.OnMegaDash();
+			item.OnRedirect();
 		}
 	}
 	public void OnMegaDash() {
