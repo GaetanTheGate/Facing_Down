@@ -18,6 +18,8 @@ public static class EnumWeapon
                 return new Daggers(target);
             case WeaponChoice.Gun:
                 return new Gun(target);
+            case WeaponChoice.Shuriken:
+                return new Shuriken(target);
             case WeaponChoice.DimensionBreaker:
                 return new DimensionBreaker(target);
         }
@@ -38,6 +40,8 @@ public static class EnumWeapon
                 return typeof(Daggers);
             case WeaponChoice.Gun:
                 return typeof(Gun);
+            case WeaponChoice.Shuriken:
+                return typeof(Shuriken);
             case WeaponChoice.DimensionBreaker:
                 return typeof(DimensionBreaker);
         }
@@ -66,6 +70,6 @@ public static class EnumWeapon
 
     public enum WeaponChoice
     {
-        Katana, Wings, WarAxe, Daggers, Gun, DimensionBreaker
+        Katana, Wings, WarAxe, Daggers, Gun, Shuriken, DimensionBreaker
     }
 }
