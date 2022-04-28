@@ -60,4 +60,6 @@ public class StatEntity : MonoBehaviour
             isDead = true;
         }
     }
+
+    public bool getIsDead() { return isDead; }
 }

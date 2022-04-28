@@ -58,6 +58,10 @@ public abstract class Weapon
     public float getSpan() => baseSpan;
     public float getBaseCooldown() => baseCooldown;
 
+    public void SetBaseAtk(float newAtk) {
+        baseAtk = newAtk;
+    }
+
     protected void AddHitAttack(GameObject gameObject, DamageInfo dmgInfo)
     {
         gameObject.AddComponent<AttackHit>();
