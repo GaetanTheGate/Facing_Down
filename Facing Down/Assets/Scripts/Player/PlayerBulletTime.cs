@@ -25,10 +25,11 @@ public class PlayerBulletTime : AbstractPlayer
         {
             bulletTimePressed = true;
             isInBulletTime = true;
+            Game.player.inventory.OnBullettimeActivate();
         }
         else if (!Game.controller.IsBulletTimeHeld() && bulletTimePressed)
         {
-
+            if (isInBulletTime) Game.player.inventory.OnBullettimeEnd();
             bulletTimePressed = false;
             isInBulletTime = false;
         }

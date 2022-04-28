@@ -149,7 +149,7 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
-	public void OnBulletitimeEnd() {
+	public void OnBullettimeEnd() {
 		foreach (Item item in items.Values) {
 			item.OnBullettimeEnd();
 		}

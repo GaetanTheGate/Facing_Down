@@ -17,7 +17,6 @@ public class ObsidianShard : Item
 				closestEnemy = entity;
 		}
 		if (closestEnemy != null) {
-			Debug.Log("DEAD : " + enemy.transform.position + " PLAYER : " + Game.player.self.transform.position + " ANGLE : " + Vector2.Angle(Game.player.self.transform.position, enemy.transform.position));
 			laser.Attack( - Vector2.SignedAngle(closestEnemy.transform.position - enemy.transform.position, Vector2.right), enemy);
 		}
 	}
