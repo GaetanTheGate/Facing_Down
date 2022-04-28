@@ -19,16 +19,6 @@ public class Door : MonoBehaviour
     public Room roomBehind;
     public Room currentRoom;
 
-
-    
-
-
-    void Update(){
-        if (Input.GetKeyDown(KeyCode.LeftControl)){
-            Destroy(GameObject.Find("GameManager"));
-        }
-    }
-
     
     public void OnTriggerEnter2D(Collider2D collider2D){
         if (collider2D.CompareTag("Player")){
@@ -89,7 +79,6 @@ public class Door : MonoBehaviour
         r.SetActive(false);
         r.name = r.name.Substring(0,r.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
         r.transform.SetParent(GameObject.Find("GameManager").transform);
-        GenerateDonjon.rooms.Insert(0,r.GetComponent<Room>());
         roomBehind = r.GetComponent<Room>();
 
         initCurrentRoom(roomBehind);
@@ -102,42 +91,85 @@ public class Door : MonoBehaviour
     }
 
 
-    public bool generateRoom() {
-        if (roomBehind == null){
-            print("génération salle");
-            
-            List<GameObject> validateRooms = selectRooms();
-            int indexRoom = Random.Range(0,validateRooms.Count);
-            GameObject newRoom = validateRooms[indexRoom];
-            newRoom = Instantiate(newRoom);
-            newRoom.SetActive(false);
-            newRoom.name = newRoom.name.Substring(0,newRoom.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
-            newRoom.transform.SetParent(GameObject.Find("GameManager").transform);
-            GenerateDonjon.rooms.Insert(0,newRoom.GetComponent<Room>());
-            roomBehind = newRoom.GetComponent<Room>();
-
-            initCurrentRoom(roomBehind);
-            
-            foreach(Door door in roomBehind.doors){
-                if(door.onSide == getOppositeSide(onSide)){
-                    door.roomBehind = currentRoom;
-                    break;
-                }
+    public GameObject generateRoom() {
+        Vector2 coordinates = new Vector2();
+        for(int i = 0 ; i < GenerateDonjon.nbRoomHeight ; i += 1){
+            for(int j = 0 ; j < GenerateDonjon.nbRoomWidth ; j += 1){
+                if (GenerateDonjon.gridMap[i,j] == currentRoom)
+                    coordinates = new Vector2(i,j);
             }
+        }
 
-            foreach(Door door in newRoom.GetComponent<Room>().doors){
-                if (door.roomBehind == null){
-                    GenerateDonjon.processDoors.Add(door);
-                }
+        switch(onSide){
+            case Door.side.Right :
+                if(coordinates.y + 1 > GenerateDonjon.nbRoomWidth - 1|| GenerateDonjon.gridMap[(int) coordinates.x, (int) coordinates.y + 1] != null)
+                    return null;
+                break;
+            case Door.side.Left :
+                if(coordinates.y - 1 < 0 || GenerateDonjon.gridMap[(int) coordinates.x, (int) coordinates.y - 1] != null)
+                    return null;
+                break;
+            case Door.side.Down :
+                if(coordinates.x + 1 > GenerateDonjon.nbRoomHeight - 1 || GenerateDonjon.gridMap[(int) coordinates.x + 1 ,(int) coordinates.y] != null)
+                    return null;
+                break; 
+            case Door.side.Up :
+                if(coordinates.x - 1 < 0 || GenerateDonjon.gridMap[(int) coordinates.x - 1 ,(int) coordinates.y] != null)
+                    return null;
+                break; 
+        }
+
+        print("génération salle");
+        
+        List<GameObject> validateRooms = selectRooms();
+
+        List<GameObject> validateRoomsDoorOnDown = new List<GameObject>();
+        List<GameObject> validateRoomsDoorNotOnDown = new List<GameObject>();
+
+        GameObject newRoom;
+        foreach(GameObject room in validateRooms){
+            if (room.GetComponent<Room>().hasDoorOnDown)
+                validateRoomsDoorOnDown.Add(room);
+            else
+                validateRoomsDoorNotOnDown.Add(room);
+        }
+
+        float indexRoom = Random.Range(0f,1f);
+
+        if (validateRoomsDoorOnDown.Count == 0)
+            newRoom = validateRoomsDoorNotOnDown[Random.Range(0,validateRoomsDoorNotOnDown.Count)];
+        else
+            if(indexRoom < GenerateDonjon.probDown || validateRoomsDoorNotOnDown.Count == 0)
+                newRoom = validateRoomsDoorOnDown[Random.Range(0,validateRoomsDoorOnDown.Count)];
+            else
+                newRoom = validateRoomsDoorNotOnDown[Random.Range(0,validateRoomsDoorNotOnDown.Count)];
+
+        newRoom = Instantiate(newRoom);
+        newRoom.SetActive(false);
+        newRoom.name = newRoom.name.Substring(0,newRoom.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
+        newRoom.transform.SetParent(GameObject.Find("GameManager").transform);
+        roomBehind = newRoom.GetComponent<Room>();
+
+        initCurrentRoom(roomBehind);
+        
+        //associe la porte du bon côté de roomBehind à currentRoom 
+        foreach(Door door in roomBehind.doors){
+            if(door.onSide == getOppositeSide(onSide)){
+                door.roomBehind = currentRoom;
+                break;
             }
+        }
 
-            return true;
-            
+        addRoomToGridMap(roomBehind,coordinates,this);
+
+        //ajoute toutes les portes qui n'ont pas de roomBehind à processDoors
+        foreach(Door door in roomBehind.doors){
+            if (door.roomBehind == null){
+                GenerateDonjon.processDoors.Add(door);
+            }
         }
-        else {
-            print("roomBehind est déjà généré");
-            return false;
-        }
+
+        return newRoom;
         
     }
 
@@ -158,6 +190,23 @@ public class Door : MonoBehaviour
             }
         }
         return validateRoom;
+    }
+
+    public static void addRoomToGridMap(Room roomToAdd, Vector2 coordinates , Door fromDoor){
+        switch(fromDoor.onSide){
+            case Door.side.Right :
+                GenerateDonjon.gridMap[(int) coordinates.x , (int) coordinates.y + 1] = roomToAdd;
+                break;
+            case Door.side.Left :
+                GenerateDonjon.gridMap[(int) coordinates.x , (int) coordinates.y - 1] = roomToAdd;                
+                break;
+            case Door.side.Down : 
+                GenerateDonjon.gridMap[(int) coordinates.x + 1, (int) coordinates.y] = roomToAdd;
+                break;
+            case Door.side.Up :
+                GenerateDonjon.gridMap[(int) coordinates.x - 1, (int) coordinates.y] = roomToAdd;
+                break;
+        }
     }
 
     public static void initCurrentRoom(Room room){
@@ -209,7 +258,7 @@ public class Door : MonoBehaviour
         //Passe à bleue la couleur de mapIcon de roomBehind
         foreach(GameObject mapIcon in mapIcons){
             mapIcon.GetComponent<Image>().color = Color.white;
-            if (mapIcon.name.Contains(roomBehind.name)){
+            if (mapIcon.name.Substring(mapIcon.name.IndexOf('-')) == roomBehind.name.Substring(roomBehind.name.IndexOf('-'))){
                 mapIcon.GetComponent<Image>().color = Color.blue;
             }
         }

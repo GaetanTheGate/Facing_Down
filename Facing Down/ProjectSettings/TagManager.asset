@@ -9,6 +9,7 @@ TagManager:
   - Traps
   - GameManager
   - MapIcon
+  - Room
   layers:
   - Default
   - TransparentFX
