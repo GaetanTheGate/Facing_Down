@@ -149,6 +149,12 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
+	public void OnBulletitimeEnd() {
+		foreach (Item item in items.Values) {
+			item.OnBullettimeEnd();
+		}
+	}
+
 	public Dictionary<string, Item> GetItems() {
 		return items;
 	}

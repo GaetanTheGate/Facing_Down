@@ -58,6 +58,9 @@ public class PrintItem : Item
 		Debug.Log("REDIRECTION USED");
 	}
 
+	public override void OnBullettimeEnd() {
+		Debug.Log("BULLET TIME ENDED NATURALLY");
+	}
 
 	public override Item MakeCopy() {
 		return new PrintItem();

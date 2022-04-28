@@ -91,6 +91,8 @@ public abstract class Item{
 
     public virtual void OnMegaDash() {}
 
+    public virtual void OnBullettimeEnd() { }
+
     public void SetAmount(int amount) {
         this.amount = amount;
 	}
