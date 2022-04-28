@@ -8,7 +8,7 @@ public class HeartOfTheStorm : Item
     private readonly float stackCooldownReduction = 0.1f;
     public HeartOfTheStorm() : base("HeartOfTheStorm", ItemRarity.UNCOMMON, ItemType.THUNDER) { }
 
-	public override void OnEnemyKill() {
+	public override void OnEnemyKill(Entity enemy) {
 		Game.player.stat.ReloadSpecial(cooldownReduction + (amount - 1) * stackCooldownReduction);
 	}
 

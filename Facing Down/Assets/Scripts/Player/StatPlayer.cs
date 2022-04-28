@@ -62,10 +62,11 @@ public class StatPlayer : StatEntity
         }
     }
 
-	public override void checkIfDead() {
+	public override void checkIfDead(DamageInfo lastDamageTaken) {
         if (currentHitPoints <= 0) Game.player.inventory.OnDeath();
-		base.checkIfDead();
-	}
+        if (onDeath != null && currentHitPoints <= 0)
+            onDeath.Invoke();
+        }
 
     /// <summary>
     /// Gives back special charges to the player.

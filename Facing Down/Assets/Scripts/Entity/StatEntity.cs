@@ -44,7 +44,7 @@ public class StatEntity : MonoBehaviour
         Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
         if(onHit != null && currentHitPoints > 0) onHit.Invoke();
-        checkIfDead();
+        checkIfDead(new DamageInfo(Game.player.self, gameObject.GetComponent<Entity>(), damage)); // TO REMOVE, test en mettant le joueur comme source de dégâts
     }
 
     public virtual void TakeDamage(DamageInfo damage)
@@ -53,10 +53,18 @@ public class StatEntity : MonoBehaviour
         Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
         if(onHit != null && currentHitPoints > 0) onHit.Invoke();
-        checkIfDead();
+        checkIfDead(damage);
     }
 
-    public virtual void checkIfDead() {
-        if (onDeath != null && currentHitPoints <= 0) onDeath.Invoke();
+    public virtual void checkIfDead(DamageInfo lastDamageTaken) {
+        if (onDeath != null && currentHitPoints <= 0) {
+            Debug.Log("DEAD BEGIN");
+            if (lastDamageTaken != null && lastDamageTaken.source == Game.player.self) {
+                Game.player.inventory.OnEnemyKill(gameObject.GetComponent<Entity>());
+            }
+            Debug.Log("DEAD MID");
+            onDeath.Invoke();
+            Debug.Log("DEAD END");
+        }
     }
 }

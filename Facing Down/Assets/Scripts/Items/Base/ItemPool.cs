@@ -37,6 +37,7 @@ public static class ItemPool
 		Add(new SylvanBreastplate());
 		Add(new Lightness());
 		Add(new InvisibilityCloak());
+		Add(new ObsidianShard());
 	}
 
 	public static void InitSeed(int s) {

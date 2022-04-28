@@ -105,9 +105,9 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
-	public void OnEnemyKill() {
+	public void OnEnemyKill(Entity enemy) {
 		foreach (Item item in items.Values) {
-			item.OnEnemyKill();
+			item.OnEnemyKill(enemy);
 		}
 	}
 

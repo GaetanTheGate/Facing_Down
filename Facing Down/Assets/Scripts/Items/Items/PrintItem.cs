@@ -26,8 +26,8 @@ public class PrintItem : Item
 		return false;
 	}
 
-	public override void OnEnemyKill() {
-		Debug.Log("ENEMY KILLED");
+	public override void OnEnemyKill(Entity enemy) {
+		Debug.Log("ENEMY KILLED : " + enemy);
 	}
 
 	public override void OnGroundCollisionEnter(Collision collision) {
