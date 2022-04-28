@@ -17,8 +17,7 @@ public class Drone3Death : MonoBehaviour
     {
         if (isDead)
         {
-            animator.SetBool("dead", true);
-            Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
+            StartCoroutine(startWaitingRoutine());
         }
     }
 
@@ -26,5 +25,12 @@ public class Drone3Death : MonoBehaviour
     {
         BroadcastMessage("deathEvent");
         isDead = true;
+    }
+
+    private IEnumerator startWaitingRoutine()
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        animator.SetBool("dead", true);
+        Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
     }
 }

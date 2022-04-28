@@ -224,8 +224,8 @@ MonoBehaviour:
   flags:
   - {fileID: 6180464659276183126}
   - {fileID: 6180464659818348789}
-  aggroDistance: 5
-  shootingRangeMin: 3
+  aggroDistance: 2
+  shootingRangeMin: 4
   shootingRangeMax: 5
 --- !u!114 &7732461433555852802
 MonoBehaviour:

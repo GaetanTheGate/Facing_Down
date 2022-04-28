@@ -217,7 +217,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   hpText: {fileID: 640469008979653010}
-  acceleration: 10
+  maxAcceleration: 20
   maxSpeed: 50
   numberOfDashes: 0
   maxDashes: 10
@@ -7133,7 +7133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d2925e02a8191499739790baffe912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponChosen: 2
+  weaponChosen: 0
 --- !u!4 &912899308 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8108250909575902100, guid: 1963798f0d4da484db0941cec990f070, type: 3}
@@ -11244,7 +11244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0eb9464465755b4a9ae34b59d311639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensibility: 0.2
+  sensibility: 0.5
   lowSensitivity: 0
 --- !u!114 &1594965495
 MonoBehaviour:

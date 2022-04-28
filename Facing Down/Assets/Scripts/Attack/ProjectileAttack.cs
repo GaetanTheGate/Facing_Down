@@ -16,19 +16,18 @@ public class ProjectileAttack : Attack
         if (!hasShot && percentageTime != 0)
         {
             rb.velocity = new Velocity(speed, angle).GetAsVector2();
-            Velocity grav = new Velocity(gravity);
-            grav.MulToSpeed(percentageTime >= 1 ? 1 : 0);
-            rb.velocity += grav.GetAsVector2();
             hasShot = true;
         }
         else if (hasShot)
         {
-            Velocity grav = new Velocity(gravity);
-            grav.MulToSpeed(percentageTime >= 1 ? 1 : 0);
-            rb.velocity += grav.GetAsVector2();
+
         }
         else
             return;
+        Velocity grav = new Velocity(gravity).MulToSpeed(Time.fixedDeltaTime).MulToSpeed(4.0f);
+        grav.MulToSpeed(percentageTime >= 1 ? 1 : 0);
+        rb.velocity += grav.GetAsVector2();
+        transform.localRotation = Quaternion.Euler(0, 0, new Velocity(rb.velocity).getAngle());
     }
 
     protected override void onStart()
@@ -46,7 +45,8 @@ public class ProjectileAttack : Attack
         foreach (string tag in tagsToDestroyOn)
         {
             if (collision.CompareTag(tag))
-                Destroy(gameObject);
+                if (gameObject.GetComponent<Collider2D>().IsTouching(collision)) 
+                    Destroy(gameObject);
         }
     }
 }
