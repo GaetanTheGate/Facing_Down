@@ -22,9 +22,9 @@ public class StatPlayer : StatEntity
     [Min(0)] public int maxSpecial = 3;
     [Min(0)] public float specialLeft = 3;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
         playerIframes = GetComponentInChildren<PlayerIframes>();
         hpText.text = currentHitPoints.ToString();
         rawAcceleration = acceleration;
@@ -39,18 +39,6 @@ public class StatPlayer : StatEntity
         return acceleration;
 	}
 
-    [System.Obsolete("Damage should be passed as a DamageInfo instead of a float.")]
-    public override void takeDamage(float damage)
-    {
-        if (!playerIframes.isIframe)
-        {
-            damage = Game.player.inventory.OnTakeDamage(damage);
-            base.takeDamage(damage);
-            hpText.text = currentHitPoints.ToString();
-            playerIframes.getIframe(2f);
-        }
-    }
-    
     public override void TakeDamage(DamageInfo damage)
     {
         if (!playerIframes.isIframe)

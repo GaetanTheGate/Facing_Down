@@ -4,20 +4,31 @@ using UnityEngine;
 
 public class DamageInfo
 {
+    public Velocity knockback;
     public Entity source;
     public Entity target;
     public float amount;
     public DamageType type;
 
-    public DamageInfo(Entity source, Entity target, float amount, DamageType type) {
+    public DamageInfo(Entity source, Entity target, float amount, DamageType type, Velocity knockback)
+    {
         Debug.Log(source + " hit " + target + " for " + amount + " damage with a " + (type == DamageType.PRIMARY ? "primary" : "secondary") + " attack.");
         this.source = source;
         this.target = target;
         this.amount = amount;
         this.type = type;
-	}
+        this.knockback = knockback;
+    }
 
-    public DamageInfo(Entity source, Entity target, float amount) : this(source, target, amount, DamageType.PRIMARY) { }
+    public DamageInfo(Entity source, Entity target, float amount, DamageType type) : this(source, target, amount, type, new Velocity()) { }
+
+    public DamageInfo(Entity source, Entity target, float amount) : this(source, target, amount, DamageType.PRIMARY, new Velocity()) { }
+
+    public DamageInfo(Entity source, float amount, Velocity knockback) : this(source, null, amount, DamageType.PRIMARY, knockback) { }
+
+    public DamageInfo(Entity source, float amount) : this(source, null, amount, DamageType.PRIMARY, new Velocity()) { }
+
+    public DamageInfo(DamageInfo dmgInfo) : this(dmgInfo.source, dmgInfo.target, dmgInfo.amount, dmgInfo.type, dmgInfo.knockback) { }
 }
 
 public enum DamageType {

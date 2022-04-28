@@ -72,7 +72,6 @@ GameObject:
   - component: {fileID: 7598232662881890678}
   - component: {fileID: 6180464658978433785}
   - component: {fileID: 7732461433555852802}
-  - component: {fileID: 379317916}
   - component: {fileID: 379317917}
   - component: {fileID: 8587477913929482738}
   - component: {fileID: 173149260}
@@ -240,20 +239,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 2
---- !u!114 &379317916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6180464658978433543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2786dcbe8c1f7242b24687a24b85b95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  base_gravity_direction: 270
-  base_gravity_speed: 9.8
 --- !u!114 &379317917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad009292beaab1d4a989b19a796968c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 10
+  maxHitPoints: 500
   currentHitPoints: 0
   baseAtk: 100
   atkMultipler: 1

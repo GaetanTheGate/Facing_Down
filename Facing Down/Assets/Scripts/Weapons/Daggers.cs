@@ -98,7 +98,9 @@ public class Daggers : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
         swing.GetComponent<HalfSlashAttack>().way = way;
         swing.GetComponent<HalfSlashAttack>().angle = angle;
-        AddHitAttack(swing, baseAtk);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(0.25f * dmg, angle)));
 
         return swing.GetComponent<HalfSlashAttack>();
     }
@@ -121,7 +123,9 @@ public class Daggers : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().way = way;
         swing.GetComponent<HalfSlashAttack>().angle = angle;
         swing.GetComponent<HalfSlashAttack>().onEndAttack += SpecialAttack;
-        AddHitAttack(swing, baseAtk);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 0.5f, new Velocity(0.125f * dmg, angle)));
 
         return swing.GetComponent<HalfSlashAttack>();
     }
@@ -142,7 +146,10 @@ public class Daggers : MeleeWeapon
         swing1.GetComponent<HalfSlashAttack>().timeSpan = 0.1f;
         swing1.GetComponent<HalfSlashAttack>().followEntity = false;
         swing1.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
-        AddHitAttack(swing1, baseAtk);
+
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing1, new DamageInfo(self, baseAtk * dmg * 2, new Velocity(0.5f * dmg, angle)));
 
         GameObject swing2 = GameObject.Instantiate(swing1);
 

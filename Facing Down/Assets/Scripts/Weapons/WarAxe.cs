@@ -63,7 +63,9 @@ public class WarAxe : MeleeWeapon
         swing.GetComponent<SwingAttack>().way = SwingAttack.Way.Clockwise;
 
         swing.GetComponent<SwingAttack>().onEndAttack += nextSpin;
-        AddHitAttack(swing, baseAtk);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 0.5f, new Velocity(0.5f * dmg, angle)));
         swing.GetComponent<SwingAttack>().startAttack();
     }
 
@@ -84,7 +86,9 @@ public class WarAxe : MeleeWeapon
         swing.GetComponent<SwingAttack>().endDelay = baseEDelay;
 
         swing.GetComponent<SwingAttack>().way = way;
-        AddHitAttack(swing, baseAtk);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(5 * dmg, angle)));
 
         return swing.GetComponent<SwingAttack>();
     }
@@ -97,17 +101,19 @@ public class WarAxe : MeleeWeapon
 
         swing.GetComponent<SwingAttack>().src = self;
         swing.GetComponent<SwingAttack>().acceleration = 0.6f;
-        swing.GetComponent<SwingAttack>().angle = 90 - 10 / 2;
+        swing.GetComponent<SwingAttack>().angle = 90;
         swing.GetComponent<SwingAttack>().range = baseRange;
-        swing.GetComponent<SwingAttack>().lenght = 10;
-        swing.GetComponent<SwingAttack>().timeSpan = 0.01f;
+        swing.GetComponent<SwingAttack>().lenght = 0;
+        swing.GetComponent<SwingAttack>().timeSpan = 0.0f;
         swing.GetComponent<SwingAttack>().startDelay = 1.0f;
         swing.GetComponent<SwingAttack>().followEntity = forceUnFollow;
 
         swing.GetComponent<SwingAttack>().way = SwingAttack.Way.Clockwise;
 
         swing.GetComponent<SwingAttack>().onEndAttack += nextSpin;
-        AddHitAttack(swing, baseAtk);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 2, new Velocity(5 * dmg, angle)));
 
         return swing.GetComponent<SwingAttack>();
     }

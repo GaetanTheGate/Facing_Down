@@ -34,7 +34,9 @@ public class Laser : MeleeWeapon
         laser.GetComponent<LaserAttack>().endDelay = 0.0f;
 
         laser.GetComponent<LaserAttack>().followEntity = forceUnFollow;
-        AddHitAttack(laser, baseAtk);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle)));
 
         GameObject attack = new GameObject();
         attack.AddComponent<CompositeAttack>();
@@ -67,7 +69,10 @@ public class Laser : MeleeWeapon
         laser.GetComponent<LaserAttack>().endDelay = lenghtAtk / 2.0f;
 
         laser.GetComponent<LaserAttack>().followEntity = forceUnFollow;
-        AddHitAttack(laser, baseAtk * 2);
+
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg * 2, new Velocity(0.125f * dmg, angle)));
 
         GameObject attack = new GameObject();
         attack.AddComponent<CompositeAttack>();
