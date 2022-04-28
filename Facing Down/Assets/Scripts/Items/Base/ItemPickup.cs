@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-	public static readonly string spriteFolderPath = "Items/";
+	public static readonly string spriteFolderPath = "Items/Sprites/";
 	private Item item;
 
 	public void Init(Item item) {

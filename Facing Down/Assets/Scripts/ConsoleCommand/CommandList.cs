@@ -23,6 +23,7 @@ public static class CommandList
 		Add(new ConsoleCommand<string>("removeItem", "Remove 1 of the specified item from the inventory.", "removeItem <ID>", (ID) => {AdvancedCommandFunctions.RemoveItem(ID, 1);}));
 		Add(new ConsoleCommand<string, int>("removeItem", "Remove <amount> of the specified item from the inventory.", "removeItem <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.RemoveItem(ID, amount);}));
 		Add(new ConsoleCommand<string, int, int>("spawnItem", "Spawn the specified item at given position relative to the player.", "spawnItem <ID> <x> <y>", (ID, xOffset, yOffset) => {AdvancedCommandFunctions.SpawnItem(ID, xOffset, yOffset);}));
+		Add(new ConsoleCommand<int>("rift", "TO REMOVE.", "rift <boost>", (boost) => { GameObject.Instantiate<Rift>(Resources.Load<Rift>("Prefabs/Items/ItemEffects/Rift")).Init(boost, Game.player.self.transform.position);  }));
 	}
 
 	/// <summary>
