@@ -33,7 +33,8 @@ public class Bullet : ProjectileWeapon
         bullet.GetComponent<ProjectileAttack>().speed = baseSpeed;
 
 
-        AddHitAttack(bullet, baseAtk);
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(bullet, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle)));
         return bullet.GetComponent<ProjectileAttack>();
     }
 
@@ -52,7 +53,9 @@ public class Bullet : ProjectileWeapon
         bullet.GetComponent<ProjectileAttack>().endDelay = baseEDelay;
         bullet.GetComponent<ProjectileAttack>().speed = baseSpeed;
         bullet.GetComponent<ProjectileAttack>().angle = Random.Range(angle - angleRange, angle + angleRange);
-        AddHitAttack(bullet, baseAtk);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(bullet, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle)));
 
         GameObject attack = new GameObject();
         attack.AddComponent<CompositeAttack>();

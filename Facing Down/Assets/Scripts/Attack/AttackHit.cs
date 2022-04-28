@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class AttackHit : MonoBehaviour
 {
-    public float damage = 1;
-    public List<string> tagsToHit = new List<string>();
+    public DamageInfo dmgInfo;
+
+    public List<string> layersToHit = new List<string>();
     private Dictionary<GameObject, bool> entitiesHit = new Dictionary<GameObject, bool>();
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -15,7 +16,7 @@ public class AttackHit : MonoBehaviour
 
     public void ComputeAttack(Collider2D collision, float dmgMultiplier)
     {
-        foreach (string tag in tagsToHit)
+        foreach (string tag in layersToHit)
         {
             if (collision.CompareTag(tag))
             {
@@ -23,7 +24,11 @@ public class AttackHit : MonoBehaviour
                 else if (entitiesHit[collision.gameObject]) entitiesHit[collision.gameObject] = false;
                 else continue;
                 StatEntity statEntity = collision.GetComponent<StatEntity>();
-                statEntity.takeDamage(damage * dmgMultiplier);
+                
+                DamageInfo damage = new DamageInfo(dmgInfo);
+                damage.amount *= dmgMultiplier;
+                damage.target = collision.GetComponent<Entity>();
+                statEntity.TakeDamage(damage);
                 waitForAttack(2.0f, collision.gameObject);
             }
         }
