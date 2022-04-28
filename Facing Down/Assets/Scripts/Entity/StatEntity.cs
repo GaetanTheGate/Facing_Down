@@ -17,6 +17,8 @@ public class StatEntity : MonoBehaviour
     public UnityEvent onDeath;
     private Animator animator;
 
+    protected bool isDead = false;
+
     public virtual void Start()
     {
         currentHitPoints = maxHitPoints;
@@ -40,6 +42,7 @@ public class StatEntity : MonoBehaviour
     [System.Obsolete("Damage should be passed as a DamageInfo instead of an int")]
     public virtual void takeDamage(float damage)
     {
+        if (isDead) return;
         currentHitPoints -= (int)damage;
         Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
@@ -49,6 +52,7 @@ public class StatEntity : MonoBehaviour
 
     public virtual void TakeDamage(DamageInfo damage)
     {
+        if (isDead) return;
         currentHitPoints -= (int)damage.amount;
         Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
@@ -58,13 +62,11 @@ public class StatEntity : MonoBehaviour
 
     public virtual void checkIfDead(DamageInfo lastDamageTaken) {
         if (onDeath != null && currentHitPoints <= 0) {
-            Debug.Log("DEAD BEGIN");
             if (lastDamageTaken != null && lastDamageTaken.source == Game.player.self) {
                 Game.player.inventory.OnEnemyKill(gameObject.GetComponent<Entity>());
             }
-            Debug.Log("DEAD MID");
             onDeath.Invoke();
-            Debug.Log("DEAD END");
+            isDead = true;
         }
     }
 }

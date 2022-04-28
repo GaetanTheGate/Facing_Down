@@ -42,6 +42,7 @@ public class StatPlayer : StatEntity
     [System.Obsolete("Damage should be passed as a DamageInfo instead of a float.")]
     public override void takeDamage(float damage)
     {
+        if (isDead) return;
         if (!playerIframes.isIframe)
         {
             damage = Game.player.inventory.OnTakeDamage(damage);
@@ -53,6 +54,7 @@ public class StatPlayer : StatEntity
     
     public override void TakeDamage(DamageInfo damage)
     {
+        if (isDead) return;
         if (!playerIframes.isIframe)
         {
             damage = Game.player.inventory.OnTakeDamage(damage);
@@ -62,11 +64,12 @@ public class StatPlayer : StatEntity
         }
     }
 
-	public override void checkIfDead(DamageInfo lastDamageTaken) {
+    public override void checkIfDead(DamageInfo lastDamageTaken) {
         if (currentHitPoints <= 0) Game.player.inventory.OnDeath();
         if (onDeath != null && currentHitPoints <= 0)
             onDeath.Invoke();
-        }
+        isDead = true;
+    }
 
     /// <summary>
     /// Gives back special charges to the player.

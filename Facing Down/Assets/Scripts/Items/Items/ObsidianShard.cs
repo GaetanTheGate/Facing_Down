@@ -8,7 +8,7 @@ public class ObsidianShard : Item
     public ObsidianShard() : base("ObsidianShard", ItemRarity.LEGENDARY, ItemType.FIRE) { }
 
 	public override void OnEnemyKill(Entity enemy) {
-		Bullet bullet = new Bullet("Enemy");
+		Laser bullet = new Laser("Enemy");
 		
 		Entity closestEnemy = null;
 		foreach(Entity entity in GameObject.FindObjectsOfType<Entity>()) {
@@ -17,8 +17,8 @@ public class ObsidianShard : Item
 				closestEnemy = entity;
 		}
 		if (closestEnemy != null) {
-			Debug.Log("DEAD : " + enemy + " CLOSEST : " + closestEnemy + " ANGLE : " + Vector3.Angle(enemy.transform.position, closestEnemy.transform.position));
-			bullet.Attack(Vector3.Angle(closestEnemy.transform.position, enemy.transform.position) - 90, enemy);
+			Debug.Log("DEAD : " + enemy.transform.position + " PLAYER : " + Game.player.self.transform.position + " ANGLE : " + Vector2.Angle(Game.player.self.transform.position, enemy.transform.position));
+			bullet.Attack( - Vector2.SignedAngle(closestEnemy.transform.position - enemy.transform.position, Vector2.right), enemy);
 		}
 	}
 
