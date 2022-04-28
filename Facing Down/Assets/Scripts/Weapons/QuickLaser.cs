@@ -19,7 +19,11 @@ public class QuickLaser : MeleeWeapon
 
     public override Attack GetAttack(float angle, Entity self)
     {
-        GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
+        GameObject laser = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle)));
+
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();
 
@@ -32,15 +36,16 @@ public class QuickLaser : MeleeWeapon
 
         laser.GetComponent<LaserAttack>().followEntity = false;
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle)));
-
         return laser.GetComponent<LaserAttack>();
     }
 
     public override Attack GetSpecial(float angle, Entity self)
     {
         GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg * 5, new Velocity(0.5f * dmg, angle)));
+
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();
 
@@ -52,10 +57,6 @@ public class QuickLaser : MeleeWeapon
         laser.GetComponent<LaserAttack>().endDelay = baseEDelay * 1.5f;
 
         laser.GetComponent<LaserAttack>().followEntity = false;
-
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg * 5, new Velocity(0.5f * dmg, angle)));
-
         return laser.GetComponent<LaserAttack>();
     }
 

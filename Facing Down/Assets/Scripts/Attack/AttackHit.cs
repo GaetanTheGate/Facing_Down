@@ -11,14 +11,15 @@ public class AttackHit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ComputeAttack(collision, 1.0f);
+        if (gameObject.GetComponent<Collider2D>().IsTouching(collision))
+            ComputeAttack(collision, 1.0f);
     }
 
     public void ComputeAttack(Collider2D collision, float dmgMultiplier)
     {
-        foreach (string tag in layersToHit)
+        foreach (string layer in layersToHit)
         {
-            if (collision.CompareTag(tag))
+            if (collision.gameObject.layer.Equals(LayerMask.NameToLayer(layer)))
             {
                 if (!entitiesHit.ContainsKey(collision.gameObject)) entitiesHit.Add(collision.gameObject, false);
                 else if (entitiesHit[collision.gameObject]) entitiesHit[collision.gameObject] = false;

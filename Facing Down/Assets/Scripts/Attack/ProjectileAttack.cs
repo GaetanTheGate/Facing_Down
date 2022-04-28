@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class ProjectileAttack : Attack
 {
+    public float rotationSpeed = 0f;
     private Rigidbody2D rb;
     private bool hasShot = false;
 
     public Velocity gravity = new Velocity();
     public float speed = 1.0f;
-    public List<string> tagsToDestroyOn = new List<string>();
+    public List<string> layersToDestroyOn = new List<string>();
+
+    public int numberOfHitToDestroy = 1;
+    private int numberOfHit = 0;
 
     protected override void ComputeAttack(float percentageTime)
     {
@@ -27,26 +31,33 @@ public class ProjectileAttack : Attack
         Velocity grav = new Velocity(gravity).MulToSpeed(Time.fixedDeltaTime).MulToSpeed(4.0f);
         grav.MulToSpeed(percentageTime >= 1 ? 1 : 0);
         rb.velocity += grav.GetAsVector2();
-        transform.localRotation = Quaternion.Euler(0, 0, new Velocity(rb.velocity).getAngle());
+        transform.localRotation = Quaternion.Euler(0, 0, transform.localRotation.eulerAngles.z + rotationSpeed * Time.fixedDeltaTime);
     }
 
     protected override void onStart()
     {
-        tagsToDestroyOn.Add("Terrain");
-        rb = gameObject.AddComponent<Rigidbody2D>();
+        rb = Entity.initRigidBody(gameObject);
 
-        rb.gravityScale = 0;
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), src.GetComponent<Collider2D>());
+
         transform.rotation = Quaternion.Euler(0, 0, angle);
         rb.velocity = new Vector3();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        foreach (string tag in tagsToDestroyOn)
-        {
-            if (collision.CompareTag(tag))
-                if (gameObject.GetComponent<Collider2D>().IsTouching(collision)) 
-                    Destroy(gameObject);
-        }
+        if ( ! gameObject.GetComponent<Collider2D>().IsTouching(collision))
+            return;
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Terrain"))
+            Destroy(gameObject);
+
+        foreach (string layer in layersToDestroyOn)
+            if (collision.gameObject.layer.Equals(LayerMask.NameToLayer(layer)))
+            {
+                    ++numberOfHit;
+                    if (numberOfHit >= numberOfHitToDestroy)
+                        Destroy(gameObject);
+            }
     }
 }

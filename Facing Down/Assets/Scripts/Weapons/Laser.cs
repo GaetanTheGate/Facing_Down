@@ -23,6 +23,11 @@ public class Laser : MeleeWeapon
         float lenghtAtk = 1.0f /  hitPerSecond;
 
         GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle));
+        AddHitAttack(laser, dmgInfo);
+
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();
 
@@ -35,9 +40,6 @@ public class Laser : MeleeWeapon
 
         laser.GetComponent<LaserAttack>().followEntity = forceUnFollow;
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle)));
-
         GameObject attack = new GameObject();
         attack.AddComponent<CompositeAttack>();
         attack.GetComponent<CompositeAttack>().attackList.Add(laser.GetComponent<LaserAttack>());
@@ -46,6 +48,7 @@ public class Laser : MeleeWeapon
 
             GameObject newLaser = GameObject.Instantiate(laser);
             newLaser.GetComponent<LaserAttack>().startDelay = startDelay;
+            newLaser.GetComponent<AttackHit>().dmgInfo = dmgInfo;
 
             attack.GetComponent<CompositeAttack>().attackList.Add(newLaser.GetComponent<LaserAttack>());
         }
@@ -58,6 +61,11 @@ public class Laser : MeleeWeapon
         float lenghtAtk = 1.0f / hitPerSecond;
 
         GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 2, new Velocity(0.125f * dmg, angle));
+        AddHitAttack(laser, dmgInfo);
+
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();
 
@@ -70,10 +78,6 @@ public class Laser : MeleeWeapon
 
         laser.GetComponent<LaserAttack>().followEntity = forceUnFollow;
 
-
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg * 2, new Velocity(0.125f * dmg, angle)));
-
         GameObject attack = new GameObject();
         attack.AddComponent<CompositeAttack>();
         attack.GetComponent<CompositeAttack>().attackList.Add(laser.GetComponent<LaserAttack>());
@@ -83,6 +87,7 @@ public class Laser : MeleeWeapon
 
             GameObject newLaser = GameObject.Instantiate(laser);
             newLaser.GetComponent<LaserAttack>().startDelay = startDelay;
+            newLaser.GetComponent<AttackHit>().dmgInfo = dmgInfo;
 
             attack.GetComponent<CompositeAttack>().attackList.Add(newLaser.GetComponent<LaserAttack>());
         }

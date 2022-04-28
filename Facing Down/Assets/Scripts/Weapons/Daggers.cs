@@ -55,7 +55,7 @@ public class Daggers : MeleeWeapon
         {
             self.GetComponent<Rigidbody2D>().velocity = startVelo;
             
-            GetFinalSpecial(angle, self);
+            GetFinalSpecial(angle, self).startAttack();
 
             return;
         }
@@ -85,6 +85,10 @@ public class Daggers : MeleeWeapon
     public override Attack GetAttack(float angle, Entity self)
     {
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(0.25f * dmg, angle)));
+
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
 
@@ -99,15 +103,16 @@ public class Daggers : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().way = way;
         swing.GetComponent<HalfSlashAttack>().angle = angle;
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(0.25f * dmg, angle)));
-
         return swing.GetComponent<HalfSlashAttack>();
     }
 
     public override Attack GetSpecial(float angle, Entity self)
     {
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 0.5f, new Velocity(0.125f * dmg, angle)));
+
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
 
@@ -124,15 +129,16 @@ public class Daggers : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().angle = angle;
         swing.GetComponent<HalfSlashAttack>().onEndAttack += SpecialAttack;
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 0.5f, new Velocity(0.125f * dmg, angle)));
-
         return swing.GetComponent<HalfSlashAttack>();
     }
 
     private Attack GetFinalSpecial(float angle, Entity self)
     {
         GameObject swing1 = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 2, new Velocity(0.5f * dmg, angle));
+        AddHitAttack(swing1, dmgInfo);
+
         swing1.transform.position = startPos;
         swing1.AddComponent<HalfSlashAttack>();
 
@@ -147,11 +153,8 @@ public class Daggers : MeleeWeapon
         swing1.GetComponent<HalfSlashAttack>().followEntity = false;
         swing1.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
 
-
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing1, new DamageInfo(self, baseAtk * dmg * 2, new Velocity(0.5f * dmg, angle)));
-
         GameObject swing2 = GameObject.Instantiate(swing1);
+        swing2.GetComponent<AttackHit>().dmgInfo = dmgInfo;
 
         swing1.GetComponent<HalfSlashAttack>().way = HalfSlashAttack.Way.CounterClockwise;
         swing1.GetComponent<HalfSlashAttack>().angle = angle + 45;
@@ -160,8 +163,6 @@ public class Daggers : MeleeWeapon
 
 
         swing1.GetComponent<HalfSlashAttack>().onEndAttack += EndSpecialAttack;
-        swing1.GetComponent<HalfSlashAttack>().startAttack();
-        swing2.GetComponent<HalfSlashAttack>().startAttack();
 
         GameObject attack = new GameObject();
         attack.AddComponent<CompositeAttack>();

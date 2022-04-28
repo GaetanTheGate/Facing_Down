@@ -48,6 +48,10 @@ public class Katana : MeleeWeapon
     {
 
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(2 * dmg, angle)));
+
         swing.transform.position = startPos;
         swing.AddComponent<SlashAttack>();
 
@@ -61,15 +65,16 @@ public class Katana : MeleeWeapon
 
         swing.GetComponent<SlashAttack>().way = way;
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(2 * dmg, angle)));
-
         return swing.GetComponent<SlashAttack>();
     }
 
     public override Attack GetSpecial(float angle, Entity self)
     {
         GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg * 5, new Velocity(0.5f * dmg, angle)));
+
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();
 
@@ -81,9 +86,6 @@ public class Katana : MeleeWeapon
         laser.GetComponent<LaserAttack>().timeSpan = 0.00f;
         laser.GetComponent<LaserAttack>().endDelay = 0.05f;
         laser.GetComponent<LaserAttack>().followEntity = false;
-
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg * 5, new Velocity(0.5f * dmg, angle)));
 
         return laser.GetComponent<LaserAttack>();
     }

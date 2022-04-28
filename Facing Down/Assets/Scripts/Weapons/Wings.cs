@@ -27,6 +27,11 @@ public class Wings : MeleeWeapon
     public override Attack GetAttack(float angle, Entity self)
     {
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(2 * dmg, angle));
+        AddHitAttack(swing, dmgInfo);
+
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
 
@@ -38,10 +43,8 @@ public class Wings : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().followEntity = forceUnFollow;
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(2 * dmg, angle)));
-
         GameObject swing2 = GameObject.Instantiate(swing);
+        swing2.GetComponent<AttackHit>().dmgInfo = dmgInfo;
         swing.GetComponent<HalfSlashAttack>().onEndAttack += onEndAttack;
 
 
@@ -62,6 +65,11 @@ public class Wings : MeleeWeapon
     public override Attack GetSpecial(float angle, Entity self)
     {
         GameObject swing = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 5, new Velocity(4 * dmg, angle));
+        AddHitAttack(swing, dmgInfo);
+
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
 
@@ -73,10 +81,8 @@ public class Wings : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().followEntity = forceUnFollow;
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 5, new Velocity(4 * dmg, angle)));
-
         GameObject swing2 = GameObject.Instantiate(swing);
+        swing2.GetComponent<AttackHit>().dmgInfo = dmgInfo;
         swing.GetComponent<HalfSlashAttack>().onEndAttack += onEndSpecial;
 
 

@@ -49,6 +49,10 @@ public class WarAxe : MeleeWeapon
         self.transform.rotation = Quaternion.Euler(0, 0, angle);
 
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 0.5f, new Velocity(0.5f * dmg, angle)));
+
         swing.transform.position = startPos;
         swing.AddComponent<SwingAttack>();
 
@@ -63,15 +67,16 @@ public class WarAxe : MeleeWeapon
         swing.GetComponent<SwingAttack>().way = SwingAttack.Way.Clockwise;
 
         swing.GetComponent<SwingAttack>().onEndAttack += nextSpin;
-
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 0.5f, new Velocity(0.5f * dmg, angle)));
         swing.GetComponent<SwingAttack>().startAttack();
     }
 
     public override Attack GetAttack(float angle, Entity self)
     {
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(5 * dmg, angle)));
+
         swing.transform.position = startPos;
         swing.AddComponent<SwingAttack>();
 
@@ -87,15 +92,16 @@ public class WarAxe : MeleeWeapon
 
         swing.GetComponent<SwingAttack>().way = way;
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(5 * dmg, angle)));
-
         return swing.GetComponent<SwingAttack>();
     }
 
     public override Attack GetSpecial(float angle, Entity self)
     {
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 2, new Velocity(5 * dmg, angle)));
+
         swing.transform.position = startPos;
         swing.AddComponent<SwingAttack>();
 
@@ -111,9 +117,6 @@ public class WarAxe : MeleeWeapon
         swing.GetComponent<SwingAttack>().way = SwingAttack.Way.Clockwise;
 
         swing.GetComponent<SwingAttack>().onEndAttack += nextSpin;
-
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 2, new Velocity(5 * dmg, angle)));
 
         return swing.GetComponent<SwingAttack>();
     }
