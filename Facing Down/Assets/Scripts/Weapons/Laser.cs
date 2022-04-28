@@ -7,7 +7,7 @@ public class Laser : MeleeWeapon
     public Laser(string target) : base(target)
     {
         baseAtk = 20;
-        baseRange = 3;
+        baseRange = 50;
         baseLenght = 1;
         baseSpan = 0.3f;
         baseCooldown = 0.1f;
@@ -28,7 +28,7 @@ public class Laser : MeleeWeapon
 
         laser.GetComponent<LaserAttack>().src = self;
         laser.GetComponent<LaserAttack>().angle = angle;
-        laser.GetComponent<LaserAttack>().range = 50;
+        laser.GetComponent<LaserAttack>().range = baseRange;
         laser.GetComponent<LaserAttack>().lenght = baseLenght;
         laser.GetComponent<LaserAttack>().timeSpan = lenghtAtk;
         laser.GetComponent<LaserAttack>().endDelay = 0.0f;
@@ -63,7 +63,7 @@ public class Laser : MeleeWeapon
 
         laser.GetComponent<LaserAttack>().src = self;
         laser.GetComponent<LaserAttack>().angle = angle;
-        laser.GetComponent<LaserAttack>().range = 50;
+        laser.GetComponent<LaserAttack>().range = baseRange;
         laser.GetComponent<LaserAttack>().lenght = baseLenght * 2;
         laser.GetComponent<LaserAttack>().timeSpan = lenghtAtk;
         laser.GetComponent<LaserAttack>().endDelay = lenghtAtk / 2.0f;
