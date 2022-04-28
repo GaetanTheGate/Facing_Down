@@ -19,8 +19,9 @@ public class StatEntity : MonoBehaviour
 
     protected bool isDead = false;
 
-    public virtual void Start()
+    public virtual void Awake()
     {
+        computeAtk();
         currentHitPoints = maxHitPoints;
         animator = gameObject.GetComponent<Animator>();
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
@@ -39,25 +40,15 @@ public class StatEntity : MonoBehaviour
         currentHitPoints = Mathf.Max(maxHitPoints, currentHitPoints + Mathf.CeilToInt(amount));
 	}
 
-    [System.Obsolete("Damage should be passed as a DamageInfo instead of an int")]
-    public virtual void takeDamage(float damage)
+    public virtual void TakeDamage(DamageInfo dmgInfo)
     {
         if (isDead) return;
-        currentHitPoints -= (int)damage;
+        currentHitPoints -= (int)dmgInfo.amount;
+        GetComponent<Rigidbody2D>().velocity += dmgInfo.knockback.GetAsVector2();
         Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
         if(onHit != null && currentHitPoints > 0) onHit.Invoke();
-        checkIfDead(new DamageInfo(Game.player.self, gameObject.GetComponent<Entity>(), damage)); // TO REMOVE, test en mettant le joueur comme source de dégâts
-    }
-
-    public virtual void TakeDamage(DamageInfo damage)
-    {
-        if (isDead) return;
-        currentHitPoints -= (int)damage.amount;
-        Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
-        if (animator != null) animator.SetFloat("hp", currentHitPoints);
-        if(onHit != null && currentHitPoints > 0) onHit.Invoke();
-        checkIfDead(damage);
+        checkIfDead(dmgInfo);
     }
 
     public virtual void checkIfDead(DamageInfo lastDamageTaken) {

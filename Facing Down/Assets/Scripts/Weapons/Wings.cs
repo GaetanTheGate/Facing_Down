@@ -37,7 +37,9 @@ public class Wings : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().timeSpan = baseSpan;
         swing.GetComponent<HalfSlashAttack>().followEntity = forceUnFollow;
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
-        AddHitAttack(swing, baseAtk);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(2 * dmg, angle)));
 
         GameObject swing2 = GameObject.Instantiate(swing);
         swing.GetComponent<HalfSlashAttack>().onEndAttack += onEndAttack;
@@ -70,7 +72,9 @@ public class Wings : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().timeSpan = baseSpan * 2;
         swing.GetComponent<HalfSlashAttack>().followEntity = forceUnFollow;
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
-        AddHitAttack(swing, baseAtk);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 5, new Velocity(4 * dmg, angle)));
 
         GameObject swing2 = GameObject.Instantiate(swing);
         swing.GetComponent<HalfSlashAttack>().onEndAttack += onEndSpecial;

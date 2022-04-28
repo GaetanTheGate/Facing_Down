@@ -26,7 +26,6 @@ public class DirectionPointer : MonoBehaviour
     void FixedUpdate()
     {
         ComputePosition();
-        ComputeMaxDistance();
         ComputeRotation();
     }
 
@@ -43,6 +42,7 @@ public class DirectionPointer : MonoBehaviour
         else
             posAsJoystick();
 
+        ComputeMaxDistance();
         transform.position = new Vector3(target.position.x, target.position.y, target.position.z - 1) + new Vector3(nextPosition.x, nextPosition.y, 0);
     }
 

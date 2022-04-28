@@ -18,22 +18,23 @@ public class Shuriken : ProjectileWeapon
 
     public override Attack GetAttack(float angle, Entity self)
     {
-        GameObject bullet = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
-        bullet.AddComponent<ProjectileAttack>();
-        bullet.transform.position = startPos;
+        GameObject shuriken = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+        shuriken.AddComponent<ProjectileAttack>();
+        shuriken.transform.position = startPos;
 
-        bullet.GetComponent<ProjectileAttack>().src = self;
+        shuriken.GetComponent<ProjectileAttack>().src = self;
 
-        bullet.GetComponent<ProjectileAttack>().angle = angle;
-        bullet.GetComponent<ProjectileAttack>().acceleration = 1.0f;
-        bullet.GetComponent<ProjectileAttack>().timeSpan = baseSpan;
-        bullet.GetComponent<ProjectileAttack>().endDelay = baseEDelay;
-        bullet.GetComponent<ProjectileAttack>().speed = baseSpeed;
-        bullet.GetComponent<ProjectileAttack>().gravity = self.GetComponent<GravityEntity>().gravity;
+        shuriken.GetComponent<ProjectileAttack>().angle = angle;
+        shuriken.GetComponent<ProjectileAttack>().acceleration = 1.0f;
+        shuriken.GetComponent<ProjectileAttack>().timeSpan = baseSpan;
+        shuriken.GetComponent<ProjectileAttack>().endDelay = baseEDelay;
+        shuriken.GetComponent<ProjectileAttack>().speed = baseSpeed;
+        shuriken.GetComponent<ProjectileAttack>().gravity = self.GetComponent<GravityEntity>().gravity;
 
 
-        AddHitAttack(bullet, baseAtk);
-        return bullet.GetComponent<ProjectileAttack>();
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(shuriken, new DamageInfo(self, baseAtk * dmg, new Velocity(1.0f * dmg, angle)));
+        return shuriken.GetComponent<ProjectileAttack>();
     }
 
     public override Attack GetSpecial(float angle, Entity self)

@@ -23,7 +23,6 @@ public class Katana : MeleeWeapon
 
         GetAttack(angle, self).startAttack();
 
-
         if (way == SlashAttack.Way.Clockwise)
             way = SlashAttack.Way.CounterClockwise;
         else if (way == SlashAttack.Way.CounterClockwise)
@@ -62,7 +61,8 @@ public class Katana : MeleeWeapon
 
         swing.GetComponent<SlashAttack>().way = way;
 
-        AddHitAttack(swing, baseAtk);
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(2 * dmg, angle)));
 
         return swing.GetComponent<SlashAttack>();
     }
@@ -82,7 +82,8 @@ public class Katana : MeleeWeapon
         laser.GetComponent<LaserAttack>().endDelay = 0.05f;
         laser.GetComponent<LaserAttack>().followEntity = false;
 
-        AddHitAttack(laser, baseAtk * 5);
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg * 5, new Velocity(0.5f * dmg, angle)));
 
         return laser.GetComponent<LaserAttack>();
     }

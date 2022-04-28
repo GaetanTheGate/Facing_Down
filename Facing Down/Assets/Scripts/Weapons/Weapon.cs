@@ -58,10 +58,10 @@ public abstract class Weapon
     public float getSpan() => baseSpan;
     public float getBaseCooldown() => baseCooldown;
 
-    protected void AddHitAttack(GameObject gameObject, float damage)
+    protected void AddHitAttack(GameObject gameObject, DamageInfo dmgInfo)
     {
         gameObject.AddComponent<AttackHit>();
-        gameObject.GetComponent<AttackHit>().damage = damage;
-        gameObject.GetComponent<AttackHit>().tagsToHit.Add(target);
+        gameObject.GetComponent<AttackHit>().dmgInfo = dmgInfo;
+        gameObject.GetComponent<AttackHit>().layersToHit.Add(target);
     }
 }
