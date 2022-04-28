@@ -8,7 +8,7 @@ public class Bullet : ProjectileWeapon
     public Bullet(string target) : base(target)
     {
 
-        baseAtk = 1f;
+        baseAtk = 30f;
         baseSpeed = 20.0f;
         baseSpan = 0.0f;
         baseEDelay = 5.0f;
