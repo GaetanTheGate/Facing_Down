@@ -2,31 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class Door : MonoBehaviour
 {
     public enum side{
-        right,
-        left,
-        up, 
-        down
+        Right,
+        Left,
+        Up, 
+        Down
 
     }
 
     public side onSide;
     public Room roomBehind;
     public Room currentRoom;
-
-
-    
-
-
-    void Update(){
-        if (Input.GetKeyDown(KeyCode.LeftControl)){
-            Destroy(GameObject.Find("GameManager"));
-        }
-    }
 
     
     public void OnTriggerEnter2D(Collider2D collider2D){
@@ -35,34 +26,36 @@ public class Door : MonoBehaviour
                 float x = 0;
                 float y = 0;
 
-                Door door = null;
+
+                //récupération de la porte connecté à currentRoom dans roomBehind
+                Door doorBehind = null;
                 foreach(Door d in roomBehind.doors){
                     if(d.roomBehind == currentRoom){
-                        door = d;
+                        doorBehind = d;
                         break;
                     }
                 }
 
-                switch(door.onSide){
-                    case side.right :
-                        x = door.transform.position.x - 1;
-                        y = collider2D.transform.position.y;
+                switch(doorBehind.onSide){
+                    case side.Right :
+                        x = doorBehind.transform.position.x - 2;
+                        y = doorBehind.transform.position.y;
                         break;
-                    case side.left :
+                    case side.Left :
 
-                        x = door.transform.position.x + 1;
-                        y = collider2D.transform.position.y;
+                        x = doorBehind.transform.position.x + 2;
+                        y = doorBehind.transform.position.y;
                         break;
-                    case side.up :
-                        x = collider2D.transform.position.x;
-                        y = door.transform.position.y - 1;
+                    case side.Up :
+                        x = doorBehind.transform.position.x;
+                        y = doorBehind.transform.position.y - 2;
                         break;
-                    case side.down :
-                        x = door.transform.position.x + 1;
-                        y = collider2D.transform.position.y;
+                    case side.Down :
+                        x = doorBehind.transform.position.x + 2;
+                        y = doorBehind.transform.position.y;
                         break;
                     default :
-                        print("null");
+                        print("unknown side");
                         break;  
 
                 }
@@ -70,7 +63,7 @@ public class Door : MonoBehaviour
                 collider2D.transform.position = new Vector2(x,y);
 
 
-                changeScene();
+                changeScene(roomBehind);
             
             }
             else {
@@ -82,73 +75,155 @@ public class Door : MonoBehaviour
 
 
     public void generateSpecific(GameObject r){
+        Vector2 coordinates = new Vector2();
+        for(int i = 0 ; i < GenerateDonjon.nbRoomHeight ; i += 1){
+            for(int j = 0 ; j < GenerateDonjon.nbRoomWidth ; j += 1){
+                if (GenerateDonjon.gridMap[i,j] == currentRoom)
+                    coordinates = new Vector2(i,j);
+            }
+        }
+
+
         r = Instantiate(r);
         r.SetActive(false);
         r.name = r.name.Substring(0,r.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
         r.transform.SetParent(GameObject.Find("GameManager").transform);
-        GenerateDonjon.rooms.Insert(0,r.GetComponent<Room>());
         roomBehind = r.GetComponent<Room>();
 
         initCurrentRoom(roomBehind);
         foreach(Door d in roomBehind.doors){
-            if (d.roomBehind == null && d.onSide == getOppositeSide(onSide)){
+            if (d.onSide == getOppositeSide(onSide)){
                 d.roomBehind = currentRoom;
                 break;
+            }
+        }
+
+        addRoomToGridMap(roomBehind,coordinates,this);
+
+        foreach(Door door in roomBehind.doors){
+            if (door.roomBehind == null){
+                GenerateDonjon.processDoors.Add(door);
             }
         }
     }
 
 
-    public bool generateRoom() {
-        if (roomBehind == null){
-            print("génération salle");
-            GenerateDonjon.nbRoom -= 1;
-            
-            List<GameObject> validateRooms = selectRooms();
-            int indexRoom = Random.Range(0,validateRooms.Count);
-            GameObject newRoom = validateRooms[indexRoom];
-            newRoom = Instantiate(newRoom);
-            newRoom.SetActive(false);
-            newRoom.name = newRoom.name.Substring(0,newRoom.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
-            newRoom.transform.SetParent(GameObject.Find("GameManager").transform);
-            GenerateDonjon.rooms.Insert(0,newRoom.GetComponent<Room>());
-            roomBehind = newRoom.GetComponent<Room>();
-
-            initCurrentRoom(roomBehind);
-            
-            foreach(Door door in roomBehind.doors){
-                if(door.onSide == getOppositeSide(onSide) && door.roomBehind == null){
-                    door.roomBehind = currentRoom;
-                    break;
-                }
+    public GameObject generateRoom() {
+        Vector2 coordinates = new Vector2();
+        for(int i = 0 ; i < GenerateDonjon.nbRoomHeight ; i += 1){
+            for(int j = 0 ; j < GenerateDonjon.nbRoomWidth ; j += 1){
+                if (GenerateDonjon.gridMap[i,j] == currentRoom)
+                    coordinates = new Vector2(i,j);
             }
-            return true;
-            
         }
-        else {
-            print("roomBehind est déjà généré");
-            return false;
+
+        switch(onSide){
+            case Door.side.Right :
+                if(coordinates.y + 1 > GenerateDonjon.nbRoomWidth - 1|| GenerateDonjon.gridMap[(int) coordinates.x, (int) coordinates.y + 1] != null)
+                    return null;
+                break;
+            case Door.side.Left :
+                if(coordinates.y - 1 < 0 || GenerateDonjon.gridMap[(int) coordinates.x, (int) coordinates.y - 1] != null)
+                    return null;
+                break;
+            case Door.side.Down :
+                if(coordinates.x + 1 > GenerateDonjon.nbRoomHeight - 1 || GenerateDonjon.gridMap[(int) coordinates.x + 1 ,(int) coordinates.y] != null)
+                    return null;
+                break; 
+            case Door.side.Up :
+                if(coordinates.x - 1 < 0 || GenerateDonjon.gridMap[(int) coordinates.x - 1 ,(int) coordinates.y] != null)
+                    return null;
+                break; 
         }
+
+        print("génération salle");
+        
+        List<GameObject> validateRooms = selectRooms();
+
+        List<GameObject> validateRoomsDoorOnUp = new List<GameObject>();
+        List<GameObject> validateRoomsDoorNotOnUp = new List<GameObject>();
+
+        GameObject newRoom;
+        foreach(GameObject room in validateRooms){
+            if (room.GetComponent<Room>().hasDoorOnUp)
+                validateRoomsDoorOnUp.Add(room);
+            else
+                validateRoomsDoorNotOnUp.Add(room);
+        }
+
+        float indexRoom = Random.Range(0f,1f);
+
+        if (validateRoomsDoorOnUp.Count == 0)
+            newRoom = validateRoomsDoorNotOnUp[Random.Range(0,validateRoomsDoorNotOnUp.Count)];
+        else
+            if(indexRoom < GenerateDonjon.probUp || validateRoomsDoorNotOnUp.Count == 0)
+                newRoom = validateRoomsDoorOnUp[Random.Range(0,validateRoomsDoorOnUp.Count)];
+            else
+                newRoom = validateRoomsDoorNotOnUp[Random.Range(0,validateRoomsDoorNotOnUp.Count)];
+
+        newRoom = Instantiate(newRoom);
+        newRoom.SetActive(false);
+        newRoom.name = newRoom.name.Substring(0,newRoom.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
+        newRoom.transform.SetParent(GameObject.Find("GameManager").transform);
+        roomBehind = newRoom.GetComponent<Room>();
+
+        initCurrentRoom(roomBehind);
+        
+        //associe la porte du bon côté de roomBehind à currentRoom 
+        foreach(Door door in roomBehind.doors){
+            if(door.onSide == getOppositeSide(onSide)){
+                door.roomBehind = currentRoom;
+                break;
+            }
+        }
+
+        addRoomToGridMap(roomBehind,coordinates,this);
+
+        //ajoute toutes les portes qui n'ont pas de roomBehind à processDoors
+        foreach(Door door in roomBehind.doors){
+            if (door.roomBehind == null && door.onSide != Door.side.Down){
+                GenerateDonjon.processDoors.Add(door);
+            }
+        }
+
+        return newRoom;
         
     }
 
     public List<GameObject> selectRooms(){
         List<GameObject> validateRoom = new List<GameObject>();
         foreach(GameObject go in GenerateDonjon.roomsPrefabs){
-            if (onSide == side.right && go.GetComponent<Room>().hasDoorOnLeft){
+            if (onSide == side.Right && go.GetComponent<Room>().hasDoorOnLeft){
                 validateRoom.Add(go);
             }
-            if (onSide == side.left && go.GetComponent<Room>().hasDoorOnRight){
+            if (onSide == side.Left && go.GetComponent<Room>().hasDoorOnRight){
                 validateRoom.Add(go);
             }
-            if (onSide == side.up && go.GetComponent<Room>().hasDoorOnDown){
+            if (onSide == side.Up && go.GetComponent<Room>().hasDoorOnDown){
                 validateRoom.Add(go);
             }
-            if (onSide == side.down && go.GetComponent<Room>().hasDoorOnUp){
+            if (onSide == side.Down && go.GetComponent<Room>().hasDoorOnUp){
                 validateRoom.Add(go);
             }
         }
         return validateRoom;
+    }
+
+    public static void addRoomToGridMap(Room roomToAdd, Vector2 coordinates , Door fromDoor){
+        switch(fromDoor.onSide){
+            case Door.side.Right :
+                GenerateDonjon.gridMap[(int) coordinates.x , (int) coordinates.y + 1] = roomToAdd;
+                break;
+            case Door.side.Left :
+                GenerateDonjon.gridMap[(int) coordinates.x , (int) coordinates.y - 1] = roomToAdd;                
+                break;
+            case Door.side.Down : 
+                GenerateDonjon.gridMap[(int) coordinates.x + 1, (int) coordinates.y] = roomToAdd;
+                break;
+            case Door.side.Up :
+                GenerateDonjon.gridMap[(int) coordinates.x - 1, (int) coordinates.y] = roomToAdd;
+                break;
+        }
     }
 
     public static void initCurrentRoom(Room room){
@@ -159,27 +234,29 @@ public class Door : MonoBehaviour
 
 
     public side getOppositeSide(side mySide){
-        if (mySide == side.right){
-            return side.left;
+        if (mySide == side.Right){
+            return side.Left;
         }
-        else if (mySide == side.left){
-            return side.right;
+        else if (mySide == side.Left){
+            return side.Right;
         }
-        else if (mySide == side.up){
-            return side.down;
+        else if (mySide == side.Up){
+            return side.Down;
         }
         else{
-            return side.up;
+            return side.Up;
         }
     }
 
-     private void changeScene(){      
+     public static void changeScene(Room roomToChange){      
         
+        //recupère tous les gamesObjects qu'ils soient actif ou non
         List<GameObject> gameObjects = new List<GameObject>();
         foreach(Object o in GameObject.FindObjectsOfType(typeof(GameObject), true)){
             gameObjects.Add((GameObject) o);
         }
 
+        //recupère tous les gamesObject qui sont des rooms
         List<GameObject> rooms = new List<GameObject>();
         foreach(GameObject go in gameObjects){
             if (go.CompareTag("Room")){
@@ -187,14 +264,35 @@ public class Door : MonoBehaviour
             }
         }
 
+        //recupère tous les gamesObject qui sont des mapIcon
+        List<GameObject> mapIcons = new List<GameObject>();
+        foreach(GameObject go in gameObjects){
+            if (go.CompareTag("MapIcon")){
+                mapIcons.Add(go);
+            }
+        }
+
+        //Passe à bleue la couleur de mapIcon de roomBehind
+        foreach(GameObject mapIcon in mapIcons){
+            mapIcon.GetComponent<Image>().color = Color.white;
+            if (mapIcon.name.Substring(mapIcon.name.IndexOf('-')) == roomToChange.name.Substring(roomToChange.name.IndexOf('-')))
+                mapIcon.GetComponent<Image>().color = Color.blue;
+
+            if(mapIcon.name.Contains("Boss"))
+                mapIcon.GetComponent<Image>().color = Color.red;
+        }
+
+
+        //active roomBehind
         foreach(GameObject room in rooms){
             room.SetActive(false);
-            if (room.name == roomBehind.name){
+            if (room.name == roomToChange.name){
                 room.SetActive(true);
             }
         }
     
-        SceneManager.LoadScene(roomBehind.name.Substring(0,roomBehind.name.IndexOf('-')));
+
+        SceneManager.LoadScene(roomToChange.name.Substring(0,roomToChange.name.IndexOf('-')));
 
     }
 }
