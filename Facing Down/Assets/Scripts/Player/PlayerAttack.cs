@@ -18,7 +18,7 @@ public class PlayerAttack : AbstractPlayer
 
     private bool attackPressed = false;
 
-    public Weapon weapon = new Katana("Enemy");
+    public Weapon weapon = new Grenade("Enemy");
     public EnumWeapon.WeaponChoice weaponChosen = EnumWeapon.WeaponChoice.Katana;
 
     public override void Init()
@@ -42,7 +42,7 @@ public class PlayerAttack : AbstractPlayer
     {
         if ( ! weapon.GetType().Equals(EnumWeapon.GetWeaponType(weaponChosen)))
         {
-            weapon = EnumWeapon.GetWeapon(weaponChosen, "Enemy");
+            //weapon = EnumWeapon.GetWeapon(weaponChosen, "Enemy");
         }
         ComputeAttack();
     }

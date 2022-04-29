@@ -50,6 +50,7 @@ public abstract class Attack : MonoBehaviour
         timePassed += Time.fixedDeltaTime;
         if (timePassed - startDelay >= timeSpan + endDelay)
         {
+            attackEnd();
             if (onEndAttack != null) onEndAttack(src, angle);
             Destroy(gameObject);
         }
@@ -61,6 +62,7 @@ public abstract class Attack : MonoBehaviour
         ComputeAttack(Mathf.Pow(percentageTime, acceleration));
     }
 
+    protected virtual void attackEnd() { }
 
     protected abstract void ComputeAttack(float percentageTime);
 }
