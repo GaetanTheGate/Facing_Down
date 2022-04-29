@@ -18,7 +18,7 @@ public class VoraciousFlames : Item
 		return damage;
 	}
 
-	public override void OnGroundCollisionEnter(Collision collision) {
+	public override void OnGroundCollisionEnter() {
 		isActive = false;
 	}
 

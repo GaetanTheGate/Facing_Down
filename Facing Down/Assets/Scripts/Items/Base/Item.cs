@@ -77,9 +77,9 @@ public abstract class Item{
 
     public virtual void OnEnemyKill(Entity enemy) {}
 
-    public virtual void OnGroundCollisionEnter(Collision collision) {}
+    public virtual void OnGroundCollisionEnter() {}
 
-    public virtual void OnGroundCollisionLeave(Collision collision) {}
+    public virtual void OnGroundCollisionLeave() {}
 
     public virtual void OnBullettimeActivate() {}
 
