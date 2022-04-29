@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour
 		for (int i = 0; i < item.GetAmount(); ++i) {
 			if (!items.ContainsKey(item.GetID())) {
 				items.Add(item.GetID(), item.MakeCopy());
-				UI.inventoryDisplay.AddItemDisplay(item);
+				UI.inventoryDisplay.AddItemDisplay(items[item.GetID()]);
 			}
 			else {
 				items[item.GetID()].ModifyAmount(1);
@@ -105,9 +105,9 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
-	public void OnEnemyKill() {
+	public void OnEnemyKill(Entity enemy) {
 		foreach (Item item in items.Values) {
-			item.OnEnemyKill();
+			item.OnEnemyKill(enemy);
 		}
 	}
 
@@ -140,12 +140,18 @@ public class Inventory : MonoBehaviour
 	}
 	public void OnRedirect() {
 		foreach (Item item in items.Values) {
-			item.OnMegaDash();
+			item.OnRedirect();
 		}
 	}
 	public void OnMegaDash() {
 		foreach (Item item in items.Values) {
 			item.OnMegaDash();
+		}
+	}
+
+	public void OnBullettimeEnd() {
+		foreach (Item item in items.Values) {
+			item.OnBullettimeEnd();
 		}
 	}
 

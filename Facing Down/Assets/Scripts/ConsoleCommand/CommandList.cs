@@ -22,6 +22,8 @@ public static class CommandList
 		Add(new ConsoleCommand<string, int>("addItem", "Adds <amount> of the specified item to the inventory.", "addItem <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.AddItem(ID, amount);}));
 		Add(new ConsoleCommand<string>("removeItem", "Remove 1 of the specified item from the inventory.", "removeItem <ID>", (ID) => {AdvancedCommandFunctions.RemoveItem(ID, 1);}));
 		Add(new ConsoleCommand<string, int>("removeItem", "Remove <amount> of the specified item from the inventory.", "removeItem <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.RemoveItem(ID, amount);}));
+		Add(new ConsoleCommand<string, int, int>("spawnItem", "Spawn the specified item at given position relative to the player.", "spawnItem <ID> <x> <y>", (ID, xOffset, yOffset) => {AdvancedCommandFunctions.SpawnItem(ID, xOffset, yOffset);}));
+		Add(new ConsoleCommand<int>("rift", "TO REMOVE.", "rift <boost>", (boost) => { GameObject.Instantiate<Rift>(Resources.Load<Rift>("Prefabs/Items/ItemEffects/Rift")).Init(boost, Game.player.self.transform.position);  }));
 	}
 
 	/// <summary>
@@ -135,6 +137,16 @@ public static class CommandList
 			for (int i = 0; i < amount; ++i) {
 				if (!Game.player.inventory.RemoveItem(item)) break;
 			}
+		}
+
+		public static void SpawnItem(string ID, float xOffset, float yOffset) {
+			Item item;
+			if (ID == "PrintItem") item = new PrintItem();
+			else item = ItemPool.GetByID(ID);
+			if (item == null) throw new CommandRuntimeException("Item " + ID + " not found");
+			ItemPickup pickup = Game.Instantiate<ItemPickup>(Resources.Load<ItemPickup>("Prefabs/Items/ItemPickup"));
+			pickup.Init(item);
+			pickup.transform.position = new Vector2(Game.player.self.transform.position.x + xOffset, Game.player.self.transform.position.y + yOffset);
 		}
 	}
 }

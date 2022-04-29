@@ -9,7 +9,7 @@ public class InvisibilityCloak : Item
     public InvisibilityCloak() : base("InvisibilityCloak", ItemRarity.LEGENDARY, ItemType.WIND) { }
 
 	private void Activate() {
-		Game.player.GetComponent<PlayerIframes>().getIframeItem(invulnerabilityTime + (amount - 1) * stackInvulnerabilityTime);
+		Game.player.self.GetComponent<PlayerIframes>().getIframeItem(invulnerabilityTime + (amount - 1) * stackInvulnerabilityTime);
 	}
 
 	public override void OnDash() {

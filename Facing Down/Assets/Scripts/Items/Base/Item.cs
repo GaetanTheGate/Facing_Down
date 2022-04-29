@@ -75,7 +75,7 @@ public abstract class Item{
     /// <returns>True if the death is prevented. WARNING : Death preventing effects should be only on delayed items</returns>
     public virtual bool OnDeath() { return false; }
 
-    public virtual void OnEnemyKill() {}
+    public virtual void OnEnemyKill(Entity enemy) {}
 
     public virtual void OnGroundCollisionEnter(Collision collision) {}
 
@@ -90,6 +90,8 @@ public abstract class Item{
     public virtual void OnRedirect() {}
 
     public virtual void OnMegaDash() {}
+
+    public virtual void OnBullettimeEnd() { }
 
     public void SetAmount(int amount) {
         this.amount = amount;

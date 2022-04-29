@@ -26,8 +26,8 @@ public class PrintItem : Item
 		return false;
 	}
 
-	public override void OnEnemyKill() {
-		Debug.Log("ENEMY KILLED");
+	public override void OnEnemyKill(Entity enemy) {
+		Debug.Log("ENEMY KILLED : " + enemy);
 	}
 
 	public override void OnGroundCollisionEnter(Collision collision) {
@@ -58,6 +58,9 @@ public class PrintItem : Item
 		Debug.Log("REDIRECTION USED");
 	}
 
+	public override void OnBullettimeEnd() {
+		Debug.Log("BULLET TIME ENDED NATURALLY");
+	}
 
 	public override Item MakeCopy() {
 		return new PrintItem();

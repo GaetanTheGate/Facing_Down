@@ -41,6 +41,7 @@ public class StatPlayer : StatEntity
 
     public override void TakeDamage(DamageInfo damage)
     {
+        if (isDead) return;
         if (!playerIframes.isIframe)
         {
             damage = Game.player.inventory.OnTakeDamage(damage);
@@ -50,10 +51,12 @@ public class StatPlayer : StatEntity
         }
     }
 
-	public override void checkIfDead() {
+    public override void checkIfDead(DamageInfo lastDamageTaken) {
         if (currentHitPoints <= 0) Game.player.inventory.OnDeath();
-		base.checkIfDead();
-	}
+        if (onDeath != null && currentHitPoints <= 0)
+            onDeath.Invoke();
+        isDead = true;
+    }
 
     /// <summary>
     /// Gives back special charges to the player.
