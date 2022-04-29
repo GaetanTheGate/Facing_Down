@@ -17,6 +17,9 @@ public class EntityCollisionStructure : AbstractEntity
     public bool isEnteringWall = false;
     [HideInInspector]
     public bool isEnteringCeiling = false;
+    private bool isGroundFirstFrame = true;
+    private bool isWallFirstFrame = true;
+    private bool isCeilingFirstFrame = true;
 
     public override void Init()
     {
@@ -33,18 +36,23 @@ public class EntityCollisionStructure : AbstractEntity
                 if (angle <= 180.0f && angle >= 135.0f)
                 {
                     isEnteringGround = true;
+                    isGroundFirstFrame = false;
                 }
 
                 else if (angle < 135.0f && angle >= 45.0f)
                 {
                     isEnteringWall = true;
+                    isWallFirstFrame = false;
                 }
 
                 else if (angle <= 45.0f && angle >= 0.0f)
                 {
                     isEnteringCeiling = true;
+                    isCeilingFirstFrame = false;
                 }
             }
+            //if (isEnteringGround || isEnteringCeiling || isEnteringWall)
+                //Game.player.inventory.OnGroundCollisionEnter();
         }
 
         if (collision.collider.CompareTag("Traps"))
@@ -54,6 +62,7 @@ public class EntityCollisionStructure : AbstractEntity
                 if (Vector2.Angle(gravityEntity.gravity.GetAsVector2(), contact.normal) <= 180.0f && Vector2.Angle(gravityEntity.gravity.GetAsVector2(), contact.normal) >= 135.0f)
                 {
                     isEnteringGround = true;
+                    isWallFirstFrame = false;
                 }
             }
         }
@@ -64,9 +73,9 @@ public class EntityCollisionStructure : AbstractEntity
         bool groundedTest = false;
         bool walledTest = false;
         bool ceilingedTest = false;
-        isEnteringGround = false;
-        isEnteringWall = false;
-        isEnteringCeiling = false;
+        bool isEnteringGroundTest = false;
+        bool isEnteringWallTest = false;
+        bool isEnteringCeilingTest = false;
 
         if (col.collider.CompareTag("Terrain"))
         {
@@ -79,23 +88,37 @@ public class EntityCollisionStructure : AbstractEntity
                 if (angle <= 180.0f && angle >= 135.0f)
                 {
                     groundedTest = true;
+                    if (isGroundFirstFrame) isEnteringGroundTest = true;
                     //if (isGrounded == false) statPlayer.numberOfDashes = 0;
                 }
 
                 else if (angle < 135.0f && angle >= 45.0f)
                 {
                     walledTest = true;
+                    if (isWallFirstFrame) isEnteringWallTest = true;
                 }
 
                 else if (angle <= 45.0f && angle >= 0.0f)
                 {
                     ceilingedTest = true;
+                    if (isCeilingFirstFrame) isEnteringCeilingTest = true;
                 }
             }
 
             isGrounded = groundedTest;
             isWalled = walledTest;
             isCeilinged = ceilingedTest;
+            isEnteringGround = isEnteringGroundTest;
+            isEnteringWall = isEnteringWallTest;
+            isEnteringCeiling = isEnteringCeilingTest;
+
+            isGroundFirstFrame = !isGrounded;
+            isWallFirstFrame = !isWalled;
+            isCeilingFirstFrame = !isCeilinged;
+            if (isEnteringWall) print("WOW!");
+            //if (isEnteringGround || isEnteringCeiling || isEnteringWall)
+                //Game.player.inventory.OnGroundCollisionEnter();
+            //print("ground, wall, ceiling : " + isEnteringGround + " " + isEnteringWall + " " + isEnteringCeiling);
         }
 
         if (col.collider.CompareTag("Traps"))
@@ -120,6 +143,12 @@ public class EntityCollisionStructure : AbstractEntity
             isGrounded = false;
             isWalled = false;
             isCeilinged = false;
+            isEnteringGround = false;
+            isEnteringWall = false;
+            isEnteringCeiling = false;
+            isGroundFirstFrame = true;
+            isWallFirstFrame = true;
+            isCeilingFirstFrame = true;
         }
         if (col.collider.CompareTag("Traps"))
         {
