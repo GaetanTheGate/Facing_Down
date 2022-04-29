@@ -22,7 +22,7 @@ public class PlayerOnCollisionStructure : AbstractPlayer
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (entityCollisionStructure.isEnteringGround) {
+        if (entityCollisionStructure.isEnteringGround || entityCollisionStructure.isEnteringCeiling || entityCollisionStructure.isEnteringWall) {
             Game.player.inventory.OnGroundCollisionEnter();
 		}
 
