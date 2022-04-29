@@ -13,6 +13,8 @@ public class Room : MonoBehaviour
     public bool hasDoorOnDown;
 
     public List<Door> doors = new List<Door>();
+
+    public GameObject spawnPlayer; 
     
 
 }

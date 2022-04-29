@@ -184,6 +184,7 @@ public class GenerateDonjon : MonoBehaviour
         Map.generateMap();
 
         setInitRoom();
+        GameObject.FindWithTag("Player").transform.position = initRoom.spawnPlayer.transform.position;
         
         Door.changeScene(initRoom);
     }
