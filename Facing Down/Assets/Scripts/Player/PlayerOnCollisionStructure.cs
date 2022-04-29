@@ -22,6 +22,10 @@ public class PlayerOnCollisionStructure : AbstractPlayer
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (entityCollisionStructure.isEnteringGround) {
+            Game.player.inventory.OnGroundCollisionEnter();
+		}
+
         //comportement pour toute la durée de la collision avec le sol
         if (entityCollisionStructure.isGrounded && !entityCollisionStructure.isEnteringGround)
         {

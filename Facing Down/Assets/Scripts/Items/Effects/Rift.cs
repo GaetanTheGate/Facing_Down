@@ -5,7 +5,7 @@ using UnityEngine;
 public class Rift : MonoBehaviour
 {
 	private float accelerationBoost = 0;
-	private float duration = 10f;
+	private float duration = 2f;
     public void Init(float boost, Vector2 position) {
 		transform.position = position;
 		accelerationBoost = boost;

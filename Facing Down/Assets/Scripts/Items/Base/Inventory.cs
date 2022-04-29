@@ -111,14 +111,14 @@ public class Inventory : MonoBehaviour
 		}
 	}
 
-	public void OnGroundCollisionEnter(Collision collision) {
+	public void OnGroundCollisionEnter() {
 		foreach (Item item in items.Values) {
-			item.OnGroundCollisionEnter(collision);
+			item.OnGroundCollisionEnter();
 		}
 	}
-	public void OnGroundCollisionLeave(Collision collision) {
+	public void OnGroundCollisionLeave() {
 		foreach (Item item in items.Values) {
-			item.OnGroundCollisionLeave(collision);
+			item.OnGroundCollisionLeave();
 		}
 	}
 	

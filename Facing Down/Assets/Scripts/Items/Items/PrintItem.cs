@@ -30,11 +30,11 @@ public class PrintItem : Item
 		Debug.Log("ENEMY KILLED : " + enemy);
 	}
 
-	public override void OnGroundCollisionEnter(Collision collision) {
+	public override void OnGroundCollisionEnter() {
 		Debug.Log("GROUND COLLISION ENTERED");
 	}
 
-	public override void OnGroundCollisionLeave(Collision collision) {
+	public override void OnGroundCollisionLeave() {
 		Debug.Log("GROUND COLLISION LEFT");
 	}
 
