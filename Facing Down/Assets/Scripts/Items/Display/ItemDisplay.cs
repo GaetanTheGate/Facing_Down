@@ -38,8 +38,4 @@ public class ItemDisplay : MonoBehaviour {
     public void UpdateDisplay() {
         GetComponentInChildren<Text>().text = item.GetAmount().ToString();
     }
-
-	public void OnDestroy() {
-        foreach (Transform child in transform) Destroy(child.gameObject);
-	}
 }

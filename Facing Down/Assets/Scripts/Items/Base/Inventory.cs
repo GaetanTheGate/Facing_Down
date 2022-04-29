@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour
 		for (int i = 0; i < item.GetAmount(); ++i) {
 			if (!items.ContainsKey(item.GetID())) {
 				items.Add(item.GetID(), item.MakeCopy());
-				UI.inventoryDisplay.AddItemDisplay(item);
+				UI.inventoryDisplay.AddItemDisplay(items[item.GetID()]);
 			}
 			else {
 				items[item.GetID()].ModifyAmount(1);
