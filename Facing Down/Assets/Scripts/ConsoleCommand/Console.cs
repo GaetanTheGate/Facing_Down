@@ -163,6 +163,7 @@ public class Console : MonoBehaviour
 		input = GUI.TextField(inputTextRect, input);
 		input = Regex.Replace(input, @"[^a-zA-Z0-9 _,\.]", "");
 		input = Regex.Replace(input, @" +", " ");
+		input = Regex.Replace(input, @"^ ", "");
 		if (previousInput != input) OnInputChange();
 		GUI.FocusControl("Console");
 	}
