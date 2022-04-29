@@ -46,9 +46,9 @@ public abstract class Weapon
         return baseSDelay + baseSpan + baseEDelay + baseCooldown;
     }
 
-    public bool IsAuto() => isAuto ? true : false;
+    public bool IsAuto() => isAuto;
 
-    public bool CanAttack() => canAttack ? true : false;
+    public bool CanAttack() => canAttack;
 
     public string getAttackPath() => attackPath;
     public string getSpecialPath() => specialPath;
