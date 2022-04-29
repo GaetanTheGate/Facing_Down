@@ -18,7 +18,7 @@ public class GenerateDonjon : MonoBehaviour
 
     public string nameInitRoom;
 
-    public static float probDown = 0.66f;
+    public static float probUp = 0.66f;
     private Room initRoom;
     
 
@@ -27,6 +27,7 @@ public class GenerateDonjon : MonoBehaviour
     public static List<GameObject> roomsPrefabs = new List<GameObject>();
     
     public static Room[,] gridMap = new Room[nbRoomHeight, nbRoomWidth];
+
 
     void Update() {
         if(Input.GetKeyDown(KeyCode.G)){
@@ -48,13 +49,13 @@ public class GenerateDonjon : MonoBehaviour
 
     public static Door getNextDoor(){
 
-        List<Door> doorsDown = new List<Door>();
+        List<Door> doorsUp = new List<Door>();
         List<Door> otherDoors = new List<Door>();
 
         foreach(Door door in processDoors){
             if (door.roomBehind == null){
-                if(door.onSide == Door.side.Down){
-                    doorsDown.Add(door);
+                if(door.onSide == Door.side.Up){
+                    doorsUp.Add(door);
                 }
                 else{
                     otherDoors.Add(door);
@@ -63,16 +64,16 @@ public class GenerateDonjon : MonoBehaviour
         }
 
 
-        if (doorsDown.Count == 0 && otherDoors.Count == 0){
+        if (doorsUp.Count == 0 && otherDoors.Count == 0){
             return null;
         }
 
         float i = Random.Range(0f,1f);
         if (otherDoors.Count == 0){
-            return doorsDown[Random.Range(0,doorsDown.Count)];
+            return doorsUp[Random.Range(0,doorsUp.Count)];
         }
-        else if (i < probDown && doorsDown.Count > 0){
-            return doorsDown[Random.Range(0,doorsDown.Count)];
+        else if (i < probUp && doorsUp.Count > 0){
+            return doorsUp[Random.Range(0,doorsUp.Count)];
         }
         else{
             return otherDoors[Random.Range(0,otherDoors.Count)];
@@ -95,21 +96,22 @@ public class GenerateDonjon : MonoBehaviour
             roomsPrefabs.Add((GameObject) o);
         }
         
-        GameObject newRoom = getSpecifyRoom(nameInitRoom);
-        newRoom = Instantiate(newRoom);
-        newRoom.name = newRoom.name.Substring(0,newRoom.name.IndexOf('(')) + '-' + idRoom++;
-        newRoom.transform.SetParent(gameManager.transform);
+        GameObject bossRoom = Resources.Load("Donjon/BossRoom/BossRoom",typeof(GameObject)) as GameObject;
+        GameObject anteroom = Resources.Load("Donjon/BossRoom/Anteroom",typeof(GameObject)) as GameObject;
+        anteroom = Instantiate(anteroom);
+        anteroom.name = anteroom.name.Substring(0,anteroom.name.IndexOf('(')) + '-' + idRoom++;
+        anteroom.transform.SetParent(gameManager.transform);
+
+        Door.initCurrentRoom(anteroom.GetComponent<Room>());
         
-        initRoom = newRoom.GetComponent<Room>();
-        
-        Door.initCurrentRoom(initRoom);
+        gridMap[nbRoomHeight - 3, nbRoomWidth / 2] = anteroom.GetComponent<Room>();
 
-        gridMap[0,0] = initRoom ;
-
-        SceneManager.LoadScene(nameInitRoom);
-
-        foreach(Door door in initRoom.doors){
-            processDoors.Add(door);
+        foreach(Door door in anteroom.GetComponent<Room>().doors){
+            if(door.onSide == Door.side.Down){
+                door.generateSpecific(bossRoom);
+            }
+            else
+                processDoors.Add(door);
         }
     }
 
@@ -119,8 +121,6 @@ public class GenerateDonjon : MonoBehaviour
             
             GameObject generateRoom = processDoor.generateRoom();
             processDoors.Remove(processDoor);
-
-
 
             nbRoom -= 1;
 
@@ -172,11 +172,25 @@ public class GenerateDonjon : MonoBehaviour
                 print("Door is null");
                 print("il reste " + processDoors.Count + " portes qui peuvent avoir une roomBehind");
                 break; 
-                //throw new System.Exception("DOOR IS NULL");
             } 
+        }
+
+        foreach(Room room in gridMap){
+            if(room != null){
+                foreach(Door door in room.doors){
+                    if(door.roomBehind == null){
+                        door.gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+                    }
+                }
+            }
+            
         }
         
         Map.generateMap();
+
+        setInitRoom();
+        
+        Door.changeScene(initRoom);
     }
 
     public void generateSpecificRoom(){
@@ -196,5 +210,14 @@ public class GenerateDonjon : MonoBehaviour
         }
     }
 
-
+    public void setInitRoom(){
+        for(int i = 0; i < nbRoomHeight; i += 1){
+            for(int j = 0; j < nbRoomWidth; j += 1){
+                if(gridMap[i,j] != null){
+                    initRoom = gridMap[i,j];
+                    return;
+                }
+            }
+        }
+    }
 }

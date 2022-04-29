@@ -63,7 +63,7 @@ public class Door : MonoBehaviour
                 collider2D.transform.position = new Vector2(x,y);
 
 
-                changeScene();
+                changeScene(roomBehind);
             
             }
             else {
@@ -75,6 +75,15 @@ public class Door : MonoBehaviour
 
 
     public void generateSpecific(GameObject r){
+        Vector2 coordinates = new Vector2();
+        for(int i = 0 ; i < GenerateDonjon.nbRoomHeight ; i += 1){
+            for(int j = 0 ; j < GenerateDonjon.nbRoomWidth ; j += 1){
+                if (GenerateDonjon.gridMap[i,j] == currentRoom)
+                    coordinates = new Vector2(i,j);
+            }
+        }
+
+
         r = Instantiate(r);
         r.SetActive(false);
         r.name = r.name.Substring(0,r.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
@@ -83,9 +92,17 @@ public class Door : MonoBehaviour
 
         initCurrentRoom(roomBehind);
         foreach(Door d in roomBehind.doors){
-            if (d.roomBehind == null && d.onSide == getOppositeSide(onSide)){
+            if (d.onSide == getOppositeSide(onSide)){
                 d.roomBehind = currentRoom;
                 break;
+            }
+        }
+
+        addRoomToGridMap(roomBehind,coordinates,this);
+
+        foreach(Door door in roomBehind.doors){
+            if (door.roomBehind == null){
+                GenerateDonjon.processDoors.Add(door);
             }
         }
     }
@@ -123,26 +140,26 @@ public class Door : MonoBehaviour
         
         List<GameObject> validateRooms = selectRooms();
 
-        List<GameObject> validateRoomsDoorOnDown = new List<GameObject>();
-        List<GameObject> validateRoomsDoorNotOnDown = new List<GameObject>();
+        List<GameObject> validateRoomsDoorOnUp = new List<GameObject>();
+        List<GameObject> validateRoomsDoorNotOnUp = new List<GameObject>();
 
         GameObject newRoom;
         foreach(GameObject room in validateRooms){
-            if (room.GetComponent<Room>().hasDoorOnDown)
-                validateRoomsDoorOnDown.Add(room);
+            if (room.GetComponent<Room>().hasDoorOnUp)
+                validateRoomsDoorOnUp.Add(room);
             else
-                validateRoomsDoorNotOnDown.Add(room);
+                validateRoomsDoorNotOnUp.Add(room);
         }
 
         float indexRoom = Random.Range(0f,1f);
 
-        if (validateRoomsDoorOnDown.Count == 0)
-            newRoom = validateRoomsDoorNotOnDown[Random.Range(0,validateRoomsDoorNotOnDown.Count)];
+        if (validateRoomsDoorOnUp.Count == 0)
+            newRoom = validateRoomsDoorNotOnUp[Random.Range(0,validateRoomsDoorNotOnUp.Count)];
         else
-            if(indexRoom < GenerateDonjon.probDown || validateRoomsDoorNotOnDown.Count == 0)
-                newRoom = validateRoomsDoorOnDown[Random.Range(0,validateRoomsDoorOnDown.Count)];
+            if(indexRoom < GenerateDonjon.probUp || validateRoomsDoorNotOnUp.Count == 0)
+                newRoom = validateRoomsDoorOnUp[Random.Range(0,validateRoomsDoorOnUp.Count)];
             else
-                newRoom = validateRoomsDoorNotOnDown[Random.Range(0,validateRoomsDoorNotOnDown.Count)];
+                newRoom = validateRoomsDoorNotOnUp[Random.Range(0,validateRoomsDoorNotOnUp.Count)];
 
         newRoom = Instantiate(newRoom);
         newRoom.SetActive(false);
@@ -164,7 +181,7 @@ public class Door : MonoBehaviour
 
         //ajoute toutes les portes qui n'ont pas de roomBehind à processDoors
         foreach(Door door in roomBehind.doors){
-            if (door.roomBehind == null){
+            if (door.roomBehind == null && door.onSide != Door.side.Down){
                 GenerateDonjon.processDoors.Add(door);
             }
         }
@@ -231,7 +248,7 @@ public class Door : MonoBehaviour
         }
     }
 
-     private void changeScene(){      
+     public static void changeScene(Room roomToChange){      
         
         //recupère tous les gamesObjects qu'ils soient actif ou non
         List<GameObject> gameObjects = new List<GameObject>();
@@ -258,22 +275,24 @@ public class Door : MonoBehaviour
         //Passe à bleue la couleur de mapIcon de roomBehind
         foreach(GameObject mapIcon in mapIcons){
             mapIcon.GetComponent<Image>().color = Color.white;
-            if (mapIcon.name.Substring(mapIcon.name.IndexOf('-')) == roomBehind.name.Substring(roomBehind.name.IndexOf('-'))){
+            if (mapIcon.name.Substring(mapIcon.name.IndexOf('-')) == roomToChange.name.Substring(roomToChange.name.IndexOf('-')))
                 mapIcon.GetComponent<Image>().color = Color.blue;
-            }
+
+            if(mapIcon.name.Contains("Boss"))
+                mapIcon.GetComponent<Image>().color = Color.red;
         }
 
 
         //active roomBehind
         foreach(GameObject room in rooms){
             room.SetActive(false);
-            if (room.name == roomBehind.name){
+            if (room.name == roomToChange.name){
                 room.SetActive(true);
             }
         }
     
 
-        SceneManager.LoadScene(roomBehind.name.Substring(0,roomBehind.name.IndexOf('-')));
+        SceneManager.LoadScene(roomToChange.name.Substring(0,roomToChange.name.IndexOf('-')));
 
     }
 }

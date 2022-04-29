@@ -16,9 +16,7 @@ public class Map : MonoBehaviour
                 if (GenerateDonjon.gridMap[i, j] != null){
                     Room room = GenerateDonjon.gridMap[i, j];
                     GameObject imageGo = chooseMapIcon(room);
-                    if(i == 0 && j == 0)
-                        imageGo.GetComponent<Image>().color = Color.blue;
-                    imageGo.transform.position = new Vector2(-700 + 25 * j,230 + 25 * -i);
+                    imageGo.transform.position = new Vector2(-650 + 25 * j,250 + 25 * -i);
                 }
                 
             }
@@ -34,7 +32,7 @@ public class Map : MonoBehaviour
         imageGo.transform.SetParent(GameObject.Find("Map").transform);
 
         //renvoie le sprite originale pour les salles avec 1 seule portes
-        if (room.doors.Count == 1)
+        if (room.doors.Count == 1 || room.name.Contains("Anteroom"))
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>("Donjon/IconMap/" + room.name.Substring(0,room.name.IndexOf('-')));
 
         //renvoie le sprite correspondant au nombre de roomBehind non null pour la Room2
