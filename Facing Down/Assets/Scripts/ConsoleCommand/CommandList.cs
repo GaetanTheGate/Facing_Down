@@ -23,6 +23,7 @@ public static class CommandList
 		Add(new ConsoleCommand<string>("removeItem", "Remove 1 of the specified item from the inventory.", "removeItem <ID>", (ID) => {AdvancedCommandFunctions.RemoveItem(ID, 1);}));
 		Add(new ConsoleCommand<string, int>("removeItem", "Remove <amount> of the specified item from the inventory.", "removeItem <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.RemoveItem(ID, amount);}));
 		Add(new ConsoleCommand<string, float, float>("spawnItem", "Spawn the specified item at given position relative to the player.", "spawnItem <ID> <x> <y>", (ID, xOffset, yOffset) => {AdvancedCommandFunctions.SpawnItem(ID, xOffset, yOffset);}));
+		Add(new ConsoleCommand<string, int, int>("spawnEnemy", "Spawn the specified enemy at the specified position.", "spawnEnemy <NAME> <x> <y>", (NAME, x, y) => { AdvancedCommandFunctions.SpawnEnemy(NAME, x, y); } ));
 	}
 
 	/// <summary>
@@ -146,6 +147,12 @@ public static class CommandList
 			ItemPickup pickup = Game.Instantiate<ItemPickup>(Resources.Load<ItemPickup>("Prefabs/Items/ItemPickup"));
 			pickup.Init(item);
 			pickup.transform.position = new Vector2(Game.player.self.transform.position.x + xOffset, Game.player.self.transform.position.y + yOffset);
+		}
+
+		public static void SpawnEnemy(string name, float x, float y)
+        {
+			Print("ennemi " + name + " spawned at x=" + x + " y=" + y);
+			Object.Instantiate(Resources.Load("Prefabs/Enemies/" + name), new Vector2(x, y), Quaternion.identity);
 		}
 	}
 }
