@@ -17,8 +17,9 @@ public class StatEntity : MonoBehaviour
     public UnityEvent onDeath;
     private Animator animator;
 
-    public virtual void Start()
+    public virtual void Awake()
     {
+        computeAtk();
         currentHitPoints = maxHitPoints;
         animator = gameObject.GetComponent<Animator>();
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
@@ -33,9 +34,15 @@ public class StatEntity : MonoBehaviour
         return atk;
 	}
 
-    public virtual void takeDamage(float damage)
+    public void Heal(float amount) {
+        currentHitPoints = Mathf.Max(maxHitPoints, currentHitPoints + Mathf.CeilToInt(amount));
+	}
+
+    public virtual void TakeDamage(DamageInfo dmgInfo)
     {
-        currentHitPoints -= (int)damage;
+        currentHitPoints -= (int)dmgInfo.amount;
+        GetComponent<Rigidbody2D>().velocity += dmgInfo.knockback.GetAsVector2();
+
         Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
         if(onHit != null && currentHitPoints > 0) onHit.Invoke();

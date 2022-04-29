@@ -11,10 +11,52 @@ public class EntityCollisionStructure : AbstractEntity
     public bool isWalled = false;
     [HideInInspector]
     public bool isCeilinged = false;
+    [HideInInspector]
+    public bool isEnteringGround = false;
+    [HideInInspector]
+    public bool isEnteringWall = false;
+    [HideInInspector]
+    public bool isEnteringCeiling = false;
 
     public override void Init()
     {
         gravityEntity = gameObject.GetComponent<GravityEntity>();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Terrain"))
+        {
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                float angle = Vector2.Angle(gravityEntity.gravity.GetAsVector2(), contact.normal);
+                if (angle <= 180.0f && angle >= 135.0f)
+                {
+                    isEnteringGround = true;
+                }
+
+                else if (angle < 135.0f && angle >= 45.0f)
+                {
+                    isEnteringWall = true;
+                }
+
+                else if (angle <= 45.0f && angle >= 0.0f)
+                {
+                    isEnteringCeiling = true;
+                }
+            }
+        }
+
+        if (collision.collider.CompareTag("Traps"))
+        {
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                if (Vector2.Angle(gravityEntity.gravity.GetAsVector2(), contact.normal) <= 180.0f && Vector2.Angle(gravityEntity.gravity.GetAsVector2(), contact.normal) >= 135.0f)
+                {
+                    isEnteringGround = true;
+                }
+            }
+        }
     }
 
     void OnCollisionStay2D(Collision2D col)
@@ -22,6 +64,9 @@ public class EntityCollisionStructure : AbstractEntity
         bool groundedTest = false;
         bool walledTest = false;
         bool ceilingedTest = false;
+        isEnteringGround = false;
+        isEnteringWall = false;
+        isEnteringCeiling = false;
 
         if (col.collider.CompareTag("Terrain"))
         {
@@ -66,7 +111,6 @@ public class EntityCollisionStructure : AbstractEntity
             }
             isGrounded = groundedTest;
         }
-
     }
 
     void OnCollisionExit2D(Collision2D col)

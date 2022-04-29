@@ -7,10 +7,10 @@ public abstract class MeleeAttack : Attack
     public float lenght = 1.0f;
     public float range = 1.0f;
 
+    protected Vector3 pos;
 
     protected override void ComputeAttack(float percentageTime)
     {
-        Vector3 pos;
         if (followEntity)
             pos = new Vector3(src.transform.position.x, src.transform.position.y, src.transform.position.z);
         else

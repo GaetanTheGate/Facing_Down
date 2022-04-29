@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Drone3Death : MonoBehaviour
 {
+    public GameObject parentToDestroy;
+
     private bool isDead = false;
     private Animator animator;
 
@@ -17,14 +19,21 @@ public class Drone3Death : MonoBehaviour
     {
         if (isDead)
         {
-            animator.SetBool("dead", true);
-            Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
+            StartCoroutine(startWaitingRoutine());
         }
     }
 
     public void die()
     {
+        GetComponent<GravityEntity>().gravity.setSpeed(9.8f);
         BroadcastMessage("deathEvent");
         isDead = true;
+    }
+
+    private IEnumerator startWaitingRoutine()
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        animator.SetBool("dead", true);
+        Destroy(parentToDestroy, animator.GetCurrentAnimatorStateInfo(0).length);
     }
 }

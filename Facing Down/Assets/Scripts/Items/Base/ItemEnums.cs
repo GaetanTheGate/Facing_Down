@@ -7,5 +7,5 @@ public enum ItemRarity {
 }
 
 public enum ItemPriority {
-    IMMEDIATE, LATE
+    IMMEDIATE, DELAYED
 }

@@ -10,10 +10,10 @@ public class Entity : AbstractEntity
         {
             rb = gameObject.AddComponent<Rigidbody2D>();
             rb.freezeRotation = true;
+            rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             if (rb.CompareTag("Player"))
             {
                 rb.interpolation = RigidbodyInterpolation2D.Extrapolate;
-                rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             }
             else if (rb.CompareTag("Enemy"))
             {

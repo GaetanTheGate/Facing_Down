@@ -31,11 +31,11 @@ public class Map : MonoBehaviour
         imageGo.AddComponent<Image>();
         imageGo.transform.SetParent(GameObject.Find("Map").transform);
 
-        //renvoie le sprite originale pour les salles avec 1 seule portes
+        //get initial sprite from room which have 1 doors or from anteroom
         if (room.doors.Count == 1 || room.name.Contains("Anteroom"))
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>("Donjon/IconMap/" + room.name.Substring(0,room.name.IndexOf('-')));
 
-        //renvoie le sprite correspondant au nombre de roomBehind non null pour la Room2
+        //get sprite corresponding to number of door not null in Room2
         if (room.name.Contains("Room2")){
             bool hasRoomOnRight = false;
             bool hasRoomOnLeft = false;
@@ -66,6 +66,7 @@ public class Map : MonoBehaviour
 
         }
 
+        //get sprite corresponding to number of door not null and configuration of these doors in Room5
         if (room.name.Contains("Room5")){
             bool hasRoomOnRight = false;
             bool hasRoomOnLeft = false;
@@ -91,11 +92,11 @@ public class Map : MonoBehaviour
                 }
             }
 
-            //4 portes non nulles
+            //4 doors not null
             if (hasRoomOnLeft && hasRoomOnRight && hasRoomOnDown && hasRoomOnUp)
                 imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>("Donjon/IconMap/" + room.name.Substring(0,room.name.IndexOf('-')));
 
-            //1 porte non nulle
+            //1 door not null
             else if (hasRoomOnLeft && !hasRoomOnUp && !hasRoomOnRight && !hasRoomOnDown)
                 imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>("Donjon/IconMap/" + room.name.Substring(0,room.name.IndexOf('-')) + "Door1");
             
@@ -114,7 +115,7 @@ public class Map : MonoBehaviour
                 imageGo.transform.Rotate(0,0,90f);
             }
 
-            //2 portes non nulles config 1
+            //2 doors not null config 1 (2 doors on the opposite side)
             else if (hasRoomOnLeft && !hasRoomOnUp && hasRoomOnRight && !hasRoomOnDown)
                 imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>("Donjon/IconMap/" + room.name.Substring(0,room.name.IndexOf('-')) + "Door2_1");
 
@@ -123,7 +124,7 @@ public class Map : MonoBehaviour
                 imageGo.transform.Rotate(0,0,-90f);
             }
 
-            //2 portes non nulles config 2
+            //2 doors not null config 2 (2 doors which follow each other)
             else if (hasRoomOnLeft && hasRoomOnUp && !hasRoomOnRight && !hasRoomOnDown)
                 imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>("Donjon/IconMap/" + room.name.Substring(0,room.name.IndexOf('-')) + "Door2_2");
 
@@ -142,7 +143,7 @@ public class Map : MonoBehaviour
                 imageGo.transform.Rotate(0,0,90f);
             }
 
-            //3 portes non nulles
+            //3 doors not null
             else if (hasRoomOnLeft && hasRoomOnUp && hasRoomOnRight && !hasRoomOnDown)
                 imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>("Donjon/IconMap/" + room.name.Substring(0,room.name.IndexOf('-')) + "Door3");
             

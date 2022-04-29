@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Abstract class from which all the items inherit.
+/// </summary>
 public abstract class Item{
     private string ID;
     protected int amount;
@@ -9,6 +12,13 @@ public abstract class Item{
     private ItemType type;
     private ItemPriority priority;
 
+    /// <summary>
+    /// Item constructor. Sets the amount to 1 by default.
+    /// </summary>
+    /// <param name="id">Item's ID.</param>
+    /// <param name="rarity">Item's rarity</param>
+    /// <param name="type">Item's type</param>
+    /// <param name="priority">Item's priority when used.</param>
     public Item(string id, ItemRarity rarity, ItemType type, ItemPriority priority) {
         this.ID = id;
         this.rarity = rarity;
@@ -17,40 +27,81 @@ public abstract class Item{
         amount = 1;
 	}
 
+    /// <summary>
+    /// Item constructor. Sets the amount to 1 and the priority to immediate.
+    /// </summary>
+    /// <param name="id">Item's ID.</param>
+    /// <param name="rarity">Item's rarity</param>
+    /// <param name="type">Item's type</param>
     public Item(string id, ItemRarity rarity, ItemType type) : this(id, rarity, type, ItemPriority.IMMEDIATE) { }
 
-    public string getID() {
+    //getters
+
+    public string GetID() {
         return ID;
 	}
-    public int getAmount() {
+    public int GetAmount() {
         return amount;
 	}
     public ItemRarity GetRarity() {
         return rarity;
 	}
-    public ItemType getType() {
+    public ItemType GetItemType() {
         return type;
 	}
 
-    public ItemPriority getPriority() {
+    public ItemPriority GetPriority() {
         return priority;
 	}
+
+    //Effects
 
     public virtual void OnPickup() {}
     public virtual void OnRemove() {}
 
-    public virtual float OnTakeDamage(float damage) { return damage; }
+    /// <summary>
+    /// Effect when damage is taken. May change the damage amount.
+    /// </summary>
+    /// <param name="damage">The amount of damage taken.</param>
+    /// <returns>The new amount of damage that will be taken.</returns>
+    public virtual float OnTakeDamage(float damage) { return damage; } //TODO : Retirer quand il sera entièrement remplacé par OnTakeDamage(DamageInfo)
+    public virtual DamageInfo OnTakeDamage(DamageInfo damage) { return damage; }
 
-    //Return true to stop going through the inventory
+    public virtual DamageInfo OnDealDamage(DamageInfo damage) { return damage; }
+
+    /// <summary>
+    /// Effect when the player dies.
+    /// </summary>
+    /// <returns>True if the death is prevented. WARNING : Death preventing effects should be only on delayed items</returns>
     public virtual bool OnDeath() { return false; }
 
-    public void setAmount(int amount) {
+    public virtual void OnEnemyKill() {}
+
+    public virtual void OnGroundCollisionEnter(Collision collision) {}
+
+    public virtual void OnGroundCollisionLeave(Collision collision) {}
+
+    public virtual void OnBullettimeActivate() {}
+
+    public virtual void OnRoomFinish() {}
+
+    public virtual void OnDash() {}
+
+    public virtual void OnRedirect() {}
+
+    public virtual void OnMegaDash() {}
+
+    public void SetAmount(int amount) {
         this.amount = amount;
 	}
 
-    public void modifyAmount(int modif) {
+    public void ModifyAmount(int modif) {
         amount += modif;
 	}
 
-    public abstract Item makeCopy();
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>A copy of the item.</returns>
+    public abstract Item MakeCopy();
 }

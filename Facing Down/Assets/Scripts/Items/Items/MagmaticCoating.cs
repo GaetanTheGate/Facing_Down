@@ -15,7 +15,7 @@ public class MagmaticCoating : Item
 		Game.player.stat.critRate -= critRate;
 	}
 
-	public override Item makeCopy() {
+	public override Item MakeCopy() {
 		return new MagmaticCoating();
 	}
 }

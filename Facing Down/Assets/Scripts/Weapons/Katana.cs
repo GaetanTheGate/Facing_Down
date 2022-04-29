@@ -23,7 +23,6 @@ public class Katana : MeleeWeapon
 
         GetAttack(angle, self).startAttack();
 
-
         if (way == SlashAttack.Way.Clockwise)
             way = SlashAttack.Way.CounterClockwise;
         else if (way == SlashAttack.Way.CounterClockwise)
@@ -32,21 +31,27 @@ public class Katana : MeleeWeapon
 
     public override void WeaponSpecial(float angle, Entity self)
     {
-        LaserAttack laser = (LaserAttack) GetSpecial(angle, self);
-
+        LaserAttack laser = (LaserAttack)GetSpecial(angle, self);
         self.GetComponent<Rigidbody2D>().velocity = new Velocity(self.GetComponent<Rigidbody2D>().velocity).setAngle(angle).GetAsVector2();
 
-        Vector3 teleportPointVector = new Velocity(laser.range, angle).GetAsVector2();
-        self.transform.position = laser.transform.position + teleportPointVector;
-        self.transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
 
         laser.startAttack();
+
+        Vector3 teleportPointVector = new Velocity(laser.rangeCollide - Mathf.Max(self.transform.localScale.x, self.transform.localScale.y), angle).GetAsVector2();
+        self.transform.position = laser.posStartLaser + teleportPointVector;
+        self.transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
+
+
     }
 
     public override Attack GetAttack(float angle, Entity self)
     {
 
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(2 * dmg, angle)));
+
         swing.transform.position = startPos;
         swing.AddComponent<SlashAttack>();
 
@@ -60,38 +65,27 @@ public class Katana : MeleeWeapon
 
         swing.GetComponent<SlashAttack>().way = way;
 
-        AddHitAttack(swing, baseAtk);
-
         return swing.GetComponent<SlashAttack>();
     }
 
     public override Attack GetSpecial(float angle, Entity self)
     {
-        float radius = Mathf.Max(self.transform.localScale.x, self.transform.localScale.y);
-        float distanceMax = baseRange * 3;
-        Vector3 angleDash = new Velocity(1.0f, angle).GetAsVector2();
-        RaycastHit2D resultHit = Physics2D.Raycast(startPos, angleDash, distanceMax + radius, LayerMask.GetMask("Terrain"));
-
-        float teleportPoint;
-        if (resultHit.collider == null)
-            teleportPoint = distanceMax;
-        else
-            teleportPoint = resultHit.distance - radius;
-
         GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
+
+        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
+        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg * 5, new Velocity(0.5f * dmg, angle)));
+
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();
 
 
         laser.GetComponent<LaserAttack>().src = self;
         laser.GetComponent<LaserAttack>().angle = angle;
-        laser.GetComponent<LaserAttack>().range = teleportPoint;
+        laser.GetComponent<LaserAttack>().range = baseRange * 3;
         laser.GetComponent<LaserAttack>().lenght = self.transform.localScale.x;
         laser.GetComponent<LaserAttack>().timeSpan = 0.00f;
         laser.GetComponent<LaserAttack>().endDelay = 0.05f;
         laser.GetComponent<LaserAttack>().followEntity = false;
-
-        AddHitAttack(laser, baseAtk * 5);
 
         return laser.GetComponent<LaserAttack>();
     }

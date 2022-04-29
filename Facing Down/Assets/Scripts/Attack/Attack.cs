@@ -20,12 +20,14 @@ public abstract class Attack : MonoBehaviour
 
     void Awake()
     {
-        if(GetComponent<SpriteRenderer>() != null)
+        //gameObject.SetActive(false);
+        if (GetComponent<SpriteRenderer>() != null)
             GetComponent<SpriteRenderer>().color = new Color(color.r, color.g, color.b, 0);
     }
 
     public void startAttack()
     {
+        //gameObject.SetActive(true);
         startPos = transform.position;
         timePassed = 0.0f;
         isAttacking = true;
