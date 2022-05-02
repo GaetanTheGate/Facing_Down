@@ -26,10 +26,12 @@ public class TrailEffect : MonoBehaviour
             }
             foreach (Component child in self.GetComponentsInChildren(typeof(Transform)))
             {
-                if (child.GetType() == typeof(Transform))
+                if (child.gameObject.Equals(self.gameObject))
+                    continue;
+                /*if (child.GetType() == typeof(Transform))
                     continue;
                 if (child.GetType() == typeof(SpriteRenderer))
-                    continue;
+                    continue;*/
                 Destroy(child.gameObject);
             }
             self.AddComponent<DestroyWhileFading>();

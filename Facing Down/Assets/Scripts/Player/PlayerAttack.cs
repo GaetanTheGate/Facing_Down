@@ -42,7 +42,7 @@ public class PlayerAttack : AbstractPlayer
     {
         if ( ! weapon.GetType().Equals(EnumWeapon.GetWeaponType(weaponChosen)))
         {
-            //weapon = EnumWeapon.GetWeapon(weaponChosen, "Enemy");
+            weapon = EnumWeapon.GetWeapon(weaponChosen, "Enemy");
         }
         ComputeAttack();
     }
