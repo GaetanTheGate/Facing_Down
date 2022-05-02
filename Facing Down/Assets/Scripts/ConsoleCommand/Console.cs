@@ -46,7 +46,7 @@ public class Console : MonoBehaviour
 	/// Initializes values.
 	/// </summary>
 	private void Awake() {
-		noRepeatKeys = new List<KeyCode> { KeyCode.Comma, KeyCode.Tab };
+		noRepeatKeys = new List<KeyCode> { KeyCode.Period, KeyCode.Tab };
 		lastInputs = new List<string>();
 		scrollIndex = -1;
 		previews = new List<string>();
@@ -161,8 +161,9 @@ public class Console : MonoBehaviour
 		string previousInput = input;
 		GUI.SetNextControlName("Console");
 		input = GUI.TextField(inputTextRect, input);
-		input = Regex.Replace(input, @"[^a-zA-Z0-9 _]", "");
+		input = Regex.Replace(input, @"[^a-zA-Z0-9 _,\.]", "");
 		input = Regex.Replace(input, @" +", " ");
+		input = Regex.Replace(input, @"^ ", "");
 		if (previousInput != input) OnInputChange();
 		GUI.FocusControl("Console");
 	}
@@ -172,7 +173,7 @@ public class Console : MonoBehaviour
 	public void OnGUI() {
 		if (PreventKeyRepeat()) return;
 
-		if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Comma) {
+		if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Period) {
 			Toggle();
 			alreadyPressed = true;
 		}

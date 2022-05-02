@@ -15,17 +15,20 @@ public class TrailEffect : MonoBehaviour
         if (timePassed >= timeGap)
         {
             GameObject self = Instantiate(gameObject);
+            self.SetActive(false);
             foreach (Component component in self.GetComponents(typeof(Component))){
                 if (component.GetType() == typeof(Transform))
                     continue;
                 if (component.GetType() == typeof(SpriteRenderer))
                     continue;
-
+                
                 Destroy(component);
             }
             foreach (Component child in self.GetComponentsInChildren(typeof(Transform)))
             {
-                if (child.gameObject == self.gameObject)
+                if (child.GetType() == typeof(Transform))
+                    continue;
+                if (child.GetType() == typeof(SpriteRenderer))
                     continue;
                 Destroy(child.gameObject);
             }
@@ -34,6 +37,8 @@ public class TrailEffect : MonoBehaviour
 
             self.transform.SetParent(transform.parent);
             timePassed = 0.0f;
+
+            self.SetActive(true);
         }
     }
 }

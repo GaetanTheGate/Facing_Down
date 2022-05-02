@@ -22,8 +22,7 @@ public static class CommandList
 		Add(new ConsoleCommand<string, int>("addItem", "Adds <amount> of the specified item to the inventory.", "addItem <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.AddItem(ID, amount);}));
 		Add(new ConsoleCommand<string>("removeItem", "Remove 1 of the specified item from the inventory.", "removeItem <ID>", (ID) => {AdvancedCommandFunctions.RemoveItem(ID, 1);}));
 		Add(new ConsoleCommand<string, int>("removeItem", "Remove <amount> of the specified item from the inventory.", "removeItem <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.RemoveItem(ID, amount);}));
-		Add(new ConsoleCommand<string, int, int>("spawnItem", "Spawn the specified item at given position relative to the player.", "spawnItem <ID> <x> <y>", (ID, xOffset, yOffset) => {AdvancedCommandFunctions.SpawnItem(ID, xOffset, yOffset);}));
-		Add(new ConsoleCommand<int>("rift", "TO REMOVE.", "rift <boost>", (boost) => { GameObject.Instantiate<Rift>(Resources.Load<Rift>("Prefabs/Items/ItemEffects/Rift")).Init(boost, Game.player.self.transform.position);  }));
+		Add(new ConsoleCommand<string, float, float>("spawnItem", "Spawn the specified item at given position relative to the player.", "spawnItem <ID> <x> <y>", (ID, xOffset, yOffset) => {AdvancedCommandFunctions.SpawnItem(ID, xOffset, yOffset);}));
 		Add(new ConsoleCommand<string, int, int>("spawnEnemy", "Spawn the specified enemy at the specified position.", "spawnEnemy <NAME> <x> <y>", (NAME, x, y) => { AdvancedCommandFunctions.SpawnEnemy(NAME, x, y); } ));
 	}
 
