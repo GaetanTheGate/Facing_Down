@@ -40,7 +40,7 @@ public class GenerateDonjon : MonoBehaviour
         }
         return null;
     }
-
+    
     //return the next door to generate a room behind
     public static Door getNextDoor(){
 
@@ -75,6 +75,7 @@ public class GenerateDonjon : MonoBehaviour
         }
 
     }
+
 
     //Initialize the donjon creating gameManager which contains player and all room generated
     public void initGenerate(){
@@ -190,6 +191,7 @@ public class GenerateDonjon : MonoBehaviour
     }
 
     //remove a room from the gridMap
+
     public void removeSpecificRoomFromGridMap(Room room){
         for(int i = 0; i < nbRoomHeight; i += 1){
             for(int j = 0 ; j < nbRoomWidth; j += 1){
@@ -201,7 +203,9 @@ public class GenerateDonjon : MonoBehaviour
         }
     }
 
+
     //initialize initRoom
+
     public void setInitRoom(){
         for(int i = 0; i < nbRoomHeight; i += 1){
             for(int j = 0; j < nbRoomWidth; j += 1){

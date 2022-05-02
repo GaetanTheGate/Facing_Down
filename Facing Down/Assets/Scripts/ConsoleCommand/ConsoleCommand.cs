@@ -64,3 +64,14 @@ public class ConsoleCommand<T1, T2> : AbstractConsoleCommand {
         command.Invoke(v1, v2);
 	}
 }
+
+public class ConsoleCommand<T1, T2, T3> : AbstractConsoleCommand {
+    private Action<T1, T2, T3> command;
+	public ConsoleCommand(string id, string description, string format, Action<T1, T2, T3> command) : base(id, description, format) {
+        this.command = command;
+    }
+    
+    public void Invoke(T1 v1, T2 v2, T3 v3) {
+        command.Invoke(v1, v2, v3);
+	}
+}

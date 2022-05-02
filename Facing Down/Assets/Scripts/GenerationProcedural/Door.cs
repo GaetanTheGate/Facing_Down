@@ -81,10 +81,54 @@ public class Door : MonoBehaviour
         addRoomToGridMap(roomBehind,getCoordinates(),this);
     }
 
-
     //Generate random room in roomBehind and return gameObject associated to the room or null if can't generate
     public GameObject generateRoom() {
         Vector2 coordinates = getCoordinates();
+
+        switch(onSide){
+            case Door.side.Right :
+                if(coordinates.y + 1 > GenerateDonjon.nbRoomWidth - 1|| GenerateDonjon.gridMap[(int) coordinates.x, (int) coordinates.y + 1] != null)
+                    return null;
+
+                break;
+            case Door.side.Left :
+                if(coordinates.y - 1 < 0 || GenerateDonjon.gridMap[(int) coordinates.x, (int) coordinates.y - 1] != null)
+                    return null;
+                break;
+            case Door.side.Down :
+                if(coordinates.x + 1 > GenerateDonjon.nbRoomHeight - 1 || GenerateDonjon.gridMap[(int) coordinates.x + 1 ,(int) coordinates.y] != null)
+                    return null;
+                break; 
+            case Door.side.Up :
+                if(coordinates.x - 1 < 0 || GenerateDonjon.gridMap[(int) coordinates.x - 1 ,(int) coordinates.y] != null)
+                    return null;
+                break; 
+        }
+
+        addRoomToGridMap(roomBehind,coordinates,this);
+
+        foreach(Door door in roomBehind.doors){
+            if (door.roomBehind == null){
+                GenerateDonjon.processDoors.Add(door);
+            }
+        }
+    }
+
+        print("génération salle");
+        
+        List<GameObject> validateRooms = selectRooms();
+
+        List<GameObject> validateRoomsDoorOnUp = new List<GameObject>();
+        List<GameObject> validateRoomsDoorNotOnUp = new List<GameObject>();
+
+    public GameObject generateRoom() {
+        Vector2 coordinates = new Vector2();
+        for(int i = 0 ; i < GenerateDonjon.nbRoomHeight ; i += 1){
+            for(int j = 0 ; j < GenerateDonjon.nbRoomWidth ; j += 1){
+                if (GenerateDonjon.gridMap[i,j] == currentRoom)
+                    coordinates = new Vector2(i,j);
+            }
+        }
 
         switch(onSide){
             case Door.side.Right :
@@ -242,8 +286,8 @@ public class Door : MonoBehaviour
     }
 
      public static void changeScene(Room roomToChange){      
-        
-        //get all gameObject which are enable or disable
+
+        //get all gameObject which are enable or disablemain
         List<GameObject> gameObjects = new List<GameObject>();
         foreach(Object o in GameObject.FindObjectsOfType(typeof(GameObject), true)){
             gameObjects.Add((GameObject) o);
@@ -264,7 +308,7 @@ public class Door : MonoBehaviour
                 mapIcons.Add(go);
             }
         }
-
+        
         //set the mapIcon color to blue
         foreach(GameObject mapIcon in mapIcons){
             mapIcon.GetComponent<Image>().color = Color.white;

@@ -91,7 +91,7 @@ public class Map : MonoBehaviour
                     }
                 }
             }
-
+            
             //4 doors not null
             if (hasRoomOnLeft && hasRoomOnRight && hasRoomOnDown && hasRoomOnUp)
                 imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>("Donjon/IconMap/" + room.name.Substring(0,room.name.IndexOf('-')));
@@ -116,6 +116,7 @@ public class Map : MonoBehaviour
             }
 
             //2 doors not null config 1 (2 doors on the opposite side)
+
             else if (hasRoomOnLeft && !hasRoomOnUp && hasRoomOnRight && !hasRoomOnDown)
                 imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>("Donjon/IconMap/" + room.name.Substring(0,room.name.IndexOf('-')) + "Door2_1");
 
@@ -123,7 +124,7 @@ public class Map : MonoBehaviour
                 imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>("Donjon/IconMap/" + room.name.Substring(0,room.name.IndexOf('-')) + "Door2_1");
                 imageGo.transform.Rotate(0,0,-90f);
             }
-
+            
             //2 doors not null config 2 (2 doors which follow each other)
             else if (hasRoomOnLeft && hasRoomOnUp && !hasRoomOnRight && !hasRoomOnDown)
                 imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>("Donjon/IconMap/" + room.name.Substring(0,room.name.IndexOf('-')) + "Door2_2");

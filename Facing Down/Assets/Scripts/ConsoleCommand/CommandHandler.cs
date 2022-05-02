@@ -37,6 +37,15 @@ public static class CommandHandler
 				return;
 			}
 		}
+		if (splitInput.Length == 4) {
+			if ((command as ConsoleCommand<string, float, float>) != null) {
+				string arg1 = splitInput[1];
+				float arg2 = GetFloatFromInput(splitInput[2]);
+				float arg3 = GetFloatFromInput(splitInput[3]);
+				(command as ConsoleCommand<string, float, float>).Invoke(arg1, arg2, arg3);
+				return;
+			}
+		}
 	}
 
 	/// <summary>
@@ -48,6 +57,13 @@ public static class CommandHandler
 	private static int GetIntFromInput(string input) {
 		if (!int.TryParse(input, out int i)) {
 			throw new CommandRuntimeException("Format invalid : \"" + input + "\" does not seem to be an integer.");
+		}
+		return i;
+	}
+
+	private static float GetFloatFromInput(string input) {
+		if (!float.TryParse(input, out float i)) {
+			throw new CommandRuntimeException("Format invalid : \"" + input + "\" does not seem to be a float.");
 		}
 		return i;
 	}

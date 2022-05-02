@@ -53,21 +53,21 @@ public class Gun : MeleeWeapon
 
     public override Attack GetSpecial(float angle, Entity self)
     {
-        GameObject bullet = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
-        bullet.AddComponent<GunAttack>();
-        bullet.GetComponent<GunAttack>().transform.position = startPos;
+        GameObject gun = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
+        gun.AddComponent<GunAttack>();
+        gun.GetComponent<GunAttack>().transform.position = startPos;
 
-        bullet.GetComponent<GunAttack>().src = self;
-        bullet.GetComponent<GunAttack>().startDelay = 1.0f;
-        bullet.GetComponent<GunAttack>().timeSpan = 1;
-        bullet.GetComponent<GunAttack>().endDelay = 0.5f;
-        bullet.GetComponent<GunAttack>().lenght = 1;
-        bullet.GetComponent<GunAttack>().followEntity = false;
+        gun.GetComponent<GunAttack>().src = self;
+        gun.GetComponent<GunAttack>().startDelay = 1.0f;
+        gun.GetComponent<GunAttack>().timeSpan = 1;
+        gun.GetComponent<GunAttack>().endDelay = 0.5f;
+        gun.GetComponent<GunAttack>().lenght = 1;
+        gun.GetComponent<GunAttack>().followEntity = false;
 
-        bullet.GetComponent<GunAttack>().angle = angle;
-        bullet.GetComponent<GunAttack>().attack = specialWeapon;
-        bullet.GetComponent<GunAttack>().isSpecial = true;
+        gun.GetComponent<GunAttack>().angle = angle;
+        gun.GetComponent<GunAttack>().attack = specialWeapon;
+        gun.GetComponent<GunAttack>().isSpecial = true;
 
-        return bullet.GetComponent<GunAttack>();
+        return gun.GetComponent<GunAttack>();
     }
 }

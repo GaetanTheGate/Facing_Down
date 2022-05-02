@@ -18,7 +18,7 @@ public class PlayerAttack : AbstractPlayer
 
     private bool attackPressed = false;
 
-    public Weapon weapon = new Katana("Enemy");
+    public Weapon weapon = new Grenade("Enemy");
     public EnumWeapon.WeaponChoice weaponChosen = EnumWeapon.WeaponChoice.Katana;
 
     public override void Init()

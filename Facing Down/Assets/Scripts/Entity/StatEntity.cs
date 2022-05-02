@@ -17,6 +17,8 @@ public class StatEntity : MonoBehaviour
     public UnityEvent onDeath;
     private Animator animator;
 
+    protected bool isDead = false;
+
     public virtual void Awake()
     {
         computeAtk();
@@ -40,16 +42,24 @@ public class StatEntity : MonoBehaviour
 
     public virtual void TakeDamage(DamageInfo dmgInfo)
     {
+        if (isDead) return;
         currentHitPoints -= (int)dmgInfo.amount;
         GetComponent<Rigidbody2D>().velocity += dmgInfo.knockback.GetAsVector2();
-
         Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
         if(onHit != null && currentHitPoints > 0) onHit.Invoke();
-        checkIfDead();
+        checkIfDead(dmgInfo);
     }
 
-    public virtual void checkIfDead() {
-        if (onDeath != null && currentHitPoints <= 0) onDeath.Invoke();
+    public virtual void checkIfDead(DamageInfo lastDamageTaken) {
+        if (onDeath != null && currentHitPoints <= 0) {
+            if (lastDamageTaken != null && lastDamageTaken.source == Game.player.self) {
+                Game.player.inventory.OnEnemyKill(gameObject.GetComponent<Entity>());
+            }
+            onDeath.Invoke();
+            isDead = true;
+        }
     }
+
+    public bool getIsDead() { return isDead; }
 }

@@ -46,9 +46,9 @@ public abstract class Weapon
         return baseSDelay + baseSpan + baseEDelay + baseCooldown;
     }
 
-    public bool IsAuto() => isAuto ? true : false;
+    public bool IsAuto() => isAuto;
 
-    public bool CanAttack() => canAttack ? true : false;
+    public bool CanAttack() => canAttack;
 
     public string getAttackPath() => attackPath;
     public string getSpecialPath() => specialPath;
@@ -57,6 +57,10 @@ public abstract class Weapon
     public float getEDelay() => baseEDelay;
     public float getSpan() => baseSpan;
     public float getBaseCooldown() => baseCooldown;
+
+    public void SetBaseAtk(float newAtk) {
+        baseAtk = newAtk;
+    }
 
     protected void AddHitAttack(GameObject gameObject, DamageInfo dmgInfo)
     {

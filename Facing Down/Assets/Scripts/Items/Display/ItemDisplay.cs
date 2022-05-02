@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// ItemDisplay manages a single item's display.
 /// </summary>
 public class ItemDisplay : MonoBehaviour {
-    public static readonly string spriteFolderPath = "Items/";
+    public static readonly string spriteFolderPath = "Items/Sprites/";
     static readonly float imageSize = Screen.width / 20;
     Item item;
 
@@ -38,8 +38,4 @@ public class ItemDisplay : MonoBehaviour {
     public void UpdateDisplay() {
         GetComponentInChildren<Text>().text = item.GetAmount().ToString();
     }
-
-	public void OnDestroy() {
-        foreach (Transform child in transform) Destroy(child.gameObject);
-	}
 }
