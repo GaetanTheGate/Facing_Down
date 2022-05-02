@@ -8,6 +8,12 @@ public class ItemPickup : MonoBehaviour
 	private Item item;
 	private bool isActive = false;
 
+	/// <summary>
+	/// Uses the ItemPool to spawn a random Item pickup
+	/// </summary>
+	/// <param name="parent">The pickup's tranform's parent</param>
+	/// <param name="position">The pickup's position</param>
+	/// <returns>The created pickup</returns>
 	public static ItemPickup SpawnRandomItemPickup(GameObject parent, Vector2 position) {
 		ItemPickup pickup = GameObject.Instantiate<ItemPickup>(Resources.Load<ItemPickup>("Prefabs/Items/ItemPickup"));
 		pickup.Init(ItemPool.GetRandomItem());
@@ -16,6 +22,10 @@ public class ItemPickup : MonoBehaviour
 		return pickup;
 	}
 
+	/// <summary>
+	/// Sets a specific item for the pickup
+	/// </summary>
+	/// <param name="item"></param>
 	public void Init(Item item) {
 		this.item = item;
 		Debug.Log(item.GetAmount());
@@ -23,6 +33,10 @@ public class ItemPickup : MonoBehaviour
 		isActive = true;
 	}
 
+	/// <summary>
+	/// On collision with the player, adds the pickup to the inventory
+	/// </summary>
+	/// <param name="collision"></param>
 	public void OnTriggerEnter2D(Collider2D collision) {
 		if (collision.CompareTag("Player") && isActive) {
 			Game.player.inventory.AddItem(item);
