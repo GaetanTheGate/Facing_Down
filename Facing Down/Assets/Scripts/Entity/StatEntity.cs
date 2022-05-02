@@ -19,7 +19,7 @@ public class StatEntity : MonoBehaviour
 
     protected bool isDead = false;
 
-    public virtual void Awake()
+    public virtual void Start()
     {
         computeAtk();
         currentHitPoints = maxHitPoints;
