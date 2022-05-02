@@ -22,9 +22,9 @@ public class StatPlayer : StatEntity
     [Min(0)] public int maxSpecial = 3;
     [Min(0)] public float specialLeft = 3;
 
-    public override void Awake()
+    public override void Start()
     {
-        base.Awake();
+        base.Start();
         playerIframes = GetComponentInChildren<PlayerIframes>();
         hpText.text = currentHitPoints.ToString();
         rawAcceleration = acceleration;
@@ -52,10 +52,13 @@ public class StatPlayer : StatEntity
     }
 
     public override void checkIfDead(DamageInfo lastDamageTaken) {
-        if (currentHitPoints <= 0) Game.player.inventory.OnDeath();
-        if (onDeath != null && currentHitPoints <= 0)
-            onDeath.Invoke();
-        isDead = true;
+        if (currentHitPoints <= 0)
+        {
+            Game.player.inventory.OnDeath();
+            if (onDeath != null && currentHitPoints <= 0)
+                onDeath.Invoke();
+            isDead = true;
+        }
     }
 
     /// <summary>
