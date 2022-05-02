@@ -8,6 +8,14 @@ public class ItemPickup : MonoBehaviour
 	private Item item;
 	private bool isActive = false;
 
+	public static ItemPickup SpawnRandomItemPickup(GameObject parent, Vector2 position) {
+		ItemPickup pickup = GameObject.Instantiate<ItemPickup>(Resources.Load<ItemPickup>("Prefabs/Items/ItemPickup"));
+		pickup.Init(ItemPool.GetRandomItem());
+		pickup.transform.parent = parent.transform;
+		pickup.transform.position = position;
+		return pickup;
+	}
+
 	public void Init(Item item) {
 		this.item = item;
 		Debug.Log(item.GetAmount());
