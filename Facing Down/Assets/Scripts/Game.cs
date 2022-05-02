@@ -6,6 +6,7 @@ public class Game : MonoBehaviour
     public static TimeManager time;
     public static Player player;
 
+    private string playerPath = "Prefabs/Player/Player";
     private void Awake()
     {
         Physics2D.IgnoreLayerCollision(10, 12, true);
@@ -18,5 +19,10 @@ public class Game : MonoBehaviour
             time = gameObject.AddComponent<TimeManager>();
 
         player = gameObject.GetComponentInChildren<Player>();
+        if(player == null)
+        {
+            player = Instantiate(Resources.Load(playerPath, typeof(GameObject)) as GameObject).GetComponent<Player>();
+            player.transform.SetParent(transform);
+        }
     }
 }

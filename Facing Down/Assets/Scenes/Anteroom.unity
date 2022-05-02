@@ -419,7 +419,7 @@ GameObject:
   - component: {fileID: 390257767}
   - component: {fileID: 390257766}
   - component: {fileID: 390257765}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: fondation
   m_TagString: Untagged
   m_Icon: {fileID: 0}

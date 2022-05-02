@@ -76,16 +76,15 @@ public class GenerateDonjon : MonoBehaviour
 
     }
 
+    private string gamePath = "Prefabs/Game/Game";
 
     //Initialize the donjon creating gameManager which contains player and all room generated
     public void initGenerate(){
 
-        GameObject gameManager = new GameObject("GameManager");
+        GameObject gameManager = Resources.Load(gamePath, typeof(GameObject)) as GameObject;
+        gameManager = Instantiate(gameManager);
+        gameManager.name = "Game";
         DontDestroyOnLoad(gameManager);
-
-        GameObject player = Resources.Load("Donjon/Player",typeof(GameObject)) as GameObject;
-        player = Instantiate(player);
-        player.transform.SetParent(gameManager.transform);
 
         foreach(Object o in Resources.LoadAll("Donjon/Rooms", typeof(GameObject))){
             roomsPrefabs.Add((GameObject) o);

@@ -7,7 +7,7 @@ public class Map : MonoBehaviour
 {
     public static void generateMap(){
         GameObject map = new GameObject("Map");
-        map.transform.SetParent(GameObject.Find("GameManager").transform);
+        map.transform.SetParent(GameObject.Find("Game").transform);
         map.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
         map.GetComponent<Canvas>().transform.position = new Vector2(0,0);
 

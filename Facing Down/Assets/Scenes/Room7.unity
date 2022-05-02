@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 885651175}
   - component: {fileID: 885651174}
   - component: {fileID: 885651173}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: fondation
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -207,7 +207,7 @@ public class Door : MonoBehaviour
         newRoom = Instantiate(newRoom);
         newRoom.SetActive(false);
         newRoom.name = newRoom.name.Substring(0,newRoom.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
-        newRoom.transform.SetParent(GameObject.Find("GameManager").transform);
+        newRoom.transform.SetParent(GameObject.Find("Game").transform);
         roomBehind = newRoom.GetComponent<Room>();
 
         initCurrentRoom(roomBehind);

@@ -7,7 +7,7 @@ public class StatPlayer : StatEntity
 {
     private PlayerIframes playerIframes;
 
-    public Text hpText;
+    //public Text hpText;
 
     private float rawAcceleration;
     private float acceleration = 10;
@@ -26,7 +26,7 @@ public class StatPlayer : StatEntity
     {
         base.Start();
         playerIframes = GetComponentInChildren<PlayerIframes>();
-        hpText.text = currentHitPoints.ToString();
+        //hpText.text = currentHitPoints.ToString();
         rawAcceleration = acceleration;
     }
 
@@ -46,7 +46,7 @@ public class StatPlayer : StatEntity
         {
             damage = Game.player.inventory.OnTakeDamage(damage);
             base.TakeDamage(damage);
-            hpText.text = currentHitPoints.ToString();
+            //hpText.text = currentHitPoints.ToString();
             playerIframes.getIframe(2f);
         }
     }

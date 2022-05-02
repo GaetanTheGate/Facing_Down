@@ -33,7 +33,7 @@ public class EntityCollisionStructure : AbstractEntity
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Terrain") || collision.collider.CompareTag("Traps"))
+        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Terrain")))
         {
             foreach (ContactPoint2D contact in collision.contacts)
             {
@@ -87,7 +87,7 @@ public class EntityCollisionStructure : AbstractEntity
         bool isEnteringWallTest = false;
         bool isEnteringCeilingTest = false;
 
-        if (col.collider.CompareTag("Terrain") || col.collider.CompareTag("Traps"))
+        if (col.gameObject.layer.Equals(LayerMask.NameToLayer("Terrain")))
         {
             groundedTest = false;
             walledTest = false;
@@ -147,7 +147,7 @@ public class EntityCollisionStructure : AbstractEntity
 
     void OnCollisionExit2D(Collision2D col)
     {
-        if (col.collider.CompareTag("Terrain") || col.collider.CompareTag("Traps"))
+        if (col.gameObject.layer.Equals(LayerMask.NameToLayer("Terrain")))
         {
             isGrounded = false;
             isWalled = false;

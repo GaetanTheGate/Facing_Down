@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     private float zoomPercent = 100;
-    private float baseZoom;
-    private float actualZoom;
+    public float baseZoom = 10;
+    public float actualZoom;
 
     void Start()
     {
