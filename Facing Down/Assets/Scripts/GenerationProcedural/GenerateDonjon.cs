@@ -1,9 +1,6 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.IO;
-using System.Text.RegularExpressions;
 
 public class GenerateDonjon : MonoBehaviour
 {
@@ -14,9 +11,6 @@ public class GenerateDonjon : MonoBehaviour
     public static int nbRoom = nbRoomHeight - 2;
     public static int idRoom = 0;
 
-    
-
-    public string nameInitRoom;
 
     public static float probUp = 0.66f;
     private Room initRoom;
@@ -32,12 +26,12 @@ public class GenerateDonjon : MonoBehaviour
     void Update() {
         if(Input.GetKeyDown(KeyCode.G)){
             initGenerate();
-            //generateSpecificRoom();
             generate();
         }
     }
 
 
+    //return the gameObject associated to the name of the room 
     public static GameObject getSpecifyRoom(string name){
         foreach(GameObject room in roomsPrefabs){
             if (room.name == name){
@@ -46,7 +40,8 @@ public class GenerateDonjon : MonoBehaviour
         }
         return null;
     }
-
+    
+    //return the next door to generate a room behind
     public static Door getNextDoor(){
 
         List<Door> doorsUp = new List<Door>();
@@ -81,16 +76,16 @@ public class GenerateDonjon : MonoBehaviour
 
     }
 
+
+    //Initialize the donjon creating gameManager which contains player and all room generated
     public void initGenerate(){
 
-        //Création d'un gameManager qui permet la gestion du donjon (stocke le joueur ainsi que toute les salles générées) 
         GameObject gameManager = new GameObject("GameManager");
         DontDestroyOnLoad(gameManager);
 
         GameObject player = Resources.Load("Donjon/Player",typeof(GameObject)) as GameObject;
         player = Instantiate(player);
         player.transform.SetParent(gameManager.transform);
-
 
         foreach(Object o in Resources.LoadAll("Donjon/Rooms", typeof(GameObject))){
             roomsPrefabs.Add((GameObject) o);
@@ -108,13 +103,14 @@ public class GenerateDonjon : MonoBehaviour
 
         foreach(Door door in anteroom.GetComponent<Room>().doors){
             if(door.onSide == Door.side.Down){
-                door.generateSpecific(bossRoom);
+                door.generateSpecificRoom(bossRoom);
             }
             else
                 processDoors.Add(door);
         }
     }
 
+    //Generate nbRoom rooms of the donjon
     public void generate(){
         while(nbRoom > 0){
             Door processDoor = getNextDoor();
@@ -145,7 +141,7 @@ public class GenerateDonjon : MonoBehaviour
                     List<Room> roomsToDestroy = new List<Room>();
                     for(int i = 0; i < nbRoomHeight; i += 1){
                         for(int j = 0; j < nbRoomWidth; j += 1){
-                            if((i == 0 && j == 0) || (gridMap[i,j] == null))
+                            if((gridMap[i,j] == null))
                                 continue;
                             else{
                                 if(gridMap[i,j].doors.Count == 1 && 
@@ -189,15 +185,12 @@ public class GenerateDonjon : MonoBehaviour
         Map.generateMap();
 
         setInitRoom();
+        GameObject.FindWithTag("Player").transform.position = initRoom.spawnPlayer.transform.position;
         
         Door.changeScene(initRoom);
     }
 
-    public void generateSpecificRoom(){
-        initRoom.doors[0].generateSpecific(getSpecifyRoom("Room5"));
-        initRoom.doors[0].roomBehind.doors[3].generateSpecific(getSpecifyRoom("Room7"));
-        Map.generateMap();
-    }
+    //remove a room from the gridMap
 
     public void removeSpecificRoomFromGridMap(Room room){
         for(int i = 0; i < nbRoomHeight; i += 1){
@@ -209,6 +202,9 @@ public class GenerateDonjon : MonoBehaviour
             }
         }
     }
+
+
+    //initialize initRoom
 
     public void setInitRoom(){
         for(int i = 0; i < nbRoomHeight; i += 1){
