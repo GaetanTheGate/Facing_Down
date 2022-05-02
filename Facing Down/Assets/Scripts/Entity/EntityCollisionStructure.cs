@@ -24,11 +24,16 @@ public class EntityCollisionStructure : AbstractEntity
     public override void Init()
     {
         gravityEntity = gameObject.GetComponent<GravityEntity>();
+        if (gravityEntity == null)
+        {
+            gravityEntity = gameObject.AddComponent<GravityEntity>();
+            gravityEntity.Init();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Terrain"))
+        if (collision.collider.CompareTag("Terrain") || collision.collider.CompareTag("Traps"))
         {
             foreach (ContactPoint2D contact in collision.contacts)
             {
@@ -55,7 +60,7 @@ public class EntityCollisionStructure : AbstractEntity
                 //Game.player.inventory.OnGroundCollisionEnter();
         }
 
-        if (collision.collider.CompareTag("Traps"))
+        /*if (collision.collider.CompareTag("Traps"))
         {
             foreach (ContactPoint2D contact in collision.contacts)
             {
@@ -65,10 +70,15 @@ public class EntityCollisionStructure : AbstractEntity
                     isWallFirstFrame = false;
                 }
             }
-        }
+        }*/
     }
 
     void OnCollisionStay2D(Collision2D col)
+    {
+        checkCollisionOnStay(col);
+    }
+
+    public virtual void checkCollisionOnStay(Collision2D col)
     {
         bool groundedTest = false;
         bool walledTest = false;
@@ -77,7 +87,7 @@ public class EntityCollisionStructure : AbstractEntity
         bool isEnteringWallTest = false;
         bool isEnteringCeilingTest = false;
 
-        if (col.collider.CompareTag("Terrain"))
+        if (col.collider.CompareTag("Terrain") || col.collider.CompareTag("Traps"))
         {
             groundedTest = false;
             walledTest = false;
@@ -115,13 +125,12 @@ public class EntityCollisionStructure : AbstractEntity
             isGroundFirstFrame = !isGrounded;
             isWallFirstFrame = !isWalled;
             isCeilingFirstFrame = !isCeilinged;
-            if (isEnteringWall) print("WOW!");
             //if (isEnteringGround || isEnteringCeiling || isEnteringWall)
-                //Game.player.inventory.OnGroundCollisionEnter();
+            //Game.player.inventory.OnGroundCollisionEnter();
             //print("ground, wall, ceiling : " + isEnteringGround + " " + isEnteringWall + " " + isEnteringCeiling);
         }
 
-        if (col.collider.CompareTag("Traps"))
+        /*if (col.collider.CompareTag("Traps"))
         {
             groundedTest = false;
             foreach (ContactPoint2D contact in col.contacts)
@@ -133,12 +142,12 @@ public class EntityCollisionStructure : AbstractEntity
                 }
             }
             isGrounded = groundedTest;
-        }
+        }*/
     }
 
     void OnCollisionExit2D(Collision2D col)
     {
-        if (col.collider.CompareTag("Terrain"))
+        if (col.collider.CompareTag("Terrain") || col.collider.CompareTag("Traps"))
         {
             isGrounded = false;
             isWalled = false;
@@ -150,10 +159,10 @@ public class EntityCollisionStructure : AbstractEntity
             isWallFirstFrame = true;
             isCeilingFirstFrame = true;
         }
-        if (col.collider.CompareTag("Traps"))
+        /*if (col.collider.CompareTag("Traps"))
         {
             isGrounded = false;
-        }
+        }*/
 
     }
 }

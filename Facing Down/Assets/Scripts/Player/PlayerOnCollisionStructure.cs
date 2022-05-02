@@ -22,9 +22,15 @@ public class PlayerOnCollisionStructure : AbstractPlayer
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (entityCollisionStructure.isEnteringGround || entityCollisionStructure.isEnteringCeiling || entityCollisionStructure.isEnteringWall) {
+        onStayCollide();
+    }
+
+    public void onStayCollide()
+    {
+        if (entityCollisionStructure.isEnteringGround || entityCollisionStructure.isEnteringCeiling || entityCollisionStructure.isEnteringWall)
+        {
             Game.player.inventory.OnGroundCollisionEnter();
-		}
+        }
 
         //comportement pour toute la durée de la collision avec le sol
         if (entityCollisionStructure.isGrounded && !entityCollisionStructure.isEnteringGround)
@@ -34,13 +40,13 @@ public class PlayerOnCollisionStructure : AbstractPlayer
         //comportement au moment de la collision avec le sol
         else if (entityCollisionStructure.isGrounded && entityCollisionStructure.isEnteringGround)
         {
-            
+
         }
 
         //comportement pour toute la durée de la collision avec le mur
         if (entityCollisionStructure.isWalled && !entityCollisionStructure.isEnteringWall)
         {
-            
+
         }
         //comportement au moment de la collision avec le mur
         else if (entityCollisionStructure.isWalled && entityCollisionStructure.isEnteringWall)
@@ -51,7 +57,7 @@ public class PlayerOnCollisionStructure : AbstractPlayer
         //comportement pour toute la durée de la collision avec le plafond
         if (entityCollisionStructure.isCeilinged && !entityCollisionStructure.isEnteringCeiling)
         {
-            
+
         }
         //comportement au moment de la collision avec le plafond
         else if (entityCollisionStructure.isCeilinged && entityCollisionStructure.isEnteringCeiling)
