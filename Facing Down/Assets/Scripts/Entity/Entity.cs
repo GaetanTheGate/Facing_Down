@@ -57,4 +57,9 @@ public class Entity : AbstractEntity
             entity.Init();
         }
     }
+
+    public Rigidbody2D GetRB()
+    {
+        return initRigidBody(gameObject);
+    }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drone3Movement : MonoBehaviour
+public class ArmoredCyborgMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float movementSpeed = 200;
@@ -19,7 +19,7 @@ public class Drone3Movement : MonoBehaviour
     private bool isFollowingPlayer = false;
     private Transform nearestFlag;
 
-    private Drone3Attack drone3Attack;
+    private ArmoredCyborgAttack armoredCyborgAttack;
 
     private bool isFlipped = false;
 
@@ -30,7 +30,7 @@ public class Drone3Movement : MonoBehaviour
         player = Game.player.self.gameObject;
         playerTransform = player.transform;
         animator = gameObject.GetComponent<Animator>();
-        drone3Attack = gameObject.GetComponent<Drone3Attack>();
+        armoredCyborgAttack = gameObject.GetComponent<ArmoredCyborgAttack>();
     }
 
     private void FixedUpdate()
@@ -40,42 +40,31 @@ public class Drone3Movement : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, flag.position) < Vector2.Distance(transform.position, nearestFlag.position)) nearestFlag = flag;
         }
-        if (checkRayCastsHitTag(Raycasting.castRayFanInAngleFromEntity(transform, isFlipped ? 180 : 0, 135, aggroViewDistance), "Player") || 
+        if (checkRayCastsHitTag(Raycasting.castRayFanInAngleFromEntity(transform, isFlipped ? 180 : 0, 135, aggroViewDistance), "Player") ||
                 Vector2.Distance(transform.position, playerTransform.position) <= aggroDistance)
         {
             nextFlag = playerTransform;
             isFollowingPlayer = true;
         }
-        /*else if (wasFollowingPlayer && Vector2.Distance(playerTransform.position, nearestFlag.position) > aggroDistance)
-        {
-            isFollowingPlayer = false;
-            nextFlag = nearestFlag;
-        }*/
         else if (!isFollowingPlayer)
         {
             nextFlag = flags[tempNext];
-            //isFollowingPlayer = false;
         }
 
         if (isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax)
         {
             rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, nextFlag.position.y - transform.position.y).normalized * movementSpeed, 5 * Time.deltaTime);
-            //rb.velocity = new Vector2(nextFlag.position.x - transform.position.x, nextFlag.position.y - transform.position.y).normalized * movementSpeed * Time.deltaTime;
-            //rb.MovePosition(rb.position + new Vector2(nextFlag.position.x - transform.position.x, nextFlag.position.y - transform.position.y).normalized * movementSpeed * Time.deltaTime);
-            drone3Attack.attackPlayer(nextFlag.position);
+            armoredCyborgAttack.attackPlayer(nextFlag.position);
         }
         else if (isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) < rangeFromPlayerMin)
         {
             rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(transform.position.x - nextFlag.position.x, transform.position.y - nextFlag.position.y).normalized * movementSpeed, 5 * Time.deltaTime);
-            //rb.velocity = new Vector2(transform.position.x - nextFlag.position.x, transform.position.y - nextFlag.position.y).normalized * movementSpeed * Time.deltaTime;
-            //rb.MovePosition(rb.position + new Vector2(transform.position.x - nextFlag.position.x, transform.position.y - nextFlag.position.y).normalized * movementSpeed * Time.deltaTime);
-            drone3Attack.attackPlayer(nextFlag.position);
+            armoredCyborgAttack.attackPlayer(nextFlag.position);
         }
         else if (isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMin && Vector2.Distance(nextFlag.position, transform.position) < rangeFromPlayerMax)
         {
-            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(0,0), 5 * Time.deltaTime);
-            //rb.velocity = new Vector2(0, 0);
-            drone3Attack.attackPlayer(nextFlag.position);
+            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(0, 0), 5 * Time.deltaTime);
+            armoredCyborgAttack.attackPlayer(nextFlag.position);
         }
         else if (!isFollowingPlayer) rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, nextFlag.position.y - transform.position.y).normalized * movementSpeed, 5 * Time.deltaTime);
         if ((!isFollowingPlayer) && (Vector2.Distance(transform.position, nextFlag.position) < 0.1f))
@@ -84,7 +73,7 @@ public class Drone3Movement : MonoBehaviour
         }
         animator.SetFloat("speed", rb.velocity.x);
 
-        if (isFollowingPlayer /*&& Vector2.Distance(nextFlag.position, transform.position) >= shootingRangeMin && Vector2.Distance(nextFlag.position, transform.position) < shootingRangeMax*/)
+        if (isFollowingPlayer)
         {
             if (nextFlag.position.x < transform.position.x && isFlipped == false)
             {
@@ -121,6 +110,4 @@ public class Drone3Movement : MonoBehaviour
     {
         enabled = false;
     }
-
 }
-
