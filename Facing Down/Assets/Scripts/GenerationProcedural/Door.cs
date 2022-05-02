@@ -81,46 +81,7 @@ public class Door : MonoBehaviour
         addRoomToGridMap(roomBehind,getCoordinates(),this);
     }
 
-    //Generate random room in roomBehind and return gameObject associated to the room or null if can't generate
-    public GameObject generateRoom() {
-        Vector2 coordinates = getCoordinates();
-
-        switch(onSide){
-            case Door.side.Right :
-                if(coordinates.y + 1 > GenerateDonjon.nbRoomWidth - 1|| GenerateDonjon.gridMap[(int) coordinates.x, (int) coordinates.y + 1] != null)
-                    return null;
-
-                break;
-            case Door.side.Left :
-                if(coordinates.y - 1 < 0 || GenerateDonjon.gridMap[(int) coordinates.x, (int) coordinates.y - 1] != null)
-                    return null;
-                break;
-            case Door.side.Down :
-                if(coordinates.x + 1 > GenerateDonjon.nbRoomHeight - 1 || GenerateDonjon.gridMap[(int) coordinates.x + 1 ,(int) coordinates.y] != null)
-                    return null;
-                break; 
-            case Door.side.Up :
-                if(coordinates.x - 1 < 0 || GenerateDonjon.gridMap[(int) coordinates.x - 1 ,(int) coordinates.y] != null)
-                    return null;
-                break; 
-        }
-
-        addRoomToGridMap(roomBehind,coordinates,this);
-
-        foreach(Door door in roomBehind.doors){
-            if (door.roomBehind == null){
-                GenerateDonjon.processDoors.Add(door);
-            }
-        }
-    }
-
-        print("génération salle");
-        
-        List<GameObject> validateRooms = selectRooms();
-
-        List<GameObject> validateRoomsDoorOnUp = new List<GameObject>();
-        List<GameObject> validateRoomsDoorNotOnUp = new List<GameObject>();
-
+    //Generate random room in roomBehind and return gameObject associated to the room or null if can't generate    
     public GameObject generateRoom() {
         Vector2 coordinates = new Vector2();
         for(int i = 0 ; i < GenerateDonjon.nbRoomHeight ; i += 1){
