@@ -5,10 +5,10 @@ using UnityEngine;
 public class GenerateDonjon : MonoBehaviour
 {
 
-    public static int nbRoomWidth = 5;
-    public static int nbRoomHeight = 10; 
+    public static int nbRoomWidth = 10;
+    public static int nbRoomHeight = 5; 
 
-    public static int nbRoom = nbRoomHeight - 2;
+    public static int nbRoom = (nbRoomHeight * nbRoomWidth) / 4;
     public static int idRoom = 0;
 
 
@@ -16,11 +16,16 @@ public class GenerateDonjon : MonoBehaviour
     private Room initRoom;
     
 
-    public static List<Door> processDoors = new List<Door>();
+    public static List<GameObject> processRooms = new List<GameObject>();
+    public static Dictionary<GameObject,List<Room.side>> validSideOfRoom = new Dictionary<GameObject, List<Room.side>>();
     
     public static List<GameObject> roomsPrefabs = new List<GameObject>();
     
-    public static Room[,] gridMap = new Room[nbRoomHeight, nbRoomWidth];
+    public static GameObject[,] gridMap = new GameObject[nbRoomHeight, nbRoomWidth];
+
+    private string gamePath = "Prefabs/Game/Game";
+    private string roomPath = "Prefabs/Donjon/Rooms";
+    public static string moldRoomPath = "Prefabs/Donjon/MoldRoom"; 
 
 
     void Update() {
@@ -31,6 +36,104 @@ public class GenerateDonjon : MonoBehaviour
     }
 
 
+    public void initGenerate(){
+        GameObject gameManager = Resources.Load(gamePath, typeof(GameObject)) as GameObject;
+        gameManager = Instantiate(gameManager);
+        gameManager.name = "Game";
+        DontDestroyOnLoad(gameManager);
+
+        foreach(Object o in Resources.LoadAll(roomPath, typeof(GameObject))){
+            roomsPrefabs.Add((GameObject) o);
+        }
+
+        GameObject anteroom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
+        anteroom.name = anteroom.name.Substring(0,anteroom.name.IndexOf('(')) + '-' + idRoom++;
+        anteroom.transform.SetParent(gameManager.transform);
+        anteroom.GetComponent<Room>().infoRoom = Resources.Load("Prefabs/Donjon/BossRoom/Anteroom") as GameObject;
+        processRooms.Add(anteroom);
+        validSideOfRoom.Add(anteroom,new List<Room.side>(){Room.side.Down,Room.side.Left,Room.side.Right,Room.side.Up});
+        
+        gridMap[nbRoomHeight - 3, nbRoomWidth / 2] = anteroom;
+
+        anteroom.GetComponent<Room>().generateSpecificRoomOnSide(Room.side.Down,Resources.Load("Prefabs/Donjon/BossRoom/BossRoom") as GameObject);
+    }
+
+    public void generate(){
+        while (nbRoom > 0){
+            GameObject processRoom = processRooms[Game.random.Next(0,processRooms.Count)];
+            double random = Game.random.NextDouble();
+            Room.side side;
+            if (random < probUp && validSideOfRoom[processRoom].Contains(Room.side.Up)){
+                side = Room.side.Up;
+            }
+            else if(random < probUp && !validSideOfRoom[processRoom].Contains(Room.side.Up) && validSideOfRoom[processRoom].Count > 0){
+                side = validSideOfRoom[processRoom][Game.random.Next(0,validSideOfRoom[processRoom].Count)];
+            }
+            else{
+                List<Room.side> otherSide = new List<Room.side>();
+
+                foreach(Room.side valideSide in validSideOfRoom[processRoom]){
+                    if(valideSide != Room.side.Up)
+                        otherSide.Add(valideSide);
+                }
+
+                if(otherSide.Count == 0)
+                    side = Room.side.Up;
+                else
+                    side = otherSide[Game.random.Next(0,otherSide.Count)];
+            }
+
+            if (processRoom.GetComponent<Room>().generateRoomOnSide(side)){
+                nbRoom -= 1;
+            }
+            
+        }
+
+
+        /*for(int i = 0; i < nbRoomHeight; i += 1){
+            for(int j = 0 ; j < nbRoomWidth; j += 1){
+                if(gridMap[i,j] != null){
+                    Vector2 coordinates = Room.getCoordinates(gridMap[i,j]);
+                    Room room = gridMap[i,j].GetComponent<Room>();
+                    if(!room.doorUp && coordinates.y + 1 < nbRoomWidth - 1 && gridMap[(int) coordinates.x, (int) coordinates.y + 1] != null && Game.random.Next(0,4) == 0){
+                        print("x " + (coordinates.y + 1));
+                        print(gridMap[(int) coordinates.x, (int) coordinates.y + 1]);
+                        gridMap[i,j].GetComponent<Room>().doorUp = true;
+                        gridMap[(int) coordinates.x, (int) coordinates.y + 1].GetComponent<Room>().doorDown = true;
+                    }
+
+                    if(!room.doorDown && coordinates.y - 1 > 0 && gridMap[(int) coordinates.x, (int) coordinates.y - 1] != null && Game.random.Next(0,4) == 0){
+                        print("y " + (coordinates.y - 1));
+                        print(gridMap[(int) coordinates.x, (int) coordinates.y - 1]);
+                        gridMap[i,j].GetComponent<Room>().doorUp = true;
+                        gridMap[(int) coordinates.x, (int) coordinates.y - 1].GetComponent<Room>().doorDown = true;
+                    }
+
+                    if(!room.doorRight && coordinates.x + 1 < nbRoomHeight - 1 && gridMap[(int) coordinates.x + 1 ,(int) coordinates.y] != null && Game.random.Next(0,4) == 0){
+                        print("x " + (coordinates.x + 1));
+                        print(gridMap[(int) coordinates.x + 1 ,(int) coordinates.y]);
+                        gridMap[i,j].GetComponent<Room>().doorUp = true;
+                        gridMap[(int) coordinates.x + 1, (int) coordinates.y].GetComponent<Room>().doorDown = true;
+                    }
+
+                    if(!room.doorLeft && coordinates.x - 1 > 0 && gridMap[(int) coordinates.x - 1 ,(int) coordinates.y] != null && Game.random.Next(0,4) == 0){
+                        print("x " + (coordinates.x - 1));
+                        print(gridMap[(int) coordinates.x - 1 ,(int) coordinates.y]);
+                        gridMap[i,j].GetComponent<Room>().doorUp = true;
+                        gridMap[(int) coordinates.x - 1, (int) coordinates.y].GetComponent<Room>().doorDown = true;
+                    }
+                }
+            }
+        }*/
+
+        Map.generateMap();
+    }
+
+    public GameObject getNextRoom(){
+        return null;
+    }
+
+/*
     //return the gameObject associated to the name of the room 
     public static GameObject getSpecifyRoom(string name){
         foreach(GameObject room in roomsPrefabs){
@@ -76,7 +179,7 @@ public class GenerateDonjon : MonoBehaviour
 
     }
 
-    private string gamePath = "Prefabs/Game/Game";
+    
 
     //Initialize the donjon creating gameManager which contains player and all room generated
     public void initGenerate(){
@@ -86,12 +189,12 @@ public class GenerateDonjon : MonoBehaviour
         gameManager.name = "Game";
         DontDestroyOnLoad(gameManager);
 
-        foreach(Object o in Resources.LoadAll("Donjon/Rooms", typeof(GameObject))){
+        foreach(Object o in Resources.LoadAll(roomPath, typeof(GameObject))){
             roomsPrefabs.Add((GameObject) o);
         }
         
-        GameObject bossRoom = Resources.Load("Donjon/BossRoom/BossRoom",typeof(GameObject)) as GameObject;
-        GameObject anteroom = Resources.Load("Donjon/BossRoom/Anteroom",typeof(GameObject)) as GameObject;
+        GameObject bossRoom = Resources.Load("Prefabs/Donjon/BossRoom/BossRoom",typeof(GameObject)) as GameObject;
+        GameObject anteroom = Resources.Load("Prefabs/Donjon/BossRoom/Anteroom",typeof(GameObject)) as GameObject;
         anteroom = Instantiate(anteroom);
         anteroom.name = anteroom.name.Substring(0,anteroom.name.IndexOf('(')) + '-' + idRoom++;
         anteroom.transform.SetParent(gameManager.transform);
@@ -214,5 +317,5 @@ public class GenerateDonjon : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 }
