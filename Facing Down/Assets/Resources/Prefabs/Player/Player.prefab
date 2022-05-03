@@ -129,7 +129,6 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
-  hpText: {fileID: 0}
   maxAcceleration: 20
   maxSpeed: 50
   numberOfDashes: 0
@@ -401,6 +400,7 @@ GameObject:
   - component: {fileID: 657911102247193326}
   - component: {fileID: 657911102247193321}
   - component: {fileID: 657911102247193324}
+  - component: {fileID: 2984480120868486792}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -490,3 +490,23 @@ MonoBehaviour:
   acceleration: 2
   distance_max: 5
   distance_min: 2
+--- !u!114 &2984480120868486792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657911102247193320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AssetsPPU: 32
+  m_RefResolutionX: 960
+  m_RefResolutionY: 540
+  m_UpscaleRT: 0
+  m_PixelSnapping: 0
+  m_CropFrameX: 0
+  m_CropFrameY: 0
+  m_StretchFill: 0
