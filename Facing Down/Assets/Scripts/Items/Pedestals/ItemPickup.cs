@@ -6,6 +6,7 @@ public class ItemPickup : MonoBehaviour
 {
 	private bool isActive = true;
 	private Item item;
+	private ItemChoice choice;
 
 	public void Start() {
 		if (item == null) throw new System.Exception("Item is not set, please use SpawnItemPedestal to spawn in-game items.");
@@ -15,6 +16,10 @@ public class ItemPickup : MonoBehaviour
 		this.item = item;
 	}
 
+	public void SetItemChoice(ItemChoice choice) {
+		this.choice = choice;
+	}
+
 	/// <summary>
 	/// On collision with the player, adds the pickup to the inventory
 	/// </summary>
@@ -22,8 +27,15 @@ public class ItemPickup : MonoBehaviour
 	public void OnTriggerEnter2D(Collider2D collision) {
 		if (collision.CompareTag("Player") && isActive) {
 			Game.player.inventory.AddItem(item);
-			isActive = false;
-			Destroy(gameObject);
+			Disable();
+			if (choice != null) choice.DisablePedestals();
 		}
+	}
+
+	public void Disable() {
+		if (!isActive) return;
+		Debug.Log("ITEM DISABLED");
+		isActive = false;
+		Destroy(gameObject);
 	}
 }

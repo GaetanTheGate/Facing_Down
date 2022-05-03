@@ -70,4 +70,15 @@ public class ItemPedestal : MonoBehaviour
 		}
 		GetComponentInChildren<ItemPickup>().SetItem(item);
 	}
+
+	public void SetItemChoice (ItemChoice choice) {
+		GetComponentInChildren<ItemPickup>().SetItemChoice(choice);
+	}
+
+	public void DisablePedestal() {
+		ItemPickup pickup = GetComponentInChildren<ItemPickup>();
+		if (pickup != null) {
+			pickup.Disable();
+		}
+	}
 }
