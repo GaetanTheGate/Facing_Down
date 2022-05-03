@@ -4,17 +4,32 @@ using UnityEngine;
 
 public class RoomHandler : MonoBehaviour
 {
+    public bool testFinishRoom = false;
+
     public bool leftDoor = false;
     public bool rightDoor = false;
     public bool topDoor = false;
     public bool botDoor = false;
 
+    public bool hasVisited = false;
+    public bool isCompleted = false;
+
+    private bool isInRoom = false;
+
     void Start()
     {
-        SetRoomInfo("basic");
+        //test
+        InitRoom("basic");
+        Game.currentRoom = this;
+        Game.player.transform.position = transform.position;
+    }
+
+    public void InitRoom(string category)
+    {
+        SetRoomInfo(category);
         GetComponentInChildren<DoorsHandler>().SetDoorsState(leftDoor, rightDoor, topDoor, botDoor);
         GetComponentInChildren<DoorsHandler>().SetDoors();
-        GetComponentInChildren<DoorsHandler>().SetClosedState(true);
+        GetComponentInChildren<DoorsHandler>().SetClosedState(false);
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
     }
 
@@ -22,7 +37,9 @@ public class RoomHandler : MonoBehaviour
     {
         GetComponentInChildren<DoorsHandler>().SetDoorsState(leftDoor, rightDoor, topDoor, botDoor);
         GetComponentInChildren<DoorsHandler>().SetDoors();
-        GetComponentInChildren<DoorsHandler>().SetCloseDoor();
+
+        if (testFinishRoom)
+            OnFinishRoom();
     }
 
     private string roomInfoFolder = "Prefabs/Rooms/RoomsInfo";
@@ -67,5 +84,48 @@ public class RoomHandler : MonoBehaviour
             return false;
 
         return true;
+    }
+
+    public void OnEnterRoom()
+    {
+        if (isInRoom)
+            return;
+
+        isInRoom = true;
+
+        Game.currentRoom = this;
+
+        hasVisited = true;
+
+        GetComponentInChildren<RoomHiderHandler>().SetBlurState(false);
+
+        if (isCompleted)
+            return;
+
+        GetComponentInChildren<RoomHiderHandler>().SetDarknessState(false);
+
+        GetComponentInChildren<DoorsHandler>().SetClosedState(true);
+        GetComponentInChildren<DoorsHandler>().SetCloseDoor();
+    }
+
+    public void OnExitRoom()
+    {
+        isInRoom = false;
+
+        GetComponentInChildren<RoomHiderHandler>().SetBlurState(true);
+
+        GetComponentInChildren<DoorsHandler>().SetClosedState(false);
+        GetComponentInChildren<DoorsHandler>().SetCloseDoor();
+
+        if( !isCompleted)
+            GetComponentInChildren<RoomHiderHandler>().SetDarknessState(true);
+    }
+
+    public void OnFinishRoom()
+    {
+        isCompleted = true;
+
+        GetComponentInChildren<DoorsHandler>().SetClosedState(false);
+        GetComponentInChildren<DoorsHandler>().SetCloseDoor();
     }
 }
