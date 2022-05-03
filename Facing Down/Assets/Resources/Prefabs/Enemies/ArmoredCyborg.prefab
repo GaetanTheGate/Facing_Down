@@ -167,6 +167,8 @@ GameObject:
   - component: {fileID: 5108742736959881468}
   - component: {fileID: 3094317614542695247}
   - component: {fileID: 2698619662147977055}
+  - component: {fileID: 3805040242667752497}
+  - component: {fileID: 5488685463444220887}
   - component: {fileID: 3121193009001026484}
   m_Layer: 11
   m_Name: ArmoredCyborg
@@ -364,10 +366,71 @@ MonoBehaviour:
   critDmg: 150
   onHit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5488685463444220887}
+        m_TargetAssemblyTypeName: ArmoredCyborgHit, Assembly-CSharp
+        m_MethodName: getHit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5108742736959881468}
+        m_TargetAssemblyTypeName: ArmoredCyborgMovement, Assembly-CSharp
+        m_MethodName: disableMovement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3805040242667752497}
+        m_TargetAssemblyTypeName: ArmoredCyborgDeath, Assembly-CSharp
+        m_MethodName: die
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3805040242667752497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282394787162849481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71faa447432fc2488adeec5388dad54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentToDestroy: {fileID: 2469637834277724159}
+--- !u!114 &5488685463444220887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282394787162849481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd646d21a0503c4e93704e379ed42c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3121193009001026484
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,11 +17,15 @@ public class ArmoredCyborgMovement : MonoBehaviour
     public float rangeFromPlayerMin = 4f;
     public float rangeFromPlayerMax = 5f;
     private bool isFollowingPlayer = false;
+    public float jumpHeight = 2f;
     private Transform nearestFlag;
 
     private ArmoredCyborgAttack armoredCyborgAttack;
+    private EntityCollisionStructure entityCollisionStructure;
+    private SpriteRenderer sp;
 
     private bool isFlipped = false;
+    private bool isJumping = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,69 +35,126 @@ public class ArmoredCyborgMovement : MonoBehaviour
         playerTransform = player.transform;
         animator = gameObject.GetComponent<Animator>();
         armoredCyborgAttack = gameObject.GetComponent<ArmoredCyborgAttack>();
+        entityCollisionStructure = gameObject.GetComponent<EntityCollisionStructure>();
+        if (entityCollisionStructure == null)
+        {
+            entityCollisionStructure = gameObject.AddComponent<EntityCollisionStructure>();
+            entityCollisionStructure.Init();
+        }
+        sp = gameObject.GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
     {
-        nearestFlag = flags[0];
-        foreach (Transform flag in flags)
-        {
-            if (Vector2.Distance(transform.position, flag.position) < Vector2.Distance(transform.position, nearestFlag.position)) nearestFlag = flag;
-        }
+        if (entityCollisionStructure.isGrounded) isJumping = false;
+
+        setNextFlag();
+
+        print(isFollowingPlayer);
+        if (isFollowingPlayer) followingPlayerBehaviour();
+
+        if (!isFollowingPlayer) notFollowingPlayerBehaviour();
+
+        animator.SetFloat("speed", rb.velocity.x);
+
+        checkObstacles();
+    }
+
+    private void setNextFlag()
+    {
         if (checkRayCastsHitTag(Raycasting.castRayFanInAngleFromEntity(transform, isFlipped ? 180 : 0, 135, aggroViewDistance), "Player") ||
                 Vector2.Distance(transform.position, playerTransform.position) <= aggroDistance)
         {
             nextFlag = playerTransform;
             isFollowingPlayer = true;
         }
-        else if (!isFollowingPlayer)
+    }
+
+    private void followingPlayerBehaviour()
+    {
+        //isWalled à changer?
+        if (!entityCollisionStructure.isWalled && Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax)
         {
-            nextFlag = flags[tempNext];
+            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, rb.velocity.y).normalized * movementSpeed, 5 * Time.deltaTime);
+        }
+        else if (Vector2.Distance(nextFlag.position, transform.position) < rangeFromPlayerMin)
+        {
+            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(transform.position.x - nextFlag.position.x, rb.velocity.y).normalized * movementSpeed, 5 * Time.deltaTime);
         }
 
-        if (isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax)
+        armoredCyborgAttack.attackPlayer(nextFlag.position);
+
+        if (nextFlag.position.x < transform.position.x && !isFlipped)
         {
-            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, nextFlag.position.y - transform.position.y).normalized * movementSpeed, 5 * Time.deltaTime);
-            armoredCyborgAttack.attackPlayer(nextFlag.position);
+            isFlipped = true;
+            animator.SetBool("isFlipped", isFlipped);
+            gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
         }
-        else if (isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) < rangeFromPlayerMin)
+        else if (nextFlag.position.x >= transform.position.x && isFlipped)
         {
-            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(transform.position.x - nextFlag.position.x, transform.position.y - nextFlag.position.y).normalized * movementSpeed, 5 * Time.deltaTime);
-            armoredCyborgAttack.attackPlayer(nextFlag.position);
+            isFlipped = false;
+            animator.SetBool("isFlipped", isFlipped);
+            gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
         }
-        else if (isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMin && Vector2.Distance(nextFlag.position, transform.position) < rangeFromPlayerMax)
-        {
-            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(0, 0), 5 * Time.deltaTime);
-            armoredCyborgAttack.attackPlayer(nextFlag.position);
-        }
-        else if (!isFollowingPlayer) rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, nextFlag.position.y - transform.position.y).normalized * movementSpeed, 5 * Time.deltaTime);
-        if ((!isFollowingPlayer) && (Vector2.Distance(transform.position, nextFlag.position) < 0.1f))
+    }
+
+    private void notFollowingPlayerBehaviour()
+    {
+        nextFlag = flags[tempNext];
+        if(!entityCollisionStructure.isWalled) rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, rb.velocity.y).normalized * movementSpeed, 5 * Time.deltaTime);
+        if (Vector2.Distance(transform.position, nextFlag.position) < Mathf.Abs(transform.localScale.x))
         {
             tempNext = (tempNext + 1) % flags.Length;
         }
-        animator.SetFloat("speed", rb.velocity.x);
 
-        if (isFollowingPlayer)
-        {
-            if (nextFlag.position.x < transform.position.x && isFlipped == false)
-            {
-                isFlipped = true;
-                animator.SetBool("isFlipped", isFlipped);
-                gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
-            }
-            else if (nextFlag.position.x >= transform.position.x && isFlipped == true)
-            {
-                isFlipped = false;
-                animator.SetBool("isFlipped", isFlipped);
-                gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
-            }
-        }
-        else if ((!isFlipped && rb.velocity.x < 0) || (isFlipped && rb.velocity.x > 0))
+        if ((!isFlipped && rb.velocity.x < 0) || (isFlipped && rb.velocity.x > 0))
         {
             isFlipped = !isFlipped;
             animator.SetBool("isFlipped", isFlipped);
             gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
         }
+    }
+
+    private void checkObstacles()
+    {
+        bool isFacingWall = false;
+        foreach (Vector2 normal in entityCollisionStructure.contactNormalsRelativeToGravity)
+        {
+
+            if (new Velocity(normal).getAngle() > 90 && new Velocity(normal).getAngle() < 270)
+            {
+                if (transform.localScale.x > 0)
+                {
+                    isFacingWall = true;
+                }
+            }
+            else
+            {
+                if(transform.localScale.x < 0)
+                {
+                    isFacingWall = true;
+                }
+            }
+
+        }
+        if (!isJumping && entityCollisionStructure.isWalled && isFacingWall && 
+            ((isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax) || ((!isFollowingPlayer) && (Vector2.Distance(transform.position, nextFlag.position) >= 0.1f))))
+        {
+            if (Raycasting.checkObstacleJumpable(transform, sp, jumpHeight))
+            {
+                isJumping = true;
+                jump();
+            }
+        }
+    }
+
+    private void jump()
+    {
+        Velocity jump =  new Velocity(GetComponent<GravityEntity>().gravity);
+
+        jump.AddToAngle(180);
+        jump.setSpeed(jumpHeight*jump.getSpeed());
+        rb.velocity = jump.GetAsVector2();
     }
 
     private bool checkRayCastsHitTag(List<RaycastHit2D> hits, string tag)
