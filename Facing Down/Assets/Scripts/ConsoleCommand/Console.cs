@@ -23,7 +23,7 @@ public class Console : MonoBehaviour
 	public Text preview;
 	public Text output;
 
-	private bool inputChangedByScript;
+	private bool inputChangedByScrolling;
 
 	/// <summary>
 	/// Initializes values.
@@ -90,25 +90,28 @@ public class Console : MonoBehaviour
 			}
 			else if (Event.current.keyCode == KeyCode.UpArrow) {
 				scrollIndex = Utility.mod(scrollIndex - 1, lastInputs.Count + 1);
-				UpdateText(scrollIndex != lastInputs.Count ? lastInputs[scrollIndex] : "");
-				ClearPreview();
+				SetTextFromScrolling(scrollIndex != lastInputs.Count ? lastInputs[scrollIndex] : "");
 			}
 			else if (Event.current.keyCode == KeyCode.DownArrow) {
 				scrollIndex = Utility.mod(scrollIndex + 1, lastInputs.Count + 1);
-				UpdateText(scrollIndex != lastInputs.Count ? lastInputs[scrollIndex] : "");
-				ClearPreview();
+				SetTextFromScrolling(scrollIndex != lastInputs.Count ? lastInputs[scrollIndex] : "");
 			}
 			else if (Event.current.keyCode == KeyCode.Tab) {
 				if (previews.Count == 0) return;
 				previewIndex = Utility.mod(previewIndex + 1, previews.Count);
 				UpdatePreview();
 			}
+			else if (Event.current.keyCode == KeyCode.Escape) {
+				input.text = "";
+				EventSystem.current.SetSelectedGameObject(null); //Doit être utilisé, sinon il faut appuyer sur Entrée pour re-sélectionner input
+				input.Select();
+			}
 		}
 	}
 
-	private void UpdateText(string newText) {
-		inputChangedByScript = input.text != newText;
-		if (inputChangedByScript)
+	private void SetTextFromScrolling(string newText) {
+		inputChangedByScrolling = input.text != newText;
+		if (inputChangedByScrolling)
 			input.text = newText;
 	}
 
@@ -145,11 +148,11 @@ public class Console : MonoBehaviour
 		input.text = Regex.Replace(input.text, @"[^a-zA-Z0-9 ,\.-]", "");
 		input.text = Regex.Replace(input.text, @" +", " ");
 		input.text = Regex.Replace(input.text, @"^ ", "");
-		if (!inputChangedByScript) {
+		ClearPreview();
+		if (!inputChangedByScrolling) {
 			scrollIndex = lastInputs.Count;
-			ClearPreview();
-			inputChangedByScript = false;
 		}
+		else inputChangedByScrolling = false;
 	}
 
 	/// <summary>
@@ -179,7 +182,7 @@ public class Console : MonoBehaviour
 		} catch(CommandRuntimeException e) {
 			output.text = e.Message;
 		}
-
+		ClearPreview();
 		EventSystem.current.SetSelectedGameObject(null); //Doit être utilisé, sinon il faut appuyer sur Entrée pour re-sélectionner input
 		input.Select();
 	}
