@@ -3,8 +3,8 @@ using UnityEngine.Events;
 
 public class StatEntity : MonoBehaviour
 {
-    [Min(0)] public int maxHitPoints = 10;
-    [HideInInspector] public int currentHitPoints;
+    protected int maxHitPoints = 10;
+    protected int currentHitPoints;
 
     [Min(0.0f)] public float baseAtk = 100;
     [Min(0.0f)] public float atkMultipler = 1;
@@ -18,6 +18,13 @@ public class StatEntity : MonoBehaviour
     private Animator animator;
 
     protected bool isDead = false;
+
+    public void InitStats(int maxHP, float atk, float critRate = 0, float critDamage = 150) {
+        this.maxHitPoints = maxHP;
+        this.baseAtk = atk;
+        this.critRate = critRate;
+        this.critDmg = critDamage;
+	}
 
     public virtual void Start()
     {
@@ -59,6 +66,24 @@ public class StatEntity : MonoBehaviour
             onDeath.Invoke();
             isDead = true;
         }
+    }
+
+    public virtual void ModifyMaxHP(int amount) {
+        maxHitPoints += amount;
+        if (maxHitPoints <= 0) maxHitPoints = 1;
+        if (maxHitPoints < currentHitPoints) currentHitPoints = maxHitPoints;
+	}
+
+    public int GetMaxHP() {
+        return maxHitPoints;
+	}
+
+    public int GetCurrentHP() {
+        return currentHitPoints;
+	}
+
+    public virtual void SetCurrentHP(int HP) {
+        currentHitPoints = HP;
     }
 
     public bool getIsDead() { return isDead; }

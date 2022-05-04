@@ -24,6 +24,7 @@ public class StatPlayer : StatEntity
 
     public override void Start()
     {
+        InitStats(1000, 100, 5, 150);
         base.Start();
         playerIframes = GetComponentInChildren<PlayerIframes>();
         //hpText.text = currentHitPoints.ToString();
@@ -41,6 +42,8 @@ public class StatPlayer : StatEntity
 
     public override void TakeDamage(DamageInfo damage)
     {
+        UI.healthBar.UpdateHP();
+        Debug.Log("TOOK DAMAGE");
         if (isDead) return;
         if (!playerIframes.isIframe)
         {
@@ -67,5 +70,15 @@ public class StatPlayer : StatEntity
     /// <param name="amount">The amount of special charge to give.</param>
     public void ReloadSpecial(float amount) {
         specialLeft = Mathf.Max(maxSpecial, specialLeft + amount);
+	}
+
+	public override void ModifyMaxHP(int amount) {
+		base.ModifyMaxHP(amount);
+        UI.healthBar.UpdateHP();
+	}
+
+	public override void SetCurrentHP(int HP) {
+		base.SetCurrentHP(HP);
+        UI.healthBar.UpdateHP();
 	}
 }

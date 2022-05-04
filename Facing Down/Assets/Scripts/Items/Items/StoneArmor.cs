@@ -8,12 +8,12 @@ public class StoneArmor : Item
 
 	private readonly int maxHPAdd = 100;
 	public override void OnPickup() {
-		Game.player.stat.maxHitPoints += maxHPAdd;
-		Game.player.stat.currentHitPoints += maxHPAdd;
+		Game.player.stat.ModifyMaxHP(maxHPAdd);
+		Game.player.stat.SetCurrentHP(Game.player.stat.GetCurrentHP() + maxHPAdd);
 	}
 
 	public override void OnRemove() {
-		Game.player.stat.maxHitPoints -= maxHPAdd;
+		Game.player.stat.ModifyMaxHP(-maxHPAdd);
 	}
 
 	public override Item MakeCopy() {
