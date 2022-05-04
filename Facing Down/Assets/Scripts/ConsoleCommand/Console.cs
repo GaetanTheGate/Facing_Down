@@ -96,6 +96,14 @@ public class Console : MonoBehaviour
 				scrollIndex = Utility.mod(scrollIndex + 1, lastInputs.Count + 1);
 				SetTextFromScrolling(scrollIndex != lastInputs.Count ? lastInputs[scrollIndex] : "");
 			}
+			else if (Event.current.keyCode == KeyCode.LeftArrow) {
+				if (input.text.LastIndexOf(' ') == -1) input.text = "";
+				else input.text = input.text.Remove(input.text.LastIndexOf(' '));
+			}
+			else if (Event.current.keyCode == KeyCode.RightArrow) {
+				if (input.text.Split(' ').Length == 1)
+					input.text = preview.text.Split(' ')[0];
+			}
 			else if (Event.current.keyCode == KeyCode.Tab) {
 				if (previews.Count == 0) return;
 				previewIndex = Utility.mod(previewIndex + 1, previews.Count);
