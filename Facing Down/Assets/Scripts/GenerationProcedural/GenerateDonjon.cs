@@ -9,23 +9,21 @@ public class GenerateDonjon : MonoBehaviour
     public static int nbRoomWidth = 5;
     public static int nbRoomHeight = 10; 
 
-    public static int nbRoom = (nbRoomHeight * nbRoomWidth) / 4;
+    public static int nbRoom = (nbRoomHeight * nbRoomWidth) / 3;
     public static int idRoom = 0;
 
 
-    public static float probUp = 0.66f;
+    public static float probDown = 0.66f;
     private Room initRoom;
     
 
     public static List<GameObject> processRooms = new List<GameObject>();
     public static Dictionary<GameObject,List<Room.side>> validSideOfRoom = new Dictionary<GameObject, List<Room.side>>();
     
-    public static List<GameObject> roomsPrefabs = new List<GameObject>();
     
     public static GameObject[,] gridMap = new GameObject[nbRoomHeight, nbRoomWidth];
 
     private string gamePath = "Prefabs/Game/Game";
-    private string roomPath = "Prefabs/Donjon/Rooms";
     public static string moldRoomPath = "Prefabs/Rooms/BaseRooms/BaseRoom"; 
 
 
@@ -43,23 +41,28 @@ public class GenerateDonjon : MonoBehaviour
         gameManager.name = "Game";
         DontDestroyOnLoad(gameManager);
 
-        foreach(Object o in Resources.LoadAll(roomPath, typeof(GameObject))){
-            roomsPrefabs.Add((GameObject) o);
-        }
+        GameObject initRoom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
+        initRoom.name = initRoom.name.Substring(0,initRoom.name.IndexOf('(')) + '-' + idRoom++;
+        initRoom.transform.SetParent(gameManager.transform);
+        processRooms.Add(initRoom);
+        validSideOfRoom.Add(initRoom,new List<Room.side>(){Room.side.Down,Room.side.Left,Room.side.Right});
+        gridMap[0, nbRoomWidth / 2] = initRoom;
+
 
         GameObject anteroom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
         anteroom.name = anteroom.name.Substring(0,anteroom.name.IndexOf('(')) + '-' + idRoom++;
         anteroom.transform.SetParent(gameManager.transform);
-        processRooms.Add(anteroom);
-        validSideOfRoom.Add(anteroom,new List<Room.side>(){Room.side.Down,Room.side.Left,Room.side.Right,Room.side.Up});
         
         gridMap[nbRoomHeight - 3, nbRoomWidth / 2] = anteroom;
 
-        anteroom.GetComponent<Room>().generateSpecificRoomOnSide(Room.side.Down,Resources.Load("Prefabs/Donjon/BossRoom/BossRoom") as GameObject);
+        anteroom.GetComponent<Room>().generateSpecificRoomOnSide(Room.side.Down);
+
+        Game.currentRoom = initRoom.GetComponent<RoomHandler>();
+        Game.player.transform.position = initRoom.GetComponent<RoomHandler>().transform.position;
     }
 
     public void generate(){
-        while (nbRoom > 0){
+        while (!checkIfRoomOnLineBeforeAnteroom() && nbRoom > 0){
             if(processRooms.Count == 0){
                 print("plus de possibilité de générer une salle");
                 break;
@@ -69,11 +72,11 @@ public class GenerateDonjon : MonoBehaviour
 
             double random = Game.random.NextDouble();
             Room.side side;
-            if (random < probUp && validSideOfRoom[processRoom].Contains(Room.side.Up)){
-                side = Room.side.Up;
+            if (random < probDown && validSideOfRoom[processRoom].Contains(Room.side.Down)){
+                side = Room.side.Down;
             }
 
-            else if(random < probUp && !validSideOfRoom[processRoom].Contains(Room.side.Up) && validSideOfRoom[processRoom].Count > 0){
+            else if(random < probDown && !validSideOfRoom[processRoom].Contains(Room.side.Down) && validSideOfRoom[processRoom].Count > 0){
                 side = validSideOfRoom[processRoom][Game.random.Next(0,validSideOfRoom[processRoom].Count)];
             }
 
@@ -81,21 +84,23 @@ public class GenerateDonjon : MonoBehaviour
                 List<Room.side> otherSide = new List<Room.side>();
 
                 foreach(Room.side valideSide in validSideOfRoom[processRoom]){
-                    if(valideSide != Room.side.Up)
+                    if(valideSide != Room.side.Down)
                         otherSide.Add(valideSide);
                 }
 
                 if(otherSide.Count == 0)
-                    side = Room.side.Up;
+                    side = Room.side.Down;
                 else
                     side = otherSide[Game.random.Next(0,otherSide.Count)];
             }
 
-            if (processRoom.GetComponent<Room>().generateRoomOnSide(side)){
+            if(processRoom.GetComponent<Room>().generateRoomOnSide(side)){
                 nbRoom -= 1;
             }
             
         }
+
+        linkRoomToAnteroom();
 
         for(int i = 0; i < nbRoomHeight; i += 1){
             for(int j = 0; j < nbRoomWidth; j += 1){
@@ -110,27 +115,83 @@ public class GenerateDonjon : MonoBehaviour
             }
         }
         
-        Map.generateMap();
-        
-        setInitRoom();
         Game.currentRoom.OnEnterRoom();
         
-
-        
+        Map.generateMap();
+              
     }
 
+    public bool checkIfRoomOnLineBeforeAnteroom(){
+        for (int i = 0; i < nbRoomWidth; i++){
+            if(gridMap[nbRoomHeight - 4,i] != null)
+                return true;
+        }
+        return false;
+    }
 
-    public void setInitRoom(){
-        for(int i = 0; i < nbRoomHeight; i += 1){
+    public void linkRoomToAnteroom(){
+        for(int i = 0; i < nbRoomHeight - 3; i += 1){
             for(int j = 0; j < nbRoomWidth; j += 1){
-                if (gridMap[i,j] != null){
-                    Game.currentRoom = gridMap[i,j].GetComponent<RoomHandler>();
-                    Game.player.transform.position = gridMap[i,j].GetComponent<RoomHandler>().transform.position;
-                    GameObject.Find("MapIcon" + gridMap[i,j].name).GetComponent<Image>().color = Color.blue;
-                    return;
+                if(gridMap[i,j] != null){
+                    Room room = gridMap[i,j].GetComponent<Room>();
+                    if(!room.doorDown && !room.doorLeft && !room.doorRight && room.doorUp){
+                        if((j + 1 < nbRoomWidth && gridMap[i,j+1] != null))
+                            room.setDoorsOn(Room.side.Right, gridMap[i,j+1]);
+
+                        else if(j - 1 > 0 && gridMap[i,j-1] != null)
+                            room.setDoorsOn(Room.side.Left, gridMap[i,j-1]);
+
+                        else if(gridMap[i+1,j] != null)
+                            room.setDoorsOn(Room.side.Down, gridMap[i+1,j]);
+                    
+                        else
+                            room.generateSpecificRoomOnSide(Room.side.Down);
+                    }
+
+                    if(!room.doorDown && !room.doorLeft && room.doorRight && !room.doorUp){
+                        if(gridMap[i+1,j] != null)
+                            room.setDoorsOn(Room.side.Down, gridMap[i+1,j]);
+
+                        else if(j - 1 > 0 && gridMap[i,j-1] != null)
+                            room.setDoorsOn(Room.side.Left, gridMap[i,j-1]);
+
+                        else
+                            room.generateSpecificRoomOnSide(Room.side.Down);
+                    }
+
+                    if(!room.doorDown && room.doorLeft && !room.doorRight && !room.doorUp){
+                        if(gridMap[i+1,j] != null)
+                            room.setDoorsOn(Room.side.Down, gridMap[i+1,j]);
+
+                        else if(j + 1 < nbRoomWidth && gridMap[i,j+1] != null)
+                            room.setDoorsOn(Room.side.Right, gridMap[i,j+1]);
+
+                        else
+                            room.generateSpecificRoomOnSide(Room.side.Down);
+                    }    
                 }
             }
         }
-        
+
+        for(int i = 0; i < nbRoomWidth/2; i +=1){
+            if(gridMap[nbRoomHeight-3, i] != null){
+                Room room = gridMap[nbRoomHeight-3,i].GetComponent<Room>();
+                if(gridMap[nbRoomHeight-3, i + 1] != null)
+                    room.setDoorsOn(Room.side.Right, gridMap[nbRoomHeight-3,i + 1]);
+                else
+                    room.generateSpecificRoomOnSide(Room.side.Right);
+            }
+        }
+
+        for(int i = nbRoomWidth - 1; i > nbRoomWidth/2; i -=1){
+            if(gridMap[nbRoomHeight-3, i] != null){
+                Room room = gridMap[nbRoomHeight-3,i].GetComponent<Room>();
+                    if(gridMap[nbRoomHeight-3, i - 1] != null)
+                        room.setDoorsOn(Room.side.Left, gridMap[nbRoomHeight-3,i - 1]);
+                    else
+                        room.generateSpecificRoomOnSide(Room.side.Left);
+            }
+        }
     }
+
 }

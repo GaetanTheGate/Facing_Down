@@ -57,7 +57,7 @@ public class Room : MonoBehaviour
             addRoomToGridMap(newMoldRoom,coordinates,onSide);
 
             GenerateDonjon.processRooms.Add(newMoldRoom);
-            GenerateDonjon.validSideOfRoom.Add(newMoldRoom,new List<side>(){side.Right,side.Left,side.Up});
+            GenerateDonjon.validSideOfRoom.Add(newMoldRoom,new List<side>(){side.Right,side.Left,side.Down});
             GenerateDonjon.validSideOfRoom[newMoldRoom].Remove(onSide);
 
             setDoorsOn(onSide, newMoldRoom);
@@ -75,15 +75,10 @@ public class Room : MonoBehaviour
             
     }
 
-    public void generateSpecificRoomOnSide(side side, GameObject room){
+    public void generateSpecificRoomOnSide(side side){
         GameObject newMoldRoom = instantiateNewMoldRoom();
         addRoomToGridMap(newMoldRoom, getCoordinates(gameObject), side);
         setDoorsOn(side,newMoldRoom);
-        GenerateDonjon.validSideOfRoom[gameObject].Remove(side);
-
-        if (GenerateDonjon.validSideOfRoom[gameObject].Count == 0){
-            GenerateDonjon.processRooms.Remove(gameObject);
-        } 
     }
 
     public static Vector2 getCoordinates(GameObject moldRoom){

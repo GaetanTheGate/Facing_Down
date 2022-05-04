@@ -26,7 +26,13 @@ public class Map : MonoBehaviour
         for(int i = 0; i < GenerateDonjon.nbRoomHeight; i += 1){
             for(int j = 0; j < GenerateDonjon.nbRoomWidth; j += 1){
                 if (GenerateDonjon.gridMap[i, j] != null){
-                    chooseMapIcon(GenerateDonjon.gridMap[i, j].GetComponent<Room>()).transform.position = new Vector2(25 * j,25 * -i);
+                    GameObject mapIcon = chooseMapIcon(GenerateDonjon.gridMap[i, j].GetComponent<Room>());
+                    mapIcon.transform.position = new Vector2(25 * j,25 * -i);
+                    print(Game.currentRoom.name);
+                    if(mapIcon.name.Contains(Game.currentRoom.name))
+                        mapIcon.GetComponent<Image>().color = Color.blue;
+                    if(mapIcon.name == "MapIconBaseRoom-1")
+                        mapIcon.GetComponent<Image>().color = Color.red;
                 }
             }
         }
