@@ -23,10 +23,12 @@ public static class Raycasting
 
     public static bool checkObstacleJumpable(Transform objTransform, SpriteRenderer objSpriteRenderer, float jumpHeight)
     {
-        for (int i = 0; i <= jumpHeight/0.1f; i++)
+        float xPos;
+        for (int i = 0; i <= jumpHeight/0.1f + 1; i++)
         {
-            Debug.DrawRay(new Vector2(objTransform.position.x + objSpriteRenderer.bounds.size.x / 2 + Mathf.Epsilon, objTransform.position.y - objSpriteRenderer.bounds.size.y / 2 - Mathf.Epsilon + i*0.1f), new Vector2(objTransform.localScale.x, 0), Color.green);
-            RaycastHit2D hit = Physics2D.Raycast(new Vector2(objTransform.position.x + objSpriteRenderer.bounds.size.x / 2 + Mathf.Epsilon, objTransform.position.y - objSpriteRenderer.bounds.size.y / 2 - Mathf.Epsilon + i * 0.1f), new Vector2(objTransform.localScale.x, 0), 0.1f);
+            xPos = objTransform.localScale.x < 0 ? objTransform.position.x - objSpriteRenderer.bounds.size.x / 2 + Mathf.Epsilon : objTransform.position.x + objSpriteRenderer.bounds.size.x / 2 + Mathf.Epsilon;
+            Debug.DrawRay(new Vector2(xPos, objTransform.position.y - objSpriteRenderer.bounds.size.y / 2 - Mathf.Epsilon + i*0.1f), new Vector2(objTransform.localScale.x, 0), Color.green);
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(xPos, objTransform.position.y - objSpriteRenderer.bounds.size.y / 2 - Mathf.Epsilon + i * 0.1f), new Vector2(objTransform.localScale.x, 0), 0.1f);
             if (hit.collider == null) return true;
         }
         return false;

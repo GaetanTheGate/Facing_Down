@@ -26,6 +26,7 @@ public class ArmoredCyborgMovement : MonoBehaviour
 
     private bool isFlipped = false;
     private bool isJumping = false;
+    private bool isFacingWall = false;
 
     // Start is called before the first frame update
     void Start()
@@ -50,14 +51,14 @@ public class ArmoredCyborgMovement : MonoBehaviour
 
         setNextFlag();
 
-        print(isFollowingPlayer);
+        checkObstacles();
+
         if (isFollowingPlayer) followingPlayerBehaviour();
 
         if (!isFollowingPlayer) notFollowingPlayerBehaviour();
 
         animator.SetFloat("speed", rb.velocity.x);
 
-        checkObstacles();
     }
 
     private void setNextFlag()
@@ -72,8 +73,7 @@ public class ArmoredCyborgMovement : MonoBehaviour
 
     private void followingPlayerBehaviour()
     {
-        //isWalled à changer?
-        if (!entityCollisionStructure.isWalled && Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax)
+        if (!(isFacingWall && entityCollisionStructure.isWalled) && Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax)
         {
             rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, rb.velocity.y).normalized * movementSpeed, 5 * Time.deltaTime);
         }
@@ -117,18 +117,17 @@ public class ArmoredCyborgMovement : MonoBehaviour
 
     private void checkObstacles()
     {
-        bool isFacingWall = false;
+        isFacingWall = false;
         foreach (Vector2 normal in entityCollisionStructure.contactNormalsRelativeToGravity)
         {
-
-            if (new Velocity(normal).getAngle() > 90 && new Velocity(normal).getAngle() < 270)
+            if (new Velocity(normal).getAngle() > 100 && new Velocity(normal).getAngle() < 260)
             {
                 if (transform.localScale.x > 0)
                 {
                     isFacingWall = true;
                 }
             }
-            else
+            else if (new Velocity(normal).getAngle() > 280 || new Velocity(normal).getAngle() < 80)
             {
                 if(transform.localScale.x < 0)
                 {
