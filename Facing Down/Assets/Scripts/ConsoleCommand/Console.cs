@@ -39,7 +39,7 @@ public class Console : MonoBehaviour
 		previewIndex = 0;
 		
 		input.onValueChanged.AddListener(new UnityEngine.Events.UnityAction<string>((str) => OnInputChange()));
-		CommandList.setConsole(this);
+		CommandList.SetConsole(this);
 	}
 
 	/// <summary>
