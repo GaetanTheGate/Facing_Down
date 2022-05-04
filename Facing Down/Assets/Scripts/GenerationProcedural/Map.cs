@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Map : MonoBehaviour
 {
 
-    private static string mapIconPath = "Prefabs/Donjon/IconMap/moldRoom";
+    private static string mapIconPath = "IconMap/moldRoom";
 
     private static string oneDoor = "1Door";
     private static string twoDoorsConfig1 = "2Doors1";
@@ -14,7 +14,8 @@ public class Map : MonoBehaviour
     private static string threeDoors = "3Doors";
     private static string fourDoors = "4Doors";
 
-    
+
+
     public static void generateMap(){
         GameObject map = new GameObject("Map");
         map.transform.SetParent(GameObject.Find("Game").transform);
@@ -111,6 +112,11 @@ public class Map : MonoBehaviour
 
         imageGo.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(25,25);
         return imageGo;
+    }
+
+    public void changeColorMapicon(GameObject roomToHide, GameObject roomToDisplay){
+        GameObject.Find("MapIcon"+roomToHide.name).GetComponent<Image>().color = Color.white;
+        GameObject.Find("MapIcon"+roomToDisplay.name).GetComponent<Image>().color = Color.blue;
     }
 
 }

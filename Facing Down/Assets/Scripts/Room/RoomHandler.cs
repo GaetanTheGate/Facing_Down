@@ -20,8 +20,6 @@ public class RoomHandler : MonoBehaviour
     {
         //test
         InitRoom("basic");
-        Game.currentRoom = this;
-        Game.player.transform.position = transform.position;
     }
 
     public void InitRoom(string category)

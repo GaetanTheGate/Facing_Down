@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEditor;
-using System.IO;
 
 public class Room : MonoBehaviour
 {
@@ -18,8 +14,6 @@ public class Room : MonoBehaviour
         Up, 
         Down
     }
-
-    public GameObject infoRoom;
 
     public bool generateRoomOnSide(side onSide){
 
@@ -56,36 +50,40 @@ public class Room : MonoBehaviour
                 break; 
         }
 
-        if (GenerateDonjon.validSideOfRoom[gameObject].Count == 0){
-            GenerateDonjon.processRooms.Remove(gameObject);
-        } 
-
         if(canGenerate){
             print("génération");
             GameObject newMoldRoom = instantiateNewMoldRoom();
 
-            if (getCoordinates(newMoldRoom).x == -1){
-                addRoomToGridMap(newMoldRoom,coordinates,onSide);
-                GenerateDonjon.processRooms.Add(newMoldRoom);
-                GenerateDonjon.validSideOfRoom.Add(newMoldRoom,new List<side>(){side.Right,side.Left,side.Up});
-                GenerateDonjon.validSideOfRoom[newMoldRoom].Remove(onSide);
-            }
+            addRoomToGridMap(newMoldRoom,coordinates,onSide);
+
+            GenerateDonjon.processRooms.Add(newMoldRoom);
+            GenerateDonjon.validSideOfRoom.Add(newMoldRoom,new List<side>(){side.Right,side.Left,side.Up});
+            GenerateDonjon.validSideOfRoom[newMoldRoom].Remove(onSide);
+
             setDoorsOn(onSide, newMoldRoom);
             GenerateDonjon.validSideOfRoom[gameObject].Remove(onSide); 
         }
         else{
             print("génération impossible");
         }
+
+        if (GenerateDonjon.validSideOfRoom[gameObject].Count == 0){
+            GenerateDonjon.processRooms.Remove(gameObject);
+        } 
+
         return canGenerate;
             
     }
 
     public void generateSpecificRoomOnSide(side side, GameObject room){
         GameObject newMoldRoom = instantiateNewMoldRoom();
-        newMoldRoom.GetComponent<Room>().infoRoom = room;
         addRoomToGridMap(newMoldRoom, getCoordinates(gameObject), side);
         setDoorsOn(side,newMoldRoom);
         GenerateDonjon.validSideOfRoom[gameObject].Remove(side);
+
+        if (GenerateDonjon.validSideOfRoom[gameObject].Count == 0){
+            GenerateDonjon.processRooms.Remove(gameObject);
+        } 
     }
 
     public static Vector2 getCoordinates(GameObject moldRoom){
@@ -103,7 +101,6 @@ public class Room : MonoBehaviour
 
     public GameObject instantiateNewMoldRoom(){
         GameObject newMoldRoom = Instantiate(Resources.Load(GenerateDonjon.moldRoomPath, typeof(GameObject)) as GameObject);
-        newMoldRoom.SetActive(false);
         newMoldRoom.name = newMoldRoom.name.Substring(0,newMoldRoom.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
         newMoldRoom.transform.SetParent(GameObject.Find("Game").transform);
 
