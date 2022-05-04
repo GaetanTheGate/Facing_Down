@@ -149,10 +149,13 @@ public class Console : MonoBehaviour
 		input.text = Regex.Replace(input.text, @" +", " ");
 		input.text = Regex.Replace(input.text, @"^ ", "");
 		ClearPreview();
-		if (!inputChangedByScrolling) {
+		if (inputChangedByScrolling) {
+			inputChangedByScrolling = false;
+		}
+		else {
 			scrollIndex = lastInputs.Count;
 		}
-		else inputChangedByScrolling = false;
+		
 	}
 
 	/// <summary>
@@ -160,6 +163,7 @@ public class Console : MonoBehaviour
 	/// </summary>
 	public void OnGUI() {
 		if (PreventKeyRepeat()) return;
+		input.caretPosition = input.text.Length;
 
 		if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Period) {
 			Toggle();
@@ -167,6 +171,7 @@ public class Console : MonoBehaviour
 		if (!toggled) return;
 
 		HandleSpecialKeys();
+
 	}
 
 	/// <summary>
