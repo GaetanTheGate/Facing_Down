@@ -14,8 +14,8 @@ public class StatPlayer : StatEntity
     [Min(0.0f)] public float maxAcceleration = 20;
     [Min(0.0f)] public float maxSpeed = 50;
 
-    [Min(0)] public int numberOfDashes = 0;
-    [Min(0)] public int maxDashes = 10;
+    private int numberOfDashes = 0;
+    private int maxDashes = 10;
 
     [Min(0)] public float specialCooldown = 10;
     [Min(0)] public float specialDuration = 2;
@@ -80,5 +80,24 @@ public class StatPlayer : StatEntity
 	public override void SetCurrentHP(int HP) {
 		base.SetCurrentHP(HP);
         UI.healthBar.UpdateHP();
+	}
+
+    public int GetRemainingDashes() {
+        return maxDashes - numberOfDashes;
+	}
+
+    public void UseDashes(int amount) {
+        numberOfDashes += amount;
+        UI.dashBar.UpdateDashes();
+	}
+
+    public void ModifyMaxDashes(int amount) {
+        maxDashes += amount;
+        UI.dashBar.UpdateDashes();
+	}
+
+    public void ResetDashes() {
+        numberOfDashes = 0;
+        UI.dashBar.UpdateDashes();
 	}
 }

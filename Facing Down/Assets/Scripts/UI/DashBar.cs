@@ -32,11 +32,11 @@ public class DashBar : MonoBehaviour
 		}
     }
 
-    void UpdateDashes()
+    public void UpdateDashes()
     {
-        int newAvailableDashes = Game.player.stat.maxDashes - Game.player.stat.numberOfDashes;
+        int newAvailableDashes = Game.player.stat.GetRemainingDashes();
         if (newAvailableDashes > currentAvailableDashes) {
-            for (int i = currentAvailableDashes; i < Mathf.Min(newAvailableDashes, dashIcons.Count); ++i) {
+            for (int i = Mathf.Max(currentAvailableDashes, 0); i < Mathf.Min(newAvailableDashes, dashIcons.Count); ++i) {
                 dashIcons[i].SetActive(true);
 			}
             if (newAvailableDashes > maxIcons)
@@ -44,7 +44,7 @@ public class DashBar : MonoBehaviour
 
         }
         else if (newAvailableDashes < currentAvailableDashes) {
-            for (int i = newAvailableDashes; i < Mathf.Min(currentAvailableDashes, dashIcons.Count); ++i) {
+            for (int i = Mathf.Max(newAvailableDashes, 0); i < Mathf.Min(currentAvailableDashes, dashIcons.Count); ++i) {
                 dashIcons[i].SetActive(false);
 			}
             if (newAvailableDashes <= maxIcons)
@@ -52,8 +52,4 @@ public class DashBar : MonoBehaviour
         }
         currentAvailableDashes = newAvailableDashes;
     }
-
-	private void Update() {
-        UpdateDashes();
-	}
 }
