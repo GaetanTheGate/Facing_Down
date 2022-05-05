@@ -6,7 +6,11 @@ using UnityEngine.UI;
 public class SpecialBar : MonoBehaviour
 {
     private List<GameObject> specialCharges;
+    private GameObject specialChargePlus;
     private GameObject specialChargePrefab;
+
+    private Sprite specialFill;
+    private Sprite specialPlusFill;
 
     public int maxIcons;
     public int xOffset;
@@ -23,6 +27,10 @@ public class SpecialBar : MonoBehaviour
             specialCharge.transform.localPosition = new Vector2(xOffset * i, 0);
             specialCharges.Add(specialCharge);
         }
+
+        specialChargePlus = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/UI/Components/SpecialChargePlus"), transform);
+        specialChargePlus.transform.localPosition = new Vector2(maxIcons * xOffset, 0);
+
         currentMaxSpecial = maxIcons;
         currentSpecialLeft = maxIcons;
     }
@@ -47,6 +55,10 @@ public class SpecialBar : MonoBehaviour
                 specialCharges[i].SetActive(true);
             }
         }
+
+        if (newMaxSpecial > maxIcons) specialChargePlus.SetActive(true);
+        else specialChargePlus.SetActive(false);
+
         currentMaxSpecial = newMaxSpecial;
     }
 
@@ -61,7 +73,7 @@ public class SpecialBar : MonoBehaviour
                     specialCharges[i].transform.Find("SpecialFill").GetComponent<Image>().fillAmount = newSpecialLeft % 1;
                 }
             }
-		}
+        }
         else {
             for (int i = Mathf.FloorToInt(currentSpecialLeft); i < Mathf.CeilToInt(newSpecialLeft); ++i) {
                 if (i != Mathf.FloorToInt(newSpecialLeft)) {
@@ -72,11 +84,11 @@ public class SpecialBar : MonoBehaviour
                 }
             }
         }
+
+        if (Game.player.stat.GetSpecialLeft() >= maxIcons + 1)
+            specialChargePlus.transform.Find("SpecialPlusFill").gameObject.SetActive(true);
+        else specialChargePlus.transform.Find("SpecialPlusFill").gameObject.SetActive(false);
+
         currentSpecialLeft = newSpecialLeft;
-
     }
-
-	private void Update() {
-        UpdateSpecial();
-	}
 }
