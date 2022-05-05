@@ -20,7 +20,6 @@ public class HealthBar : MonoBehaviour
 	}
 
 	public void UpdateHP() {
-		Debug.Log("HP UPDATED");
 		healthText.text = Game.player.stat.GetCurrentHP() + " / " + Game.player.stat.GetMaxHP();
 		healthFill.sizeDelta = new Vector2(maxWidth * Game.player.stat.GetCurrentHP() / Game.player.stat.GetMaxHP(), height);
 	}
