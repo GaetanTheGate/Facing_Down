@@ -168,11 +168,18 @@ public class GenerateDonjon : MonoBehaviour
 
                         else
                             room.generateSpecificRoomOnSide(Room.side.Down);
-                    }    
+                    }
+                    if(!room.doorDown && room.doorLeft && !room.doorRight && room.doorUp)
+                        checkIfRoomIsLinkToRoomWithDoorDown(Room.side.Left,new Vector2(i,j));
+
+                    if(!room.doorDown && !room.doorLeft && room.doorRight && room.doorUp)
+                        checkIfRoomIsLinkToRoomWithDoorDown(Room.side.Right, new Vector2(i,j));    
                 }
             }
         }
 
+
+        
         for(int i = 0; i < nbRoomWidth/2; i +=1){
             if(gridMap[nbRoomHeight-3, i] != null){
                 Room room = gridMap[nbRoomHeight-3,i].GetComponent<Room>();
@@ -193,5 +200,44 @@ public class GenerateDonjon : MonoBehaviour
             }
         }
     }
+
+
+    public void checkIfRoomIsLinkToRoomWithDoorDown(Room.side sideToGo, Vector2 coordinates){
+        switch(sideToGo){
+            case Room.side.Left:
+                if(gridMap[(int) coordinates.x, (int) coordinates.y - 1].GetComponent<Room>().doorDown)
+                    return;
+                else if (gridMap[(int) coordinates.x, (int) coordinates.y -1].GetComponent<Room>().doorLeft)
+                    checkIfRoomIsLinkToRoomWithDoorDown(Room.side.Left, new Vector2(coordinates.x, coordinates.y -1));
+                else{
+                    if(gridMap[(int) coordinates.x + 1, (int) coordinates.y] == null){
+                        gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<Room>().generateSpecificRoomOnSide(Room.side.Down);
+                        return;                    }
+
+                    else{
+                        gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<Room>().setDoorsOn(Room.side.Down, gridMap[(int) coordinates.x + 1, (int) coordinates.y]);
+                        return;
+                    }
+                }
+                break;
+            
+            case Room.side.Right:
+                if(gridMap[(int) coordinates.x, (int) coordinates.y + 1].GetComponent<Room>().doorDown)
+                    return;
+                else if (gridMap[(int) coordinates.x, (int) coordinates.y +1].GetComponent<Room>().doorRight)
+                    checkIfRoomIsLinkToRoomWithDoorDown(Room.side.Right, new Vector2(coordinates.x, coordinates.y + 1));
+                else{
+                    if(gridMap[(int) coordinates.x + 1, (int) coordinates.y] == null){
+                        gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<Room>().generateSpecificRoomOnSide(Room.side.Down);
+                        return;                    }
+
+                    else{
+                        gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<Room>().setDoorsOn(Room.side.Down, gridMap[(int) coordinates.x + 1, (int) coordinates.y]);
+                        return;
+                    }
+                }
+                break;
+        }
+    } 
 
 }

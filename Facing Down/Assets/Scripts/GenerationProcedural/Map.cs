@@ -120,7 +120,7 @@ public class Map : MonoBehaviour
         return imageGo;
     }
 
-    public void changeColorMapicon(GameObject roomToHide, GameObject roomToDisplay){
+    public static void changeColorMapicon(GameObject roomToHide, GameObject roomToDisplay){
         GameObject.Find("MapIcon"+roomToHide.name).GetComponent<Image>().color = Color.white;
         GameObject.Find("MapIcon"+roomToDisplay.name).GetComponent<Image>().color = Color.blue;
     }
