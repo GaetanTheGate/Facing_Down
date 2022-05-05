@@ -75,8 +75,8 @@ public class Room : MonoBehaviour
             
     }
 
-    public void generateSpecificRoomOnSide(side side){
-        GameObject newMoldRoom = instantiateNewMoldRoom();
+    public void generateSpecificRoomOnSide(side side, string name = ""){
+        GameObject newMoldRoom = instantiateNewMoldRoom(name);
         addRoomToGridMap(newMoldRoom, getCoordinates(gameObject), side);
         setDoorsOn(side,newMoldRoom);
     }
@@ -94,9 +94,12 @@ public class Room : MonoBehaviour
         return coordinates;
     }
 
-    public GameObject instantiateNewMoldRoom(){
+    public GameObject instantiateNewMoldRoom(string name = ""){
         GameObject newMoldRoom = Instantiate(Resources.Load(GenerateDonjon.moldRoomPath, typeof(GameObject)) as GameObject);
-        newMoldRoom.name = newMoldRoom.name.Substring(0,newMoldRoom.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
+        if(name == "")
+            newMoldRoom.name = newMoldRoom.name.Substring(0,newMoldRoom.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
+        else
+            newMoldRoom.name = name;
         newMoldRoom.transform.SetParent(GameObject.Find("Game").transform);
 
         return newMoldRoom;  

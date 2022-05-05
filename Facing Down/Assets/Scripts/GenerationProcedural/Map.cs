@@ -28,10 +28,9 @@ public class Map : MonoBehaviour
                 if (GenerateDonjon.gridMap[i, j] != null){
                     GameObject mapIcon = chooseMapIcon(GenerateDonjon.gridMap[i, j].GetComponent<Room>());
                     mapIcon.transform.position = new Vector2(25 * j,25 * -i);
-                    print(Game.currentRoom.name);
-                    if(mapIcon.name.Contains(Game.currentRoom.name))
+                    if(GenerateDonjon.gridMap[i, j].name == Game.currentRoom.name)
                         mapIcon.GetComponent<Image>().color = Color.blue;
-                    if(mapIcon.name == "MapIconBaseRoom-1")
+                    if(GenerateDonjon.gridMap[i, j].name == "BossRoom")
                         mapIcon.GetComponent<Image>().color = Color.red;
                 }
             }

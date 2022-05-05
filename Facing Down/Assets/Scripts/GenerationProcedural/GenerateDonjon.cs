@@ -9,12 +9,12 @@ public class GenerateDonjon : MonoBehaviour
     public static int nbRoomWidth = 5;
     public static int nbRoomHeight = 10; 
 
-    public static int nbRoom = (nbRoomHeight * nbRoomWidth) / 3;
+    public static int nbRoom = (nbRoomHeight * nbRoomWidth) / 4;
     public static int idRoom = 0;
 
 
     public static float probDown = 0.66f;
-    private Room initRoom;
+    private GameObject initRoom;
     
 
     public static List<GameObject> processRooms = new List<GameObject>();
@@ -41,7 +41,7 @@ public class GenerateDonjon : MonoBehaviour
         gameManager.name = "Game";
         DontDestroyOnLoad(gameManager);
 
-        GameObject initRoom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
+        initRoom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
         initRoom.name = initRoom.name.Substring(0,initRoom.name.IndexOf('(')) + '-' + idRoom++;
         initRoom.transform.SetParent(gameManager.transform);
         processRooms.Add(initRoom);
@@ -55,10 +55,10 @@ public class GenerateDonjon : MonoBehaviour
         
         gridMap[nbRoomHeight - 3, nbRoomWidth / 2] = anteroom;
 
-        anteroom.GetComponent<Room>().generateSpecificRoomOnSide(Room.side.Down);
+        anteroom.GetComponent<Room>().generateSpecificRoomOnSide(Room.side.Down,"BossRoom");
 
         Game.currentRoom = initRoom.GetComponent<RoomHandler>();
-        Game.player.transform.position = initRoom.GetComponent<RoomHandler>().transform.position;
+        
     }
 
     public void generate(){
@@ -116,7 +116,7 @@ public class GenerateDonjon : MonoBehaviour
         }
         
         Game.currentRoom.OnEnterRoom();
-        
+        Game.player.transform.position = initRoom.GetComponent<RoomHandler>().transform.position;
         Map.generateMap();
               
     }
