@@ -18,7 +18,7 @@ public class Door : MonoBehaviour
     public Room roomBehind;
     public Room currentRoom;
 
-    
+    /*
     //change room if roomBehind is not null
     public void OnTriggerEnter2D(Collider2D collider2D){
         if (collider2D.CompareTag("Player")){
@@ -292,5 +292,5 @@ public class Door : MonoBehaviour
 
         SceneManager.LoadScene(roomToChange.name.Substring(0,roomToChange.name.IndexOf('-')));
 
-    }
+    }*/
 }
