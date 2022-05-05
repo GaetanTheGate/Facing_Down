@@ -5,22 +5,25 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    private float maxWidth;
+    [Min(0)] public float maxWidth = 800;
+	private float currentWidth;
 	private float height;
+	[Min(0)] public float pixelPerHP = 0.4f;
 
-	RectTransform healthFill;
+	RectTransform HPFill;
 	Text healthText;
 
 	private void Start() {
-		healthFill = (RectTransform) transform.Find("HPFill").transform;
+		HPFill = (RectTransform) transform.Find("HPFill").transform;
 		healthText = GetComponentInChildren<Text>();
-		maxWidth = healthFill.sizeDelta.x;
-		height = healthFill.sizeDelta.y;
+		height = ((RectTransform) transform).sizeDelta.y;
 		UpdateHP();
 	}
 
 	public void UpdateHP() {
+		currentWidth = Mathf.Min(maxWidth, Game.player.stat.GetMaxHP() * pixelPerHP);
+		((RectTransform)transform).sizeDelta = new Vector2(currentWidth, height);
 		healthText.text = Game.player.stat.GetCurrentHP() + " / " + Game.player.stat.GetMaxHP();
-		healthFill.sizeDelta = new Vector2(maxWidth * Game.player.stat.GetCurrentHP() / Game.player.stat.GetMaxHP(), height);
+		HPFill.sizeDelta = new Vector2(currentWidth * Game.player.stat.GetCurrentHP() / Game.player.stat.GetMaxHP(), height);
 	}
 }
