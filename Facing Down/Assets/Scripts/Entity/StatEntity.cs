@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class StatEntity : MonoBehaviour
 {
-    protected int maxHitPoints = 10;
+    [SerializeField] protected int maxHitPoints = 10;
     protected int currentHitPoints;
 
     [Min(0.0f)] public float baseAtk = 100;

@@ -15,7 +15,7 @@ public class StatPlayer : StatEntity
     [Min(0.0f)] public float maxSpeed = 50;
 
     private int numberOfDashes = 0;
-    private int maxDashes = 10;
+    [SerializeField] private int maxDashes = 10;
 
     [Min(0)] public float specialCooldown = 10;
     [Min(0)] public float specialDuration = 2;
