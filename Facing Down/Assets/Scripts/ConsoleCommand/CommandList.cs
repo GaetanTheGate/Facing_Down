@@ -116,22 +116,22 @@ public static class CommandList
 			else Debug.Log(message);
 		}
 
+		public static void Help(string ID, int argCount) {
+			AbstractConsoleCommand command = getCommand(ID, argCount);
+			Print(command.getFormat() + " : " + command.getDescription());
+		}
+
 		public static void Help(string ID) {
 			for (int i = 0; i < 4; ++i) {
 				try {
 					Help(ID, i);
 					return;
 				}
-				catch (CommandRuntimeException e) {
+				catch (CommandRuntimeException) {
 
 				}
 			}
 			throw new CommandRuntimeException("Command " + ID + " not found");
-		}
-
-		public static void Help(string ID, int argCount) {
-			AbstractConsoleCommand command = getCommand(ID, argCount);
-			Print(command.getFormat() + " : " + command.getDescription());
 		}
 
 		/// <summary>
