@@ -29,6 +29,9 @@ public class StatPlayer : StatEntity
         playerIframes = GetComponentInChildren<PlayerIframes>();
         //hpText.text = currentHitPoints.ToString();
         rawAcceleration = acceleration;
+        UI.healthBar.UpdateHP();
+        UI.specialBar.UpdateSpecial();
+        UI.dashBar.UpdateDashes();
     }
 
     public void ModifyAcceleration(float amount) {

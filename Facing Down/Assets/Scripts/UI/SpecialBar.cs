@@ -25,7 +25,6 @@ public class SpecialBar : MonoBehaviour
         }
         currentMaxSpecial = maxIcons;
         currentSpecialLeft = maxIcons;
-        UpdateSpecial();
     }
 
     public void UpdateSpecial() {
