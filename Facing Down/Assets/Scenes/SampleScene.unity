@@ -653,6 +653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxIcons: 10
+  xOffset: 48
 --- !u!1 &638810138
 GameObject:
   m_ObjectHideFlags: 0
@@ -11789,10 +11790,6 @@ PrefabInstance:
     - target: {fileID: 657911101350130789, guid: 2ed7a88d61a9f48459be5bdb3e56521a, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 657911101350130789, guid: 2ed7a88d61a9f48459be5bdb3e56521a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 657911101350130795, guid: 2ed7a88d61a9f48459be5bdb3e56521a, type: 3}
       propertyPath: m_RootOrder
