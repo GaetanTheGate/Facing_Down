@@ -6,6 +6,7 @@ public class UI : MonoBehaviour
 {
     public static InventoryDisplay inventoryDisplay;
     public static HealthBar healthBar;
+    public static SpecialBar specialBar;
     public static DashBar dashBar;
     public static Console console;
 
@@ -14,6 +15,7 @@ public class UI : MonoBehaviour
         if (inventoryDisplay == null)
             inventoryDisplay = gameObject.AddComponent<InventoryDisplay>();
         healthBar = gameObject.GetComponentInChildren<HealthBar>();
+        specialBar = gameObject.GetComponentInChildren<SpecialBar>();
         dashBar = gameObject.GetComponentInChildren<DashBar>();
         console = gameObject.GetComponentInChildren<Console>();
     }

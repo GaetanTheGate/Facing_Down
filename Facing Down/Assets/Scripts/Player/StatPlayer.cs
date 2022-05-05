@@ -19,8 +19,8 @@ public class StatPlayer : StatEntity
 
     [Min(0)] public float specialCooldown = 10;
     [Min(0)] public float specialDuration = 2;
-    [Min(0)] public int maxSpecial = 3;
-    [Min(0)] public float specialLeft = 3;
+    [SerializeField] private int maxSpecial = 3;
+    private float specialLeft = 3;
 
     public override void Start()
     {
@@ -99,5 +99,24 @@ public class StatPlayer : StatEntity
     public void ResetDashes() {
         numberOfDashes = 0;
         UI.dashBar.UpdateDashes();
+	}
+
+    public int GetMaxSpecial() {
+        return maxSpecial;
+	}
+
+    public float GetSpecialLeft() {
+        return specialLeft;
+	}
+
+    public void ModifyMaxSpecial(int amount) {
+        maxSpecial += amount;
+        specialLeft += amount;
+        UI.specialBar.UpdateSpecial();
+	}
+
+    public void ModifySpecialLeft(float amount) {
+        specialLeft += amount;
+        UI.specialBar.UpdateSpecial();
 	}
 }

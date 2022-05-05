@@ -29,29 +29,30 @@ public class SpecialBar : MonoBehaviour
     }
 
     public void UpdateSpecial() {
-        if (currentMaxSpecial != Game.player.stat.maxSpecial)
+        if (currentMaxSpecial != Game.player.stat.GetMaxSpecial())
             UpdateMaxSpecial();
-        if (currentSpecialLeft != Game.player.stat.specialLeft) {
+        if (currentSpecialLeft != Game.player.stat.GetSpecialLeft()) {
             UpdateSpecialLeft();
 		}
 	}
 
     private void UpdateMaxSpecial() {
-        if (currentMaxSpecial > Game.player.stat.maxSpecial) {
-            for (int i = Mathf.Max(0, Game.player.stat.maxSpecial); i < Mathf.Min(currentMaxSpecial, maxIcons); ++i) {
+        int newMaxSpecial = Game.player.stat.GetMaxSpecial();
+        if (currentMaxSpecial > newMaxSpecial) {
+            for (int i = Mathf.Max(0, newMaxSpecial); i < Mathf.Min(currentMaxSpecial, maxIcons); ++i) {
                 specialCharges[i].SetActive(false);
             }
         }
         else {
-            for (int i = Mathf.Max(0, currentMaxSpecial); i < Mathf.Min(Game.player.stat.maxSpecial, maxIcons); ++i) {
+            for (int i = Mathf.Max(0, currentMaxSpecial); i < Mathf.Min(newMaxSpecial, maxIcons); ++i) {
                 specialCharges[i].SetActive(true);
             }
         }
-        currentMaxSpecial = Game.player.stat.maxSpecial;
+        currentMaxSpecial = newMaxSpecial;
     }
 
     private void UpdateSpecialLeft() {
-        float newSpecialLeft = Mathf.Min(Mathf.Max(Game.player.stat.specialLeft, 0), maxIcons);
+        float newSpecialLeft = Mathf.Min(Mathf.Max(Game.player.stat.GetSpecialLeft(), 0), maxIcons);
         if (currentSpecialLeft > newSpecialLeft) {
             for (int i = Mathf.FloorToInt(newSpecialLeft); i < Mathf.CeilToInt(currentSpecialLeft); ++i) {
                 if (i != Mathf.FloorToInt(newSpecialLeft)) {
