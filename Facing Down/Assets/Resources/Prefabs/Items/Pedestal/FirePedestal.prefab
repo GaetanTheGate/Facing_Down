@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2571249700301789098}
   - component: {fileID: 2571249700301789097}
   - component: {fileID: 2571249700301789096}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FirePedestal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

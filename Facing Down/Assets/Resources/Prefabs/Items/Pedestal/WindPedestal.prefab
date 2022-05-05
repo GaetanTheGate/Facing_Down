@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4684517556179315047}
   - component: {fileID: 4684517556179315040}
   - component: {fileID: 4684517556179315045}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WindPedestal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4880079179259964866}
   - component: {fileID: 4880079179259964867}
   - component: {fileID: 4880079179259964868}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EarthPedestal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
