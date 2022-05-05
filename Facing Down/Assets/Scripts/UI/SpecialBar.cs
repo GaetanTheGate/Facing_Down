@@ -16,7 +16,7 @@ public class SpecialBar : MonoBehaviour
 
     void Start()
     {
-        specialChargePrefab = Resources.Load<GameObject>("Prefabs/UI/SpecialCharge");
+        specialChargePrefab = Resources.Load<GameObject>("Prefabs/UI/Components/SpecialCharge");
         specialCharges = new List<GameObject>();
         for (int i = 0; i < maxIcons; ++i) {
             GameObject specialCharge = Instantiate<GameObject>(specialChargePrefab, transform);
