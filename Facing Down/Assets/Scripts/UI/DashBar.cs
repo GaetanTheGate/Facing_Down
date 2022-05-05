@@ -20,7 +20,7 @@ public class DashBar : MonoBehaviour
     /// </summary>
     void Start()
     {
-        dashIconPrefab = Resources.Load<GameObject>("Prefabs/UI/DashIcon");
+        dashIconPrefab = Resources.Load<GameObject>("Prefabs/UI/Components/DashIcon");
         dashSprite = Resources.Load<Sprite>("UI/DashIcon");
         dashPlusSprite = Resources.Load<Sprite>("UI/DashPlusIcon");
 
