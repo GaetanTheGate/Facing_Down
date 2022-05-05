@@ -14,16 +14,17 @@ public class StatPlayer : StatEntity
     [Min(0.0f)] public float maxAcceleration = 20;
     [Min(0.0f)] public float maxSpeed = 50;
 
-    [Min(0)] public int numberOfDashes = 0;
-    [Min(0)] public int maxDashes = 10;
+    private int numberOfDashes = 0;
+    [SerializeField] private int maxDashes = 10;
 
     [Min(0)] public float specialCooldown = 10;
     [Min(0)] public float specialDuration = 2;
-    [Min(0)] public int maxSpecial = 3;
-    [Min(0)] public float specialLeft = 3;
+    [SerializeField] private int maxSpecial = 3;
+    private float specialLeft = 3;
 
     public override void Start()
     {
+        InitStats(1000, 100, 5, 150);
         base.Start();
         playerIframes = GetComponentInChildren<PlayerIframes>();
         //hpText.text = currentHitPoints.ToString();
@@ -41,6 +42,8 @@ public class StatPlayer : StatEntity
 
     public override void TakeDamage(DamageInfo damage)
     {
+        UI.healthBar.UpdateHP();
+        Debug.Log("TOOK DAMAGE");
         if (isDead) return;
         if (!playerIframes.isIframe)
         {
@@ -67,5 +70,53 @@ public class StatPlayer : StatEntity
     /// <param name="amount">The amount of special charge to give.</param>
     public void ReloadSpecial(float amount) {
         specialLeft = Mathf.Max(maxSpecial, specialLeft + amount);
+	}
+
+	public override void ModifyMaxHP(int amount) {
+		base.ModifyMaxHP(amount);
+        UI.healthBar.UpdateHP();
+	}
+
+	public override void SetCurrentHP(int HP) {
+		base.SetCurrentHP(HP);
+        UI.healthBar.UpdateHP();
+	}
+
+    public int GetRemainingDashes() {
+        return maxDashes - numberOfDashes;
+	}
+
+    public void UseDashes(int amount) {
+        numberOfDashes += amount;
+        UI.dashBar.UpdateDashes();
+	}
+
+    public void ModifyMaxDashes(int amount) {
+        maxDashes += amount;
+        UI.dashBar.UpdateDashes();
+	}
+
+    public void ResetDashes() {
+        numberOfDashes = 0;
+        UI.dashBar.UpdateDashes();
+	}
+
+    public int GetMaxSpecial() {
+        return maxSpecial;
+	}
+
+    public float GetSpecialLeft() {
+        return specialLeft;
+	}
+
+    public void ModifyMaxSpecial(int amount) {
+        maxSpecial += amount;
+        specialLeft += amount;
+        UI.specialBar.UpdateSpecial();
+	}
+
+    public void ModifySpecialLeft(float amount) {
+        specialLeft += amount;
+        UI.specialBar.UpdateSpecial();
 	}
 }

@@ -38,8 +38,6 @@ public class PlayerDash : AbstractPlayer
     private void ComputeDash()
     {
         chargeTimePassed += Time.fixedDeltaTime;
-        if (stat.numberOfDashes >= stat.maxDashes)
-            return;
 
         if (Game.controller.IsMovementHeld() && !movePressed)
         {
@@ -59,7 +57,6 @@ public class PlayerDash : AbstractPlayer
             }
             else
             {
-                self.transform.position += new Vector3(0, Mathf.Epsilon, 0);
                 if (chargeTimePassed > chargeTime)
                 {
                     ComputeMegaDash();
@@ -80,10 +77,10 @@ public class PlayerDash : AbstractPlayer
 
     private void ComputeMegaDash()
     {
-        if (stat.numberOfDashes >= stat.maxDashes)
+        if (stat.GetRemainingDashes() <= 0)
             return;
 
-        stat.numberOfDashes += 2;
+        stat.UseDashes(2);
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(1.6f);
 
         Game.player.inventory.OnMegaDash();
@@ -93,10 +90,10 @@ public class PlayerDash : AbstractPlayer
 
     private void ComputeSimpleDash()
     {
-        if (stat.numberOfDashes >= stat.maxDashes)
+        if (stat.GetRemainingDashes() <= 0)
             return;
 
-        stat.numberOfDashes += 1;
+        stat.UseDashes(1);
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(1.2f);
 
         Game.player.inventory.OnDash();
