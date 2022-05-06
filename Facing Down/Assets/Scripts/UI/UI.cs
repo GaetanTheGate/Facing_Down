@@ -11,9 +11,7 @@ public class UI : MonoBehaviour
     public static Console console;
 
     private void Start() {
-        inventoryDisplay = gameObject.GetComponent<InventoryDisplay>();
-        if (inventoryDisplay == null)
-            inventoryDisplay = gameObject.AddComponent<InventoryDisplay>();
+        inventoryDisplay = gameObject.GetComponentInChildren<InventoryDisplay>();
         healthBar = gameObject.GetComponentInChildren<HealthBar>();
         specialBar = gameObject.GetComponentInChildren<SpecialBar>();
         dashBar = gameObject.GetComponentInChildren<DashBar>();
