@@ -31,7 +31,7 @@ public class Console : MonoBehaviour
 	private void Awake() {
 		toggled = false;
 
-		noRepeatKeys = new List<KeyCode> { KeyCode.Period, KeyCode.Tab };
+		noRepeatKeys = new List<KeyCode> { KeyCode.Tab };
 
 		lastInputs = new List<string>();
 		scrollIndex = -1;
@@ -109,11 +109,6 @@ public class Console : MonoBehaviour
 				previewIndex = Utility.mod(previewIndex + 1, previews.Count);
 				UpdatePreview();
 			}
-			else if (Event.current.keyCode == KeyCode.Escape) {
-				input.text = "";
-				EventSystem.current.SetSelectedGameObject(null); //Doit être utilisé, sinon il faut appuyer sur Entrée pour re-sélectionner input
-				input.Select();
-			}
 		}
 	}
 
@@ -173,8 +168,9 @@ public class Console : MonoBehaviour
 		if (PreventKeyRepeat()) return;
 		input.caretPosition = input.text.Length;
 
-		if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Period) {
-			Toggle();
+		if (Event.current.type == EventType.KeyDown) {
+			if ((!toggled && Event.current.keyCode == KeyCode.C) || (toggled && Event.current.keyCode == KeyCode.Escape))
+				Toggle();
 		}
 		if (!toggled) return;
 
