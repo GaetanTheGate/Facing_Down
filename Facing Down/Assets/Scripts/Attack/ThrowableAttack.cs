@@ -8,7 +8,7 @@ public abstract class ThrowableAttack : Attack
     protected Rigidbody2D rb;
     protected bool hasShot = false;
 
-    public Velocity gravity = new Velocity();
+    public Velocity gravity = new Velocity(0,0);
     public float speed = 1.0f;
 
     protected override void ComputeAttack(float percentageTime)
