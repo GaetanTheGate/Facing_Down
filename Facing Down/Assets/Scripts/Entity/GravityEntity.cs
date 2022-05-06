@@ -15,8 +15,6 @@ public class GravityEntity : AbstractEntity
         gravity.setSpeed(base_gravity_speed);
 
         rb = Entity.initRigidBody(gameObject);
-
-        rb.gravityScale = 0;
     }
 
     // Update is called once per frame

@@ -8,7 +8,7 @@ public abstract class ThrowableAttack : Attack
     protected Rigidbody2D rb;
     protected bool hasShot = false;
 
-    public Velocity gravity = new Velocity();
+    public Velocity gravity = new Velocity(0,0);
     public float speed = 1.0f;
 
     protected override void ComputeAttack(float percentageTime)
@@ -24,7 +24,7 @@ public abstract class ThrowableAttack : Attack
         }
         else
             return;
-        Velocity grav = new Velocity(gravity).MulToSpeed(Time.fixedDeltaTime).MulToSpeed(4.0f);
+        Velocity grav = new Velocity(gravity).MulToSpeed(Time.fixedDeltaTime).MulToSpeed(2.0f);
         grav.MulToSpeed(percentageTime >= 1 ? 1 : 0);
         rb.velocity += grav.GetAsVector2();
         transform.localRotation = Quaternion.Euler(0, 0, transform.localRotation.eulerAngles.z + rotationSpeed * Time.fixedDeltaTime);

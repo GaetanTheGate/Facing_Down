@@ -9,6 +9,7 @@ public class Entity : AbstractEntity
         if (rb == null)
         {
             rb = gameObject.AddComponent<Rigidbody2D>();
+            rb.gravityScale = 0;
             rb.freezeRotation = true;
             rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             if (rb.CompareTag("Player"))

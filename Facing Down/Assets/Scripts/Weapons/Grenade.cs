@@ -14,10 +14,10 @@ public class Grenade : ProjectileWeapon
         baseEDelay = 3.0f;
         baseCooldown = -2.0f;
 
-        baseSpeed = 10f;
+        baseSpeed = 15f;
 
-        attackPath = "Prefabs/Weapons/Bullet";
-        specialPath = "Prefabs/Weapons/Bullet";
+        attackPath = "Prefabs/Weapons/Grenade";
+        specialPath = "Prefabs/Weapons/Grenade";
     }
 
     private Weapon attackWeapon;
@@ -30,6 +30,7 @@ public class Grenade : ProjectileWeapon
         grenade.GetComponent<GrenadeAttack>().transform.position = startPos;
 
         grenade.GetComponent<GrenadeAttack>().src = self;
+        grenade.GetComponent<GrenadeAttack>().gravity = self.GetComponent<GravityEntity>().gravity;
         grenade.GetComponent<GrenadeAttack>().startDelay = baseSDelay;
         grenade.GetComponent<GrenadeAttack>().timeSpan = baseSpan;
         grenade.GetComponent<GrenadeAttack>().endDelay = baseEDelay;
@@ -47,12 +48,13 @@ public class Grenade : ProjectileWeapon
         grenade.GetComponent<GrenadeAttack>().transform.position = startPos;
 
         grenade.GetComponent<GrenadeAttack>().src = self;
+        grenade.GetComponent<GrenadeAttack>().gravity = self.GetComponent<GravityEntity>().gravity;
         grenade.GetComponent<GrenadeAttack>().startDelay = baseSDelay;
         grenade.GetComponent<GrenadeAttack>().timeSpan = baseSpan;
         grenade.GetComponent<GrenadeAttack>().endDelay = baseEDelay;
         grenade.GetComponent<GrenadeAttack>().weapon = specialWeapon;
         grenade.GetComponent<GrenadeAttack>().isSpecial = true;
-        grenade.GetComponent<GrenadeAttack>().speed = baseSpeed;
+        grenade.GetComponent<GrenadeAttack>().speed = baseSpeed * 1.25f;
         grenade.GetComponent<GrenadeAttack>().angle = angle;
 
         return grenade.GetComponent<GrenadeAttack>();
