@@ -16,11 +16,6 @@ public class RoomHandler : MonoBehaviour
 
     private bool isInRoom = false;
 
-    void Start()
-    {
-        //test
-        InitRoom("basic");
-    }
 
     public void InitRoom(string category)
     {

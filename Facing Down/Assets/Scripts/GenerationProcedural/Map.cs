@@ -14,20 +14,19 @@ public class Map : MonoBehaviour
     private static string threeDoors = "3Doors";
     private static string fourDoors = "4Doors";
 
+    private static int sizeImage = 50;
+
 
 
     public static void generateMap(){
-        GameObject map = new GameObject("Map");
-        map.transform.SetParent(GameObject.Find("Game").transform);
-        map.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-        map.GetComponent<Canvas>().transform.position = new Vector2(0,0);
-
+        GameObject map = UI.map;
+    
         
         for(int i = 0; i < GenerateDonjon.nbRoomHeight; i += 1){
             for(int j = 0; j < GenerateDonjon.nbRoomWidth; j += 1){
                 if (GenerateDonjon.gridMap[i, j] != null){
                     GameObject mapIcon = chooseMapIcon(GenerateDonjon.gridMap[i, j].GetComponent<Room>());
-                    mapIcon.transform.position = new Vector2(25 * j,25 * -i);
+                    mapIcon.transform.localPosition = new Vector2(sizeImage * j, sizeImage * -i);
                     if(GenerateDonjon.gridMap[i, j].name == Game.currentRoom.name)
                         mapIcon.GetComponent<Image>().color = Color.blue;
                     if(GenerateDonjon.gridMap[i, j].name == "BossRoom")
@@ -115,7 +114,7 @@ public class Map : MonoBehaviour
             imageGo.transform.Rotate(0,0,90f);
         }
 
-        imageGo.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(25,25);
+        imageGo.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(sizeImage,sizeImage);
         return imageGo;
     }
 

@@ -24,7 +24,10 @@ public class GenerateDonjon : MonoBehaviour
     public static GameObject[,] gridMap = new GameObject[nbRoomHeight, nbRoomWidth];
 
     private string gamePath = "Prefabs/Game/Game";
+    private string UIPath = "Prefabs/UI/UI";
     public static string moldRoomPath = "Prefabs/Rooms/BaseRooms/BaseRoom"; 
+
+    
 
 
     void Update() {
@@ -36,10 +39,16 @@ public class GenerateDonjon : MonoBehaviour
 
 
     public void initGenerate(){
+        GameObject ui = Resources.Load(UIPath, typeof(GameObject)) as GameObject;
+        ui = Instantiate(ui);
+        ui.name = "UI";
+
         GameObject gameManager = Resources.Load(gamePath, typeof(GameObject)) as GameObject;
         gameManager = Instantiate(gameManager);
         gameManager.name = "Game";
+
         DontDestroyOnLoad(gameManager);
+        DontDestroyOnLoad(ui);
 
         initRoom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
         initRoom.name = initRoom.name.Substring(0,initRoom.name.IndexOf('(')) + '-' + idRoom++;
@@ -50,7 +59,7 @@ public class GenerateDonjon : MonoBehaviour
 
 
         GameObject anteroom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
-        anteroom.name = anteroom.name.Substring(0,anteroom.name.IndexOf('(')) + '-' + idRoom++;
+        anteroom.name = "Anteroom";
         anteroom.transform.SetParent(gameManager.transform);
         
         gridMap[nbRoomHeight - 3, nbRoomWidth / 2] = anteroom;
@@ -111,14 +120,24 @@ public class GenerateDonjon : MonoBehaviour
                     gridMap[i,j].GetComponent<RoomHandler>().botDoor = gridMap[i,j].GetComponent<Room>().doorDown;
 
                     gridMap[i,j].transform.position = new Vector2(36 * j, 36 * -i);
+
+                    gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
+
+                    /*if(gridMap[i,j].name == initRoom.name)
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("spawn");
+                    else if(gridMap[i,j].name == "Anteroom")
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("anteroom");
+                    else if(gridMap[i,j].name == "BossRoom")
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("boss");
+                    else
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");*/
                 }
             }
         }
         
         Game.currentRoom.OnEnterRoom();
         Game.player.transform.position = initRoom.GetComponent<RoomHandler>().transform.position;
-        Map.generateMap();
-              
+        Map.generateMap();    
     }
 
     public bool checkIfRoomOnLineBeforeAnteroom(){

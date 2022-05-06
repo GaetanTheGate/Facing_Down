@@ -10,11 +10,14 @@ public class UI : MonoBehaviour
     public static DashBar dashBar;
     public static Console console;
 
+    public static GameObject map;
+
     private void Start() {
         inventoryDisplay = gameObject.GetComponentInChildren<InventoryDisplay>();
         healthBar = gameObject.GetComponentInChildren<HealthBar>();
         specialBar = gameObject.GetComponentInChildren<SpecialBar>();
         dashBar = gameObject.GetComponentInChildren<DashBar>();
         console = gameObject.GetComponentInChildren<Console>();
+        map = transform.Find("Map").gameObject;
     }
 }
