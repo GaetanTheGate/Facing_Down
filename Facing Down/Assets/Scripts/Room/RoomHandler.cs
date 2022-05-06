@@ -16,6 +16,14 @@ public class RoomHandler : MonoBehaviour
 
     private bool isInRoom = false;
 
+    public bool triggerStart = false;
+
+    public void SetAsStartRoom()
+    {
+        Game.currentRoom = this;
+        OnEnterRoom();
+        OnFinishRoom();
+    }
 
     public void InitRoom(string category)
     {
@@ -30,6 +38,9 @@ public class RoomHandler : MonoBehaviour
     {
         GetComponentInChildren<DoorsHandler>().SetDoorsState(leftDoor, rightDoor, topDoor, botDoor);
         GetComponentInChildren<DoorsHandler>().SetDoors();
+
+        if (triggerStart)
+            SetAsStartRoom();
 
         if (testFinishRoom)
             OnFinishRoom();

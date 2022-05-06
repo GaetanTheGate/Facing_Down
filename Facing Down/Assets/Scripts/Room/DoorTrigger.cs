@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class DoorTrigger : MonoBehaviour
 {
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Player")))
         {
             Game.currentRoom.OnExitRoom();
-            Map.changeColorMapicon(Game.currentRoom.gameObject,GetComponentInParent<RoomHandler>().gameObject);
+            //Map.changeColorMapicon(Game.currentRoom.gameObject,GetComponentInParent<RoomHandler>().gameObject);
             GetComponentInParent<RoomHandler>().OnEnterRoom();
         }
     }
