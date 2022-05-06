@@ -24,7 +24,7 @@ public abstract class ThrowableAttack : Attack
         }
         else
             return;
-        Velocity grav = new Velocity(gravity).MulToSpeed(Time.fixedDeltaTime).MulToSpeed(4.0f);
+        Velocity grav = new Velocity(gravity).MulToSpeed(Time.fixedDeltaTime).MulToSpeed(2.0f);
         grav.MulToSpeed(percentageTime >= 1 ? 1 : 0);
         rb.velocity += grav.GetAsVector2();
         transform.localRotation = Quaternion.Euler(0, 0, transform.localRotation.eulerAngles.z + rotationSpeed * Time.fixedDeltaTime);
