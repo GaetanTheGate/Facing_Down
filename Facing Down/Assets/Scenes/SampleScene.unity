@@ -10867,22 +10867,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 8304205069087018549, guid: 7fecc27f10a345b47a683a0d4d107890, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8304205069087018549, guid: 7fecc27f10a345b47a683a0d4d107890, type: 3}
-      propertyPath: m_Pivot.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8304205069087018549, guid: 7fecc27f10a345b47a683a0d4d107890, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 8304205069087018549, guid: 7fecc27f10a345b47a683a0d4d107890, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -250
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fecc27f10a345b47a683a0d4d107890, type: 3}
 --- !u!1001 &6366533160272483567
