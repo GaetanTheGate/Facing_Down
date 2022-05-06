@@ -117,8 +117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32feda7c95d73134794c509c7755d6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 1000
-  currentHitPoints: 0
   baseAtk: 100
   atkMultipler: 1
   critRate: 5
@@ -132,8 +130,7 @@ MonoBehaviour:
   hpText: {fileID: 0}
   maxAcceleration: 20
   maxSpeed: 50
-  numberOfDashes: 0
-  maxDashes: 10
+  baseMaxDashes: 10
   specialCooldown: 10
   specialDuration: 2
   maxSpecial: 3
@@ -239,7 +236,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 657911101350130789}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

@@ -1,0 +1,203 @@
+{
+    "objectsDescription":[
+        {
+            "idItem":"BurningCircle",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Cercle de Brûlure"
+                }
+            ]
+        },
+        {
+            "idItem":"ResidualEmbers",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Braises Résiduelles"
+                }
+            ]
+        },
+        {
+            "idItem":"MagmaticCoating",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Revêtement Magmatique"
+                }
+            ]
+        },
+        {
+            "idItem":"FieryAlloy",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Allliage Ardent"
+                }
+            ]
+        },
+        {
+            "idItem":"VoraciousFlames",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Flammes Insatiables"
+                }
+            ]
+        },
+        {
+            "idItem":"ObsidianShard",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Éclat d'obsidienne"
+                }
+            ]
+        },
+        {
+            "idItem":"FocusAmber",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Ambre de concentration"
+                }
+            ]
+        },
+        {
+            "idItem":"PowerSaver",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Récupérateur d'Énergie"
+                }
+            ]
+        },
+        {
+            "idItem":"HeartOfTheStorm",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Coeur de la tempête"
+                }
+            ]
+        },
+        {
+            "idItem":"BatteryPack",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Extension de Batterie"
+                }
+            ]
+        },
+        {
+            "idItem":"OverchargedCoil",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Bobine Surchargée"
+                }
+            ]
+        },
+        {
+            "idItem":"ImpenetrableRoots",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Racines Impénétrables"
+                }
+            ]
+        },
+        {
+            "idItem":"HardeningPlates",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Plaques durcissantes"
+                }
+            ]
+        },
+        {
+            "idItem":"StoneArmor",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Armure Rocheuse"
+                }
+            ]
+        },
+        {
+            "idItem":"HornOfPlenty",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Corne d'Abondance"
+                }
+            ]
+        },
+        {
+            "idItem":"SylvanBreastplate",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Plastron Sylvestre"
+                }
+            ]
+        },
+        {
+            "idItem":"ClayClone",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Clone d'Argile"
+                }
+            ]
+        },
+        {
+            "idItem":"Lightness",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Légèreté"
+                }
+            ]
+        },
+        {
+            "idItem":"ArtificialWings",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Ailes Artificielles"
+                }
+            ]
+        },
+        {
+            "idItem":"BouncyShoes",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Chaussures à Ressorts"
+                }
+            ]
+        },
+        {
+            "idItem":"RiftMaker",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Créateur de Failles"
+                }
+            ]
+        },
+        {
+            "idItem":"InvisibilityCloak",
+            "elementsDescription":[
+                {
+                    "elementID":"desc",
+                    "text":"description Cape d'invisibilité"
+                }
+            ]
+        }
+
+    ]
+}

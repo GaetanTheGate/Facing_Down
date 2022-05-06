@@ -35,7 +35,7 @@ public class PlayerOnCollisionStructure : AbstractPlayer
         //comportement pour toute la durée de la collision avec le sol
         if (entityCollisionStructure.isGrounded && !entityCollisionStructure.isEnteringGround)
         {
-            statPlayer.numberOfDashes = 0;
+            statPlayer.ResetDashes();
         }
         //comportement au moment de la collision avec le sol
         else if (entityCollisionStructure.isGrounded && entityCollisionStructure.isEnteringGround)
