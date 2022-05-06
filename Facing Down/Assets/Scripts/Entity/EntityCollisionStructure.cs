@@ -41,6 +41,7 @@ public class EntityCollisionStructure : AbstractEntity
             foreach (ContactPoint2D contact in collision.contacts)
             {
                 float angle = Vector2.Angle(gravityEntity.gravity.GetAsVector2(), contact.normal);
+                //angle = Mathf.Round(angle);
                 if (angle <= 180.0f && angle >= 135.0f)
                 {
                     isEnteringGround = true;
@@ -100,6 +101,7 @@ public class EntityCollisionStructure : AbstractEntity
             foreach (ContactPoint2D contact in col.contacts)
             {
                 float angle = Vector2.Angle(gravityEntity.gravity.GetAsVector2(), contact.normal);
+                //angle = Mathf.Round(angle);
                 if (angle <= 180.0f && angle >= 135.0f)
                 {
                     groundedTest = true;
