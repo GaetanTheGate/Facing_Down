@@ -23,7 +23,9 @@ public static class CommandList
 		Add(new ConsoleCommand<string>("removeItem", "Remove 1 of the specified item from the inventory.", "removeItem <ID>", (ID) => {AdvancedCommandFunctions.RemoveItem(ID, 1);}));
 		Add(new ConsoleCommand<string, int>("removeItem", "Remove <amount> of the specified item from the inventory.", "removeItem <ID> <amount>", (ID, amount) => {AdvancedCommandFunctions.RemoveItem(ID, amount);}));
 		Add(new ConsoleCommand<string, float, float>("spawnItem", "Spawn the specified item at given position relative to the player.", "spawnItem <ID> <x> <y>", (ID, xOffset, yOffset) => {AdvancedCommandFunctions.SpawnItem(ID, xOffset, yOffset);}));
-		Add(new ConsoleCommand<string, int, int>("spawnEnemy", "Spawn the specified enemy at the specified position.", "spawnEnemy <NAME> <x> <y>", (NAME, x, y) => { AdvancedCommandFunctions.SpawnEnemy(NAME, x, y); } ));
+		Add(new ConsoleCommand<string, float, float>("spawnEnemy", "Spawn the specified enemy at the specified position.", "spawnEnemy <NAME> <x> <y>", (NAME, x, y) => { AdvancedCommandFunctions.SpawnEnemy(NAME, x, y); } ));
+		Add(new ConsoleCommand<string>("help", "Gives the specified command's description.", "help <ID>", (ID) => { AdvancedCommandFunctions.Help(ID); } ));
+		Add(new ConsoleCommand<string, int>("help", "Gives the description of the command with given ID and arg count.", "help <ID> <argCount>", (ID, argCount) => { AdvancedCommandFunctions.Help(ID, argCount); } ));
 	}
 
 	/// <summary>
@@ -39,7 +41,7 @@ public static class CommandList
 	}
 
 	/// <summary>
-	/// Gets a command from its id and its number of args. Sets errorMessage to get in case of an error.
+	/// Gets a command from its id and its number of args.
 	/// </summary>
 	/// <param name="id">The command's id.</param>
 	/// <param name="argCount">The number of params passed to the command.</param>
@@ -92,8 +94,8 @@ public static class CommandList
 		return previews;
 	}
 
-	public static void setConsole(Console c) {
-		AdvancedCommandFunctions.setConsole(c);
+	public static void SetConsole(Console c) {
+		AdvancedCommandFunctions.SetConsole(c);
 	}
 
 	/// <summary>
@@ -105,13 +107,31 @@ public static class CommandList
 		/// Sets the console in order to display output messages.
 		/// </summary>
 		/// <param name="c">The console to set.</param>
-		public static void setConsole(Console c) {
+		public static void SetConsole(Console c) {
 			console = c;
 		}
 
 		public static void Print(string message) {
 			if (console != null) console.SetOutput(message);
 			else Debug.Log(message);
+		}
+
+		public static void Help(string ID, int argCount) {
+			AbstractConsoleCommand command = getCommand(ID, argCount);
+			Print(command.getFormat() + " : " + command.getDescription());
+		}
+
+		public static void Help(string ID) {
+			for (int i = 0; i < 4; ++i) {
+				try {
+					Help(ID, i);
+					return;
+				}
+				catch (CommandRuntimeException) {
+
+				}
+			}
+			throw new CommandRuntimeException("Command " + ID + " not found");
 		}
 
 		/// <summary>
@@ -144,7 +164,9 @@ public static class CommandList
 			if (ID == "PrintItem") item = new PrintItem();
 			else item = ItemPool.GetByID(ID);
 			if (item == null) throw new CommandRuntimeException("Item " + ID + " not found");
-			ItemPedestal.SpawnItemPedestal(item, GameObject.FindObjectOfType<Game>().gameObject, Game.player.self.transform.position + new Vector3(xOffset, yOffset));
+			ItemPickup pickup = Game.Instantiate<ItemPickup>(Resources.Load<ItemPickup>("Prefabs/Items/ItemPickup"));
+			pickup.Init(item);
+			pickup.transform.position = new Vector2(Game.player.self.transform.position.x + xOffset, Game.player.self.transform.position.y + yOffset);
 		}
 
 		public static void SpawnEnemy(string name, float x, float y)

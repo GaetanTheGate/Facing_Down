@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BatteryPack : Item
 {
-	private readonly int maxEnergyIncrease = 1;
+	private readonly int maxSpecialIncrease = 1;
     public BatteryPack() : base("BatteryPack", ItemRarity.EPIC, ItemType.THUNDER) { }
 
 	public override void OnPickup() {
-		Game.player.stat.maxSpecial += maxEnergyIncrease;
+		Game.player.stat.ModifyMaxSpecial(maxSpecialIncrease);
 	}
 
 	public override void OnRemove() {
-		Game.player.stat.maxSpecial -= maxEnergyIncrease;
+		Game.player.stat.ModifyMaxSpecial(-maxSpecialIncrease);
 	}
 
 	public override Item MakeCopy() {

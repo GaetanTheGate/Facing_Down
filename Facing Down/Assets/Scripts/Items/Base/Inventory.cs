@@ -31,7 +31,7 @@ public class Inventory : MonoBehaviour
 			}
 			items[item.GetID()].OnPickup();
 		}
-		UI.inventoryDisplay.UpdateItemDisplay(item);
+		UI.inventoryDisplay.UpdateItemDisplay(items[item.GetID()]);
 	}
 
 	/// <summary>
@@ -48,7 +48,7 @@ public class Inventory : MonoBehaviour
 			UI.inventoryDisplay.RemoveItemDisplay(item);
 		}
 		else {
-			UI.inventoryDisplay.UpdateItemDisplay(item);
+			UI.inventoryDisplay.UpdateItemDisplay(items[item.GetID()]);
 		}
 		return true;
 	}

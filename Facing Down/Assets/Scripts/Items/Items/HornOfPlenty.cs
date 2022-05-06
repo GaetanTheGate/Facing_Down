@@ -9,7 +9,7 @@ public class HornOfPlenty : Item
     public HornOfPlenty() : base("HornOfPlenty", ItemRarity.RARE, ItemType.EARTH) { }
 
 	public override void OnRoomFinish() {
-		Game.player.stat.Heal(amount * healAmount * Game.player.stat.maxHitPoints);
+		Game.player.stat.Heal(amount * healAmount * Game.player.stat.GetMaxHP());
 	}
 
 	public override Item MakeCopy() {
