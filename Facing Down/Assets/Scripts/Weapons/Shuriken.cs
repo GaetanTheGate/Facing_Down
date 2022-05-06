@@ -66,11 +66,13 @@ public class Shuriken : ProjectileWeapon
         shuriken2.GetComponent<ProjectileAttack>().angle -= Random.Range(10, 45);
         Physics2D.IgnoreCollision(shuriken.GetComponent<Collider2D>(), shuriken2.GetComponent<Collider2D>());
         shuriken2.GetComponent<AttackHit>().dmgInfo = dmgInfo;
+        shuriken2.GetComponent<ProjectileAttack>().gravity = self.GetComponent<GravityEntity>().gravity;
 
         GameObject shuriken3 = GameObject.Instantiate(shuriken);
         shuriken3.GetComponent<ProjectileAttack>().angle += Random.Range(10, 45);
         Physics2D.IgnoreCollision(shuriken.GetComponent<Collider2D>(), shuriken3.GetComponent<Collider2D>());
         shuriken3.GetComponent<AttackHit>().dmgInfo = dmgInfo;
+        shuriken3.GetComponent<ProjectileAttack>().gravity = self.GetComponent<GravityEntity>().gravity;
 
         Physics2D.IgnoreCollision(shuriken2.GetComponent<Collider2D>(), shuriken3.GetComponent<Collider2D>());
 
