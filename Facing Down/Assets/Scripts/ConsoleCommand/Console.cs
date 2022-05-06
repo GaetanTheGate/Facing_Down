@@ -11,7 +11,6 @@ public class Console : MonoBehaviour
 {
 	bool alreadyPressed = false;
 	List<KeyCode> noRepeatKeys;
-    bool toggled;
 
 	List<string> lastInputs;
 	int scrollIndex;
@@ -29,8 +28,6 @@ public class Console : MonoBehaviour
 	/// Initializes values.
 	/// </summary>
 	private void Awake() {
-		toggled = false;
-
 		noRepeatKeys = new List<KeyCode> { KeyCode.Tab };
 
 		lastInputs = new List<string>();
@@ -42,26 +39,14 @@ public class Console : MonoBehaviour
 		CommandList.SetConsole(this);
 	}
 
-	/// <summary>
-	/// Enables / Disables the console, and pauses the game.
-	/// </summary>
-	private void Toggle() {
-		if (toggled) {
-			for (int i = 0; i < gameObject.transform.childCount; ++i) {
-				gameObject.transform.GetChild(i).gameObject.SetActive(false);
-			}
-			toggled = false;
-			Game.time.SetGameSpeedInstant(1f);
-			EventSystem.current.SetSelectedGameObject(null);
-		}
-		else {
-			for (int i = 0; i < gameObject.transform.childCount; ++i) {
-				gameObject.transform.GetChild(i).gameObject.SetActive(true);
-			}
-			toggled = true;
-			Game.time.SetGameSpeedInstant(0f);
-			input.Select();
-		}
+	public void OnEnable() {
+		Game.time.SetGameSpeedInstant(0f);
+		input.Select();
+	}
+
+	public void OnDisable() {
+		Game.time.SetGameSpeedInstant(1f);
+		EventSystem.current.SetSelectedGameObject(null);
 	}
 
 	/// <summary>
@@ -167,12 +152,6 @@ public class Console : MonoBehaviour
 	public void OnGUI() {
 		if (PreventKeyRepeat()) return;
 		input.caretPosition = input.text.Length;
-
-		if (Event.current.type == EventType.KeyDown) {
-			if ((!toggled && Event.current.keyCode == KeyCode.C) || (toggled && Event.current.keyCode == KeyCode.Escape))
-				Toggle();
-		}
-		if (!toggled) return;
 
 		HandleSpecialKeys();
 
