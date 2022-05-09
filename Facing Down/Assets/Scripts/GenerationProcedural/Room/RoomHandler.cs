@@ -23,6 +23,12 @@ public class RoomHandler : MonoBehaviour
         Down
     }
 
+    public void SetAsStart()
+    {
+        Game.currentRoom = this;
+        OnEnterRoom();
+        OnFinishRoom();
+    }
 
     public void InitRoom(string category)
     {
