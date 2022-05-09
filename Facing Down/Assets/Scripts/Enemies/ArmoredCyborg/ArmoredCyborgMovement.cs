@@ -102,6 +102,11 @@ public class ArmoredCyborgMovement : EnemyMovement
         if (!entityCollisionStructure.isWalled) rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(path.vectorPath[currentWayPoint].x - transform.position.x, 0).normalized * movementSpeed, 5 * Time.deltaTime);
     }
 
+    protected override void moveNotFollowingPlayerOneFlag()
+    {
+        if (!entityCollisionStructure.isWalled) rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, 0).normalized * movementSpeed, 5 * Time.deltaTime);
+    }
+
     /*private void checkObstacles()
     {
         isFacingWall = false;

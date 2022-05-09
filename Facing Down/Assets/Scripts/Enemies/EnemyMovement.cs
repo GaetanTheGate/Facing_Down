@@ -23,6 +23,8 @@ public abstract class EnemyMovement : MonoBehaviour
 
     protected EnemyAttack enemyAttack;
 
+    protected bool isWaiting = false;
+
     //ASTAR
     protected Path path;
     protected Seeker seeker;
@@ -89,12 +91,19 @@ public abstract class EnemyMovement : MonoBehaviour
 
     protected void notFollowingPlayerBehaviour()
     {
+        if (isWaiting) return;
         if (path == null) return;
         if (currentWayPoint >= path.vectorPath.Count) return;
-        moveNotFollowingPlayer();
+        if (flags.Length > 1) moveNotFollowingPlayer();
+        else 
+        {
+            if (Vector2.Distance(transform.position, nextFlag.position) < 0.2f) rb.velocity = new Vector2(0, 0);
+            else moveNotFollowingPlayerOneFlag();
+        }
         if (Vector2.Distance(transform.position, path.vectorPath[currentWayPoint]) < 1f) currentWayPoint++;
         if (Mathf.Abs(transform.position.x - nextFlag.position.x) < Mathf.Abs(transform.localScale.x))
         {
+            StartCoroutine(waitIdle(1));
             tempNext = (tempNext + 1) % flags.Length;
         }
 
@@ -111,6 +120,19 @@ public abstract class EnemyMovement : MonoBehaviour
     protected virtual void moveNotFollowingPlayer()
     {
         rb.velocity = Vector2.Lerp(rb.velocity, (path.vectorPath[currentWayPoint] - transform.position).normalized * movementSpeed, 5 * Time.deltaTime);
+    }
+
+    protected virtual void moveNotFollowingPlayerOneFlag()
+    {
+        rb.velocity = Vector2.Lerp(rb.velocity, (nextFlag.position - transform.position).normalized * movementSpeed, 5 * Time.deltaTime);
+    }
+
+    protected IEnumerator waitIdle(float duration = 1f)
+    {
+        isWaiting = true;
+        rb.velocity = new Vector2(0, 0);
+        yield return new WaitForSeconds(duration);
+        isWaiting = false;
     }
 
     protected bool checkRayCastsHitTag(List<RaycastHit2D> hits, string tag)
