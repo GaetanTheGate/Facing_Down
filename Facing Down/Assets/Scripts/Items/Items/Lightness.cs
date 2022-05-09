@@ -7,6 +7,10 @@ public class Lightness : Item
     private readonly float accelerationIncrease = 1f;
     public Lightness() : base("Lightness", ItemRarity.UNCOMMON, ItemType.WIND) { }
 
+	public override string GetDescription() {
+		return string.Format(description.DESCRIPTION, accelerationIncrease * 10);
+	}
+
 	public override void OnPickup() {
 		Game.player.stat.ModifyAcceleration(accelerationIncrease);
 	}

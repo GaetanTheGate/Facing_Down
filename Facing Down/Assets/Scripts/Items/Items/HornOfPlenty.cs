@@ -8,6 +8,10 @@ public class HornOfPlenty : Item
 
     public HornOfPlenty() : base("HornOfPlenty", ItemRarity.RARE, ItemType.EARTH) { }
 
+	public override string GetDescription() {
+		return string.Format(description.DESCRIPTION, healAmount * 100);
+	}
+
 	public override void OnRoomFinish() {
 		Game.player.stat.Heal(amount * healAmount * Game.player.stat.GetMaxHP());
 	}
