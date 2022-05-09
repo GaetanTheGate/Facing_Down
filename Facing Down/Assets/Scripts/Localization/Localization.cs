@@ -9,6 +9,9 @@ public static class Localization
 
     private static Dictionary<string, ItemDescription> itemDescriptions;
 
+    /// <summary>
+    /// Initializes all dictionaries
+    /// </summary>
     static Localization() {
         InitItemDescriptions("fr");
 	}
@@ -18,6 +21,11 @@ public static class Localization
         itemDescriptions = descriptionList.ToDictionary();
     }
 
+    /// <summary>
+    /// Returns a specific item's description
+    /// </summary>
+    /// <param name="ID">The item's ID</param>
+    /// <returns>The corresponding ItemDescription</returns>
     public static ItemDescription GetItemDescription(string ID) {
         return itemDescriptions[ID];
 	}
