@@ -2,11 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class interractJson : MonoBehaviour
+public abstract class AbstractDescription
 {
-    void Start()
-    {
-        
-    }
-
+    public string ID;
 }
