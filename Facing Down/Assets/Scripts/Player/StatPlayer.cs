@@ -61,9 +61,10 @@ public class StatPlayer : StatEntity
         if (currentHitPoints <= 0)
         {
             Game.player.inventory.OnDeath();
-            if (onDeath != null && currentHitPoints <= 0)
-                onDeath.Invoke();
-            isDead = true;
+            if (currentHitPoints <= 0) {
+                if (onDeath != null) onDeath.Invoke();
+                isDead = true;
+            }
         }
     }
 
@@ -83,6 +84,10 @@ public class StatPlayer : StatEntity
 	public override void SetCurrentHP(int HP) {
 		base.SetCurrentHP(HP);
         UI.healthBar.UpdateHP();
+	}
+
+    public int GetMaxDashes() {
+        return maxDashes;
 	}
 
     public int GetRemainingDashes() {
