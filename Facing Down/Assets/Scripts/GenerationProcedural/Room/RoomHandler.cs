@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomHandler : MonoBehaviour
 {
     public bool testFinishRoom = false;
+    public bool setAsStartTest = false;
 
     public bool leftDoor = false;
     public bool rightDoor = false;
@@ -30,6 +31,12 @@ public class RoomHandler : MonoBehaviour
         OnFinishRoom();
     }
 
+    private void Start()
+    {
+        InitRoom("test");
+        AstarPath.active.Scan();
+    }
+
     public void InitRoom(string category)
     {
         SetRoomInfo(category);
@@ -37,6 +44,9 @@ public class RoomHandler : MonoBehaviour
         GetComponentInChildren<DoorsHandler>().SetDoors();
         GetComponentInChildren<DoorsHandler>().SetClosedState(false);
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
+
+
+        GetComponentInChildren<RoomInfoHandler>().InitRoomInfo();
     }
 
     private void FixedUpdate()
@@ -46,6 +56,9 @@ public class RoomHandler : MonoBehaviour
 
         if (testFinishRoom)
             OnFinishRoom();
+
+        if (setAsStartTest)
+            SetAsStart();
     }
 
     private string roomInfoFolder = "Prefabs/Rooms/RoomsInfo";
@@ -95,6 +108,7 @@ public class RoomHandler : MonoBehaviour
     public void OnEnterRoom()
     {
         print("enter room " + gameObject.name);
+
         if (isInRoom)
             return;
 
@@ -105,11 +119,12 @@ public class RoomHandler : MonoBehaviour
         hasVisited = true;
 
         GetComponentInChildren<RoomHiderHandler>().SetBlurState(false);
+        GetComponentInChildren<RoomHiderHandler>().SetDarknessState(false);
 
         if (isCompleted)
             return;
 
-        GetComponentInChildren<RoomHiderHandler>().SetDarknessState(false);
+        GetComponentInChildren<RoomInfoHandler>().SpawnEnemy();
 
         GetComponentInChildren<DoorsHandler>().SetClosedState(true);
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
@@ -119,6 +134,8 @@ public class RoomHandler : MonoBehaviour
     {
         print("exit room " + gameObject.name);
         isInRoom = false;
+
+        GetComponentInChildren<RoomInfoHandler>().DespawnEnemy();
 
         GetComponentInChildren<RoomHiderHandler>().SetBlurState(true);
 
