@@ -20,15 +20,17 @@ public class UI : MonoBehaviour
         console = gameObject.GetComponentInChildren<Console>();
         map = transform.Find("Map").gameObject;
 
-        console.gameObject.SetActive(false);
         inventoryDisplay.gameObject.SetActive(false);
         map.SetActive(false);
     }
 
+    /// <summary>
+    /// Enables/Disables 
+    /// </summary>
 	private void OnGUI() {
 		if (Event.current.type == EventType.KeyDown) {
-            if (console.gameObject.activeSelf) {
-                if (Event.current.keyCode == KeyCode.Escape) console.gameObject.SetActive(false);
+            if (console.IsToggled()) {
+                if (Event.current.keyCode == KeyCode.Escape) console.Toggle();
             }
             else if (inventoryDisplay.gameObject.activeSelf) {
                 if (Event.current.keyCode == KeyCode.Escape) {
@@ -37,7 +39,7 @@ public class UI : MonoBehaviour
 				}
             }
             else {
-                if (Event.current.keyCode == KeyCode.C) console.gameObject.SetActive(true);
+                if (Event.current.keyCode == KeyCode.C) console.Toggle();
                 else if (Event.current.keyCode == KeyCode.E) {
                     inventoryDisplay.gameObject.SetActive(true);
                     map.SetActive(true);
