@@ -61,9 +61,10 @@ public class StatPlayer : StatEntity
         if (currentHitPoints <= 0)
         {
             Game.player.inventory.OnDeath();
-            if (onDeath != null && currentHitPoints <= 0)
-                onDeath.Invoke();
-            isDead = true;
+            if (currentHitPoints <= 0) {
+                if (onDeath != null) onDeath.Invoke();
+                isDead = true;
+            }
         }
     }
 
