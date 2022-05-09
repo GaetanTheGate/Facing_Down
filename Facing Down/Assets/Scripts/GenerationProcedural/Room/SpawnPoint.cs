@@ -20,6 +20,7 @@ public class SpawnPoint : MonoBehaviour
         enemyEntity = Instantiate(enemyChosen);
         enemyEntity.transform.position = transform.position;
         enemyEntity.transform.SetParent(transform.parent);
+        enemyEntity.GetComponent<EnemyMovement>().flags = wayPoints.ToArray();
     }
 
     public void DespawnEnemy()
