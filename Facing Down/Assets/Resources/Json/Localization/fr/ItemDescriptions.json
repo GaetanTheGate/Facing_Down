@@ -2,14 +2,114 @@
 	"descriptions" : 
 	[
 		{
+			"ID" : "PrintItem",
+			"NAME" : "PrintItem",
+			"DESCRIPTION" : "Affiche les actions effectués dans la console"
+		},
+		{
+			"ID" : "BurningCircle",
+			"NAME" : "Cercle de Brulûre",
+			"DESCRIPTION" : "Attaquer crée une zone de dégâts infligeant {0}% de dégâts aux ennemis proches"
+		},
+		{
+			"ID" : "ResidualEmbers",
+			"NAME" : "Braises Résiduelles",
+			"DESCRIPTION" : "Les attaques réalisées sont répétées après {1}s ,infligeant {0}% de dégâts"
+		},
+		{
+			"ID" : "MagmaticCoating",
+			"NAME" : "RevêtementMagmatique",
+			"DESCRIPTION" : "Augmente les chances de coup critique de {0}%"
+		},
+		{
 			"ID" : "FieryAlloy",
 			"NAME" : "Alliage Ardent",
-			"DESCRIPTION" : "OUAAAAH"
-		}, 
+			"DESCRIPTION" : "Augmente tous les dégâts de {0}%"
+		},
 		{
-			"ID" : "ClayClone", 
+			"ID" : "VoraciousFlames",
+			"NAME" : "Flammes Insatiables",
+			"DESCRIPTION" : "Les attaques aériennes successives infligent {0}% de dégâts supplémentaires"
+		},
+		{
+			"ID" : "ObsidianShard",
+			"NAME" : "Éclat d'Obsidienne",
+			"DESCRIPTION" : "Lorsque vous éliminez un ennemi, tirez 1 projectile infligeant {0}% de dégâts vers l' ennemi le plus proche"
+		},
+		{
+			"ID" : "FocusAmber",
+			"NAME" : "Ambre de Concentration",
+			"DESCRIPTION" : "Augmente de {0}% la durée du Bullet Time"
+		},
+		{
+			"ID" : "PowerSaver",
+			"NAME" : "Récupérateur d'Énergie",
+			"DESCRIPTION" : "Sortir du bullet time sans effectuer d'action rend {0}% d'énergie"
+		},
+		{
+			"ID" : "HeartOfTheStorm",
+			"NAME" : "Coeur de la Tempête",
+			"DESCRIPTION" : "Éliminer un ennemi rend {0}% d'énergie supplémentaire"
+		},
+		{
+			"ID" : "BatteryPack", 
+			"NAME" : "Extension de Batterie",
+			"DESCRIPTION" : "Augmente de {0} le maximum d'énergie"
+		},
+		{
+			"ID" : "OverchargedCoil",
+			"NAME" : "Bobine Surchargée",
+			"DESCRIPTION" : "Activer le Bullet Time inflige {0}% de dégâts à tous les ennemis"
+		},
+		{
+			"ID" : "ImpenetrableRoots",
+			"NAME" : "Racines Impénétrables",
+			"DESCRIPTION" : "Au contact avec le sol, réduit les dégâts subis de {0}%"
+		},
+		{
+			"ID" : "HardeningPlates",
+			"NAME" : "Plaques Durcissantes",
+			"DESCRIPTION" : "Éliminer un ennemi vous rend invulnérable pendant {0}s"
+		},
+		{
+			"ID" : "StoneArmor",
+			"NAME" : "Armure Rocheuse",
+			"DESCRIPTION" : "Augmente les PV maximum de {0}"
+		},
+		{
+			"ID" : "HornOfPlenty",
+			"NAME" : "Corne d'Abondance",
+			"DESCRIPTION" : "Régénère {0}% des PV à la fin de chaque salle"
+		},
+		{
+			"ID" : "SylvanBreastplate",
+			"NAME" : "Plastron Sylvestre",
+			"DESCRIPTION" : "Réduit les dégâts subis de {0}"
+		},
+		{
+			"ID" : "ClayClone",
 			"NAME" : "Clone d'Argile",
-			"DESCRIPTION" : "INCROYABLE"
+			"DESCRIPTION" : "À la mort, ressuscite avec l'entièreté des PV"
+		},
+		{
+			"ID" : "Lightness",
+			"NAME" : "Légèreté",
+			"DESCRIPTION" : "Augmente la vitesse de propulsion de {0}%"
+		},
+		{
+			"ID" : "ArtificialWings",
+			"NAME" : "Ailes Artificielles",
+			"DESCRIPTION" : "Augmente le nombre maximal de dashs de {0}"
+		},
+		{
+			"ID" : "RiftMaker",
+			"NAME" : "Créateur de Failles",
+			"DESCRIPTION" : "Atterir crée une faille dans laquelle la vitesse de propulsion est augmentée de {0}%"
+		},
+		{
+			"ID" : "InvisibilityCloak",
+			"NAME" : "Cape d'Invisibilité",
+			"DESCRIPTION" : "Dasher ou se rediriger rend invulnérable pendant {0}s"
 		}
 	]
 }
