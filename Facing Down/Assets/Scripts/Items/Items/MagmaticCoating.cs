@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MagmaticCoating : Item
-{
+{	
+	private readonly float critRate = 10;
 	public MagmaticCoating() : base("MagmaticCoating", ItemRarity.COMMON, ItemType.FIRE) { }
 
-	private readonly float critRate = 10;
+	public override string GetDescription() {
+		return string.Format(description.DESCRIPTION, critRate);
+	}
+
 	public override void OnPickup() {
 		Game.player.stat.critRate += critRate;
 	}

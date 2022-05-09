@@ -7,6 +7,10 @@ public class BatteryPack : Item
 	private readonly int maxSpecialIncrease = 1;
     public BatteryPack() : base("BatteryPack", ItemRarity.EPIC, ItemType.THUNDER) { }
 
+	public override string GetDescription() {
+		return string.Format(description.DESCRIPTION, maxSpecialIncrease);
+	}
+
 	public override void OnPickup() {
 		Game.player.stat.ModifyMaxSpecial(maxSpecialIncrease);
 	}

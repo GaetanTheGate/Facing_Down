@@ -7,6 +7,10 @@ public class ObsidianShard : Item
 	private readonly float baseAtk = 50f;
     public ObsidianShard() : base("ObsidianShard", ItemRarity.LEGENDARY, ItemType.FIRE) { }
 
+	public override string GetDescription() {
+		return string.Format(description.DESCRIPTION, baseAtk);
+	}
+
 	public override void OnEnemyKill(Entity enemy) {
 		QuickLaser laser = new QuickLaser("Enemy");
 		laser.SetBaseAtk(baseAtk * amount);

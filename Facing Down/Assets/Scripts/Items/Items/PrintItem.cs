@@ -4,6 +4,10 @@ public class PrintItem : Item
 {
 	public PrintItem() : base("PrintItem", ItemRarity.LEGENDARY, ItemType.WIND) {}
 
+	public override string GetDescription() {
+		return description.DESCRIPTION;
+	}
+
 	public override void OnPickup() {
 		Debug.Log("Item Picked Up. New amount = " + amount);
 	}
@@ -16,6 +20,7 @@ public class PrintItem : Item
 		Debug.Log("DAMAGE TAKEN");
 		return damage;
 	}
+
 	public override DamageInfo OnDealDamage(DamageInfo damage) {
 		Debug.Log("DAMAGE DEALT");
 		return damage;

@@ -7,6 +7,9 @@ using UnityEngine;
 /// </summary>
 public abstract class Item{
     private string ID;
+
+    protected ItemDescription description;
+
     protected int amount;
     private ItemRarity rarity;
     private ItemType type;
@@ -24,6 +27,7 @@ public abstract class Item{
         this.rarity = rarity;
         this.type = type;
         this.priority = priority;
+        this.description = Localization.GetItemDescription(id);
         amount = 1;
 	}
 
@@ -40,6 +44,13 @@ public abstract class Item{
     public string GetID() {
         return ID;
 	}
+
+    public string GetName() {
+        return description.NAME;
+	}
+
+    public abstract string GetDescription();
+
     public int GetAmount() {
         return amount;
 	}
