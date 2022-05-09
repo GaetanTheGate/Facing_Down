@@ -12,5 +12,6 @@ public class DoorTrigger : MonoBehaviour
             Map.changeColorMapicon(Game.currentRoom.gameObject,GetComponentInParent<RoomHandler>().gameObject);
             GetComponentInParent<RoomHandler>().OnEnterRoom();
         }
+        
     }
 }
