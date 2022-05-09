@@ -85,6 +85,10 @@ public class StatPlayer : StatEntity
         UI.healthBar.UpdateHP();
 	}
 
+    public int GetMaxDashes() {
+        return maxDashes;
+	}
+
     public int GetRemainingDashes() {
         return maxDashes - numberOfDashes;
 	}
