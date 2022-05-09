@@ -1927,7 +1927,6 @@ GameObject:
   - component: {fileID: 3236959276028449851}
   - component: {fileID: 3236959276028449850}
   - component: {fileID: 7027112368737634775}
-  - component: {fileID: 4718732902819947138}
   m_Layer: 0
   m_Name: BaseRoom
   m_TagString: Untagged
@@ -1983,23 +1982,6 @@ MonoBehaviour:
   botDoor: 0
   hasVisited: 0
   isCompleted: 0
-  triggerStart: 0
---- !u!114 &4718732902819947138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3236959276028449849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f47b500ff6cda814c83f7793dc085182, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorRight: 0
-  doorLeft: 0
-  doorUp: 0
-  doorDown: 0
 --- !u!1 &3236959276066966233
 GameObject:
   m_ObjectHideFlags: 0
