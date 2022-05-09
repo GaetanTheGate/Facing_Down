@@ -19,5 +19,32 @@ public class UI : MonoBehaviour
         dashBar = gameObject.GetComponentInChildren<DashBar>();
         console = gameObject.GetComponentInChildren<Console>();
         map = transform.Find("Map").gameObject;
+
+        inventoryDisplay.gameObject.SetActive(false);
+        map.SetActive(false);
     }
+
+    /// <summary>
+    /// Enables/Disables 
+    /// </summary>
+	private void OnGUI() {
+		if (Event.current.type == EventType.KeyDown) {
+            if (console.IsToggled()) {
+                if (Event.current.keyCode == KeyCode.Escape) console.Toggle();
+            }
+            else if (inventoryDisplay.gameObject.activeSelf) {
+                if (Event.current.keyCode == KeyCode.Escape) {
+                    inventoryDisplay.gameObject.SetActive(false);
+                    map.SetActive(false);
+				}
+            }
+            else {
+                if (Event.current.keyCode == KeyCode.C) console.Toggle();
+                else if (Event.current.keyCode == KeyCode.E) {
+                    inventoryDisplay.gameObject.SetActive(true);
+                    map.SetActive(true);
+				}
+			}
+		}
+	}
 }

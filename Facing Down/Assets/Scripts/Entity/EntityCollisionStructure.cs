@@ -21,6 +21,8 @@ public class EntityCollisionStructure : AbstractEntity
     private bool isWallFirstFrame = true;
     private bool isCeilingFirstFrame = true;
 
+    public List<Vector2> contactNormalsRelativeToGravity = new List<Vector2>();
+
     public override void Init()
     {
         gravityEntity = gameObject.GetComponent<GravityEntity>();
@@ -35,9 +37,11 @@ public class EntityCollisionStructure : AbstractEntity
     {
         if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Terrain")))
         {
+            contactNormalsRelativeToGravity = new List<Vector2>();
             foreach (ContactPoint2D contact in collision.contacts)
             {
                 float angle = Vector2.Angle(gravityEntity.gravity.GetAsVector2(), contact.normal);
+                //angle = Mathf.Round(angle);
                 if (angle <= 180.0f && angle >= 135.0f)
                 {
                     isEnteringGround = true;
@@ -55,6 +59,7 @@ public class EntityCollisionStructure : AbstractEntity
                     isEnteringCeiling = true;
                     isCeilingFirstFrame = false;
                 }
+                contactNormalsRelativeToGravity.Add(new Velocity(contact.normal).SubToAngle(gravityEntity.gravity.getAngle() - 270).GetAsVector2());
             }
             //if (isEnteringGround || isEnteringCeiling || isEnteringWall)
                 //Game.player.inventory.OnGroundCollisionEnter();
@@ -92,9 +97,11 @@ public class EntityCollisionStructure : AbstractEntity
             groundedTest = false;
             walledTest = false;
             ceilingedTest = false;
+            contactNormalsRelativeToGravity = new List<Vector2>();
             foreach (ContactPoint2D contact in col.contacts)
             {
                 float angle = Vector2.Angle(gravityEntity.gravity.GetAsVector2(), contact.normal);
+                //angle = Mathf.Round(angle);
                 if (angle <= 180.0f && angle >= 135.0f)
                 {
                     groundedTest = true;
@@ -113,7 +120,10 @@ public class EntityCollisionStructure : AbstractEntity
                     ceilingedTest = true;
                     if (isCeilingFirstFrame) isEnteringCeilingTest = true;
                 }
+
+                contactNormalsRelativeToGravity.Add(new Velocity(contact.normal).SubToAngle(gravityEntity.gravity.getAngle() - 270).GetAsVector2());
             }
+
 
             isGrounded = groundedTest;
             isWalled = walledTest;

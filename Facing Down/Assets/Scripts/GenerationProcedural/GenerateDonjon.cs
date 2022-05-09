@@ -9,7 +9,7 @@ public class GenerateDonjon : MonoBehaviour
     public static int nbRoomWidth = 5;
     public static int nbRoomHeight = 10; 
 
-    public static int nbRoom = (nbRoomHeight * nbRoomWidth) / 4;
+    public static int nbRoom = (nbRoomHeight * nbRoomWidth) / 3;
     public static int idRoom = 0;
 
 
@@ -18,7 +18,7 @@ public class GenerateDonjon : MonoBehaviour
     
 
     public static List<GameObject> processRooms = new List<GameObject>();
-    public static Dictionary<GameObject,List<Room.side>> validSideOfRoom = new Dictionary<GameObject, List<Room.side>>();
+    public static Dictionary<GameObject,List<RoomHandler.side>> validSideOfRoom = new Dictionary<GameObject, List<RoomHandler.side>>();
     
     
     public static GameObject[,] gridMap = new GameObject[nbRoomHeight, nbRoomWidth];
@@ -54,7 +54,7 @@ public class GenerateDonjon : MonoBehaviour
         initRoom.name = initRoom.name.Substring(0,initRoom.name.IndexOf('(')) + '-' + idRoom++;
         initRoom.transform.SetParent(gameManager.transform);
         processRooms.Add(initRoom);
-        validSideOfRoom.Add(initRoom,new List<Room.side>(){Room.side.Down,Room.side.Left,Room.side.Right});
+        validSideOfRoom.Add(initRoom,new List<RoomHandler.side>(){RoomHandler.side.Down,RoomHandler.side.Left,RoomHandler.side.Right});
         gridMap[0, nbRoomWidth / 2] = initRoom;
 
 
@@ -64,7 +64,7 @@ public class GenerateDonjon : MonoBehaviour
         
         gridMap[nbRoomHeight - 3, nbRoomWidth / 2] = anteroom;
 
-        anteroom.GetComponent<Room>().generateSpecificRoomOnSide(Room.side.Down,"BossRoom");
+        anteroom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down,"BossRoom");
 
         Game.currentRoom = initRoom.GetComponent<RoomHandler>();
         
@@ -80,30 +80,30 @@ public class GenerateDonjon : MonoBehaviour
             GameObject processRoom = processRooms[Game.random.Next(0,processRooms.Count)];
 
             double random = Game.random.NextDouble();
-            Room.side side;
-            if (random < probDown && validSideOfRoom[processRoom].Contains(Room.side.Down)){
-                side = Room.side.Down;
+            RoomHandler.side side;
+            if (random < probDown && validSideOfRoom[processRoom].Contains(RoomHandler.side.Down)){
+                side = RoomHandler.side.Down;
             }
 
-            else if(random < probDown && !validSideOfRoom[processRoom].Contains(Room.side.Down) && validSideOfRoom[processRoom].Count > 0){
+            else if(random < probDown && !validSideOfRoom[processRoom].Contains(RoomHandler.side.Down) && validSideOfRoom[processRoom].Count > 0){
                 side = validSideOfRoom[processRoom][Game.random.Next(0,validSideOfRoom[processRoom].Count)];
             }
 
             else{
-                List<Room.side> otherSide = new List<Room.side>();
+                List<RoomHandler.side> otherSide = new List<RoomHandler.side>();
 
-                foreach(Room.side valideSide in validSideOfRoom[processRoom]){
-                    if(valideSide != Room.side.Down)
+                foreach(RoomHandler.side valideSide in validSideOfRoom[processRoom]){
+                    if(valideSide != RoomHandler.side.Down)
                         otherSide.Add(valideSide);
                 }
 
                 if(otherSide.Count == 0)
-                    side = Room.side.Down;
+                    side = RoomHandler.side.Down;
                 else
                     side = otherSide[Game.random.Next(0,otherSide.Count)];
             }
 
-            if(processRoom.GetComponent<Room>().generateRoomOnSide(side)){
+            if(processRoom.GetComponent<RoomHandler>().generateRoomOnSide(side)){
                 nbRoom -= 1;
             }
             
@@ -114,10 +114,6 @@ public class GenerateDonjon : MonoBehaviour
         for(int i = 0; i < nbRoomHeight; i += 1){
             for(int j = 0; j < nbRoomWidth; j += 1){
                 if (gridMap[i,j] != null){
-                    gridMap[i,j].GetComponent<RoomHandler>().leftDoor = gridMap[i,j].GetComponent<Room>().doorLeft;
-                    gridMap[i,j].GetComponent<RoomHandler>().rightDoor = gridMap[i,j].GetComponent<Room>().doorRight;
-                    gridMap[i,j].GetComponent<RoomHandler>().topDoor = gridMap[i,j].GetComponent<Room>().doorUp;
-                    gridMap[i,j].GetComponent<RoomHandler>().botDoor = gridMap[i,j].GetComponent<Room>().doorDown;
 
                     gridMap[i,j].transform.position = new Vector2(36 * j, 36 * -i);
 
@@ -152,47 +148,47 @@ public class GenerateDonjon : MonoBehaviour
         for(int i = 0; i < nbRoomHeight - 3; i += 1){
             for(int j = 0; j < nbRoomWidth; j += 1){
                 if(gridMap[i,j] != null){
-                    Room room = gridMap[i,j].GetComponent<Room>();
-                    if(!room.doorDown && !room.doorLeft && !room.doorRight && room.doorUp){
+                    RoomHandler room = gridMap[i,j].GetComponent<RoomHandler>();
+                    if(!room.botDoor && !room.leftDoor && !room.rightDoor && room.topDoor){
                         if((j + 1 < nbRoomWidth && gridMap[i,j+1] != null))
-                            room.setDoorsOn(Room.side.Right, gridMap[i,j+1]);
+                            room.setDoorsOn(RoomHandler.side.Right, gridMap[i,j+1]);
 
                         else if(j - 1 > 0 && gridMap[i,j-1] != null)
-                            room.setDoorsOn(Room.side.Left, gridMap[i,j-1]);
+                            room.setDoorsOn(RoomHandler.side.Left, gridMap[i,j-1]);
 
                         else if(gridMap[i+1,j] != null)
-                            room.setDoorsOn(Room.side.Down, gridMap[i+1,j]);
+                            room.setDoorsOn(RoomHandler.side.Down, gridMap[i+1,j]);
                     
                         else
-                            room.generateSpecificRoomOnSide(Room.side.Down);
+                            room.generateSpecificRoomOnSide(RoomHandler.side.Down);
                     }
 
-                    if(!room.doorDown && !room.doorLeft && room.doorRight && !room.doorUp){
+                    if(!room.botDoor && !room.leftDoor && room.rightDoor && !room.topDoor){
                         if(gridMap[i+1,j] != null)
-                            room.setDoorsOn(Room.side.Down, gridMap[i+1,j]);
+                            room.setDoorsOn(RoomHandler.side.Down, gridMap[i+1,j]);
 
                         else if(j - 1 > 0 && gridMap[i,j-1] != null)
-                            room.setDoorsOn(Room.side.Left, gridMap[i,j-1]);
+                            room.setDoorsOn(RoomHandler.side.Left, gridMap[i,j-1]);
 
                         else
-                            room.generateSpecificRoomOnSide(Room.side.Down);
+                            room.generateSpecificRoomOnSide(RoomHandler.side.Down);
                     }
 
-                    if(!room.doorDown && room.doorLeft && !room.doorRight && !room.doorUp){
+                    if(!room.botDoor && room.leftDoor && !room.rightDoor && !room.topDoor){
                         if(gridMap[i+1,j] != null)
-                            room.setDoorsOn(Room.side.Down, gridMap[i+1,j]);
+                            room.setDoorsOn(RoomHandler.side.Down, gridMap[i+1,j]);
 
                         else if(j + 1 < nbRoomWidth && gridMap[i,j+1] != null)
-                            room.setDoorsOn(Room.side.Right, gridMap[i,j+1]);
+                            room.setDoorsOn(RoomHandler.side.Right, gridMap[i,j+1]);
 
                         else
-                            room.generateSpecificRoomOnSide(Room.side.Down);
+                            room.generateSpecificRoomOnSide(RoomHandler.side.Down);
                     }
-                    if(!room.doorDown && room.doorLeft && !room.doorRight && room.doorUp)
-                        checkIfRoomIsLinkToRoomWithDoorDown(Room.side.Left,new Vector2(i,j));
+                    if(!room.botDoor && room.leftDoor && !room.rightDoor && room.topDoor)
+                        checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side.Left,new Vector2(i,j));
 
-                    if(!room.doorDown && !room.doorLeft && room.doorRight && room.doorUp)
-                        checkIfRoomIsLinkToRoomWithDoorDown(Room.side.Right, new Vector2(i,j));    
+                    if(!room.botDoor && !room.leftDoor && room.rightDoor && room.topDoor)
+                        checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side.Right, new Vector2(i,j));    
                 }
             }
         }
@@ -201,57 +197,57 @@ public class GenerateDonjon : MonoBehaviour
         
         for(int i = 0; i < nbRoomWidth/2; i +=1){
             if(gridMap[nbRoomHeight-3, i] != null){
-                Room room = gridMap[nbRoomHeight-3,i].GetComponent<Room>();
+                RoomHandler room = gridMap[nbRoomHeight-3,i].GetComponent<RoomHandler>();
                 if(gridMap[nbRoomHeight-3, i + 1] != null)
-                    room.setDoorsOn(Room.side.Right, gridMap[nbRoomHeight-3,i + 1]);
+                    room.setDoorsOn(RoomHandler.side.Right, gridMap[nbRoomHeight-3,i + 1]);
                 else
-                    room.generateSpecificRoomOnSide(Room.side.Right);
+                    room.generateSpecificRoomOnSide(RoomHandler.side.Right);
             }
         }
 
         for(int i = nbRoomWidth - 1; i > nbRoomWidth/2; i -=1){
             if(gridMap[nbRoomHeight-3, i] != null){
-                Room room = gridMap[nbRoomHeight-3,i].GetComponent<Room>();
+                RoomHandler room = gridMap[nbRoomHeight-3,i].GetComponent<RoomHandler>();
                     if(gridMap[nbRoomHeight-3, i - 1] != null)
-                        room.setDoorsOn(Room.side.Left, gridMap[nbRoomHeight-3,i - 1]);
+                        room.setDoorsOn(RoomHandler.side.Left, gridMap[nbRoomHeight-3,i - 1]);
                     else
-                        room.generateSpecificRoomOnSide(Room.side.Left);
+                        room.generateSpecificRoomOnSide(RoomHandler.side.Left);
             }
         }
     }
 
 
-    public void checkIfRoomIsLinkToRoomWithDoorDown(Room.side sideToGo, Vector2 coordinates){
+    public void checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side sideToGo, Vector2 coordinates){
         switch(sideToGo){
-            case Room.side.Left:
-                if(gridMap[(int) coordinates.x, (int) coordinates.y - 1].GetComponent<Room>().doorDown)
+            case RoomHandler.side.Left:
+                if(gridMap[(int) coordinates.x, (int) coordinates.y - 1].GetComponent<RoomHandler>().botDoor)
                     return;
-                else if (gridMap[(int) coordinates.x, (int) coordinates.y -1].GetComponent<Room>().doorLeft)
-                    checkIfRoomIsLinkToRoomWithDoorDown(Room.side.Left, new Vector2(coordinates.x, coordinates.y -1));
+                else if (gridMap[(int) coordinates.x, (int) coordinates.y -1].GetComponent<RoomHandler>().leftDoor)
+                    checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side.Left, new Vector2(coordinates.x, coordinates.y -1));
                 else{
                     if(gridMap[(int) coordinates.x + 1, (int) coordinates.y] == null){
-                        gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<Room>().generateSpecificRoomOnSide(Room.side.Down);
+                        gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down);
                         return;                    }
 
                     else{
-                        gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<Room>().setDoorsOn(Room.side.Down, gridMap[(int) coordinates.x + 1, (int) coordinates.y]);
+                        gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<RoomHandler>().setDoorsOn(RoomHandler.side.Down, gridMap[(int) coordinates.x + 1, (int) coordinates.y]);
                         return;
                     }
                 }
                 break;
             
-            case Room.side.Right:
-                if(gridMap[(int) coordinates.x, (int) coordinates.y + 1].GetComponent<Room>().doorDown)
+            case RoomHandler.side.Right:
+                if(gridMap[(int) coordinates.x, (int) coordinates.y + 1].GetComponent<RoomHandler>().botDoor)
                     return;
-                else if (gridMap[(int) coordinates.x, (int) coordinates.y +1].GetComponent<Room>().doorRight)
-                    checkIfRoomIsLinkToRoomWithDoorDown(Room.side.Right, new Vector2(coordinates.x, coordinates.y + 1));
+                else if (gridMap[(int) coordinates.x, (int) coordinates.y +1].GetComponent<RoomHandler>().rightDoor)
+                    checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side.Right, new Vector2(coordinates.x, coordinates.y + 1));
                 else{
                     if(gridMap[(int) coordinates.x + 1, (int) coordinates.y] == null){
-                        gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<Room>().generateSpecificRoomOnSide(Room.side.Down);
+                        gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down);
                         return;                    }
 
                     else{
-                        gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<Room>().setDoorsOn(Room.side.Down, gridMap[(int) coordinates.x + 1, (int) coordinates.y]);
+                        gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<RoomHandler>().setDoorsOn(RoomHandler.side.Down, gridMap[(int) coordinates.x + 1, (int) coordinates.y]);
                         return;
                     }
                 }

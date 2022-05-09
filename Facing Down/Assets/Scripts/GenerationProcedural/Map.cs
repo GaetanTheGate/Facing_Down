@@ -25,7 +25,7 @@ public class Map : MonoBehaviour
         for(int i = 0; i < GenerateDonjon.nbRoomHeight; i += 1){
             for(int j = 0; j < GenerateDonjon.nbRoomWidth; j += 1){
                 if (GenerateDonjon.gridMap[i, j] != null){
-                    GameObject mapIcon = chooseMapIcon(GenerateDonjon.gridMap[i, j].GetComponent<Room>());
+                    GameObject mapIcon = chooseMapIcon(GenerateDonjon.gridMap[i, j].GetComponent<RoomHandler>());
                     mapIcon.transform.localPosition = new Vector2(sizeImage * j, sizeImage * -i);
                     if(GenerateDonjon.gridMap[i, j].name == Game.currentRoom.name)
                         mapIcon.GetComponent<Image>().color = Color.blue;
@@ -37,7 +37,7 @@ public class Map : MonoBehaviour
         
     }
   
-    public static GameObject chooseMapIcon(Room room){
+    public static GameObject chooseMapIcon(RoomHandler room){
 
         GameObject imageGo = new GameObject("MapIcon" + room.name);
         imageGo.tag = "MapIcon"; 
@@ -45,71 +45,71 @@ public class Map : MonoBehaviour
         imageGo.transform.SetParent(GameObject.Find("Map").transform);
 
         //4 doors not null
-        if (room.doorDown && room.doorUp && room.doorLeft && room.doorRight)
+        if (room.botDoor && room.topDoor && room.leftDoor && room.rightDoor)
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + fourDoors);
 
         //1 door not null
-        else if(room.doorLeft && !room.doorUp && !room.doorRight && !room.doorDown)
+        else if(room.leftDoor && !room.topDoor && !room.rightDoor && !room.botDoor)
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + oneDoor);
 
-        else if(!room.doorLeft && room.doorUp && !room.doorRight && !room.doorDown){
+        else if(!room.leftDoor && room.topDoor && !room.rightDoor && !room.botDoor){
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + oneDoor);
             imageGo.transform.Rotate(0,0,-90f);
         }
 
-        else if(!room.doorLeft && !room.doorUp && room.doorRight && !room.doorDown){
+        else if(!room.leftDoor && !room.topDoor && room.rightDoor && !room.botDoor){
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + oneDoor);
             imageGo.transform.Rotate(0,0,180f);
         }
 
-        else if(!room.doorLeft && !room.doorUp && !room.doorRight && room.doorDown){
+        else if(!room.leftDoor && !room.topDoor && !room.rightDoor && room.botDoor){
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + oneDoor);
             imageGo.transform.Rotate(0,0,90f);
         }
 
         //2 doors not null config 1 (2 doors on the opposite side)
-        else if(room.doorLeft && !room.doorUp && room.doorRight && !room.doorDown)
+        else if(room.leftDoor && !room.topDoor && room.rightDoor && !room.botDoor)
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + twoDoorsConfig1);
 
-        else if(!room.doorLeft && room.doorUp && !room.doorRight && room.doorDown){
+        else if(!room.leftDoor && room.topDoor && !room.rightDoor && room.botDoor){
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + twoDoorsConfig1);
             imageGo.transform.Rotate(0,0,90f);
         }
 
         //2 doors not null config 2 (2 doors which follow each other)
-        else if(room.doorLeft && room.doorUp && !room.doorRight && !room.doorDown)
+        else if(room.leftDoor && room.topDoor && !room.rightDoor && !room.botDoor)
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + twoDoorsConfig2);
 
-        else if(!room.doorLeft && room.doorUp && room.doorRight && !room.doorDown){
+        else if(!room.leftDoor && room.topDoor && room.rightDoor && !room.botDoor){
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + twoDoorsConfig2);
             imageGo.transform.Rotate(0,0,-90f);
         }
 
-        else if(!room.doorLeft && !room.doorUp && room.doorRight && room.doorDown){
+        else if(!room.leftDoor && !room.topDoor && room.rightDoor && room.botDoor){
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + twoDoorsConfig2);
             imageGo.transform.Rotate(0,0,180f);
         }
 
-        else if(room.doorLeft && !room.doorUp && !room.doorRight && room.doorDown){
+        else if(room.leftDoor && !room.topDoor && !room.rightDoor && room.botDoor){
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + twoDoorsConfig2);
             imageGo.transform.Rotate(0,0,90f);
         }
 
         //3 doors not null
-        else if(room.doorLeft && room.doorUp && room.doorRight && !room.doorDown)
+        else if(room.leftDoor && room.topDoor && room.rightDoor && !room.botDoor)
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + threeDoors);   
         
-        else if(!room.doorLeft && room.doorUp && room.doorRight && room.doorDown){
+        else if(!room.leftDoor && room.topDoor && room.rightDoor && room.botDoor){
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + threeDoors);
             imageGo.transform.Rotate(0,0,-90f);
         }
 
-        else if(room.doorLeft && !room.doorUp && room.doorRight && room.doorDown){
+        else if(room.leftDoor && !room.topDoor && room.rightDoor && room.botDoor){
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + threeDoors);
             imageGo.transform.Rotate(0,0,180f);
         }
 
-        else if(room.doorLeft && room.doorUp && !room.doorRight && room.doorDown){
+        else if(room.leftDoor && room.topDoor && !room.rightDoor && room.botDoor){
             imageGo.GetComponent<Image>().sprite = Resources.Load<Sprite>(mapIconPath + threeDoors);
             imageGo.transform.Rotate(0,0,90f);
         }
@@ -119,8 +119,12 @@ public class Map : MonoBehaviour
     }
 
     public static void changeColorMapicon(GameObject roomToHide, GameObject roomToDisplay){
-        GameObject.Find("MapIcon"+roomToHide.name).GetComponent<Image>().color = Color.white;
-        GameObject.Find("MapIcon"+roomToDisplay.name).GetComponent<Image>().color = Color.blue;
+        foreach(Object o in GameObject.FindObjectsOfType(typeof(GameObject), true)){
+            if((((GameObject) o).CompareTag("MapIcon") && o.name == "MapIcon"+roomToHide.name))
+                ((GameObject) o).GetComponent<Image>().color = Color.white;
+            if((((GameObject) o).CompareTag("MapIcon") && o.name == "MapIcon"+roomToDisplay.name))
+                ((GameObject) o).GetComponent<Image>().color = Color.blue;
+        }
     }
 
 }

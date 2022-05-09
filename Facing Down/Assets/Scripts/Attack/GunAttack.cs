@@ -49,7 +49,7 @@ public class GunAttack : MeleeAttack
             newAttack.followEntity = false;
 
         }
-        else if (attack.GetType().IsSubclassOf(typeof(ProjectileAttack)))
+        else if (attack.GetType().IsSubclassOf(typeof(ThrowableAttack)))
         {
         }
         else if (attack.GetType().IsSubclassOf(typeof(CompositeAttack)))

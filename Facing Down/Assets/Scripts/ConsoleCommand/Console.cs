@@ -31,7 +31,7 @@ public class Console : MonoBehaviour
 	private void Awake() {
 		toggled = false;
 
-		noRepeatKeys = new List<KeyCode> { KeyCode.Period, KeyCode.Tab };
+		noRepeatKeys = new List<KeyCode> { KeyCode.Tab };
 
 		lastInputs = new List<string>();
 		scrollIndex = -1;
@@ -45,7 +45,7 @@ public class Console : MonoBehaviour
 	/// <summary>
 	/// Enables / Disables the console, and pauses the game.
 	/// </summary>
-	private void Toggle() {
+	public void Toggle() {
 		if (toggled) {
 			for (int i = 0; i < gameObject.transform.childCount; ++i) {
 				gameObject.transform.GetChild(i).gameObject.SetActive(false);
@@ -62,6 +62,10 @@ public class Console : MonoBehaviour
 			Game.time.SetGameSpeedInstant(0f);
 			input.Select();
 		}
+	}
+
+	public bool IsToggled() {
+		return toggled;
 	}
 
 	/// <summary>
@@ -109,14 +113,13 @@ public class Console : MonoBehaviour
 				previewIndex = Utility.mod(previewIndex + 1, previews.Count);
 				UpdatePreview();
 			}
-			else if (Event.current.keyCode == KeyCode.Escape) {
-				input.text = "";
-				EventSystem.current.SetSelectedGameObject(null); //Doit être utilisé, sinon il faut appuyer sur Entrée pour re-sélectionner input
-				input.Select();
-			}
 		}
 	}
 
+	/// <summary>
+	/// Sets the text while preventing the next OnInputChanged from being triggered. Used to prevent scroll to reinitialize itself.
+	/// </summary>
+	/// <param name="newText"></param>
 	private void SetTextFromScrolling(string newText) {
 		inputChangedByScrolling = input.text != newText;
 		if (inputChangedByScrolling)
@@ -171,12 +174,9 @@ public class Console : MonoBehaviour
 	/// </summary>
 	public void OnGUI() {
 		if (PreventKeyRepeat()) return;
-		input.caretPosition = input.text.Length;
-
-		if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Period) {
-			Toggle();
-		}
 		if (!toggled) return;
+
+		input.caretPosition = input.text.Length;
 
 		HandleSpecialKeys();
 
