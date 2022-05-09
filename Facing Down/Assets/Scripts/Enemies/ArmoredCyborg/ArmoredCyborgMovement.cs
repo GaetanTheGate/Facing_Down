@@ -38,8 +38,6 @@ public class ArmoredCyborgMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-
         rb = GetComponent<Entity>().GetRB();
         player = Game.player.self.gameObject;
         playerTransform = player.transform;

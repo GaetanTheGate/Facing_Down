@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Drone3Movement : MonoBehaviour
 {
@@ -23,6 +24,12 @@ public class Drone3Movement : MonoBehaviour
 
     private bool isFlipped = false;
 
+    //ASTAR
+    private Path path;
+    private Seeker seeker;
+    private int currentWayPoint = 0;
+    //ASTAR
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,80 +38,103 @@ public class Drone3Movement : MonoBehaviour
         playerTransform = player.transform;
         animator = gameObject.GetComponent<Animator>();
         drone3Attack = gameObject.GetComponent<Drone3Attack>();
+
+        nextFlag = flags[0];
+        seeker = gameObject.GetComponent<Seeker>();
+        InvokeRepeating("updatePath", 0f, 0.3f);
+    }
+
+    void onPathComputed(Path p)
+    {
+        if (!p.error)
+        {
+            path = p;
+            currentWayPoint = 0;
+        }
+    }
+
+    void updatePath()
+    {
+        if (seeker.IsDone()) seeker.StartPath(rb.position, nextFlag.position, onPathComputed);
     }
 
     private void FixedUpdate()
     {
-        nearestFlag = flags[0];
-        foreach (Transform flag in flags)
-        {
-            if (Vector2.Distance(transform.position, flag.position) < Vector2.Distance(transform.position, nearestFlag.position)) nearestFlag = flag;
-        }
-        if (checkRayCastsHitTag(Raycasting.castRayFanInAngleFromEntity(transform, isFlipped ? 180 : 0, 135, aggroViewDistance), "Player") || 
+        setNextFlag();
+
+        if (isFollowingPlayer) followingPlayerBehaviour();
+
+        if (!isFollowingPlayer) notFollowingPlayerBehaviour();
+
+        animator.SetFloat("speed", rb.velocity.x);
+
+        
+        
+    }
+
+    private void setNextFlag()
+    {
+        if (checkRayCastsHitTag(Raycasting.castRayFanInAngleFromEntity(transform, isFlipped ? 180 : 0, 135, aggroViewDistance), "Player") ||
                 Vector2.Distance(transform.position, playerTransform.position) <= aggroDistance)
         {
             nextFlag = playerTransform;
             isFollowingPlayer = true;
         }
-        /*else if (wasFollowingPlayer && Vector2.Distance(playerTransform.position, nearestFlag.position) > aggroDistance)
+    }
+
+    private void followingPlayerBehaviour()
+    {
+        if (path == null) return;
+        if (currentWayPoint >= path.vectorPath.Count) return;
+        if (Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax)
         {
-            isFollowingPlayer = false;
-            nextFlag = nearestFlag;
-        }*/
-        else if (!isFollowingPlayer)
+            rb.velocity = Vector2.Lerp(rb.velocity, (path.vectorPath[currentWayPoint] - transform.position).normalized * movementSpeed, 5 * Time.deltaTime);
+            if (Vector2.Distance(transform.position, path.vectorPath[currentWayPoint]) < 1f) currentWayPoint++;
+        }
+        else if (Vector2.Distance(nextFlag.position, transform.position) < rangeFromPlayerMin)
         {
-            nextFlag = flags[tempNext];
-            //isFollowingPlayer = false;
+            rb.velocity = Vector2.Lerp(rb.velocity, (transform.position - nextFlag.position).normalized * movementSpeed, 5 * Time.deltaTime);
+        }
+        else if (Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMin && Vector2.Distance(nextFlag.position, transform.position) < rangeFromPlayerMax)
+        {
+            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(0, 0), 5 * Time.deltaTime);
         }
 
-        if (isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax)
+        drone3Attack.attackPlayer(nextFlag.position);
+
+        if (nextFlag.position.x < transform.position.x && !isFlipped)
         {
-            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, nextFlag.position.y - transform.position.y).normalized * movementSpeed, 5 * Time.deltaTime);
-            //rb.velocity = new Vector2(nextFlag.position.x - transform.position.x, nextFlag.position.y - transform.position.y).normalized * movementSpeed * Time.deltaTime;
-            //rb.MovePosition(rb.position + new Vector2(nextFlag.position.x - transform.position.x, nextFlag.position.y - transform.position.y).normalized * movementSpeed * Time.deltaTime);
-            drone3Attack.attackPlayer(nextFlag.position);
+            isFlipped = true;
+            animator.SetBool("isFlipped", isFlipped);
+            gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
         }
-        else if (isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) < rangeFromPlayerMin)
+        else if (nextFlag.position.x >= transform.position.x && isFlipped)
         {
-            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(transform.position.x - nextFlag.position.x, transform.position.y - nextFlag.position.y).normalized * movementSpeed, 5 * Time.deltaTime);
-            //rb.velocity = new Vector2(transform.position.x - nextFlag.position.x, transform.position.y - nextFlag.position.y).normalized * movementSpeed * Time.deltaTime;
-            //rb.MovePosition(rb.position + new Vector2(transform.position.x - nextFlag.position.x, transform.position.y - nextFlag.position.y).normalized * movementSpeed * Time.deltaTime);
-            drone3Attack.attackPlayer(nextFlag.position);
+            isFlipped = false;
+            animator.SetBool("isFlipped", isFlipped);
+            gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
         }
-        else if (isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMin && Vector2.Distance(nextFlag.position, transform.position) < rangeFromPlayerMax)
-        {
-            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(0,0), 5 * Time.deltaTime);
-            //rb.velocity = new Vector2(0, 0);
-            drone3Attack.attackPlayer(nextFlag.position);
-        }
-        else if (!isFollowingPlayer) rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, nextFlag.position.y - transform.position.y).normalized * movementSpeed, 5 * Time.deltaTime);
-        if ((!isFollowingPlayer) && (Vector2.Distance(transform.position, nextFlag.position) < 0.1f))
+    }
+
+    private void notFollowingPlayerBehaviour()
+    {
+        if (path == null) return;
+        if (currentWayPoint >= path.vectorPath.Count) return;
+        rb.velocity = Vector2.Lerp(rb.velocity, (path.vectorPath[currentWayPoint] - transform.position).normalized * movementSpeed, 5 * Time.deltaTime);
+        if (Vector2.Distance(transform.position, path.vectorPath[currentWayPoint]) < 1f) currentWayPoint++;
+        if (Mathf.Abs(transform.position.x - nextFlag.position.x) < Mathf.Abs(transform.localScale.x))
         {
             tempNext = (tempNext + 1) % flags.Length;
         }
-        animator.SetFloat("speed", rb.velocity.x);
+        
 
-        if (isFollowingPlayer /*&& Vector2.Distance(nextFlag.position, transform.position) >= shootingRangeMin && Vector2.Distance(nextFlag.position, transform.position) < shootingRangeMax*/)
-        {
-            if (nextFlag.position.x < transform.position.x && isFlipped == false)
-            {
-                isFlipped = true;
-                animator.SetBool("isFlipped", isFlipped);
-                gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
-            }
-            else if (nextFlag.position.x >= transform.position.x && isFlipped == true)
-            {
-                isFlipped = false;
-                animator.SetBool("isFlipped", isFlipped);
-                gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
-            }
-        }
-        else if ((!isFlipped && rb.velocity.x < 0) || (isFlipped && rb.velocity.x > 0))
+        if ((!isFlipped && rb.velocity.x < 0) || (isFlipped && rb.velocity.x > 0))
         {
             isFlipped = !isFlipped;
             animator.SetBool("isFlipped", isFlipped);
             gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
         }
+        nextFlag = flags[tempNext];
     }
 
     private bool checkRayCastsHitTag(List<RaycastHit2D> hits, string tag)
