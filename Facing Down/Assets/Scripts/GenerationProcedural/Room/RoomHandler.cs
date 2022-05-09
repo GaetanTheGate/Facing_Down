@@ -30,13 +30,13 @@ public class RoomHandler : MonoBehaviour
         OnEnterRoom();
         OnFinishRoom();
     }
-
+    /*
     private void Start()
     {
         InitRoom("test");
         AstarPath.active.Scan();
     }
-
+    */
     public void InitRoom(string category)
     {
         SetRoomInfo(category);
