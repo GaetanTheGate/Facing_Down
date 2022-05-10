@@ -22,14 +22,14 @@ public class Map : MonoBehaviour
         GameObject map = UI.map;
     
         
-        for(int i = 0; i < GenerateFloor.nbRoomHeight; i += 1){
-            for(int j = 0; j < GenerateFloor.nbRoomWidth; j += 1){
-                if (GenerateFloor.gridMap[i, j] != null){
-                    GameObject mapIcon = chooseMapIcon(GenerateFloor.gridMap[i, j].GetComponent<RoomHandler>());
+        for(int i = 0; i < Floor.nbRoomHeight; i += 1){
+            for(int j = 0; j < Floor.nbRoomWidth; j += 1){
+                if (Floor.gridMap[i, j] != null){
+                    GameObject mapIcon = chooseMapIcon(Floor.gridMap[i, j].GetComponent<RoomHandler>());
                     mapIcon.transform.localPosition = new Vector2(sizeImage * j, sizeImage * -i);
-                    if(GenerateFloor.gridMap[i, j].name == Game.currentRoom.name)
+                    if(Floor.gridMap[i, j].name == Game.currentRoom.name)
                         mapIcon.GetComponent<Image>().color = Color.blue;
-                    if(GenerateFloor.gridMap[i, j].name == "BossRoom")
+                    if(Floor.gridMap[i, j].name == "BossRoom")
                         mapIcon.GetComponent<Image>().color = Color.red;
                 }
             }

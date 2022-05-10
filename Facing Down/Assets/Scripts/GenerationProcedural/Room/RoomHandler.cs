@@ -164,6 +164,7 @@ public class RoomHandler : MonoBehaviour
 
         GetComponentInChildren<DoorsHandler>().SetClosedState(false);
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
+        GetComponent<PedestalHandler>().spawnPedestals();
     }
 
 
@@ -175,30 +176,30 @@ public class RoomHandler : MonoBehaviour
         bool canGenerate = true;
         switch(onSide){
             case side.Right :
-                if(coordinates.y + 1 > GenerateFloor.nbRoomWidth - 1 || GenerateFloor.gridMap[(int) coordinates.x, (int) coordinates.y + 1] != null){
+                if(coordinates.y + 1 > Floor.nbRoomWidth - 1 || Floor.gridMap[(int) coordinates.x, (int) coordinates.y + 1] != null){
                     canGenerate = false;
-                    GenerateFloor.validSideOfRoom[gameObject].Remove(onSide);
+                    Floor.validSideOfRoom[gameObject].Remove(onSide);
                 }
                 break;
 
             case side.Left :
-                if(coordinates.y - 1 < 0 || GenerateFloor.gridMap[(int) coordinates.x, (int) coordinates.y - 1] != null){
+                if(coordinates.y - 1 < 0 || Floor.gridMap[(int) coordinates.x, (int) coordinates.y - 1] != null){
                     canGenerate = false;
-                    GenerateFloor.validSideOfRoom[gameObject].Remove(onSide);
+                    Floor.validSideOfRoom[gameObject].Remove(onSide);
                 }
                 break;
 
             case side.Down :
-                if(coordinates.x + 1 > GenerateFloor.nbRoomHeight - 1 || GenerateFloor.gridMap[(int) coordinates.x + 1 ,(int) coordinates.y] != null){
+                if(coordinates.x + 1 > Floor.nbRoomHeight - 1 || Floor.gridMap[(int) coordinates.x + 1 ,(int) coordinates.y] != null){
                     canGenerate = false;
-                    GenerateFloor.validSideOfRoom[gameObject].Remove(onSide);
+                    Floor.validSideOfRoom[gameObject].Remove(onSide);
                 }
                 break; 
 
             case side.Up :
-                if(coordinates.x - 1 < 0 || GenerateFloor.gridMap[(int) coordinates.x - 1 ,(int) coordinates.y] != null){
+                if(coordinates.x - 1 < 0 || Floor.gridMap[(int) coordinates.x - 1 ,(int) coordinates.y] != null){
                     canGenerate = false;
-                    GenerateFloor.validSideOfRoom[gameObject].Remove(onSide);
+                    Floor.validSideOfRoom[gameObject].Remove(onSide);
                 }                
                 break; 
         }
@@ -209,19 +210,19 @@ public class RoomHandler : MonoBehaviour
 
             addRoomToGridMap(newMoldRoom,coordinates,onSide);
 
-            GenerateFloor.processRooms.Add(newMoldRoom);
-            GenerateFloor.validSideOfRoom.Add(newMoldRoom,new List<side>(){side.Right,side.Left,side.Down});
-            GenerateFloor.validSideOfRoom[newMoldRoom].Remove(onSide);
+            Floor.processRooms.Add(newMoldRoom);
+            Floor.validSideOfRoom.Add(newMoldRoom,new List<side>(){side.Right,side.Left,side.Down});
+            Floor.validSideOfRoom[newMoldRoom].Remove(onSide);
 
             setDoorsOn(onSide, newMoldRoom);
-            GenerateFloor.validSideOfRoom[gameObject].Remove(onSide); 
+            Floor.validSideOfRoom[gameObject].Remove(onSide); 
         }
         else{
             print("génération impossible");
         }
 
-        if (GenerateFloor.validSideOfRoom[gameObject].Count == 0){
-            GenerateFloor.processRooms.Remove(gameObject);
+        if (Floor.validSideOfRoom[gameObject].Count == 0){
+            Floor.processRooms.Remove(gameObject);
         } 
 
         return canGenerate;
@@ -238,9 +239,9 @@ public class RoomHandler : MonoBehaviour
     //get the coordinates of the moldRoom in the gridMap
     public static Vector2 getCoordinates(GameObject moldRoom){
         Vector2 coordinates = new Vector2(-1,-1);
-        for(int i = 0 ; i < GenerateFloor.nbRoomHeight ; i += 1){
-            for(int j = 0 ; j < GenerateFloor.nbRoomWidth ; j += 1){
-                if (GenerateFloor.gridMap[i,j] != null && GenerateFloor.gridMap[i,j].name == moldRoom.name){
+        for(int i = 0 ; i < Floor.nbRoomHeight ; i += 1){
+            for(int j = 0 ; j < Floor.nbRoomWidth ; j += 1){
+                if (Floor.gridMap[i,j] != null && Floor.gridMap[i,j].name == moldRoom.name){
                     coordinates.x = i;
                     coordinates.y = j;
                 }
@@ -251,9 +252,9 @@ public class RoomHandler : MonoBehaviour
 
 
     public GameObject instantiateNewMoldRoom(string name = ""){
-        GameObject newMoldRoom = Instantiate(Resources.Load(GenerateFloor.moldRoomPath, typeof(GameObject)) as GameObject);
+        GameObject newMoldRoom = Instantiate(Resources.Load(Floor.moldRoomPath, typeof(GameObject)) as GameObject);
         if(name == "")
-            newMoldRoom.name = newMoldRoom.name.Substring(0,newMoldRoom.name.IndexOf('(')) + '-' + GenerateFloor.idRoom++;
+            newMoldRoom.name = newMoldRoom.name.Substring(0,newMoldRoom.name.IndexOf('(')) + '-' + Floor.idRoom++;
         else
             newMoldRoom.name = name;
         newMoldRoom.transform.SetParent(GameObject.Find("Floor").transform);
@@ -264,16 +265,16 @@ public class RoomHandler : MonoBehaviour
     public static void addRoomToGridMap(GameObject moldRoomToAdd, Vector2 coordinates , side side){
         switch(side){
             case side.Right :
-                GenerateFloor.gridMap[(int) coordinates.x , (int) coordinates.y + 1] = moldRoomToAdd;
+                Floor.gridMap[(int) coordinates.x , (int) coordinates.y + 1] = moldRoomToAdd;
                 break;
             case side.Left :
-                GenerateFloor.gridMap[(int) coordinates.x , (int) coordinates.y - 1] = moldRoomToAdd;                
+                Floor.gridMap[(int) coordinates.x , (int) coordinates.y - 1] = moldRoomToAdd;                
                 break;
             case side.Down : 
-                GenerateFloor.gridMap[(int) coordinates.x + 1, (int) coordinates.y] = moldRoomToAdd;
+                Floor.gridMap[(int) coordinates.x + 1, (int) coordinates.y] = moldRoomToAdd;
                 break;
             case side.Up :
-                GenerateFloor.gridMap[(int) coordinates.x - 1, (int) coordinates.y] = moldRoomToAdd;
+                Floor.gridMap[(int) coordinates.x - 1, (int) coordinates.y] = moldRoomToAdd;
                 break;
         }
     }

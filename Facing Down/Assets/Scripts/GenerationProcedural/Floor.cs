@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class GenerateFloor : MonoBehaviour
+public class Floor : MonoBehaviour
 {
 
     public static int nbRoomWidth = 5;
@@ -14,7 +14,7 @@ public class GenerateFloor : MonoBehaviour
 
 
     public static float probDown = 0.66f;
-    private GameObject initRoom;
+    private static GameObject initRoom;
     
 
     public static List<GameObject> processRooms = new List<GameObject>();
@@ -23,8 +23,8 @@ public class GenerateFloor : MonoBehaviour
     
     public static GameObject[,] gridMap = new GameObject[nbRoomHeight, nbRoomWidth];
 
-    private string gamePath = "Prefabs/Game/Game";
-    private string UIPath = "Prefabs/UI/UI";
+    private static string gamePath = "Prefabs/Game/Game";
+    private static string UIPath = "Prefabs/UI/UI";
     public static string moldRoomPath = "Prefabs/Rooms/BaseRooms/BaseRoom"; 
 
     
@@ -32,16 +32,18 @@ public class GenerateFloor : MonoBehaviour
 
     void Update() {
         if(Input.GetKeyDown(KeyCode.G)){
-            initGenerate();
-            generate();
-            
+            initGameManager();
+            generateFloor();
         }
-        //if(Input.GetKeyDown(KeyCode.S))
             
     }
 
+    public static void generateFloor(){
+        initGenerate();
+        generate();
+    }
 
-    public void initGenerate(){
+    public static void initGameManager(){
         GameObject ui = Resources.Load(UIPath, typeof(GameObject)) as GameObject;
         ui = Instantiate(ui);
         ui.name = "UI";
@@ -50,12 +52,16 @@ public class GenerateFloor : MonoBehaviour
         gameManager = Instantiate(gameManager);
         gameManager.name = "Game";
 
-        GameObject floor = new GameObject("Floor");
-        floor.transform.SetParent(gameManager.transform);
-        floor.AddComponent<AstarPath>();
-
         DontDestroyOnLoad(gameManager);
         DontDestroyOnLoad(ui);
+    }
+
+    public static void initGenerate(){
+        
+        GameObject floor = new GameObject("Floor");
+        floor.transform.SetParent(GameObject.Find("Game").transform);
+        floor.AddComponent<AstarPath>();
+
 
         initRoom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
         initRoom.name = initRoom.name.Substring(0,initRoom.name.IndexOf('(')) + '-' + idRoom++;
@@ -72,12 +78,10 @@ public class GenerateFloor : MonoBehaviour
         gridMap[nbRoomHeight - 3, nbRoomWidth / 2] = anteroom;
 
         anteroom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down,"BossRoom");
-
-        
-        
+       
     }
 
-    public void generate(){
+    public static void generate(){
         while (!checkIfRoomOnLineBeforeAnteroom() && nbRoom > 0){
             if(processRooms.Count == 0){
                 print("plus de possibilité de générer une salle");
@@ -140,7 +144,6 @@ public class GenerateFloor : MonoBehaviour
             }
         }
         
-        print("scan");
         AstarPath.active.Scan();
         initRoom.GetComponent<RoomHandler>().SetAsStart();
         //Game.player.transform.position = initRoom.spawn;
@@ -148,7 +151,7 @@ public class GenerateFloor : MonoBehaviour
         Map.generateMap();    
     }
 
-    public bool checkIfRoomOnLineBeforeAnteroom(){
+    public static bool checkIfRoomOnLineBeforeAnteroom(){
         for (int i = 0; i < nbRoomWidth; i++){
             if(gridMap[nbRoomHeight - 4,i] != null)
                 return true;
@@ -156,7 +159,7 @@ public class GenerateFloor : MonoBehaviour
         return false;
     }
 
-    public void linkRoomToAnteroom(){
+    public static void linkRoomToAnteroom(){
         for(int i = 0; i < nbRoomHeight - 3; i += 1){
             for(int j = 0; j < nbRoomWidth; j += 1){
                 if(gridMap[i,j] != null){
@@ -229,7 +232,7 @@ public class GenerateFloor : MonoBehaviour
     }
 
 
-    public void checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side sideToGo, Vector2 coordinates){
+    public static void checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side sideToGo, Vector2 coordinates){
         switch(sideToGo){
             case RoomHandler.side.Left:
                 if(gridMap[(int) coordinates.x, (int) coordinates.y - 1].GetComponent<RoomHandler>().botDoor)
@@ -267,7 +270,7 @@ public class GenerateFloor : MonoBehaviour
         }
     }
 
-    public void addGraphPathfinding(int i, int j){
+    public static void addGraphPathfinding(int i, int j){
 
         // This holds all graph data
         AstarData data = AstarPath.active.data;
