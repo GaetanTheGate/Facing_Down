@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Pathfinding;
 
-public class GenerateDonjon : MonoBehaviour
+public class GenerateFloor : MonoBehaviour
 {
 
     public static int nbRoomWidth = 5;
@@ -34,7 +35,10 @@ public class GenerateDonjon : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.G)){
             initGenerate();
             generate();
+            
         }
+        //if(Input.GetKeyDown(KeyCode.S))
+            
     }
 
 
@@ -49,6 +53,7 @@ public class GenerateDonjon : MonoBehaviour
 
         GameObject floor = new GameObject("Floor");
         floor.transform.SetParent(gameManager.transform);
+        floor.AddComponent<AstarPath>();
 
         DontDestroyOnLoad(gameManager);
         DontDestroyOnLoad(ui);
@@ -69,7 +74,7 @@ public class GenerateDonjon : MonoBehaviour
 
         anteroom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down,"BossRoom");
 
-        initRoom.GetComponent<RoomHandler>().SetAsStart();
+        
         
     }
 
@@ -122,8 +127,10 @@ public class GenerateDonjon : MonoBehaviour
 
                     gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
 
-                    /*if(gridMap[i,j].name == initRoom.name)
-                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("spawn");
+                    addGraphPathfinding(i,j);
+
+                    /*if(gridMap[i,j].name == initRoom.name){
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("spawn");}
                     else if(gridMap[i,j].name == "Anteroom")
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("anteroom");
                     else if(gridMap[i,j].name == "BossRoom")
@@ -134,6 +141,9 @@ public class GenerateDonjon : MonoBehaviour
             }
         }
         
+        print("scan");
+        AstarPath.active.Scan();
+        initRoom.GetComponent<RoomHandler>().SetAsStart();
         //Game.player.transform.position = initRoom.spawn;
         Game.player.transform.position = initRoom.GetComponent<RoomHandler>().transform.position;
         Map.generateMap();    
@@ -256,6 +266,29 @@ public class GenerateDonjon : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void addGraphPathfinding(int i, int j){
+
+        // This holds all graph data
+        AstarData data = AstarPath.active.data;
+
+        // This creates a Grid Graph
+        GridGraph gg = data.AddGraph(typeof(GridGraph)) as GridGraph;
+
+        // Setup a grid graph with some values
+        int width = 32;
+        int depth = 32;
+        float nodeSize = 1;
+
+        gg.center = new Vector3(36 * j, 36 * -i, 0);
+
+        // Updates internal size from the above values
+        gg.SetDimensions(width, depth, nodeSize);
+
+        gg.is2D = true;
+        gg.collision.use2D = true;
+        gg.collision.mask = LayerMask.NameToLayer("terrain");
     }
  
 

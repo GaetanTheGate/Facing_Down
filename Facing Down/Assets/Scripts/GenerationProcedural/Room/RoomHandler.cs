@@ -34,12 +34,12 @@ public class RoomHandler : MonoBehaviour
     }
 
     
-    
+    /*
     private void Start()
     {
         InitRoom("basic");
         AstarPath.active.Scan();
-    }
+    }*/
 
 	//choose a room category and set state doors
     public void InitRoom(string category)
@@ -175,30 +175,30 @@ public class RoomHandler : MonoBehaviour
         bool canGenerate = true;
         switch(onSide){
             case side.Right :
-                if(coordinates.y + 1 > GenerateDonjon.nbRoomWidth - 1 || GenerateDonjon.gridMap[(int) coordinates.x, (int) coordinates.y + 1] != null){
+                if(coordinates.y + 1 > GenerateFloor.nbRoomWidth - 1 || GenerateFloor.gridMap[(int) coordinates.x, (int) coordinates.y + 1] != null){
                     canGenerate = false;
-                    GenerateDonjon.validSideOfRoom[gameObject].Remove(onSide);
+                    GenerateFloor.validSideOfRoom[gameObject].Remove(onSide);
                 }
                 break;
 
             case side.Left :
-                if(coordinates.y - 1 < 0 || GenerateDonjon.gridMap[(int) coordinates.x, (int) coordinates.y - 1] != null){
+                if(coordinates.y - 1 < 0 || GenerateFloor.gridMap[(int) coordinates.x, (int) coordinates.y - 1] != null){
                     canGenerate = false;
-                    GenerateDonjon.validSideOfRoom[gameObject].Remove(onSide);
+                    GenerateFloor.validSideOfRoom[gameObject].Remove(onSide);
                 }
                 break;
 
             case side.Down :
-                if(coordinates.x + 1 > GenerateDonjon.nbRoomHeight - 1 || GenerateDonjon.gridMap[(int) coordinates.x + 1 ,(int) coordinates.y] != null){
+                if(coordinates.x + 1 > GenerateFloor.nbRoomHeight - 1 || GenerateFloor.gridMap[(int) coordinates.x + 1 ,(int) coordinates.y] != null){
                     canGenerate = false;
-                    GenerateDonjon.validSideOfRoom[gameObject].Remove(onSide);
+                    GenerateFloor.validSideOfRoom[gameObject].Remove(onSide);
                 }
                 break; 
 
             case side.Up :
-                if(coordinates.x - 1 < 0 || GenerateDonjon.gridMap[(int) coordinates.x - 1 ,(int) coordinates.y] != null){
+                if(coordinates.x - 1 < 0 || GenerateFloor.gridMap[(int) coordinates.x - 1 ,(int) coordinates.y] != null){
                     canGenerate = false;
-                    GenerateDonjon.validSideOfRoom[gameObject].Remove(onSide);
+                    GenerateFloor.validSideOfRoom[gameObject].Remove(onSide);
                 }                
                 break; 
         }
@@ -209,19 +209,19 @@ public class RoomHandler : MonoBehaviour
 
             addRoomToGridMap(newMoldRoom,coordinates,onSide);
 
-            GenerateDonjon.processRooms.Add(newMoldRoom);
-            GenerateDonjon.validSideOfRoom.Add(newMoldRoom,new List<side>(){side.Right,side.Left,side.Down});
-            GenerateDonjon.validSideOfRoom[newMoldRoom].Remove(onSide);
+            GenerateFloor.processRooms.Add(newMoldRoom);
+            GenerateFloor.validSideOfRoom.Add(newMoldRoom,new List<side>(){side.Right,side.Left,side.Down});
+            GenerateFloor.validSideOfRoom[newMoldRoom].Remove(onSide);
 
             setDoorsOn(onSide, newMoldRoom);
-            GenerateDonjon.validSideOfRoom[gameObject].Remove(onSide); 
+            GenerateFloor.validSideOfRoom[gameObject].Remove(onSide); 
         }
         else{
             print("génération impossible");
         }
 
-        if (GenerateDonjon.validSideOfRoom[gameObject].Count == 0){
-            GenerateDonjon.processRooms.Remove(gameObject);
+        if (GenerateFloor.validSideOfRoom[gameObject].Count == 0){
+            GenerateFloor.processRooms.Remove(gameObject);
         } 
 
         return canGenerate;
@@ -238,9 +238,9 @@ public class RoomHandler : MonoBehaviour
     //get the coordinates of the moldRoom in the gridMap
     public static Vector2 getCoordinates(GameObject moldRoom){
         Vector2 coordinates = new Vector2(-1,-1);
-        for(int i = 0 ; i < GenerateDonjon.nbRoomHeight ; i += 1){
-            for(int j = 0 ; j < GenerateDonjon.nbRoomWidth ; j += 1){
-                if (GenerateDonjon.gridMap[i,j] != null && GenerateDonjon.gridMap[i,j].name == moldRoom.name){
+        for(int i = 0 ; i < GenerateFloor.nbRoomHeight ; i += 1){
+            for(int j = 0 ; j < GenerateFloor.nbRoomWidth ; j += 1){
+                if (GenerateFloor.gridMap[i,j] != null && GenerateFloor.gridMap[i,j].name == moldRoom.name){
                     coordinates.x = i;
                     coordinates.y = j;
                 }
@@ -251,9 +251,9 @@ public class RoomHandler : MonoBehaviour
 
 
     public GameObject instantiateNewMoldRoom(string name = ""){
-        GameObject newMoldRoom = Instantiate(Resources.Load(GenerateDonjon.moldRoomPath, typeof(GameObject)) as GameObject);
+        GameObject newMoldRoom = Instantiate(Resources.Load(GenerateFloor.moldRoomPath, typeof(GameObject)) as GameObject);
         if(name == "")
-            newMoldRoom.name = newMoldRoom.name.Substring(0,newMoldRoom.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
+            newMoldRoom.name = newMoldRoom.name.Substring(0,newMoldRoom.name.IndexOf('(')) + '-' + GenerateFloor.idRoom++;
         else
             newMoldRoom.name = name;
         newMoldRoom.transform.SetParent(GameObject.Find("Floor").transform);
@@ -264,16 +264,16 @@ public class RoomHandler : MonoBehaviour
     public static void addRoomToGridMap(GameObject moldRoomToAdd, Vector2 coordinates , side side){
         switch(side){
             case side.Right :
-                GenerateDonjon.gridMap[(int) coordinates.x , (int) coordinates.y + 1] = moldRoomToAdd;
+                GenerateFloor.gridMap[(int) coordinates.x , (int) coordinates.y + 1] = moldRoomToAdd;
                 break;
             case side.Left :
-                GenerateDonjon.gridMap[(int) coordinates.x , (int) coordinates.y - 1] = moldRoomToAdd;                
+                GenerateFloor.gridMap[(int) coordinates.x , (int) coordinates.y - 1] = moldRoomToAdd;                
                 break;
             case side.Down : 
-                GenerateDonjon.gridMap[(int) coordinates.x + 1, (int) coordinates.y] = moldRoomToAdd;
+                GenerateFloor.gridMap[(int) coordinates.x + 1, (int) coordinates.y] = moldRoomToAdd;
                 break;
             case side.Up :
-                GenerateDonjon.gridMap[(int) coordinates.x - 1, (int) coordinates.y] = moldRoomToAdd;
+                GenerateFloor.gridMap[(int) coordinates.x - 1, (int) coordinates.y] = moldRoomToAdd;
                 break;
         }
     }

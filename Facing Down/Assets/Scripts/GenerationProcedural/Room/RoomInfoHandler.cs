@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RoomInfoHandler : MonoBehaviour
 {
+    
     public void InitRoomInfo()
     {
         GetComponentInChildren<EnemyHandler>().ChoseEnemy();

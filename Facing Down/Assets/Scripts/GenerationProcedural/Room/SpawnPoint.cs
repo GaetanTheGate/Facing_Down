@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
+    public bool canSpawn = true;
     public List<Transform> wayPoints;
     public List<GameObject> enemyList;
 
@@ -17,15 +18,19 @@ public class SpawnPoint : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        enemyEntity = Instantiate(enemyChosen);
-        enemyEntity.transform.position = transform.position;
-        enemyEntity.transform.SetParent(transform.parent);
-        enemyEntity.GetComponent<EnemyMovement>().flags = wayPoints.ToArray();
+        if(canSpawn){
+           enemyEntity = Instantiate(enemyChosen);
+            enemyEntity.transform.position = transform.position;
+            enemyEntity.transform.SetParent(transform.parent);
+            enemyEntity.GetComponent<EnemyMovement>().flags = wayPoints.ToArray(); 
+        }
+        
     }
 
     public void DespawnEnemy()
-    {
-        Destroy(enemyEntity);
+    {   
+        if(canSpawn)
+            Destroy(enemyEntity);
     }
 
 }
