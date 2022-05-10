@@ -299,4 +299,9 @@ public class RoomHandler : MonoBehaviour
                 break;
         }
     }
+
+    public void CheckIfRoomIsFinish(){
+        if(GetComponentInChildren<RoomInfoHandler>().checkIfNoEnemy())
+            OnFinishRoom();
+    }
 }

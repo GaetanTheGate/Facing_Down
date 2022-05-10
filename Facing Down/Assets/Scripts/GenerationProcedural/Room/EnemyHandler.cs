@@ -21,4 +21,13 @@ public class EnemyHandler : MonoBehaviour
         foreach (SpawnPoint spawnPoint in GetComponentsInChildren<SpawnPoint>())
             spawnPoint.DespawnEnemy();
     }
+
+    public bool checkIfNoEnemy(){
+        foreach(Transform child in transform){
+            if(child.CompareTag("Enemy"))
+                return false;
+        }
+        return true;
+    }
+
 }
