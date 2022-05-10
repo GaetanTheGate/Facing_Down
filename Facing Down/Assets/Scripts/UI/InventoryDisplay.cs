@@ -7,16 +7,16 @@ using UnityEngine.UI;
 /// </summary>
 public class InventoryDisplay : MonoBehaviour
 {
-    private GameObject itemDisplayPrefab;
-    private Dictionary<string, GameObject> itemDisplays;
+    private GameObject display;
+    private Dictionary<string, ItemDisplay> itemDisplays;
 
     public int ROW_SIZE = 18;
     public float offset = 80f;
 
 
 	private void Start() {
-        itemDisplayPrefab = Resources.Load<GameObject>("Prefabs/UI/Components/ItemDisplay");
-        itemDisplays = new Dictionary<string, GameObject>();
+        display = transform.Find("Display").gameObject;
+        itemDisplays = new Dictionary<string, ItemDisplay>();
 	}
 
 	/// <summary>
@@ -24,8 +24,7 @@ public class InventoryDisplay : MonoBehaviour
 	/// </summary>
 	/// <param name="item">The Item to add. Should be an item from the player's inventory.</param>
 	public void AddItemDisplay(Item item) {
-        GameObject itemDisplay = InstantiateItemDisplay(item);
-        itemDisplay.transform.localPosition = new Vector2(itemDisplays.Count % ROW_SIZE * offset, itemDisplays.Count / ROW_SIZE * offset);
+        ItemDisplay itemDisplay = ItemDisplay.InstantiateItemDisplay(item, display.transform, new Vector2(itemDisplays.Count % ROW_SIZE * offset, itemDisplays.Count / ROW_SIZE * offset));
         itemDisplays.Add(item.GetID(), itemDisplay);
 	}
 
@@ -51,10 +50,15 @@ public class InventoryDisplay : MonoBehaviour
         itemDisplays[item.GetID()].GetComponentInChildren<Text>().text = item.GetAmount().ToString();
 	}
 
-    private GameObject InstantiateItemDisplay(Item item) {
-        GameObject itemDisplay = Instantiate<GameObject>(itemDisplayPrefab, transform);
-        itemDisplay.GetComponentInChildren<Image>().sprite = item.GetSprite();
-        itemDisplay.GetComponentInChildren<Text>().text = item.GetAmount().ToString();
-        return itemDisplay;
-    }
+    public void Enable() {
+        display.SetActive(true);
+	}
+
+	public void Disable() {
+        display.SetActive(false);
+	}
+
+    public bool IsEnabled() {
+        return display.activeSelf;
+	}
 }
