@@ -1,4 +1,4 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +23,8 @@ public class RoomHandler : MonoBehaviour
         Down
     }
 
+
+    //set this room to a start
     public void SetAsStart()
     {
         Game.currentRoom = this;
@@ -30,6 +32,7 @@ public class RoomHandler : MonoBehaviour
         OnFinishRoom();
     }
 
+    //choose a room category and set state doors
     public void InitRoom(string category)
     {
         SetRoomInfo(category);
@@ -37,6 +40,7 @@ public class RoomHandler : MonoBehaviour
         GetComponentInChildren<DoorsHandler>().SetDoors();
         GetComponentInChildren<DoorsHandler>().SetClosedState(false);
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
+        //GetComponentInChildren<RoomInfoHandler>().InitRoomHandler();
     }
 
     private void FixedUpdate()
@@ -49,6 +53,8 @@ public class RoomHandler : MonoBehaviour
     }
 
     private string roomInfoFolder = "Prefabs/Rooms/RoomsInfo";
+
+    //instantiate a room prefab according to a category (basic, boss, anteroom, spawn)
     public void SetRoomInfo(string category)
     {
         Object[] roomList = Resources.LoadAll(roomInfoFolder, typeof(GameObject));
@@ -69,6 +75,7 @@ public class RoomHandler : MonoBehaviour
         roomInfo.transform.localPosition = new Vector3();
     }
 
+    //check if the object corresponding to the choosen category and if the configuration of the room corresponding to state doors
     public bool isFileCorrect(Object o, string category)
     {
         if ( ! o.name.Contains(category))
@@ -92,9 +99,10 @@ public class RoomHandler : MonoBehaviour
         return true;
     }
 
+    //display the room on the UI and set the current room to this
     public void OnEnterRoom()
     {
-        print("enter room " + gameObject.name);
+        Map.changeColorMapicon(Game.currentRoom.gameObject,GetComponentInParent<RoomHandler>().gameObject);
         if (isInRoom)
             return;
 
@@ -115,9 +123,10 @@ public class RoomHandler : MonoBehaviour
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
     }
 
+    //hide the room on the UI
     public void OnExitRoom()
     {
-        print("exit room " + gameObject.name);
+        
         isInRoom = false;
 
         GetComponentInChildren<RoomHiderHandler>().SetBlurState(true);
@@ -139,6 +148,8 @@ public class RoomHandler : MonoBehaviour
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
     }
 
+
+    //generate a random room on the side onSide 
     public bool generateRoomOnSide(side onSide){
 
         Vector2 coordinates = getCoordinates(gameObject);
@@ -199,12 +210,14 @@ public class RoomHandler : MonoBehaviour
             
     }
 
-    public void generateSpecificRoomOnSide(side side, string name = ""){
+    //generate a specific room on the side onSide
+    public void generateSpecificRoomOnSide(side onSide, string name = ""){
         GameObject newMoldRoom = instantiateNewMoldRoom(name);
-        addRoomToGridMap(newMoldRoom, getCoordinates(gameObject), side);
-        setDoorsOn(side,newMoldRoom);
+        addRoomToGridMap(newMoldRoom, getCoordinates(gameObject), onSide);
+        setDoorsOn(onSide,newMoldRoom);
     }
 
+    //get the coordinates of the moldRoom in the gridMap
     public static Vector2 getCoordinates(GameObject moldRoom){
         Vector2 coordinates = new Vector2(-1,-1);
         for(int i = 0 ; i < GenerateDonjon.nbRoomHeight ; i += 1){
@@ -218,13 +231,14 @@ public class RoomHandler : MonoBehaviour
         return coordinates;
     }
 
+
     public GameObject instantiateNewMoldRoom(string name = ""){
         GameObject newMoldRoom = Instantiate(Resources.Load(GenerateDonjon.moldRoomPath, typeof(GameObject)) as GameObject);
         if(name == "")
             newMoldRoom.name = newMoldRoom.name.Substring(0,newMoldRoom.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
         else
             newMoldRoom.name = name;
-        newMoldRoom.transform.SetParent(GameObject.Find("Game").transform);
+        newMoldRoom.transform.SetParent(GameObject.Find("Floor").transform);
 
         return newMoldRoom;  
     }
@@ -246,6 +260,7 @@ public class RoomHandler : MonoBehaviour
         }
     }
 
+    //set the boolean side of the current room at true and the opposite side of the room behind at true 
     public void setDoorsOn(side onSide, GameObject newMoldRoom){
         switch(onSide){
             case side.Right :

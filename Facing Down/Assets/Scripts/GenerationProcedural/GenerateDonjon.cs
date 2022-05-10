@@ -47,12 +47,15 @@ public class GenerateDonjon : MonoBehaviour
         gameManager = Instantiate(gameManager);
         gameManager.name = "Game";
 
+        GameObject floor = new GameObject("Floor");
+        floor.transform.SetParent(gameManager.transform);
+
         DontDestroyOnLoad(gameManager);
         DontDestroyOnLoad(ui);
 
         initRoom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
         initRoom.name = initRoom.name.Substring(0,initRoom.name.IndexOf('(')) + '-' + idRoom++;
-        initRoom.transform.SetParent(gameManager.transform);
+        initRoom.transform.SetParent(floor.transform);
         processRooms.Add(initRoom);
         validSideOfRoom.Add(initRoom,new List<RoomHandler.side>(){RoomHandler.side.Down,RoomHandler.side.Left,RoomHandler.side.Right});
         gridMap[0, nbRoomWidth / 2] = initRoom;
@@ -60,13 +63,13 @@ public class GenerateDonjon : MonoBehaviour
 
         GameObject anteroom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
         anteroom.name = "Anteroom";
-        anteroom.transform.SetParent(gameManager.transform);
+        anteroom.transform.SetParent(floor.transform);
         
         gridMap[nbRoomHeight - 3, nbRoomWidth / 2] = anteroom;
 
         anteroom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down,"BossRoom");
 
-        Game.currentRoom = initRoom.GetComponent<RoomHandler>();
+        initRoom.GetComponent<RoomHandler>().SetAsStart();
         
     }
 
@@ -131,7 +134,7 @@ public class GenerateDonjon : MonoBehaviour
             }
         }
         
-        Game.currentRoom.OnEnterRoom();
+        //Game.player.transform.position = initRoom.spawn;
         Game.player.transform.position = initRoom.GetComponent<RoomHandler>().transform.position;
         Map.generateMap();    
     }
@@ -253,6 +256,7 @@ public class GenerateDonjon : MonoBehaviour
                 }
                 break;
         }
-    } 
+    }
+ 
 
 }
