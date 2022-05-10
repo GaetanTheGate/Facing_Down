@@ -24,4 +24,8 @@ public class RoomInfoHandler : MonoBehaviour
     {
         GetComponentInChildren<EnemyHandler>().DespawnEnemy();
     }
+
+    public bool checkIfNoEnemy(){
+        return GetComponentInChildren<EnemyHandler>().checkIfNoEnemy();
+    }
 }
