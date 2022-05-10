@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PedestalHandler : MonoBehaviour
 {
-    public List<GameObject> spawnPedestals = new List<GameObject>();
+    public List<GameObject> spawnPointPedestals = new List<GameObject>();
 
-    public void spawnPedestal(){
-        foreach(GameObject spawnPedestal in spawnPedestals){
-            
+    public void spawnPedestals(){
+        foreach(GameObject spawnPointPedestal in spawnPointPedestals){
+            ItemPedestal.SpawnRandomItemPedestal(gameObject,spawnPointPedestal.transform.position);   
         }
     }
     
