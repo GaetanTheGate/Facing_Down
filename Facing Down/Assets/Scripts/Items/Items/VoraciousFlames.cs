@@ -11,6 +11,10 @@ public class VoraciousFlames : Item
 		isActive = false;
 	}
 
+	public override string GetDescription() {
+		return string.Format(description.DESCRIPTION, damageIncrease * 100);
+	}
+
 	public override DamageInfo OnDealDamage(DamageInfo damage) {
 		EntityCollisionStructure playerEntity = Game.player.self.GetComponent<EntityCollisionStructure>();
 		if (isActive) damage.amount *= 1 + damageIncrease * amount;

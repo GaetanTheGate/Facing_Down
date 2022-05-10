@@ -7,6 +7,10 @@ public class ImpenetrableRoots : Item
 	private float damageReduction = 0.9f;
 	public ImpenetrableRoots() : base("ImpenetrableRoots", ItemRarity.COMMON, ItemType.EARTH) { }
 
+	public override string GetDescription() {
+		return string.Format(description.DESCRIPTION, (1 - damageReduction) * 100);
+	}
+
 	public override DamageInfo OnTakeDamage(DamageInfo damage) {
 		EntityCollisionStructure playerEntity = Game.player.self.GetComponent<EntityCollisionStructure>();
 		if (playerEntity.isGrounded || playerEntity.isWalled || playerEntity.isCeilinged) {

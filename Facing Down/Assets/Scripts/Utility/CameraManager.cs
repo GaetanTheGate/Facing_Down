@@ -22,7 +22,7 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        gameObject.GetComponent<Camera>().orthographicSize = Mathf.Lerp(gameObject.GetComponent<Camera>().orthographicSize, actualZoom, 0.5f);
+        gameObject.GetComponent<Camera>().orthographicSize = Mathf.Lerp(gameObject.GetComponent<Camera>().orthographicSize, actualZoom, 10 * Time.fixedDeltaTime);
     }
 
     public void SetZoomPercent(float zoom)

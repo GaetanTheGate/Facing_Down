@@ -2,29 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drone3Attack : MonoBehaviour
+public class Drone3Attack : EnemyAttack
 {
-    public float delay = 2f;
-    private float timePassed = 0f;
-    private bool isAttacking = false;
-
-    private Bullet bullet = new Bullet("Player");
-
-    private Animator animator;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        animator = gameObject.GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        timePassed += Time.fixedDeltaTime;
-    }
-
-    public void attackPlayer(Vector2 playerPosition)
+    public override void attackPlayer(Vector2 playerPosition)
     {
         if (timePassed >= delay && !isAttacking)
         {
@@ -51,13 +31,13 @@ public class Drone3Attack : MonoBehaviour
         }
     }
 
-    private IEnumerator startAttackAnimationRoutine(float duration, Vector2 targetPosition)
+    protected IEnumerator startAttackAnimationRoutine(float duration, Vector2 targetPosition)
     {
         yield return new WaitForSeconds(duration);
         fire(targetPosition);
     }
 
-    private void fire(Vector2 targetPosition)
+    protected void fire(Vector2 targetPosition)
     {
         bullet.Attack(Angles.AngleBetweenVector2(gameObject.transform.position, targetPosition), gameObject.GetComponent<Entity>());
         isAttacking = false;

@@ -8,6 +8,9 @@ public class DoorTrigger : MonoBehaviour
     {
         if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Player")))
         {
+            if (Game.currentRoom.Equals(GetComponentInParent<RoomHandler>()))
+                return;
+
             Game.currentRoom.OnExitRoom();
             //Map.changeColorMapicon(Game.currentRoom.gameObject,GetComponentInParent<RoomHandler>().gameObject);
             GetComponentInParent<RoomHandler>().OnEnterRoom();

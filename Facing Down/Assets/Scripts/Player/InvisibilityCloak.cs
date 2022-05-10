@@ -8,6 +8,10 @@ public class InvisibilityCloak : Item
 	private readonly float stackInvulnerabilityTime = 0.25f;
     public InvisibilityCloak() : base("InvisibilityCloak", ItemRarity.LEGENDARY, ItemType.WIND) { }
 
+	public override string GetDescription() {
+		return string.Format(description.DESCRIPTION, invulnerabilityTime);
+	}
+
 	private void Activate() {
 		Game.player.self.GetComponent<PlayerIframes>().getIframeItem(invulnerabilityTime + (amount - 1) * stackInvulnerabilityTime);
 	}

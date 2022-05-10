@@ -22,7 +22,6 @@ public static class ItemPool
 		rarityDistribution = new Dictionary<ItemRarity, int> { {ItemRarity.COMMON, 7}, {ItemRarity.UNCOMMON, 6}, {ItemRarity.RARE, 4}, {ItemRarity.EPIC, 2}, {ItemRarity.LEGENDARY, 1} };
 		ComputeTotalRarityWeight();
 
-		Add(new AttackUpItem());
 		Add(new FieryAlloy());
 		Add(new MagmaticCoating());
 		Add(new StoneArmor());

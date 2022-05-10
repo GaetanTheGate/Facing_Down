@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FieryAlloy : Item
-{
+{	
+	private readonly float multiplierAdd = 0.1f;
+
 	public FieryAlloy() : base("FieryAlloy", ItemRarity.UNCOMMON, ItemType.FIRE) {}
 
-	private readonly float multiplierAdd = 0.1f;
+	public override string GetDescription() {
+		return string.Format(description.DESCRIPTION, multiplierAdd * 100);
+	}
+
 	public override void OnPickup() {
 		Game.player.stat.atkMultipler += multiplierAdd;
 		Game.player.stat.computeAtk();
