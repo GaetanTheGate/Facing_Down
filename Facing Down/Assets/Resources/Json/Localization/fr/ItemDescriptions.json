@@ -4,7 +4,7 @@
 		{
 			"ID" : "PrintItem",
 			"NAME" : "PrintItem",
-			"DESCRIPTION" : "Affiche les actions effectués dans la console"
+			"DESCRIPTION" : "Affiche les actions effectuées dans la console"
 		},
 		{
 			"ID" : "BurningCircle",

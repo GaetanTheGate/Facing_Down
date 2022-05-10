@@ -9,6 +9,7 @@ public class UI : MonoBehaviour
     public static SpecialBar specialBar;
     public static DashBar dashBar;
     public static Console console;
+    public static ItemPreview itemPreview;
 
     public static GameObject map;
 
@@ -19,9 +20,12 @@ public class UI : MonoBehaviour
         dashBar = gameObject.GetComponentInChildren<DashBar>();
         console = gameObject.GetComponentInChildren<Console>();
         map = transform.Find("Map").gameObject;
+        itemPreview = gameObject.GetComponentInChildren<ItemPreview>();
 
         inventoryDisplay.gameObject.SetActive(false);
         map.SetActive(false);
+
+        itemPreview.SetItem(new PrintItem());
     }
 
     /// <summary>

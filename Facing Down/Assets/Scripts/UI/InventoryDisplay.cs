@@ -7,8 +7,6 @@ using UnityEngine.UI;
 /// </summary>
 public class InventoryDisplay : MonoBehaviour
 {
-    public static readonly string spriteFolderPath = "Items/Sprites/";
-
     private GameObject itemDisplayPrefab;
     private Dictionary<string, GameObject> itemDisplays;
 
@@ -50,13 +48,12 @@ public class InventoryDisplay : MonoBehaviour
     /// </summary>
     /// <param name="item">The item to update. Should be an item from the player's inventory.</param>
     public void UpdateItemDisplay(Item item) {
-        Debug.Log("CURRENT : " + itemDisplays[item.GetID()].GetComponentInChildren<Text>().text + "\nNEW : " + item.GetAmount().ToString());
         itemDisplays[item.GetID()].GetComponentInChildren<Text>().text = item.GetAmount().ToString();
 	}
 
     private GameObject InstantiateItemDisplay(Item item) {
         GameObject itemDisplay = Instantiate<GameObject>(itemDisplayPrefab, transform);
-        itemDisplay.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(spriteFolderPath + item.GetID());
+        itemDisplay.GetComponentInChildren<Image>().sprite = item.GetSprite();
         itemDisplay.GetComponentInChildren<Text>().text = item.GetAmount().ToString();
         return itemDisplay;
     }
