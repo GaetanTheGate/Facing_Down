@@ -47,7 +47,7 @@ public class InventoryDisplay : MonoBehaviour
     /// </summary>
     /// <param name="item">The item to update. Should be an item from the player's inventory.</param>
     public void UpdateItemDisplay(Item item) {
-        itemDisplays[item.GetID()].GetComponentInChildren<Text>().text = item.GetAmount().ToString();
+        itemDisplays[item.GetID()].UpdateAmount(); ;
 	}
 
     public void Enable() {

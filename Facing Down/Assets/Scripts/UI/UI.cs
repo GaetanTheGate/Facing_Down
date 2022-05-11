@@ -25,7 +25,7 @@ public class UI : MonoBehaviour
         inventoryDisplay.Disable();
         map.SetActive(false);
 
-        itemPreview.SetItem(new PrintItem());
+        itemPreview.gameObject.SetActive(false);
     }
 
     /// <summary>

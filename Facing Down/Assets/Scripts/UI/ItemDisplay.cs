@@ -10,18 +10,26 @@ public class ItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
 	public static ItemDisplay InstantiateItemDisplay(Item item, Transform transform, Vector2 localPosition) {
 		if (prefab == null) prefab = Resources.Load<ItemDisplay>("Prefabs/UI/Components/ItemDisplay");
+
 		ItemDisplay itemDisplay = Instantiate<ItemDisplay>(prefab, transform);
+		itemDisplay.item = item;
 		itemDisplay.GetComponentInChildren<Image>().sprite = item.GetSprite();
 		itemDisplay.GetComponentInChildren<Text>().text = item.GetAmount().ToString();
 		itemDisplay.transform.localPosition = localPosition;
+
 		return itemDisplay;
 	}
 
+	public void UpdateAmount() {
+		this.GetComponentInChildren<Text>().text = item.GetAmount().ToString();
+	}
+
 	public void OnPointerEnter(PointerEventData eventData) {
-		Debug.Log("ENTER");
+		UI.itemPreview.gameObject.SetActive(true);
+		UI.itemPreview.SetItem(item);
 	}
 
 	public void OnPointerExit(PointerEventData eventData) {
-		Debug.Log("EXIT");
+		UI.itemPreview.gameObject.SetActive(false);
 	}
 }
