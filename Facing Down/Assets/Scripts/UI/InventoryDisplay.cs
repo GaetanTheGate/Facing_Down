@@ -55,6 +55,7 @@ public class InventoryDisplay : MonoBehaviour
 	}
 
 	public void Disable() {
+        UI.itemPreview.gameObject.SetActive(false);
         display.SetActive(false);
 	}
 
