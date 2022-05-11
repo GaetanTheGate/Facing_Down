@@ -13,7 +13,7 @@ public class StatEntity : MonoBehaviour
     [Min(0.0f)] public float critRate = 5;
     [Min(100.0f)] public float critDmg = 150;
 
-    public UnityEvent onHit;
+    public UnityEvent<DamageInfo> onHit;
     public UnityEvent onDeath;
     private Animator animator;
 
@@ -54,7 +54,7 @@ public class StatEntity : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity += dmgInfo.knockback.GetAsVector2();
         Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
-        if(onHit != null && currentHitPoints > 0) onHit.Invoke();
+        if(onHit != null && currentHitPoints > 0) onHit.Invoke(dmgInfo);
         checkIfDead(dmgInfo);
     }
 

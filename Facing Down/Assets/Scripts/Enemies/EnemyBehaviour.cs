@@ -19,12 +19,12 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    protected virtual void deathEvent()
+    /*protected virtual void deathEvent()
     {
         disableBehaviour();
-    }
+    }*/
 
-    protected void disableBehaviour()
+    public void disableBehaviour()
     {
         isActive = false;
         enabled = false;

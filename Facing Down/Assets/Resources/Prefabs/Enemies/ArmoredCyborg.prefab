@@ -277,7 +277,7 @@ MonoBehaviour:
       - m_Target: {fileID: 8812630318294948981}
         m_TargetAssemblyTypeName: ArmoredCyborgHit, Assembly-CSharp
         m_MethodName: getHit
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -289,8 +289,8 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ArmoredCyborgMovement, Assembly-CSharp
+      - m_Target: {fileID: 3892112616059550847}
+        m_TargetAssemblyTypeName: EnemyMovement, Assembly-CSharp
         m_MethodName: disableMovement
         m_Mode: 1
         m_Arguments:
@@ -304,6 +304,30 @@ MonoBehaviour:
       - m_Target: {fileID: 191769382907067283}
         m_TargetAssemblyTypeName: ArmoredCyborgDeath, Assembly-CSharp
         m_MethodName: die
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1000885285672406474}
+        m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+        m_MethodName: disableBehaviour
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2059908327788420333}
+        m_TargetAssemblyTypeName: EnemyAttack, Assembly-CSharp
+        m_MethodName: disableAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -338,6 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dd646d21a0503c4e93704e379ed42c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleEffect: {fileID: 8353703914142437710, guid: 1f14abaa6231f254886095272bf9dd08, type: 3}
 --- !u!114 &2105378182240658454
 MonoBehaviour:
   m_ObjectHideFlags: 0
