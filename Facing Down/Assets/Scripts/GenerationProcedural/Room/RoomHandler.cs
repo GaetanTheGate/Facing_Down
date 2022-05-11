@@ -1,4 +1,4 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,19 +24,24 @@ public class RoomHandler : MonoBehaviour
         Down
     }
 
+
+    //set this room to a start
     public void SetAsStart()
     {
         Game.currentRoom = this;
         OnEnterRoom();
         OnFinishRoom();
     }
+
     
+    /*
     private void Start()
     {
         InitRoom("basic");
         AstarPath.active.Scan();
-    }
-    
+    }*/
+
+	//choose a room category and set state doors
     public void InitRoom(string category)
     {
         SetRoomInfo(category);
@@ -62,6 +67,8 @@ public class RoomHandler : MonoBehaviour
     }
 
     private string roomInfoFolder = "Prefabs/Rooms/RoomsInfo";
+
+    //instantiate a room prefab according to a category (basic, boss, anteroom, spawn)
     public void SetRoomInfo(string category)
     {
         Object[] roomList = Resources.LoadAll(roomInfoFolder, typeof(GameObject));
@@ -82,6 +89,7 @@ public class RoomHandler : MonoBehaviour
         roomInfo.transform.localPosition = new Vector3();
     }
 
+    //check if the object corresponding to the choosen category and if the configuration of the room corresponding to state doors
     public bool isFileCorrect(Object o, string category)
     {
         if ( ! o.name.Contains(category))
@@ -105,10 +113,11 @@ public class RoomHandler : MonoBehaviour
         return true;
     }
 
+    //display the room on the UI and set the current room to this
     public void OnEnterRoom()
     {
-        print("enter room " + gameObject.name);
 
+        Map.changeColorMapicon(Game.currentRoom.gameObject,GetComponentInParent<RoomHandler>().gameObject);
         if (isInRoom)
             return;
 
@@ -130,9 +139,10 @@ public class RoomHandler : MonoBehaviour
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
     }
 
+    //hide the room on the UI
     public void OnExitRoom()
     {
-        print("exit room " + gameObject.name);
+        
         isInRoom = false;
 
         GetComponentInChildren<RoomInfoHandler>().DespawnEnemy();
@@ -154,8 +164,11 @@ public class RoomHandler : MonoBehaviour
 
         GetComponentInChildren<DoorsHandler>().SetClosedState(false);
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
+        GetComponent<PedestalHandler>().spawnPedestals();
     }
 
+
+    //generate a random room on the side onSide 
     public bool generateRoomOnSide(side onSide){
 
         Vector2 coordinates = getCoordinates(gameObject);
@@ -163,30 +176,30 @@ public class RoomHandler : MonoBehaviour
         bool canGenerate = true;
         switch(onSide){
             case side.Right :
-                if(coordinates.y + 1 > GenerateDonjon.nbRoomWidth - 1 || GenerateDonjon.gridMap[(int) coordinates.x, (int) coordinates.y + 1] != null){
+                if(coordinates.y + 1 > Floor.nbRoomWidth - 1 || Floor.gridMap[(int) coordinates.x, (int) coordinates.y + 1] != null){
                     canGenerate = false;
-                    GenerateDonjon.validSideOfRoom[gameObject].Remove(onSide);
+                    Floor.validSideOfRoom[gameObject].Remove(onSide);
                 }
                 break;
 
             case side.Left :
-                if(coordinates.y - 1 < 0 || GenerateDonjon.gridMap[(int) coordinates.x, (int) coordinates.y - 1] != null){
+                if(coordinates.y - 1 < 0 || Floor.gridMap[(int) coordinates.x, (int) coordinates.y - 1] != null){
                     canGenerate = false;
-                    GenerateDonjon.validSideOfRoom[gameObject].Remove(onSide);
+                    Floor.validSideOfRoom[gameObject].Remove(onSide);
                 }
                 break;
 
             case side.Down :
-                if(coordinates.x + 1 > GenerateDonjon.nbRoomHeight - 1 || GenerateDonjon.gridMap[(int) coordinates.x + 1 ,(int) coordinates.y] != null){
+                if(coordinates.x + 1 > Floor.nbRoomHeight - 1 || Floor.gridMap[(int) coordinates.x + 1 ,(int) coordinates.y] != null){
                     canGenerate = false;
-                    GenerateDonjon.validSideOfRoom[gameObject].Remove(onSide);
+                    Floor.validSideOfRoom[gameObject].Remove(onSide);
                 }
                 break; 
 
             case side.Up :
-                if(coordinates.x - 1 < 0 || GenerateDonjon.gridMap[(int) coordinates.x - 1 ,(int) coordinates.y] != null){
+                if(coordinates.x - 1 < 0 || Floor.gridMap[(int) coordinates.x - 1 ,(int) coordinates.y] != null){
                     canGenerate = false;
-                    GenerateDonjon.validSideOfRoom[gameObject].Remove(onSide);
+                    Floor.validSideOfRoom[gameObject].Remove(onSide);
                 }                
                 break; 
         }
@@ -197,36 +210,38 @@ public class RoomHandler : MonoBehaviour
 
             addRoomToGridMap(newMoldRoom,coordinates,onSide);
 
-            GenerateDonjon.processRooms.Add(newMoldRoom);
-            GenerateDonjon.validSideOfRoom.Add(newMoldRoom,new List<side>(){side.Right,side.Left,side.Down});
-            GenerateDonjon.validSideOfRoom[newMoldRoom].Remove(onSide);
+            Floor.processRooms.Add(newMoldRoom);
+            Floor.validSideOfRoom.Add(newMoldRoom,new List<side>(){side.Right,side.Left,side.Down});
+            Floor.validSideOfRoom[newMoldRoom].Remove(onSide);
 
             setDoorsOn(onSide, newMoldRoom);
-            GenerateDonjon.validSideOfRoom[gameObject].Remove(onSide); 
+            Floor.validSideOfRoom[gameObject].Remove(onSide); 
         }
         else{
             print("génération impossible");
         }
 
-        if (GenerateDonjon.validSideOfRoom[gameObject].Count == 0){
-            GenerateDonjon.processRooms.Remove(gameObject);
+        if (Floor.validSideOfRoom[gameObject].Count == 0){
+            Floor.processRooms.Remove(gameObject);
         } 
 
         return canGenerate;
             
     }
 
-    public void generateSpecificRoomOnSide(side side, string name = ""){
+    //generate a specific room on the side onSide
+    public void generateSpecificRoomOnSide(side onSide, string name = ""){
         GameObject newMoldRoom = instantiateNewMoldRoom(name);
-        addRoomToGridMap(newMoldRoom, getCoordinates(gameObject), side);
-        setDoorsOn(side,newMoldRoom);
+        addRoomToGridMap(newMoldRoom, getCoordinates(gameObject), onSide);
+        setDoorsOn(onSide,newMoldRoom);
     }
 
+    //get the coordinates of the moldRoom in the gridMap
     public static Vector2 getCoordinates(GameObject moldRoom){
         Vector2 coordinates = new Vector2(-1,-1);
-        for(int i = 0 ; i < GenerateDonjon.nbRoomHeight ; i += 1){
-            for(int j = 0 ; j < GenerateDonjon.nbRoomWidth ; j += 1){
-                if (GenerateDonjon.gridMap[i,j] != null && GenerateDonjon.gridMap[i,j].name == moldRoom.name){
+        for(int i = 0 ; i < Floor.nbRoomHeight ; i += 1){
+            for(int j = 0 ; j < Floor.nbRoomWidth ; j += 1){
+                if (Floor.gridMap[i,j] != null && Floor.gridMap[i,j].name == moldRoom.name){
                     coordinates.x = i;
                     coordinates.y = j;
                 }
@@ -235,13 +250,14 @@ public class RoomHandler : MonoBehaviour
         return coordinates;
     }
 
+
     public GameObject instantiateNewMoldRoom(string name = ""){
-        GameObject newMoldRoom = Instantiate(Resources.Load(GenerateDonjon.moldRoomPath, typeof(GameObject)) as GameObject);
+        GameObject newMoldRoom = Instantiate(Resources.Load(Floor.moldRoomPath, typeof(GameObject)) as GameObject);
         if(name == "")
-            newMoldRoom.name = newMoldRoom.name.Substring(0,newMoldRoom.name.IndexOf('(')) + '-' + GenerateDonjon.idRoom++;
+            newMoldRoom.name = newMoldRoom.name.Substring(0,newMoldRoom.name.IndexOf('(')) + '-' + Floor.idRoom++;
         else
             newMoldRoom.name = name;
-        newMoldRoom.transform.SetParent(GameObject.Find("Game").transform);
+        newMoldRoom.transform.SetParent(GameObject.Find("Floor").transform);
 
         return newMoldRoom;  
     }
@@ -249,20 +265,21 @@ public class RoomHandler : MonoBehaviour
     public static void addRoomToGridMap(GameObject moldRoomToAdd, Vector2 coordinates , side side){
         switch(side){
             case side.Right :
-                GenerateDonjon.gridMap[(int) coordinates.x , (int) coordinates.y + 1] = moldRoomToAdd;
+                Floor.gridMap[(int) coordinates.x , (int) coordinates.y + 1] = moldRoomToAdd;
                 break;
             case side.Left :
-                GenerateDonjon.gridMap[(int) coordinates.x , (int) coordinates.y - 1] = moldRoomToAdd;                
+                Floor.gridMap[(int) coordinates.x , (int) coordinates.y - 1] = moldRoomToAdd;                
                 break;
             case side.Down : 
-                GenerateDonjon.gridMap[(int) coordinates.x + 1, (int) coordinates.y] = moldRoomToAdd;
+                Floor.gridMap[(int) coordinates.x + 1, (int) coordinates.y] = moldRoomToAdd;
                 break;
             case side.Up :
-                GenerateDonjon.gridMap[(int) coordinates.x - 1, (int) coordinates.y] = moldRoomToAdd;
+                Floor.gridMap[(int) coordinates.x - 1, (int) coordinates.y] = moldRoomToAdd;
                 break;
         }
     }
 
+    //set the boolean side of the current room at true and the opposite side of the room behind at true 
     public void setDoorsOn(side onSide, GameObject newMoldRoom){
         switch(onSide){
             case side.Right :
@@ -282,5 +299,10 @@ public class RoomHandler : MonoBehaviour
                 newMoldRoom.GetComponent<RoomHandler>().botDoor = true;
                 break;
         }
+    }
+
+    public void CheckIfRoomIsFinish(){
+        if(GetComponentInChildren<RoomInfoHandler>().checkIfNoEnemy())
+            OnFinishRoom();
     }
 }

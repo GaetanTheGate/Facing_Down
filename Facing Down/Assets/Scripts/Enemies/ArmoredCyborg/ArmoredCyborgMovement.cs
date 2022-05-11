@@ -29,6 +29,7 @@ public class ArmoredCyborgMovement : EnemyMovement
 
 
         nextFlag = flags[0];
+        rangeFromPlayerMax = 1.5f;
     }
 
     public override void FixedUpdate()
@@ -44,6 +45,8 @@ public class ArmoredCyborgMovement : EnemyMovement
         if (!isFollowingPlayer) notFollowingPlayerBehaviour();
 
         animator.SetFloat("speed", rb.velocity.x);
+        if (rb.velocity.x < 0.3 && rb.velocity.x > -0.3) animator.speed = 1;
+        else animator.speed = Mathf.Abs(rb.velocity.x);
 
     }
 
@@ -53,10 +56,6 @@ public class ArmoredCyborgMovement : EnemyMovement
         {
             rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(path.vectorPath[currentWayPoint].x - transform.position.x, 0).normalized * movementSpeed, 5 * Time.deltaTime);
             if (Vector2.Distance(transform.position, path.vectorPath[currentWayPoint]) < 1f) currentWayPoint++;
-        }
-        else if (Vector2.Distance(nextFlag.position, transform.position) < rangeFromPlayerMin)
-        {
-            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(transform.position.x - nextFlag.position.x, rb.velocity.y).normalized * movementSpeed, 5 * Time.deltaTime);
         }
 
         if (nextFlag.position.x < transform.position.x && !isFlipped)
@@ -99,12 +98,12 @@ public class ArmoredCyborgMovement : EnemyMovement
 
     protected override void moveNotFollowingPlayer()
     {
-        if (!entityCollisionStructure.isWalled) rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(path.vectorPath[currentWayPoint].x - transform.position.x, 0).normalized * movementSpeed, 5 * Time.deltaTime);
+        if (!entityCollisionStructure.isWalled) rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(path.vectorPath[currentWayPoint].x - transform.position.x, 0).normalized * movementSpeed * 0.75f, 5 * Time.deltaTime);
     }
 
     protected override void moveNotFollowingPlayerOneFlag()
     {
-        if (!entityCollisionStructure.isWalled) rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, 0).normalized * movementSpeed, 5 * Time.deltaTime);
+        if (!entityCollisionStructure.isWalled) rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, 0).normalized * movementSpeed * 0.75f, 5 * Time.deltaTime);
     }
 
     /*private void checkObstacles()

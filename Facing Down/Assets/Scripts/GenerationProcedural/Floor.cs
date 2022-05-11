@@ -1,9 +1,9 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using Pathfinding;
 
-public class GenerateDonjon : MonoBehaviour
+public class Floor : MonoBehaviour
 {
 
     public static int nbRoomWidth = 5;
@@ -14,7 +14,7 @@ public class GenerateDonjon : MonoBehaviour
 
 
     public static float probDown = 0.66f;
-    private GameObject initRoom;
+    private static GameObject initRoom;
     
 
     public static List<GameObject> processRooms = new List<GameObject>();
@@ -23,8 +23,8 @@ public class GenerateDonjon : MonoBehaviour
     
     public static GameObject[,] gridMap = new GameObject[nbRoomHeight, nbRoomWidth];
 
-    private string gamePath = "Prefabs/Game/Game";
-    private string UIPath = "Prefabs/UI/UI";
+    private static string gamePath = "Prefabs/Game/Game";
+    private static string UIPath = "Prefabs/UI/UI";
     public static string moldRoomPath = "Prefabs/Rooms/BaseRooms/BaseRoom"; 
 
     
@@ -32,13 +32,18 @@ public class GenerateDonjon : MonoBehaviour
 
     void Update() {
         if(Input.GetKeyDown(KeyCode.G)){
-            initGenerate();
-            generate();
+            initGameManager();
+            generateFloor();
         }
+            
     }
 
+    public static void generateFloor(){
+        initGenerate();
+        generate();
+    }
 
-    public void initGenerate(){
+    public static void initGameManager(){
         GameObject ui = Resources.Load(UIPath, typeof(GameObject)) as GameObject;
         ui = Instantiate(ui);
         ui.name = "UI";
@@ -49,10 +54,18 @@ public class GenerateDonjon : MonoBehaviour
 
         DontDestroyOnLoad(gameManager);
         DontDestroyOnLoad(ui);
+    }
+
+    public static void initGenerate(){
+        
+        GameObject floor = new GameObject("Floor");
+        floor.transform.SetParent(GameObject.Find("Game").transform);
+        floor.AddComponent<AstarPath>();
+
 
         initRoom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
         initRoom.name = initRoom.name.Substring(0,initRoom.name.IndexOf('(')) + '-' + idRoom++;
-        initRoom.transform.SetParent(gameManager.transform);
+        initRoom.transform.SetParent(floor.transform);
         processRooms.Add(initRoom);
         validSideOfRoom.Add(initRoom,new List<RoomHandler.side>(){RoomHandler.side.Down,RoomHandler.side.Left,RoomHandler.side.Right});
         gridMap[0, nbRoomWidth / 2] = initRoom;
@@ -60,17 +73,15 @@ public class GenerateDonjon : MonoBehaviour
 
         GameObject anteroom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
         anteroom.name = "Anteroom";
-        anteroom.transform.SetParent(gameManager.transform);
+        anteroom.transform.SetParent(floor.transform);
         
         gridMap[nbRoomHeight - 3, nbRoomWidth / 2] = anteroom;
 
         anteroom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down,"BossRoom");
-
-        Game.currentRoom = initRoom.GetComponent<RoomHandler>();
-        
+       
     }
 
-    public void generate(){
+    public static void generate(){
         while (!checkIfRoomOnLineBeforeAnteroom() && nbRoom > 0){
             if(processRooms.Count == 0){
                 print("plus de possibilité de générer une salle");
@@ -119,8 +130,10 @@ public class GenerateDonjon : MonoBehaviour
 
                     gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
 
-                    /*if(gridMap[i,j].name == initRoom.name)
-                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("spawn");
+                    addGraphPathfinding(i,j);
+
+                    /*if(gridMap[i,j].name == initRoom.name){
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("spawn");}
                     else if(gridMap[i,j].name == "Anteroom")
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("anteroom");
                     else if(gridMap[i,j].name == "BossRoom")
@@ -131,12 +144,14 @@ public class GenerateDonjon : MonoBehaviour
             }
         }
         
-        Game.currentRoom.OnEnterRoom();
+        AstarPath.active.Scan();
+        initRoom.GetComponent<RoomHandler>().SetAsStart();
+        //Game.player.transform.position = initRoom.spawn;
         Game.player.transform.position = initRoom.GetComponent<RoomHandler>().transform.position;
         Map.generateMap();    
     }
 
-    public bool checkIfRoomOnLineBeforeAnteroom(){
+    public static bool checkIfRoomOnLineBeforeAnteroom(){
         for (int i = 0; i < nbRoomWidth; i++){
             if(gridMap[nbRoomHeight - 4,i] != null)
                 return true;
@@ -144,7 +159,7 @@ public class GenerateDonjon : MonoBehaviour
         return false;
     }
 
-    public void linkRoomToAnteroom(){
+    public static void linkRoomToAnteroom(){
         for(int i = 0; i < nbRoomHeight - 3; i += 1){
             for(int j = 0; j < nbRoomWidth; j += 1){
                 if(gridMap[i,j] != null){
@@ -217,7 +232,7 @@ public class GenerateDonjon : MonoBehaviour
     }
 
 
-    public void checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side sideToGo, Vector2 coordinates){
+    public static void checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side sideToGo, Vector2 coordinates){
         switch(sideToGo){
             case RoomHandler.side.Left:
                 if(gridMap[(int) coordinates.x, (int) coordinates.y - 1].GetComponent<RoomHandler>().botDoor)
@@ -253,6 +268,30 @@ public class GenerateDonjon : MonoBehaviour
                 }
                 break;
         }
-    } 
+    }
+
+    public static void addGraphPathfinding(int i, int j){
+
+        // This holds all graph data
+        AstarData data = AstarPath.active.data;
+
+        // This creates a Grid Graph
+        GridGraph gg = data.AddGraph(typeof(GridGraph)) as GridGraph;
+
+        // Setup a grid graph with some values
+        int width = 32;
+        int depth = 32;
+        float nodeSize = 1;
+
+        gg.center = new Vector3(36 * j, 36 * -i, 0);
+
+        // Updates internal size from the above values
+        gg.SetDimensions(width, depth, nodeSize);
+
+        gg.is2D = true;
+        gg.collision.use2D = true;
+        gg.collision.mask = LayerMask.NameToLayer("terrain");
+    }
+ 
 
 }

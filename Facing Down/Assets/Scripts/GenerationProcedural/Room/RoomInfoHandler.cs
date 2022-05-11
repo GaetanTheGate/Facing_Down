@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RoomInfoHandler : MonoBehaviour
 {
+    
     public void InitRoomInfo()
     {
         GetComponentInChildren<EnemyHandler>().ChoseEnemy();
@@ -22,5 +23,9 @@ public class RoomInfoHandler : MonoBehaviour
     public void DespawnEnemy()
     {
         GetComponentInChildren<EnemyHandler>().DespawnEnemy();
+    }
+
+    public bool checkIfNoEnemy(){
+        return GetComponentInChildren<EnemyHandler>().checkIfNoEnemy();
     }
 }
