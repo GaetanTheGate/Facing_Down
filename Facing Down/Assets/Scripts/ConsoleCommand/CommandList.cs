@@ -26,7 +26,6 @@ public static class CommandList
 		Add(new ConsoleCommand<string, float, float>("spawnEnemy", "Spawn the specified enemy at the specified position.", "spawnEnemy <NAME> <x> <y>", (NAME, x, y) => { AdvancedCommandFunctions.SpawnEnemy(NAME, x, y); } ));
 		Add(new ConsoleCommand<string>("help", "Gives the specified command's description.", "help <ID>", (ID) => { AdvancedCommandFunctions.Help(ID); } ));
 		Add(new ConsoleCommand<string, int>("help", "Gives the description of the command with given ID and arg count.", "help <ID> <argCount>", (ID, argCount) => { AdvancedCommandFunctions.Help(ID, argCount); } ));
-		Add(new ConsoleCommand("a", "a", "a", () => { new ItemChoice(GameObject.FindObjectOfType<Game>().gameObject, new Vector2(0, 1), new Vector2(0, 3)); }));
 	}
 
 	/// <summary>
