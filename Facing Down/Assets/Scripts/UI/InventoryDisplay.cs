@@ -52,6 +52,7 @@ public class InventoryDisplay : MonoBehaviour
 
     public void Enable() {
         display.SetActive(true);
+        if (UI.itemPreview.gameObject.activeSelf) UI.itemPreview.gameObject.SetActive(false);
 	}
 
 	public void Disable() {

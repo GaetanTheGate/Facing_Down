@@ -7,6 +7,7 @@ public class ItemPreview : MonoBehaviour
 {
     private Image itemIcon;
     private Text itemDescription;
+    private Item currentItem;
 
     void Start()
     {
@@ -15,7 +16,12 @@ public class ItemPreview : MonoBehaviour
     }
 
     public void SetItem(Item item) {
+        currentItem = item;
         itemIcon.sprite = item.GetSprite();
         itemDescription.text = item.GetDescription();
+	}
+
+    public Item GetCurrentItem() {
+        return currentItem;
 	}
 }
