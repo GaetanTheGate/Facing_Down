@@ -7,7 +7,7 @@ public class ItemChoice {
     private List<ItemPedestal> itemPedestals;
 
 
-    public ItemChoice(GameObject parent, List<Vector2> positions) {
+    public ItemChoice(Transform parent, List<Vector2> positions) {
         active = true;
         itemPedestals = new List<ItemPedestal>();
         foreach (Vector2 position in positions) {

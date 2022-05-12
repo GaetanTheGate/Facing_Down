@@ -39,7 +39,7 @@ public class ItemPedestal : MonoBehaviour {
 	/// <param name="parent">The pickup's tranform's parent</param>
 	/// <param name="position">The pickup's position</param>
 	/// <returns>The created pedestal</returns>
-	public static ItemPedestal SpawnRandomItemPedestal(GameObject parent, Vector2 position) {
+	public static ItemPedestal SpawnRandomItemPedestal(Transform parent, Vector2 position) {
 		return SpawnItemPedestal(ItemPool.GetRandomItem(), parent, position);
 	}
 
@@ -50,10 +50,10 @@ public class ItemPedestal : MonoBehaviour {
 	/// <param name="parent">The pickup's tranform's parent</param>
 	/// <param name="position">The pickup's position</param>
 	/// <returns>The created pedestal</returns>
-	public static ItemPedestal SpawnItemPedestal(Item item, GameObject parent, Vector2 position) {
+	public static ItemPedestal SpawnItemPedestal(Item item, Transform parent, Vector2 position) {
 		if (prefab == null) InitStaticValues();
 		ItemPedestal itemPedestal = GameObject.Instantiate<ItemPedestal>(prefab);
-		itemPedestal.transform.SetParent(parent.transform);
+		itemPedestal.transform.SetParent(parent);
 		itemPedestal.transform.position = position;
 		GameObject.Instantiate<GameObject>(pedestalPrefabs[item.GetItemType()], itemPedestal.transform);
 
