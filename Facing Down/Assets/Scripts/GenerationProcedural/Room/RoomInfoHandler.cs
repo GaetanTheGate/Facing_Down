@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class RoomInfoHandler : MonoBehaviour
 {
-    
+    private bool isOver = false;
+
     public void InitRoomInfo()
     {
         GetComponentInChildren<EnemyHandler>().Chose();
@@ -13,16 +14,17 @@ public class RoomInfoHandler : MonoBehaviour
 
     public void FinishRoom()
     {
+        isOver = true;
         GetComponentInParent<RoomHandler>().OnFinishRoom();
     }
 
-    public void SpawnEnemy()
+    public void EnterRoom()
     {
-        GetComponentInChildren<EnemyHandler>().Spawn();
+        if(! isOver) GetComponentInChildren<EnemyHandler>().Spawn();
         GetComponentInChildren<PedestalHandler>().Spawn();
     }
 
-    public void DespawnEnemy()
+    public void ExitRoom()
     {
         GetComponentInChildren<EnemyHandler>().Despawn();
         GetComponentInChildren<PedestalHandler>().Despawn();
@@ -30,5 +32,10 @@ public class RoomInfoHandler : MonoBehaviour
 
     public bool checkIfNoEnemy(){
         return GetComponentInChildren<EnemyHandler>().checkIfNoEnemy();
+    }
+
+    public void NoMoreEnemy()
+    {
+        FinishRoom();
     }
 }
