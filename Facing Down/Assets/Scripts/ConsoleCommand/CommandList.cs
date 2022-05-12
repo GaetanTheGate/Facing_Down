@@ -164,7 +164,7 @@ public static class CommandList
 			if (ID == "PrintItem") item = new PrintItem();
 			else item = ItemPool.GetByID(ID);
 			if (item == null) throw new CommandRuntimeException("Item " + ID + " not found");
-			ItemPedestal.SpawnItemPedestal(item, GameObject.FindObjectOfType<Game>().transform, Game.player.self.transform.position + new Vector3(xOffset, yOffset));
+			ItemPedestal.SpawnItemPedestal(item, GameObject.FindObjectOfType<Game>().gameObject, Game.player.self.transform.position + new Vector3(xOffset, yOffset));
 		}
 
 		public static void SpawnEnemy(string name, float x, float y)

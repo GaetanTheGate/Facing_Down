@@ -7,8 +7,7 @@ public class RoomInfoHandler : MonoBehaviour
     
     public void InitRoomInfo()
     {
-        GetComponentInChildren<EnemyHandler>().Chose();
-        GetComponentInChildren<PedestalHandler>().Chose();
+        GetComponentInChildren<EnemyHandler>().ChoseEnemy();
     }
 
     public void FinishRoom()
@@ -18,14 +17,12 @@ public class RoomInfoHandler : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        GetComponentInChildren<EnemyHandler>().Spawn();
-        GetComponentInChildren<PedestalHandler>().Spawn();
+        GetComponentInChildren<EnemyHandler>().SpawnEnemy();
     }
 
     public void DespawnEnemy()
     {
-        GetComponentInChildren<EnemyHandler>().Despawn();
-        GetComponentInChildren<PedestalHandler>().Despawn();
+        GetComponentInChildren<EnemyHandler>().DespawnEnemy();
     }
 
     public bool checkIfNoEnemy(){

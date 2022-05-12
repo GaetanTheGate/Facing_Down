@@ -4,17 +4,17 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour {
 	private bool isActive = true;
 	private Item item;
-	private ItemPedestal pedestal;
+	private ItemChoice choice;
 
 	public void Start() {
-		if (item == null || pedestal == null) throw new System.Exception("ItemPickup has null attributes, please use SpawnItemPedestal to spawn in-game items.");
+		if (item == null) throw new System.Exception("Item is not set, please use SpawnItemPedestal to spawn in-game items.");
 	}
 	public void SetItem(Item item) {
 		this.item = item;
 	}
 
-	public void SetPedestal(ItemPedestal pedestal) {
-		this.pedestal = pedestal;
+	public void SetItemChoice(ItemChoice choice) {
+		this.choice = choice;
 	}
 
 	/// <summary>
@@ -24,12 +24,16 @@ public class ItemPickup : MonoBehaviour {
 	public void OnTriggerEnter2D(Collider2D collision) {
 		if (collision.CompareTag("Player") && isActive) {
 			Game.player.inventory.AddItem(item);
-			pedestal.DisablePedestal();
+			isActive = false;
+			Destroy(gameObject);
+			Disable();
+			if (choice != null) choice.DisablePedestals();
 		}
 	}
 
 	public void Disable() {
 		if (!isActive) return;
+		Debug.Log("ITEM DISABLED");
 		isActive = false;
 		Destroy(gameObject);
 	}

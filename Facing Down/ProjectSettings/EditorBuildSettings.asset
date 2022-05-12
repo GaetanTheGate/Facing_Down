@@ -6,36 +6,33 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: 99b9a78e0aa7a92cb95fa11159537280
-  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Floor.unity
+    path: Assets/Scenes/Room.unity
     guid: 90f09d49b5f9e01aa971937b7250f62b
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Room2.unity
+    guid: 04c329905166b1896a905fa97f5b6a33
+  - enabled: 1
+    path: Assets/Scenes/Room3.unity
+    guid: 42275f9cd17346e82abdc7341e4e789a
+  - enabled: 1
+    path: Assets/Scenes/Room4.unity
+    guid: f92cd034fef10f01bb437a314fd48079
+  - enabled: 1
+    path: Assets/Scenes/Room5.unity
+    guid: c37dc697df1e8a477bcd41e149a07e9f
+  - enabled: 1
+    path: Assets/Scenes/Room6.unity
+    guid: 5dc0fbaca1e07bb8faea3f07cc941598
+  - enabled: 1
+    path: Assets/Scenes/Room7.unity
+    guid: 579dc85f86eff588992f19c4ff849bbf
+  - enabled: 1
+    path: Assets/Scenes/BossRoom.unity
+    guid: 658a394b7eee0d136aebea58e51c0b3a
+  - enabled: 1
+    path: Assets/Scenes/Anteroom.unity
+    guid: 18d1f3f7bf91854908c298b7db3a3874
   m_configObjects: {}

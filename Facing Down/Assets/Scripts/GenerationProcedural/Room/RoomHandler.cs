@@ -44,7 +44,7 @@ public class RoomHandler : MonoBehaviour
 	//choose a room category and set state doors
     public void InitRoom(string category)
     {
-        if(GetComponentInChildren<RoomInfoHandler>() == null) SetRoomInfo(category);
+        SetRoomInfo(category);
         GetComponentInChildren<DoorsHandler>().SetDoorsState(leftDoor, rightDoor, topDoor, botDoor);
         GetComponentInChildren<DoorsHandler>().SetDoors();
         GetComponentInChildren<DoorsHandler>().SetClosedState(false);
@@ -164,7 +164,7 @@ public class RoomHandler : MonoBehaviour
 
         GetComponentInChildren<DoorsHandler>().SetClosedState(false);
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
-        //GetComponent<PedestalHandler>().spawnPedestals();
+        GetComponent<PedestalHandler>().spawnPedestals();
     }
 
 
@@ -302,7 +302,6 @@ public class RoomHandler : MonoBehaviour
     }
 
     public void CheckIfRoomIsFinish(){
-        print("boolCheckIfRoomIsFinish " + GetComponentInChildren<RoomInfoHandler>().checkIfNoEnemy());
         if(GetComponentInChildren<RoomInfoHandler>().checkIfNoEnemy())
             OnFinishRoom();
     }

@@ -4,72 +4,72 @@
 		{
 			"ID" : "PrintItem",
 			"NAME" : "PrintItem",
-			"DESCRIPTION" : "Affiche les actions effectu√©es dans la console"
+			"DESCRIPTION" : "Affiche les actions effectuÈs dans la console"
 		},
 		{
 			"ID" : "BurningCircle",
-			"NAME" : "Cercle de Brul√ªre",
-			"DESCRIPTION" : "Attaquer cr√©e une zone infligeant {0}% de d√©g√¢ts aux ennemis proches"
+			"NAME" : "Cercle de Brul˚re",
+			"DESCRIPTION" : "Attaquer crÈe une zone de dÈg‚ts infligeant {0}% de dÈg‚ts aux ennemis proches"
 		},
 		{
 			"ID" : "ResidualEmbers",
-			"NAME" : "Braises R√©siduelles",
-			"DESCRIPTION" : "Les attaques r√©alis√©es sont r√©p√©t√©es apr√®s {1}s ,infligeant {0}% de d√©g√¢ts"
+			"NAME" : "Braises RÈsiduelles",
+			"DESCRIPTION" : "Les attaques rÈalisÈes sont rÈpÈtÈes aprËs {1}s ,infligeant {0}% de dÈg‚ts"
 		},
 		{
 			"ID" : "MagmaticCoating",
-			"NAME" : "Rev√™tementMagmatique",
+			"NAME" : "RevÍtementMagmatique",
 			"DESCRIPTION" : "Augmente les chances de coup critique de {0}%"
 		},
 		{
 			"ID" : "FieryAlloy",
 			"NAME" : "Alliage Ardent",
-			"DESCRIPTION" : "Augmente tous les d√©g√¢ts de {0}%"
+			"DESCRIPTION" : "Augmente tous les dÈg‚ts de {0}%"
 		},
 		{
 			"ID" : "VoraciousFlames",
 			"NAME" : "Flammes Insatiables",
-			"DESCRIPTION" : "Les attaques a√©riennes successives infligent {0}% de d√©g√¢ts suppl√©mentaires"
+			"DESCRIPTION" : "Les attaques aÈriennes successives infligent {0}% de dÈg‚ts supplÈmentaires"
 		},
 		{
 			"ID" : "ObsidianShard",
-			"NAME" : "√âclat d'Obsidienne",
-			"DESCRIPTION" : "Lorsque vous √©liminez un ennemi, tirez 1 projectile infligeant {0}% de d√©g√¢ts vers l' ennemi le plus proche"
+			"NAME" : "…clat d'Obsidienne",
+			"DESCRIPTION" : "Lorsque vous Èliminez un ennemi, tirez 1 projectile infligeant {0}% de dÈg‚ts vers l' ennemi le plus proche"
 		},
 		{
 			"ID" : "FocusAmber",
 			"NAME" : "Ambre de Concentration",
-			"DESCRIPTION" : "Augmente de {0}% la dur√©e du Bullet Time"
+			"DESCRIPTION" : "Augmente de {0}% la durÈe du Bullet Time"
 		},
 		{
 			"ID" : "PowerSaver",
-			"NAME" : "R√©cup√©rateur d'√ânergie",
-			"DESCRIPTION" : "Sortir du bullet time sans effectuer d'action rend {0}% d'√©nergie"
+			"NAME" : "RÈcupÈrateur d'…nergie",
+			"DESCRIPTION" : "Sortir du bullet time sans effectuer d'action rend {0}% d'Ènergie"
 		},
 		{
 			"ID" : "HeartOfTheStorm",
-			"NAME" : "Coeur de la Temp√™te",
-			"DESCRIPTION" : "√âliminer un ennemi rend {0}% d'√©nergie suppl√©mentaire"
+			"NAME" : "Coeur de la TempÍte",
+			"DESCRIPTION" : "…liminer un ennemi rend {0}% d'Ènergie supplÈmentaire"
 		},
 		{
 			"ID" : "BatteryPack", 
 			"NAME" : "Extension de Batterie",
-			"DESCRIPTION" : "Augmente de {0} le maximum d'√©nergie"
+			"DESCRIPTION" : "Augmente de {0} le maximum d'Ènergie"
 		},
 		{
 			"ID" : "OverchargedCoil",
-			"NAME" : "Bobine Surcharg√©e",
-			"DESCRIPTION" : "Activer le Bullet Time inflige {0}% de d√©g√¢ts √† tous les ennemis"
+			"NAME" : "Bobine SurchargÈe",
+			"DESCRIPTION" : "Activer le Bullet Time inflige {0}% de dÈg‚ts ‡ tous les ennemis"
 		},
 		{
 			"ID" : "ImpenetrableRoots",
-			"NAME" : "Racines Imp√©n√©trables",
-			"DESCRIPTION" : "Au contact avec le sol, r√©duit les d√©g√¢ts subis de {0}%"
+			"NAME" : "Racines ImpÈnÈtrables",
+			"DESCRIPTION" : "Au contact avec le sol, rÈduit les dÈg‚ts subis de {0}%"
 		},
 		{
 			"ID" : "HardeningPlates",
 			"NAME" : "Plaques Durcissantes",
-			"DESCRIPTION" : "√âliminer un ennemi vous rend invuln√©rable pendant {0}s"
+			"DESCRIPTION" : "…liminer un ennemi vous rend invulnÈrable pendant {0}s"
 		},
 		{
 			"ID" : "StoneArmor",
@@ -79,21 +79,21 @@
 		{
 			"ID" : "HornOfPlenty",
 			"NAME" : "Corne d'Abondance",
-			"DESCRIPTION" : "R√©g√©n√®re {0}% des PV √† la fin de chaque salle"
+			"DESCRIPTION" : "RÈgÈnËre {0}% des PV ‡ la fin de chaque salle"
 		},
 		{
 			"ID" : "SylvanBreastplate",
 			"NAME" : "Plastron Sylvestre",
-			"DESCRIPTION" : "R√©duit les d√©g√¢ts subis de {0}"
+			"DESCRIPTION" : "RÈduit les dÈg‚ts subis de {0}"
 		},
 		{
 			"ID" : "ClayClone",
 			"NAME" : "Clone d'Argile",
-			"DESCRIPTION" : "√Ä la mort, ressuscite avec l'enti√®ret√© des PV"
+			"DESCRIPTION" : "¿ la mort, ressuscite avec l'entiËretÈ des PV"
 		},
 		{
 			"ID" : "Lightness",
-			"NAME" : "L√©g√®ret√©",
+			"NAME" : "LÈgËretÈ",
 			"DESCRIPTION" : "Augmente la vitesse de propulsion de {0}%"
 		},
 		{
@@ -103,13 +103,13 @@
 		},
 		{
 			"ID" : "RiftMaker",
-			"NAME" : "Cr√©ateur de Failles",
-			"DESCRIPTION" : "Atterir cr√©e une faille dans laquelle la vitesse de propulsion est augment√©e de {0}%"
+			"NAME" : "CrÈateur de Failles",
+			"DESCRIPTION" : "Atterir crÈe une faille dans laquelle la vitesse de propulsion est augmentÈe de {0}%"
 		},
 		{
 			"ID" : "InvisibilityCloak",
-			"NAME" : "Cape d'Invisibilit√©",
-			"DESCRIPTION" : "Dasher ou se rediriger rend invuln√©rable pendant {0}s"
+			"NAME" : "Cape d'InvisibilitÈ",
+			"DESCRIPTION" : "Dasher ou se rediriger rend invulnÈrable pendant {0}s"
 		}
 	]
 }

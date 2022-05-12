@@ -7,16 +7,18 @@ using UnityEngine.UI;
 /// </summary>
 public class InventoryDisplay : MonoBehaviour
 {
-    private GameObject display;
-    private Dictionary<string, ItemDisplay> itemDisplays;
+    public static readonly string spriteFolderPath = "Items/Sprites/";
+
+    private GameObject itemDisplayPrefab;
+    private Dictionary<string, GameObject> itemDisplays;
 
     public int ROW_SIZE = 18;
     public float offset = 80f;
 
 
 	private void Start() {
-        display = transform.Find("Display").gameObject;
-        itemDisplays = new Dictionary<string, ItemDisplay>();
+        itemDisplayPrefab = Resources.Load<GameObject>("Prefabs/UI/Components/ItemDisplay");
+        itemDisplays = new Dictionary<string, GameObject>();
 	}
 
 	/// <summary>
@@ -24,7 +26,8 @@ public class InventoryDisplay : MonoBehaviour
 	/// </summary>
 	/// <param name="item">The Item to add. Should be an item from the player's inventory.</param>
 	public void AddItemDisplay(Item item) {
-        ItemDisplay itemDisplay = ItemDisplay.InstantiateItemDisplay(item, display.transform, new Vector2(itemDisplays.Count % ROW_SIZE * offset, itemDisplays.Count / ROW_SIZE * offset));
+        GameObject itemDisplay = InstantiateItemDisplay(item);
+        itemDisplay.transform.localPosition = new Vector2(itemDisplays.Count % ROW_SIZE * offset, itemDisplays.Count / ROW_SIZE * offset);
         itemDisplays.Add(item.GetID(), itemDisplay);
 	}
 
@@ -47,20 +50,14 @@ public class InventoryDisplay : MonoBehaviour
     /// </summary>
     /// <param name="item">The item to update. Should be an item from the player's inventory.</param>
     public void UpdateItemDisplay(Item item) {
-        itemDisplays[item.GetID()].UpdateAmount(); ;
+        Debug.Log("CURRENT : " + itemDisplays[item.GetID()].GetComponentInChildren<Text>().text + "\nNEW : " + item.GetAmount().ToString());
+        itemDisplays[item.GetID()].GetComponentInChildren<Text>().text = item.GetAmount().ToString();
 	}
 
-    public void Enable() {
-        display.SetActive(true);
-        if (UI.itemPreview.gameObject.activeSelf) UI.itemPreview.gameObject.SetActive(false);
-	}
-
-	public void Disable() {
-        UI.itemPreview.gameObject.SetActive(false);
-        display.SetActive(false);
-	}
-
-    public bool IsEnabled() {
-        return display.activeSelf;
-	}
+    private GameObject InstantiateItemDisplay(Item item) {
+        GameObject itemDisplay = Instantiate<GameObject>(itemDisplayPrefab, transform);
+        itemDisplay.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(spriteFolderPath + item.GetID());
+        itemDisplay.GetComponentInChildren<Text>().text = item.GetAmount().ToString();
+        return itemDisplay;
+    }
 }

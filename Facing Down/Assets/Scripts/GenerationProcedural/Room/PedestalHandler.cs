@@ -2,23 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PedestalHandler : MonoBehaviour, SpawnPoint
+public class PedestalHandler : MonoBehaviour
 {
-    public void Chose()
-    {
-        foreach (PedestalSpawnPoint spawnPoint in GetComponentsInChildren<PedestalSpawnPoint>())
-            spawnPoint.Chose();
-    }
+    public List<GameObject> spawnPointPedestals = new List<GameObject>();
 
-    public void Spawn()
-    {
-        foreach (PedestalSpawnPoint spawnPoint in GetComponentsInChildren<PedestalSpawnPoint>())
-            spawnPoint.Spawn();
+    public void spawnPedestals(){
+        foreach(GameObject spawnPointPedestal in spawnPointPedestals){
+            ItemPedestal.SpawnRandomItemPedestal(gameObject,spawnPointPedestal.transform.position);   
+        }
     }
-
-    public void Despawn()
-    {
-        foreach (PedestalSpawnPoint spawnPoint in GetComponentsInChildren<PedestalSpawnPoint>())
-            spawnPoint.Despawn();
-    }
+    
 }

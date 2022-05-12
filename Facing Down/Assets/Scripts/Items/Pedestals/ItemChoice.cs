@@ -3,27 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemChoice {
-    private bool active;
-    private List<ItemPedestal> itemPedestals;
+    ItemPedestal firstItem;
+    ItemPedestal secondItem;
 
-
-    public ItemChoice(Transform parent, List<Vector2> positions) {
-        active = true;
-        itemPedestals = new List<ItemPedestal>();
-        foreach (Vector2 position in positions) {
-            ItemPedestal itemPedestal = ItemPedestal.SpawnRandomItemPedestal(parent, position);
-            itemPedestal.SetItemChoice(this);
-            itemPedestals.Add(itemPedestal);
-		}
+    public ItemChoice(GameObject parent, Vector2 position1, Vector2 position2) {
+        firstItem = ItemPedestal.SpawnRandomItemPedestal(parent, position1);
+        secondItem = ItemPedestal.SpawnRandomItemPedestal(parent, position2);
+        firstItem.SetItemChoice(this);
+        secondItem.SetItemChoice(this);
     }
 
     public void DisablePedestals() {
-        if (!active) return;
-        active = false;
-        foreach (ItemPedestal itemPedestal in itemPedestals) itemPedestal.DisablePedestal();
-    }
-
-    public List<ItemPedestal> GetItemPedestals() {
-        return itemPedestals;
+        firstItem.DisablePedestal();
+        secondItem.DisablePedestal();
     }
 }

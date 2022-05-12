@@ -2,11 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface SpawnPoint
+public class SpawnPoint : MonoBehaviour
 {
-    public void Chose();
+    public List<Transform> wayPoints;
+    public List<GameObject> enemyList;
 
-    public void Spawn();
+    private GameObject enemyChosen;
+    private GameObject enemyEntity;
 
-    public void Despawn();
+    public void ChoseEnemy()
+    {
+        enemyChosen = enemyList[Game.random.Next(0, enemyList.Count - 1)];
+    }
+
+    public void SpawnEnemy()
+    {
+        enemyEntity = Instantiate(enemyChosen);
+        enemyEntity.transform.position = transform.position;
+        enemyEntity.transform.SetParent(transform.parent);
+        enemyEntity.GetComponent<EnemyMovement>().flags = wayPoints.ToArray(); 
+        
+    }
+
+    public void DespawnEnemy()
+    {   
+        Destroy(enemyEntity);
+    }
+
 }
