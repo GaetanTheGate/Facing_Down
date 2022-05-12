@@ -34,6 +34,8 @@ public class Floor : MonoBehaviour
             print("destroy");
             destroyFloor();
         }
+        if(Input.GetKeyDown(KeyCode.T))
+            Tower.generateNextFloor();
             
     }
 
@@ -280,13 +282,29 @@ public class Floor : MonoBehaviour
         gg.collision.mask = LayerMask.NameToLayer("terrain");
     }
  
-    public static void destroyFloor(){
+    public void destroyFloor(){
         Destroy(GameObject.Find("Floor"));
         UI.map.SetActive(true);
-        foreach(Transform child in GameObject.Find("Map").transform){
-            print(child);
-            //Destroy(child);
-        }
+        Destroy(GameObject.Find("Map"));
+        GameObject map = new GameObject("Map");
+        map.transform.SetParent(GameObject.Find("UI").transform);
+        UI.map = map;
+        StartCoroutine(waiter());
     }
+
+    public static void resetVar(){
+        nbRoom = (nbRoomHeight * nbRoomWidth) / 3;
+        idRoom = 0;
+        processRooms = new List<GameObject>();
+        validSideOfRoom = new Dictionary<GameObject, List<RoomHandler.side>>();
+        gridMap = new GameObject[nbRoomHeight, nbRoomWidth];
+        initRoom = null;
+    }
+
+    public static IEnumerator<YieldInstruction> waiter(){
+        yield return new WaitForSeconds(1);
+        Tower.generateNextFloor();
+    }
+
 
 }
