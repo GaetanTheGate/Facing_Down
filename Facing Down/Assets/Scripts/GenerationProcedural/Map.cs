@@ -19,9 +19,6 @@ public class Map : MonoBehaviour
 
 
     public static void generateMap(){
-        GameObject map = UI.map;
-    
-        
         for(int i = 0; i < Floor.nbRoomHeight; i += 1){
             for(int j = 0; j < Floor.nbRoomWidth; j += 1){
                 if (Floor.gridMap[i, j] != null){
@@ -42,7 +39,7 @@ public class Map : MonoBehaviour
         GameObject imageGo = new GameObject("MapIcon" + room.name);
         imageGo.tag = "MapIcon"; 
         imageGo.AddComponent<Image>();
-        imageGo.transform.SetParent(GameObject.Find("Map").transform);
+        UI.map.AddRoomDisplay(imageGo);
 
         //4 doors not null
         if (room.botDoor && room.topDoor && room.leftDoor && room.rightDoor)
