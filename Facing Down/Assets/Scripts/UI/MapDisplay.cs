@@ -16,8 +16,8 @@ public class MapDisplay : MonoBehaviour
     }
 
     public void ResetMapDisplay() {
-        for (int i = 0; i < transform.childCount; ++i) {
-            Destroy(transform.GetChild(i));
+        for (int i = 0; i < display.transform.childCount; ++i) {
+            Destroy(display.transform.GetChild(i).gameObject);
 		}
 	}
 

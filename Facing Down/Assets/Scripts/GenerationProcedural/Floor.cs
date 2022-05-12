@@ -299,6 +299,7 @@ public class Floor : MonoBehaviour
     public static IEnumerator<YieldInstruction> waiter(){
         yield return new WaitForSeconds(1);
         Tower.generateNextFloor();
+        UI.map.Init();
     }
 
 
