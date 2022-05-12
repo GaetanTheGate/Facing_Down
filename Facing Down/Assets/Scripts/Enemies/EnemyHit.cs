@@ -12,7 +12,7 @@ public class EnemyHit : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
     }
 
-    protected virtual void getHit()
+    public virtual void getHit(DamageInfo dmgInfo)
     {
         StartCoroutine(startBlinkRoutine());
     }
@@ -20,7 +20,7 @@ public class EnemyHit : MonoBehaviour
     protected IEnumerator startBlinkRoutine()
     {
         sp.color = new Color(1f, 0f, 0f, 0.5f);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         sp.color = new Color(1, 1, 1, 1);
     }
 }

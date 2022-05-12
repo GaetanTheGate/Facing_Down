@@ -7,6 +7,7 @@ public abstract class EnemyAttack : MonoBehaviour
     protected float delay = 2f;
     protected float timePassed = 0f;
     protected bool isAttacking = false;
+    protected bool canAttack = true;
 
     protected Bullet bullet = new Bullet("Player");
 
@@ -30,5 +31,8 @@ public abstract class EnemyAttack : MonoBehaviour
 
     public abstract void attackPlayer(Vector2 playerPosition);
 
-    
+    public void disableAttack()
+    {
+        canAttack = false;
+    }
 }

@@ -6,14 +6,15 @@ using UnityEngine;
 /// Abstract class from which all the items inherit.
 /// </summary>
 public abstract class Item{
+    public static readonly string spriteFolderPath = "Items/Sprites/";
+
     private string ID;
-
     protected ItemDescription description;
-
     protected int amount;
     private ItemRarity rarity;
     private ItemType type;
     private ItemPriority priority;
+    private Sprite sprite;
 
     /// <summary>
     /// Item constructor. Sets the amount to 1 by default.
@@ -28,6 +29,7 @@ public abstract class Item{
         this.type = type;
         this.priority = priority;
         this.description = Localization.GetItemDescription(id);
+        this.sprite = Resources.Load<Sprite>(spriteFolderPath + ID);
         amount = 1;
 	}
 
@@ -63,6 +65,10 @@ public abstract class Item{
 
     public ItemPriority GetPriority() {
         return priority;
+	}
+
+    public Sprite GetSprite() {
+        return sprite;
 	}
 
     //Effects
