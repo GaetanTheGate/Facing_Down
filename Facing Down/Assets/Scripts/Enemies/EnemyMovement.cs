@@ -101,7 +101,7 @@ public abstract class EnemyMovement : MonoBehaviour
             else moveNotFollowingPlayerOneFlag();
         }
         if (Vector2.Distance(transform.position, path.vectorPath[currentWayPoint]) < 1f) currentWayPoint++;
-        if (Mathf.Abs(transform.position.x - nextFlag.position.x) < Mathf.Abs(transform.localScale.x))
+        if (calculateDistanceNextFlag() < Mathf.Abs(transform.localScale.x))
         {
             StartCoroutine(waitIdle(2f));
             tempNext = (tempNext + 1) % flags.Length;
@@ -116,6 +116,8 @@ public abstract class EnemyMovement : MonoBehaviour
         }
         nextFlag = flags[tempNext];
     }
+
+    protected abstract float calculateDistanceNextFlag();
 
     protected virtual void moveNotFollowingPlayer()
     {

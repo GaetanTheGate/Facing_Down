@@ -166,4 +166,9 @@ public class ArmoredCyborgMovement : EnemyMovement
         jump.setSpeed(height*jump.getSpeed());
         rb.velocity = jump.GetAsVector2();
     }
+
+    protected override float calculateDistanceNextFlag()
+    {
+        return Mathf.Abs(transform.position.x - nextFlag.position.x);
+    }
 }

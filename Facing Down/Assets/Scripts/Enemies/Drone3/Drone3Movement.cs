@@ -54,5 +54,9 @@ public class Drone3Movement : EnemyMovement
         }
     }
 
+    protected override float calculateDistanceNextFlag()
+    {
+        return Vector2.Distance(transform.position, nextFlag.position);
+    }
 }
 
