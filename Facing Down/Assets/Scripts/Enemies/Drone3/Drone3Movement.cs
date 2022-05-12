@@ -31,10 +31,10 @@ public class Drone3Movement : EnemyMovement
         {
             rb.velocity = Vector2.Lerp(rb.velocity, (transform.position - nextFlag.position).normalized * movementSpeed, 5 * Time.deltaTime);
         }
-        /*else if (Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMin && Vector2.Distance(nextFlag.position, transform.position) < rangeFromPlayerMax)
+        else if (Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMin && Vector2.Distance(nextFlag.position, transform.position) < rangeFromPlayerMax)
         {
             rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(0, 0), 5 * Time.deltaTime);
-        }*/
+        }
 
         if (nextFlag.position.x < transform.position.x && !isFlipped)
         {
