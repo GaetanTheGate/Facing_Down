@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class EnemyHandler : MonoBehaviour, SpawnPoint
 {
+    private int enemyLeft = 0;
+
+    public void EnemyKilled()
+    {
+        enemyLeft -= 1;
+        if(enemyLeft == 0) GetComponentInParent<RoomInfoHandler>().NoMoreEnemy();
+    }
+
     public bool checkIfNoEnemy(){
         print("checkIfNoEnemy");
         foreach(Transform child in transform){
@@ -25,7 +33,10 @@ public class EnemyHandler : MonoBehaviour, SpawnPoint
     public void Spawn()
     {
         foreach (EnemySpawnPoint spawnPoint in GetComponentsInChildren<EnemySpawnPoint>())
+        {
+            enemyLeft += 1;
             spawnPoint.Spawn();
+        }
     }
 
     public void Despawn()

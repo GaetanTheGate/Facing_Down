@@ -22,6 +22,7 @@ public class UI : MonoBehaviour
         map = transform.Find("Map").gameObject;
         itemPreview = gameObject.GetComponentInChildren<ItemPreview>();
 
+        inventoryDisplay.init();
         inventoryDisplay.Disable();
         map.SetActive(false);
 
