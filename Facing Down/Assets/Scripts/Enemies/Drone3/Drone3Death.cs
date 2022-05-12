@@ -26,7 +26,7 @@ public class Drone3Death : MonoBehaviour
     public void die()
     {
         GetComponent<GravityEntity>().gravity.setSpeed(9.8f);
-        if (Game.currentRoom != null && GetComponent<RoomHandler>() != null) Game.currentRoom.GetComponent<RoomHandler>().CheckIfRoomIsFinish();
+        if (Game.currentRoom != null && Game.currentRoom.GetComponent<RoomHandler>() != null) Game.currentRoom.GetComponent<RoomHandler>().CheckIfRoomIsFinish();
         BroadcastMessage("deathEvent");
         isDead = true;
     }
