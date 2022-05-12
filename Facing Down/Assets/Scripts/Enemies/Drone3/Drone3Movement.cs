@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Drone3Movement : EnemyMovement
 {
@@ -18,6 +19,7 @@ public class Drone3Movement : EnemyMovement
 
         enemyAttack = gameObject.GetComponent<Drone3Attack>();
         nextFlag = flags[0];
+
     }
 
     public override void moveFollowingPlayer()
