@@ -22,4 +22,8 @@ public class ItemChoice {
         active = false;
         foreach (ItemPedestal itemPedestal in itemPedestals) itemPedestal.DisablePedestal();
     }
+
+    public List<ItemPedestal> GetItemPedestals() {
+        return itemPedestals;
+    }
 }
