@@ -137,7 +137,6 @@ public class Floor : MonoBehaviour
         initRoom.GetComponent<RoomHandler>().SetAsStart();
         //Game.player.transform.position = initRoom.spawn;
         Game.player.transform.position = initRoom.GetComponent<RoomHandler>().transform.position;
-        Map.generateMap();    
     }
 
     public static bool checkIfRoomOnLineBeforeAnteroom(){
@@ -284,11 +283,7 @@ public class Floor : MonoBehaviour
  
     public void destroyFloor(){
         Destroy(GameObject.Find("Floor"));
-        UI.map.SetActive(true);
-        Destroy(GameObject.Find("Map"));
-        GameObject map = new GameObject("Map");
-        map.transform.SetParent(GameObject.Find("UI").transform);
-        UI.map = map;
+        UI.map.ResetMapDisplay();
         StartCoroutine(waiter());
     }
 
