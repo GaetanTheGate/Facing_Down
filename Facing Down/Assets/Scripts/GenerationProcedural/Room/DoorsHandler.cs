@@ -69,32 +69,7 @@ public class DoorsHandler : MonoBehaviour
 
     public void SetCloseDoor()
     {
-        foreach (Transform child in GetComponentsInChildren<Transform>(true))
-        {
-            if (child.gameObject == gameObject)
-                continue;
-
-            switch (child.name)
-            {
-                case "LeftBlock":
-                    child.gameObject.SetActive(left && doorClosed);
-                    break;
-
-                case "RightBlock":
-                    child.gameObject.SetActive(right && doorClosed);
-                    break;
-
-                case "TopBlock":
-                    child.gameObject.SetActive(top && doorClosed);
-                    break;
-
-                case "BottomBlock":
-                    child.gameObject.SetActive(bot && doorClosed);
-                    break;
-
-                default:
-                    break;
-            }
-        }
+        foreach (Door child in GetComponentsInChildren<Door>())
+            child.Close(doorClosed);
     }
 }
