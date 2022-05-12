@@ -19,7 +19,7 @@ public class ItemPreview : MonoBehaviour
 
     public void SetItem(Item item) {
         currentItem = item;
-        itemIcon.sprite = item.GetSprite();
+        itemIcon.sprite = item.GetSprite(); 
         itemDescription.text = item.GetDescription();
         itemName.text = item.GetName();
 	}

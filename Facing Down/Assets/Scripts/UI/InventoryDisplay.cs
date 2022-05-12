@@ -14,7 +14,7 @@ public class InventoryDisplay : MonoBehaviour
     public float offset = 80f;
 
 
-    public void init(){
+    public void Init(){
         display = transform.Find("Display").gameObject;
         itemDisplays = new Dictionary<string, ItemDisplay>();
     }

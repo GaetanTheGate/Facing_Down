@@ -11,7 +11,7 @@ public class UI : MonoBehaviour
     public static Console console;
     public static ItemPreview itemPreview;
 
-    public static GameObject map;
+    public static MapDisplay map;
 
     private void Start() {
         inventoryDisplay = gameObject.GetComponentInChildren<InventoryDisplay>();
@@ -19,12 +19,13 @@ public class UI : MonoBehaviour
         specialBar = gameObject.GetComponentInChildren<SpecialBar>();
         dashBar = gameObject.GetComponentInChildren<DashBar>();
         console = gameObject.GetComponentInChildren<Console>();
-        map = transform.Find("Map").gameObject;
+        map = gameObject.GetComponentInChildren<MapDisplay>();
         itemPreview = gameObject.GetComponentInChildren<ItemPreview>();
 
-        inventoryDisplay.init();
+        inventoryDisplay.Init();
         inventoryDisplay.Disable();
-        map.SetActive(false);
+        map.Init();
+        map.Disable();
 
         itemPreview.gameObject.SetActive(false);
     }
@@ -42,7 +43,7 @@ public class UI : MonoBehaviour
             else if (inventoryDisplay.IsEnabled()) {
                 if (Event.current.keyCode == KeyCode.Escape) {
                     inventoryDisplay.Disable();
-                    map.SetActive(false);
+                    map.Disable();
                     LockCursor();
                     Game.time.SetGameSpeedInstant(1);
 				}
@@ -53,7 +54,7 @@ public class UI : MonoBehaviour
                 }
                 else if (Event.current.keyCode == KeyCode.E) {
                     inventoryDisplay.Enable();
-                    map.SetActive(true);
+                    map.Enable();
                     UnlockCursor();
                     Game.time.SetGameSpeedInstant(0);
                 }
