@@ -44,7 +44,7 @@ public class RoomHandler : MonoBehaviour
 	//choose a room category and set state doors
     public void InitRoom(string category)
     {
-        SetRoomInfo(category);
+        if(GetComponentInChildren<RoomInfoHandler>() == null) SetRoomInfo(category);
         GetComponentInChildren<DoorsHandler>().SetDoorsState(leftDoor, rightDoor, topDoor, botDoor);
         GetComponentInChildren<DoorsHandler>().SetDoors();
         GetComponentInChildren<DoorsHandler>().SetClosedState(false);
