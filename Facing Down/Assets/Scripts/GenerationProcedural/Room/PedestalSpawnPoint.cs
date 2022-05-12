@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PedestalSpawnPoint : MonoBehaviour, SpawnPoint
 {
+    [Range(0,100)] public int chanceToSpawn = 100;
+
     List<ItemPedestal> itemPossibilityList;
 
     List<ItemPedestal> chosenItems;
@@ -11,6 +13,9 @@ public class PedestalSpawnPoint : MonoBehaviour, SpawnPoint
     public void Chose()
     {
         chosenItems = new List<ItemPedestal>();
+        if(Game.random.Next(0, 101) > chanceToSpawn)
+            return;
+
 
         if (itemPossibilityList == null || itemPossibilityList.Count == 0)
         {

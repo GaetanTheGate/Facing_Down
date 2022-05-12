@@ -17,7 +17,7 @@ public class EnemyDeath : MonoBehaviour
 
     public virtual void die()
     {
-        if (Game.currentRoom != null && GetComponent<RoomHandler>() != null) Game.currentRoom.GetComponent<RoomHandler>().CheckIfRoomIsFinish();
+        //if (Game.currentRoom != null && GetComponent<RoomHandler>() != null) Game.currentRoom.GetComponent<RoomHandler>().CheckIfRoomIsFinish();
         //BroadcastMessage("deathEvent");
         isDead = true;
     }
