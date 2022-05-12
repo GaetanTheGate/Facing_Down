@@ -5,13 +5,20 @@ using UnityEngine;
 /// An Item Pedestal, which can grant the player new items. Use SpawnItemPedestal or SpawnRandomItemPedestal to instantiate.
 /// </summary>
 public class ItemPedestal : MonoBehaviour {
-	public static readonly string itemSpritesPath = "Items/Sprites/";
-	public static readonly string pedestalSpritesPath = "Items/Pedestal/";
-	private static readonly GameObject rarityHaloPrefab = Resources.Load<GameObject>("Prefabs/Items/Pedestal/RarityHalo");
-	private static readonly ItemPickup itemPickupPrefab = Resources.Load<ItemPickup>("Prefabs/Items/Pedestal/ItemPickup");
-	private static readonly Dictionary<ItemRarity, Color> haloColors;
-	private static readonly Dictionary<ItemType, GameObject> pedestalPrefabs;
-	static ItemPedestal() {
+	private static readonly string itemSpritesPath = "Items/Sprites/";
+
+	private static ItemPedestal prefab;
+	private static Dictionary<ItemRarity, Color> haloColors;
+	private static Dictionary<ItemType, GameObject> pedestalPrefabs;
+
+	private GameObject halo;
+	private ItemPickup pickup;
+	private ItemPedestalPreviewArea previewArea;
+
+	private ItemChoice choice;
+
+	private static void InitStaticValues() {
+		prefab = Resources.Load<ItemPedestal>("Prefabs/Items/Pedestal/ItemPedestal");
 		pedestalPrefabs = new Dictionary<ItemType, GameObject> {
 			{ItemType.FIRE, Resources.Load<GameObject>("Prefabs/Items/Pedestal/FirePedestal")},
 			{ItemType.EARTH, Resources.Load<GameObject>("Prefabs/Items/Pedestal/EarthPedestal")},
@@ -32,9 +39,10 @@ public class ItemPedestal : MonoBehaviour {
 	/// <param name="parent">The pickup's tranform's parent</param>
 	/// <param name="position">The pickup's position</param>
 	/// <returns>The created pedestal</returns>
-	public static ItemPedestal SpawnRandomItemPedestal(GameObject parent, Vector2 position) {
+	public static ItemPedestal SpawnRandomItemPedestal(Transform parent, Vector2 position) {
 		return SpawnItemPedestal(ItemPool.GetRandomItem(), parent, position);
 	}
+
 	/// <summary>
 	/// Spawns an item pedestal
 	/// </summary>
@@ -42,27 +50,45 @@ public class ItemPedestal : MonoBehaviour {
 	/// <param name="parent">The pickup's tranform's parent</param>
 	/// <param name="position">The pickup's position</param>
 	/// <returns>The created pedestal</returns>
-	public static ItemPedestal SpawnItemPedestal(Item item, GameObject parent, Vector2 position) {
-		GameObject pedestal = GameObject.Instantiate<GameObject>(pedestalPrefabs[item.GetItemType()]);
-		pedestal.AddComponent<ItemPedestal>();
-		GameObject halo = GameObject.Instantiate<GameObject>(rarityHaloPrefab, pedestal.transform);
-		halo.GetComponent<SpriteRenderer>().color = haloColors[item.GetRarity()];
-		ItemPickup pickup = GameObject.Instantiate<ItemPickup>(itemPickupPrefab, pedestal.transform);
-		pickup.transform.localPosition = new Vector2(0, 1);
-		pickup.SetItem(item);
-		pedestal.transform.SetParent(parent.transform);
-		pedestal.transform.position = position;
-		return pedestal.GetComponent<ItemPedestal>();
+	public static ItemPedestal SpawnItemPedestal(Item item, Transform parent, Vector2 position) {
+		if (prefab == null) InitStaticValues();
+		ItemPedestal itemPedestal = GameObject.Instantiate<ItemPedestal>(prefab);
+		itemPedestal.transform.SetParent(parent);
+		itemPedestal.transform.position = position;
+		GameObject.Instantiate<GameObject>(pedestalPrefabs[item.GetItemType()], itemPedestal.transform);
+
+		itemPedestal.halo = itemPedestal.transform.Find("RarityHalo").gameObject;
+		itemPedestal.pickup = itemPedestal.transform.Find("ItemPickup").GetComponent<ItemPickup>();
+		itemPedestal.previewArea = itemPedestal.transform.Find("PedestalPreviewArea").GetComponent<ItemPedestalPreviewArea>();
+
+		itemPedestal.halo.GetComponent<SpriteRenderer>().color = haloColors[item.GetRarity()];
+		itemPedestal.pickup.SetItem(item);
+		itemPedestal.pickup.SetPedestal(itemPedestal);
+		itemPedestal.previewArea.SetItem(item);
+		return itemPedestal;
 	}
 
+	/// <summary>
+	/// Registers this pedestal as a choice for the chosen ItemChoice
+	/// </summary>
+	/// <param name="choice"></param>
 	public void SetItemChoice(ItemChoice choice) {
-		GetComponentInChildren<ItemPickup>().SetItemChoice(choice);
+		this.choice = choice;
 	}
 
 	public void DisablePedestal() {
-		ItemPickup pickup = GetComponentInChildren<ItemPickup>();
 		if (pickup != null) {
 			pickup.Disable();
+			pickup = null;
 		}
+		if (previewArea != null) {
+			Destroy(previewArea);
+			previewArea = null;
+		}
+		if (halo != null) {
+			Destroy(halo);
+			halo = null;
+		}
+		if (choice != null) choice.DisablePedestals();
 	}
 }
