@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArmoredCyborgDeath : EnemyDeath
+public class ArmoredCyborgDeath : MonoBehaviour
 {
-
     public GameObject parentToDestroy;
 
     private bool isDead = false;
@@ -34,7 +33,7 @@ public class ArmoredCyborgDeath : EnemyDeath
 
     private IEnumerator startWaitingRoutine()
     {
-        base.die();
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         animator.SetBool("dead", true);
         Destroy(parentToDestroy, animator.GetCurrentAnimatorStateInfo(0).length);
     }
