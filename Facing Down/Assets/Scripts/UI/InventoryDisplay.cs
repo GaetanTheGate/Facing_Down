@@ -14,10 +14,10 @@ public class InventoryDisplay : MonoBehaviour
     public float offset = 80f;
 
 
-	private void Start() {
+    public void init(){
         display = transform.Find("Display").gameObject;
         itemDisplays = new Dictionary<string, ItemDisplay>();
-	}
+    }
 
 	/// <summary>
 	/// Adds a new item to the display.

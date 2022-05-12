@@ -10,6 +10,7 @@ public class Tower : MonoBehaviour
 
     public static void generateNextFloor(){
         if(nbFloor > 0){
+            Floor.resetVar();
             Floor.generateFloor();
             nbFloor -= 1;
         }
