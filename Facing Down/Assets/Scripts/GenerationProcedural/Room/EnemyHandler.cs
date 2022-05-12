@@ -37,6 +37,8 @@ public class EnemyHandler : MonoBehaviour, SpawnPoint
 
     public void Spawn()
     {
+
+
         foreach (EnemySpawnPoint spawnPoint in GetComponentsInChildren<EnemySpawnPoint>())
         {
             spawnPoint.Spawn();
