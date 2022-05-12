@@ -164,7 +164,7 @@ public class RoomHandler : MonoBehaviour
 
         GetComponentInChildren<DoorsHandler>().SetClosedState(false);
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
-        //GetComponent<PedestalHandler>().spawnPedestals();
+        GetComponent<PedestalHandler>().spawnPedestals();
     }
 
 
@@ -302,7 +302,6 @@ public class RoomHandler : MonoBehaviour
     }
 
     public void CheckIfRoomIsFinish(){
-        print("boolCheckIfRoomIsFinish " + GetComponentInChildren<RoomInfoHandler>().checkIfNoEnemy());
         if(GetComponentInChildren<RoomInfoHandler>().checkIfNoEnemy())
             OnFinishRoom();
     }
