@@ -5,9 +5,13 @@ using UnityEngine;
 public class EnemyHandler : MonoBehaviour, SpawnPoint
 {
     public bool checkIfNoEnemy(){
+        print("checkIfNoEnemy");
         foreach(Transform child in transform){
-            if(child.CompareTag("Enemy"))
+            if(child.CompareTag("Enemy") && !child.GetComponent<StatEntity>().getIsDead()){
+                print(child.name + " isDead ? " + child.GetComponent<StatEntity>().getIsDead());
                 return false;
+            }
+                
         }
         return true;
     }

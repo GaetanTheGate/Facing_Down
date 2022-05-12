@@ -274,7 +274,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4991540456426559249}
-        m_TargetAssemblyTypeName: Drone3Hit, Assembly-CSharp
+        m_TargetAssemblyTypeName: EnemyHit, Assembly-CSharp
         m_MethodName: getHit
         m_Mode: 1
         m_Arguments:
@@ -289,7 +289,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4809945284772984861}
-        m_TargetAssemblyTypeName: Drone3Movement, Assembly-CSharp
+        m_TargetAssemblyTypeName: EnemyMovement, Assembly-CSharp
         m_MethodName: disableMovement
         m_Mode: 1
         m_Arguments:
@@ -303,6 +303,30 @@ MonoBehaviour:
       - m_Target: {fileID: 1658784935594729128}
         m_TargetAssemblyTypeName: Drone3Death, Assembly-CSharp
         m_MethodName: die
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9112867019546354578}
+        m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+        m_MethodName: disableBehaviour
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8955980329516502246}
+        m_TargetAssemblyTypeName: EnemyAttack, Assembly-CSharp
+        m_MethodName: disableAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

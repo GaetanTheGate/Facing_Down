@@ -15,26 +15,10 @@ public class EnemyDeath : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
     }
 
-    protected virtual void OnCollisionStay2D(Collision2D collision)
+    public virtual void die()
     {
-        if (isDead)
-        {
-            StartCoroutine(startWaitingRoutine());
-        }
-    }
-
-    protected virtual void die()
-    {
-        GetComponent<GravityEntity>().gravity.setSpeed(9.8f);
         if (Game.currentRoom != null && GetComponent<RoomHandler>() != null) Game.currentRoom.GetComponent<RoomHandler>().CheckIfRoomIsFinish();
-        BroadcastMessage("deathEvent");
+        //BroadcastMessage("deathEvent");
         isDead = true;
-    }
-
-    protected IEnumerator startWaitingRoutine()
-    {
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        animator.SetBool("dead", true);
-        Destroy(parentToDestroy, animator.GetCurrentAnimatorStateInfo(0).length);
     }
 }

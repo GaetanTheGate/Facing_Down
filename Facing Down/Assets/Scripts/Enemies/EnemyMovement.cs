@@ -145,7 +145,7 @@ public abstract class EnemyMovement : MonoBehaviour
         return isHittingTag;
     }
 
-    protected void disableMovement()
+    public void disableMovement()
     {
         enabled = false;
     }

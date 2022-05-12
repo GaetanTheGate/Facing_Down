@@ -34,7 +34,7 @@ public class ArmoredCyborgAttack : EnemyAttack
     protected IEnumerator startAttackAnimationRoutine(float duration, Vector2 targetPosition)
     {
         yield return new WaitForSeconds(duration);
-        fire(targetPosition);
+        if(canAttack) fire(targetPosition);
     }
 
     protected void fire(Vector2 targetPosition)
