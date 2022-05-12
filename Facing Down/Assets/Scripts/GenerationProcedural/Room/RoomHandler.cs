@@ -164,7 +164,6 @@ public class RoomHandler : MonoBehaviour
 
         GetComponentInChildren<DoorsHandler>().SetClosedState(false);
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
-        GetComponent<PedestalHandler>().spawnPedestals();
     }
 
 

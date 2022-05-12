@@ -2,26 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHandler : MonoBehaviour
+public class EnemyHandler : MonoBehaviour, SpawnPoint
 {
-    public void ChoseEnemy()
-    {
-        foreach (SpawnPoint spawnPoint in GetComponentsInChildren<SpawnPoint>())
-            spawnPoint.ChoseEnemy();
-    }
-
-    public void SpawnEnemy()
-    {
-        foreach (SpawnPoint spawnPoint in GetComponentsInChildren<SpawnPoint>())
-            spawnPoint.SpawnEnemy();
-    }
-
-    public void DespawnEnemy()
-    {
-        foreach (SpawnPoint spawnPoint in GetComponentsInChildren<SpawnPoint>())
-            spawnPoint.DespawnEnemy();
-    }
-
     public bool checkIfNoEnemy(){
         foreach(Transform child in transform){
             if(child.CompareTag("Enemy"))
@@ -30,4 +12,21 @@ public class EnemyHandler : MonoBehaviour
         return true;
     }
 
+    public void Chose()
+    {
+        foreach (EnemySpawnPoint spawnPoint in GetComponentsInChildren<EnemySpawnPoint>())
+            spawnPoint.Chose();
+    }
+
+    public void Spawn()
+    {
+        foreach (EnemySpawnPoint spawnPoint in GetComponentsInChildren<EnemySpawnPoint>())
+            spawnPoint.Spawn();
+    }
+
+    public void Despawn()
+    {
+        foreach (EnemySpawnPoint spawnPoint in GetComponentsInChildren<EnemySpawnPoint>())
+            spawnPoint.Despawn();
+    }
 }
