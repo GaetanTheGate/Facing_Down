@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class RoomHandler : MonoBehaviour
 {
-    public bool testFinishRoom = false;
-    public bool setAsStartTest = false;
-
     public bool leftDoor = false;
     public bool rightDoor = false;
     public bool topDoor = false;
@@ -33,14 +30,6 @@ public class RoomHandler : MonoBehaviour
         OnFinishRoom();
     }
 
-    
-    /*
-    private void Start()
-    {
-        InitRoom("basic");
-        AstarPath.active.Scan();
-    }*/
-
 	//choose a room category and set state doors
     public void InitRoom(string category)
     {
@@ -52,18 +41,6 @@ public class RoomHandler : MonoBehaviour
 
 
         GetComponentInChildren<RoomInfoHandler>().InitRoomInfo();
-    }
-
-    private void FixedUpdate()
-    {
-        GetComponentInChildren<DoorsHandler>().SetDoorsState(leftDoor, rightDoor, topDoor, botDoor);
-        GetComponentInChildren<DoorsHandler>().SetDoors();
-
-        if (testFinishRoom)
-            OnFinishRoom();
-
-        if (setAsStartTest)
-            SetAsStart();
     }
 
     private string roomInfoFolder = "Prefabs/Rooms/RoomsInfo";
@@ -122,18 +99,17 @@ public class RoomHandler : MonoBehaviour
             return;
 
         isInRoom = true;
-
         Game.currentRoom = this;
-
         hasVisited = true;
 
         GetComponentInChildren<RoomHiderHandler>().SetBlurState(false);
         GetComponentInChildren<RoomHiderHandler>().SetDarknessState(false);
 
+        GetComponentInChildren<RoomInfoHandler>().EnterRoom();
+
         if (isCompleted)
             return;
 
-        GetComponentInChildren<RoomInfoHandler>().SpawnEnemy();
 
         GetComponentInChildren<DoorsHandler>().SetClosedState(true);
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
@@ -145,7 +121,7 @@ public class RoomHandler : MonoBehaviour
         
         isInRoom = false;
 
-        GetComponentInChildren<RoomInfoHandler>().DespawnEnemy();
+        GetComponentInChildren<RoomInfoHandler>().ExitRoom();
 
         GetComponentInChildren<RoomHiderHandler>().SetBlurState(true);
 
@@ -164,7 +140,6 @@ public class RoomHandler : MonoBehaviour
 
         GetComponentInChildren<DoorsHandler>().SetClosedState(false);
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
-        GetComponent<PedestalHandler>().spawnPedestals();
     }
 
 

@@ -20,8 +20,12 @@ public class PedestalSpawnPoint : MonoBehaviour, SpawnPoint
             chosenItems = new ItemChoice(transform.parent, spawnPoint).GetItemPedestals();
         }
         else
+        {
+            List<ItemPedestal> list = new List<ItemPedestal>(itemPossibilityList);
+
             foreach (Transform point in GetComponentsInChildren<Transform>())
-                chosenItems.Add(GetRandomItemFromList());
+                chosenItems.Add(GetRandomItemFromList(list));
+        }
 
         Despawn();
     }
@@ -38,11 +42,10 @@ public class PedestalSpawnPoint : MonoBehaviour, SpawnPoint
             pedestal.gameObject.SetActive(false);
     }
 
-    private ItemPedestal GetRandomItemFromList()
+    private T GetRandomItemFromList<T>(List<T> list)
     {
-        ItemPedestal _object = itemPossibilityList[Game.random.Next(0, itemPossibilityList.Count - 1)];
-        while (chosenItems.Contains(_object))
-            _object = itemPossibilityList[Game.random.Next(0, itemPossibilityList.Count - 1)];
+        T _object = list[Game.random.Next(0, list.Count - 1)];
+        list.Remove(_object);
 
         return _object;
     }
