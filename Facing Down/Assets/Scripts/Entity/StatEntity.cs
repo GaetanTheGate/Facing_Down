@@ -52,7 +52,7 @@ public class StatEntity : MonoBehaviour
         if (isDead) return;
         currentHitPoints -= (int)dmgInfo.amount;
         GetComponent<Rigidbody2D>().velocity += dmgInfo.knockback.GetAsVector2();
-        Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
+        Debug.Log("entitï¿½ : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
         if(onHit != null && currentHitPoints > 0) onHit.Invoke(dmgInfo);
         checkIfDead(dmgInfo);
@@ -63,8 +63,8 @@ public class StatEntity : MonoBehaviour
             if (lastDamageTaken != null && lastDamageTaken.source == Game.player.self) {
                 Game.player.inventory.OnEnemyKill(gameObject.GetComponent<Entity>());
             }
-            onDeath.Invoke();
             isDead = true;
+            onDeath.Invoke(); 
         }
     }
 

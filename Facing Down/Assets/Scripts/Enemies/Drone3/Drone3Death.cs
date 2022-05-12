@@ -16,6 +16,9 @@ public class Drone3Death : EnemyDeath
     {
         base.die();
         GetComponent<GravityEntity>().gravity.setSpeed(9.8f);
+        if (Game.currentRoom != null && Game.currentRoom.GetComponent<RoomHandler>() != null) Game.currentRoom.GetComponent<RoomHandler>().CheckIfRoomIsFinish();
+        BroadcastMessage("deathEvent");
+        isDead = true;
     }
 
     private IEnumerator startWaitingRoutine()

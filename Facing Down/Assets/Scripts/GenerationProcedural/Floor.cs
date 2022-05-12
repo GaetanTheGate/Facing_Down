@@ -22,18 +22,17 @@ public class Floor : MonoBehaviour
     
     
     public static GameObject[,] gridMap = new GameObject[nbRoomHeight, nbRoomWidth];
-
-    private static string gamePath = "Prefabs/Game/Game";
-    private static string UIPath = "Prefabs/UI/UI";
     public static string moldRoomPath = "Prefabs/Rooms/BaseRooms/BaseRoom"; 
-
-    
 
 
     void Update() {
         if(Input.GetKeyDown(KeyCode.G)){
-            initGameManager();
+            ButtonPlay.initGameManager();
             generateFloor();
+        }
+        if(Input.GetKeyDown(KeyCode.D)){
+            print("destroy");
+            destroyFloor();
         }
             
     }
@@ -43,18 +42,6 @@ public class Floor : MonoBehaviour
         generate();
     }
 
-    public static void initGameManager(){
-        GameObject ui = Resources.Load(UIPath, typeof(GameObject)) as GameObject;
-        ui = Instantiate(ui);
-        ui.name = "UI";
-
-        GameObject gameManager = Resources.Load(gamePath, typeof(GameObject)) as GameObject;
-        gameManager = Instantiate(gameManager);
-        gameManager.name = "Game";
-
-        DontDestroyOnLoad(gameManager);
-        DontDestroyOnLoad(ui);
-    }
 
     public static void initGenerate(){
         
@@ -293,5 +280,13 @@ public class Floor : MonoBehaviour
         gg.collision.mask = LayerMask.NameToLayer("terrain");
     }
  
+    public static void destroyFloor(){
+        Destroy(GameObject.Find("Floor"));
+        UI.map.SetActive(true);
+        foreach(Transform child in GameObject.Find("Map").transform){
+            print(child);
+            //Destroy(child);
+        }
+    }
 
 }
