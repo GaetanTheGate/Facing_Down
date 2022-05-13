@@ -7,7 +7,7 @@ public class Options
 {
     public string langue;
 
-    
+    public float volumeValue;
 
     
 }

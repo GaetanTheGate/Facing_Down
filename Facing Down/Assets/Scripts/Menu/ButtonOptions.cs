@@ -18,9 +18,13 @@ public class ButtonOptions : MonoBehaviour
         foreach(Dropdown.OptionData optionData in dropdownLangue.options){
             if(optionData.text == MenuManager.options.langue){
                 dropdownLangue.value = dropdownLangue.options.IndexOf(optionData);
-                break;
+                break;  
             }
         }
+
+        //load volume value
+        Slider sliderVolume = GameObject.Find("SliderVolume").GetComponent<Slider>();
+        sliderVolume.value = MenuManager.options.volumeValue;
 
     }
 }
