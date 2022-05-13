@@ -31,7 +31,7 @@ public class UI : MonoBehaviour
     }
 
     /// <summary>
-    /// Enables/Disables 
+    /// Enables/Disables UI elements depending on user input
     /// </summary>
 	private void OnGUI() {
 		if (Event.current.type == EventType.KeyDown) {

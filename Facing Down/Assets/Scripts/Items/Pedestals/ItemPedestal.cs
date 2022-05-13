@@ -74,6 +74,9 @@ public class ItemPedestal : MonoBehaviour {
 		this.choice = choice;
 	}
 
+	/// <summary>
+	/// Disables this pedestal and the ones linked by an itemChoice.
+	/// </summary>
 	public void DisablePedestal() {
 		if (pickup != null) {
 			pickup.Disable();
