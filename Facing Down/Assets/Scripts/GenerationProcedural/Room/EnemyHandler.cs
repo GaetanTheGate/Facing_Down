@@ -12,6 +12,11 @@ public class EnemyHandler : MonoBehaviour, SpawnPoint
         if(enemyLeft == 0) GetComponentInParent<RoomInfoHandler>().NoMoreEnemy();
     }
 
+    public void EnemyAdded()
+    {
+        enemyLeft += 1;
+    }
+
     public bool checkIfNoEnemy(){
         print("checkIfNoEnemy");
         foreach(Transform child in transform){
@@ -32,9 +37,10 @@ public class EnemyHandler : MonoBehaviour, SpawnPoint
 
     public void Spawn()
     {
+
+
         foreach (EnemySpawnPoint spawnPoint in GetComponentsInChildren<EnemySpawnPoint>())
         {
-            enemyLeft += 1;
             spawnPoint.Spawn();
         }
     }

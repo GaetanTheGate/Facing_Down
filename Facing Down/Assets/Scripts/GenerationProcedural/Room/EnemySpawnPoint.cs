@@ -22,6 +22,8 @@ public class EnemySpawnPoint : MonoBehaviour, SpawnPoint
         enemyEntity.transform.SetParent(transform.parent);
         enemyEntity.GetComponent<EnemyMovement>().flags = wayPoints.ToArray();
 
+
+        GetComponentInParent<EnemyHandler>().EnemyAdded();
         enemyEntity.GetComponent<StatEntity>().onDeath.AddListener(OnEnemyDeath);
     }
 

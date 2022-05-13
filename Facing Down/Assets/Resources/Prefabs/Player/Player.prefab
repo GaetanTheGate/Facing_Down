@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 657911100868528693}
   - component: {fileID: 657911100868528695}
   - component: {fileID: 657911100868528703}
+  - component: {fileID: 6990430440558300420}
   m_Layer: 10
   m_Name: PlayerEntity
   m_TagString: Player
@@ -193,6 +194,32 @@ MonoBehaviour:
   isEnteringWall: 0
   isEnteringCeiling: 0
   contactNormalsRelativeToGravity: []
+--- !u!114 &6990430440558300420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657911100868528694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.2, y: -0.4, z: 0}
+  - {x: 0.3, y: -0.4, z: 0}
+  - {x: 0.3, y: 0.2, z: 0}
+  - {x: -0.2, y: 0.2, z: 0}
+  m_ShapePathHash: 816645463
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -90768
 --- !u!1 &657911101350130789
 GameObject:
   m_ObjectHideFlags: 0

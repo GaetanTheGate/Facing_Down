@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: c1617ea20babc94458dd456bfc984a18
+guid: 4665da76a417e9742b6b2a6523c1b921
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7827374038766925829
-    second: Cyborg_0
+      213: 4003152866770122679
+    second: Cyborg_Normal_0
   - first:
-      213: 7053445693924687993
-    second: Cyborg_1
+      213: -481637734492366694
+    second: Cyborg_Normal_1
   - first:
-      213: -8131538294103144543
-    second: Cyborg_2
+      213: 107441481499148455
+    second: Cyborg_Normal_2
   - first:
-      213: 5373682116514392102
-    second: Cyborg_3
+      213: 1506419498276774238
+    second: Cyborg_Normal_3
   - first:
-      213: -7502984089603371007
-    second: Cyborg_4
+      213: 6520441362185900872
+    second: Cyborg_Normal_4
   - first:
-      213: -5001581361018593796
-    second: Cyborg_5
+      213: 8677801893756330471
+    second: Cyborg_Normal_5
   - first:
-      213: 5000803110710344123
-    second: Cyborg_6
+      213: -5059919482479160913
+    second: Cyborg_Normal_6
   - first:
-      213: -2105672722157713541
-    second: Cyborg_7
+      213: -7256533219484172534
+    second: Cyborg_Normal_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -111,11 +111,23 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cyborg_0
+      name: Cyborg_Normal_0
       rect:
         serializedVersion: 2
         x: 0
@@ -123,20 +135,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf7ce2f68c49f5390800000000000000
-      internalID: -7827374038766925829
+      spriteID: 7b77b6d925e0e8730800000000000000
+      internalID: 4003152866770122679
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cyborg_1
+      name: Cyborg_Normal_1
       rect:
         serializedVersion: 2
         x: 32
@@ -144,20 +156,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 970c3e4ec7fd2e160800000000000000
-      internalID: 7053445693924687993
+      spriteID: a9898254801e059f0800000000000000
+      internalID: -481637734492366694
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cyborg_2
+      name: Cyborg_Normal_2
       rect:
         serializedVersion: 2
         x: 64
@@ -165,20 +177,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a70f761109f62f80800000000000000
-      internalID: -8131538294103144543
+      spriteID: 7a006ea4575bd7100800000000000000
+      internalID: 107441481499148455
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cyborg_3
+      name: Cyborg_Normal_3
       rect:
         serializedVersion: 2
         x: 96
@@ -186,20 +198,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 628a5baf967239a40800000000000000
-      internalID: 5373682116514392102
+      spriteID: e5162856d80e7e410800000000000000
+      internalID: 1506419498276774238
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cyborg_4
+      name: Cyborg_Normal_4
       rect:
         serializedVersion: 2
         x: 0
@@ -207,20 +219,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 10098c719bb00e790800000000000000
-      internalID: -7502984089603371007
+      spriteID: 843dad34fd24d7a50800000000000000
+      internalID: 6520441362185900872
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cyborg_5
+      name: Cyborg_Normal_5
       rect:
         serializedVersion: 2
         x: 32
@@ -228,20 +240,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cfd954d6040d69ab0800000000000000
-      internalID: -5001581361018593796
+      spriteID: 7e1ee8c68debd6870800000000000000
+      internalID: 8677801893756330471
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cyborg_6
+      name: Cyborg_Normal_6
       rect:
         serializedVersion: 2
         x: 64
@@ -249,20 +261,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb9fe8d0feb666540800000000000000
-      internalID: 5000803110710344123
+      spriteID: fa150ce0a0e87c9b0800000000000000
+      internalID: -5059919482479160913
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cyborg_7
+      name: Cyborg_Normal_7
       rect:
         serializedVersion: 2
         x: 96
@@ -270,14 +282,14 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b774f86c0d527c2e0800000000000000
-      internalID: -2105672722157713541
+      spriteID: a0ff2dfcb7d9b4b90800000000000000
+      internalID: -7256533219484172534
       vertices: []
       indices: 
       edges: []
@@ -291,9 +303,7 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: 4665da76a417e9742b6b2a6523c1b921, type: 3}
-      name: _NormalMap
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
