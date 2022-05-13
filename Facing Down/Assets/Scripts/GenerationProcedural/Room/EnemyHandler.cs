@@ -6,10 +6,12 @@ public class EnemyHandler : MonoBehaviour, SpawnPoint
 {
     private int enemyLeft = 0;
 
+    public int GetEnemyLeft() => enemyLeft;
+
     public void EnemyKilled()
     {
         enemyLeft -= 1;
-        if(enemyLeft == 0) GetComponentInParent<RoomInfoHandler>().NoMoreEnemy();
+        if(checkIfNoEnemy()) GetComponentInParent<RoomInfoHandler>().NoMoreEnemy();
     }
 
     public void EnemyAdded()
@@ -18,15 +20,7 @@ public class EnemyHandler : MonoBehaviour, SpawnPoint
     }
 
     public bool checkIfNoEnemy(){
-        print("checkIfNoEnemy");
-        foreach(Transform child in transform){
-            if(child.CompareTag("Enemy") && !child.GetComponent<StatEntity>().getIsDead()){
-                print(child.name + " isDead ? " + child.GetComponent<StatEntity>().getIsDead());
-                return false;
-            }
-                
-        }
-        return true;
+        return enemyLeft == 0;
     }
 
     public void Chose()
