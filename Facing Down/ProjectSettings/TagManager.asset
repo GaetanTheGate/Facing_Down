@@ -10,6 +10,7 @@ TagManager:
   - GameManager
   - MapIcon
   - Room
+  - Option
   layers:
   - Default
   - TransparentFX
