@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class MenuManager : MonoBehaviour
 {
@@ -9,18 +10,20 @@ public class MenuManager : MonoBehaviour
 
     public static Options options;
 
+    public static string pathOptions = "Assets/Resources/Json/Options/Options.json";
+
     void Start(){
         gameObjectActions = GameObject.Find("Actions");
         gameObjectOptions = GameObject.Find("Options");
         
         gameObjectActions.SetActive(true);
         gameObjectOptions.SetActive(false);
-
-        options = JsonUtility.FromJson<Options>(Resources.Load<TextAsset>("Json/Options/Options").text);
+        
+        options = JsonUtility.FromJson<Options>(File.ReadAllText(pathOptions));
         applyOptions();
     }
 
     public static void applyOptions(){
-        //TO DO
+        print(options.volumeValue);
     }
 }
