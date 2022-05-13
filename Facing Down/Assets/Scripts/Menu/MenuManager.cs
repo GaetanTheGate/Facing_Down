@@ -15,15 +15,18 @@ public class MenuManager : MonoBehaviour
     void Start(){
         gameObjectActions = GameObject.Find("Actions");
         gameObjectOptions = GameObject.Find("Options");
+
+        ButtonDisplayCommand.contentDisplayCommand = GameObject.Find("ContentDisplayCommand");
         
         gameObjectActions.SetActive(true);
         gameObjectOptions.SetActive(false);
-        
+        ButtonDisplayCommand.contentDisplayCommand.SetActive(false);
+
         options = JsonUtility.FromJson<Options>(File.ReadAllText(pathOptions));
         applyOptions();
     }
 
     public static void applyOptions(){
-        print(options.volumeValue);
+        
     }
 }

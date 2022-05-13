@@ -8,6 +8,10 @@ public class ButtonOptions : MonoBehaviour
     public void options(){
         MenuManager.gameObjectActions.SetActive(false);
         MenuManager.gameObjectOptions.SetActive(true);
+
+        ButtonBack.gameObjectsToEnable.Add(MenuManager.gameObjectActions);
+        ButtonBack.gameObjectsToDisable.Add(MenuManager.gameObjectOptions);
+
         loadOptions();
     }
 
