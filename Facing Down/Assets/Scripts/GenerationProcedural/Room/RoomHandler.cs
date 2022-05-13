@@ -101,8 +101,8 @@ public class RoomHandler : MonoBehaviour
         Game.currentRoom = this;
         hasVisited = true;
 
-        GetComponentInChildren<RoomHiderHandler>().SetBlurState(false);
-        GetComponentInChildren<RoomHiderHandler>().SetDarknessState(false);
+        GetComponentInChildren<RoomHiderHandler>(true).SetBlurState(false);
+        GetComponentInChildren<RoomHiderHandler>(true).SetDarknessState(false);
 
         GetComponentInChildren<RoomInfoHandler>().EnterRoom();
         isCompleted = GetComponentInChildren<RoomInfoHandler>().IsOver();
@@ -123,13 +123,13 @@ public class RoomHandler : MonoBehaviour
 
         GetComponentInChildren<RoomInfoHandler>().ExitRoom();
 
-        GetComponentInChildren<RoomHiderHandler>().SetBlurState(true);
+        GetComponentInChildren<RoomHiderHandler>(true).SetBlurState(true);
 
         GetComponentInChildren<DoorsHandler>().SetClosedState(false);
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
 
         if( !isCompleted)
-            GetComponentInChildren<RoomHiderHandler>().SetDarknessState(true);
+            GetComponentInChildren<RoomHiderHandler>(true).SetDarknessState(true);
         
         
     }
