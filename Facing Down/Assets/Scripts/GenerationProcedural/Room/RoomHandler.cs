@@ -27,7 +27,6 @@ public class RoomHandler : MonoBehaviour
     {
         Game.currentRoom = this;
         OnEnterRoom();
-        OnFinishRoom();
     }
 
 	//choose a room category and set state doors
@@ -106,6 +105,7 @@ public class RoomHandler : MonoBehaviour
         GetComponentInChildren<RoomHiderHandler>().SetDarknessState(false);
 
         GetComponentInChildren<RoomInfoHandler>().EnterRoom();
+        isCompleted = GetComponentInChildren<RoomInfoHandler>().IsOver();
 
         if (isCompleted)
             return;
