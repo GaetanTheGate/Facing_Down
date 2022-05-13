@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Behaviour for the UI's ItemPreview
+/// </summary>
 public class ItemPreview : MonoBehaviour
 {
     private Image itemIcon;
@@ -17,6 +20,10 @@ public class ItemPreview : MonoBehaviour
         itemName = transform.Find("Name").GetComponent<Text>();
     }
 
+    /// <summary>
+    /// Sets the icon, name and description according to the items
+    /// </summary>
+    /// <param name="item"></param>
     public void SetItem(Item item) {
         currentItem = item;
         itemIcon.sprite = item.GetSprite(); 
