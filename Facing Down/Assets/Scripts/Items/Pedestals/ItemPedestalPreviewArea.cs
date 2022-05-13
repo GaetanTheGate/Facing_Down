@@ -45,6 +45,6 @@ public class ItemPedestalPreviewArea : MonoBehaviour
 
 	private void OnDestroy() {
 		if (activePreviewAreas.Contains(this)) activePreviewAreas.Remove(this);
-		if (activePreviewAreas.Count == 0 && UI.itemPreview.gameObject.activeSelf) UI.itemPreview.gameObject.SetActive(false);
+		if (activePreviewAreas.Count == 0 && UI.itemPreview != null && UI.itemPreview.gameObject.activeSelf) UI.itemPreview.gameObject.SetActive(false);
 	}
 }
