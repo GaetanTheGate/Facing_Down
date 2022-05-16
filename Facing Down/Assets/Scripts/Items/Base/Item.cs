@@ -6,7 +6,7 @@ using UnityEngine;
 /// Abstract class from which all the items inherit.
 /// </summary>
 public abstract class Item{
-    public static readonly string spriteFolderPath = "Items/Sprites/";
+    public static readonly string spriteFolderPath = "Sprites/Items/Items/";
 
     private string ID;
     protected ItemDescription description;
