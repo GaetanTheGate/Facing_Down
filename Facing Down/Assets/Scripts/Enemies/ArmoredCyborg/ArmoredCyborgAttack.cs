@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArmoredCyborgAttack : EnemyAttack
 {
-    public override void attackPlayer(Vector2 playerPosition)
+    /*public override void attackPlayer(Vector2 playerPosition)
     {
         if (timePassed >= delay && !isAttacking)
         {
@@ -40,6 +40,31 @@ public class ArmoredCyborgAttack : EnemyAttack
     protected void fire(Vector2 targetPosition)
     {
         bullet.Attack(Angles.AngleBetweenVector2(gameObject.transform.position, targetPosition), gameObject.GetComponent<Entity>());
+        isAttacking = false;
+    }*/
+
+    public override void attackPlayer(Vector2 playerPosition)
+    {
+        if (timePassed >= delay && !isAttacking)
+        {
+            isAttacking = true;
+            if(canAttack) bash(playerPosition);
+            
+        }
+    }
+
+    private void bash(Vector2 targetPosition)
+    {
+        gameObject.transform.Find("ShieldPivot").gameObject.SetActive(false);
+        //shield.Attack()
+        StartCoroutine(bashWait(3f));
+    }
+
+    protected IEnumerator bashWait(float vulnerableDuration)
+    {
+        yield return new WaitForSeconds(vulnerableDuration);
+        gameObject.transform.Find("ShieldPivot").gameObject.SetActive(true);
+        timePassed = 0f;
         isAttacking = false;
     }
 }

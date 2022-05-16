@@ -278,7 +278,7 @@ MonoBehaviour:
       - m_Target: {fileID: 4991540456426559249}
         m_TargetAssemblyTypeName: EnemyHit, Assembly-CSharp
         m_MethodName: getHit
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -430,7 +430,7 @@ MonoBehaviour:
   - {x: -0.3, y: 0.1, z: 0}
   m_ShapePathHash: 677619253
   m_Mesh: {fileID: 0}
-  m_InstanceId: 39796
+  m_InstanceId: 53952
 --- !u!1 &7464001781562380770
 GameObject:
   m_ObjectHideFlags: 0

@@ -219,7 +219,7 @@ MonoBehaviour:
   - {x: -0.2, y: 0.2, z: 0}
   m_ShapePathHash: 816645463
   m_Mesh: {fileID: 0}
-  m_InstanceId: 68486
+  m_InstanceId: 53834
 --- !u!1 &657911101350130789
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +230,6 @@ GameObject:
   m_Component:
   - component: {fileID: 657911101350130795}
   - component: {fileID: 657911101350130794}
-  - component: {fileID: 657911101350130792}
   - component: {fileID: 657911101350130798}
   m_Layer: 10
   m_Name: Player
@@ -272,19 +271,6 @@ MonoBehaviour:
   self: {fileID: 657911100868528693}
   pointer: {fileID: 657911101777852353}
   gameCamera: {fileID: 657911102247193326}
-  inventory: {fileID: 657911101350130792}
---- !u!114 &657911101350130792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 657911101350130789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05c6531b359f8cc4bb954650577aa7be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &657911101350130798
 MonoBehaviour:
   m_ObjectHideFlags: 0
