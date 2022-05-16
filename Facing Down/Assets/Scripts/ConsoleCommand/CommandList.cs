@@ -141,7 +141,7 @@ public static class CommandList
 		/// <param name="amount">The amount of items to add.</param>
 		/// <exception cref="CommandRuntimeException">Thrown if there is no item corresponding to the given ID.</exception>
 		public static void AddItem(string ID, int amount) {
-			Item item;
+			PassiveItem item;
 			if (ID == "PrintItem") item = new PrintItem();
 			else item = ItemPool.GetByID(ID);
 			if (item == null) throw new CommandRuntimeException("Item " + ID + " not found");
@@ -150,7 +150,7 @@ public static class CommandList
 		}
 
 		public static void RemoveItem (string ID, int amount) {
-			Item item;
+			PassiveItem item;
 			if (ID == "PrintItem") item = new PrintItem();
 			else item = ItemPool.GetByID(ID);
 			if (item == null) throw new CommandRuntimeException("Item " + ID + " not found");
@@ -160,7 +160,7 @@ public static class CommandList
 		}
 
 		public static void SpawnItem(string ID, float xOffset, float yOffset) {
-			Item item;
+			PassiveItem item;
 			if (ID == "PrintItem") item = new PrintItem();
 			else item = ItemPool.GetByID(ID);
 			if (item == null) throw new CommandRuntimeException("Item " + ID + " not found");

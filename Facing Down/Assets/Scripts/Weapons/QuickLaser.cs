@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class QuickLaser : MeleeWeapon
 {
-    public QuickLaser(string target) : base(target)
+    public QuickLaser(string target) : base(target, "QuickLaser")
     {
         baseAtk = 50;
         baseRange = 50;

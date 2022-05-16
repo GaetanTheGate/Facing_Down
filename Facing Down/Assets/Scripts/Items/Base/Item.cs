@@ -6,40 +6,16 @@ using UnityEngine;
 /// Abstract class from which all the items inherit.
 /// </summary>
 public abstract class Item{
-    public static readonly string spriteFolderPath = "Sprites/Items/Items/";
 
     private string ID;
     protected ItemDescription description;
-    protected int amount;
-    private ItemRarity rarity;
-    private ItemType type;
-    private ItemPriority priority;
     private Sprite sprite;
 
-    /// <summary>
-    /// Item constructor. Sets the amount to 1 by default.
-    /// </summary>
-    /// <param name="id">Item's ID.</param>
-    /// <param name="rarity">Item's rarity</param>
-    /// <param name="type">Item's type</param>
-    /// <param name="priority">Item's priority when used.</param>
-    public Item(string id, ItemRarity rarity, ItemType type, ItemPriority priority) {
+    public Item(string id) {
         this.ID = id;
-        this.rarity = rarity;
-        this.type = type;
-        this.priority = priority;
         this.description = Localization.GetItemDescription(id);
-        this.sprite = Resources.Load<Sprite>(spriteFolderPath + ID);
-        amount = 1;
+        this.sprite = Resources.Load<Sprite>(GetSpriteFolderPath() + ID);
 	}
-
-    /// <summary>
-    /// Item constructor. Sets the amount to 1 and the priority to immediate.
-    /// </summary>
-    /// <param name="id">Item's ID.</param>
-    /// <param name="rarity">Item's rarity</param>
-    /// <param name="type">Item's type</param>
-    public Item(string id, ItemRarity rarity, ItemType type) : this(id, rarity, type, ItemPriority.IMMEDIATE) { }
 
     //getters
 
@@ -53,23 +29,11 @@ public abstract class Item{
 
     public abstract string GetDescription();
 
-    public int GetAmount() {
-        return amount;
-	}
-    public ItemRarity GetRarity() {
-        return rarity;
-	}
-    public ItemType GetItemType() {
-        return type;
-	}
-
-    public ItemPriority GetPriority() {
-        return priority;
-	}
-
     public Sprite GetSprite() {
         return sprite;
 	}
+
+    public abstract string GetSpriteFolderPath();
 
     //Effects
 
@@ -109,14 +73,6 @@ public abstract class Item{
     public virtual void OnMegaDash() {}
 
     public virtual void OnBullettimeEnd() { }
-
-    public void SetAmount(int amount) {
-        this.amount = amount;
-	}
-
-    public void ModifyAmount(int modif) {
-        amount += modif;
-	}
 
     /// <summary>
     /// 

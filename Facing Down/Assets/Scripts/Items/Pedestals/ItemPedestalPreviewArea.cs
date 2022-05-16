@@ -9,7 +9,7 @@ public class ItemPedestalPreviewArea : MonoBehaviour
 {
 	private static List<ItemPedestalPreviewArea> activePreviewAreas;
 
-	private Item item;
+	private PassiveItem item;
 
 	static ItemPedestalPreviewArea() {
 		activePreviewAreas = new List<ItemPedestalPreviewArea>();
@@ -19,7 +19,7 @@ public class ItemPedestalPreviewArea : MonoBehaviour
 	/// Sets the item that will be displayed in the UI.
 	/// </summary>
 	/// <param name="item"></param>
-	public void SetItem(Item item) {
+	public void SetItem(PassiveItem item) {
 		this.item = item;
 	}
 

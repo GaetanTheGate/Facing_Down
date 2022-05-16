@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ItemPickup : MonoBehaviour {
 	private bool isActive = true;
-	private Item item;
+	private PassiveItem item;
 	private ItemPedestal pedestal;
 
 	public void Start() {
 		if (item == null || pedestal == null) throw new System.Exception("ItemPickup has null attributes, please use SpawnItemPedestal to spawn in-game items.");
 	}
-	public void SetItem(Item item) {
+	public void SetItem(PassiveItem item) {
 		this.item = item;
 		gameObject.GetComponent<SpriteRenderer>().sprite = item.GetSprite();
 	}

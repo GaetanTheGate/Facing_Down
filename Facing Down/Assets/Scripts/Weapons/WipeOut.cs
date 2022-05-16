@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WipeOut : MeleeWeapon
 {
-    public WipeOut(string target) : base(target)
+    public WipeOut(string target) : base(target, "WipeOut")
     {
         baseAtk = 500.0f;
         baseSDelay = 0.0f;

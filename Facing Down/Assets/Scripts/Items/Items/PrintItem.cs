@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PrintItem : Item
+public class PrintItem : PassiveItem
 {
 	public PrintItem() : base("PrintItem", ItemRarity.LEGENDARY, ItemType.WIND) {}
 
@@ -65,9 +65,5 @@ public class PrintItem : Item
 
 	public override void OnBullettimeEnd() {
 		Debug.Log("BULLET TIME ENDED NATURALLY");
-	}
-
-	public override Item MakeCopy() {
-		return new PrintItem();
 	}
 }

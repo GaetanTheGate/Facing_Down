@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lightness : Item
+public class Lightness : PassiveItem
 {
     private readonly float accelerationIncrease = 1f;
     public Lightness() : base("Lightness", ItemRarity.UNCOMMON, ItemType.WIND) { }
@@ -17,9 +17,5 @@ public class Lightness : Item
 
 	public override void OnRemove() {
 		Game.player.stat.ModifyAcceleration(-accelerationIncrease);
-	}
-
-	public override Item MakeCopy() {
-		return new Lightness();
 	}
 }

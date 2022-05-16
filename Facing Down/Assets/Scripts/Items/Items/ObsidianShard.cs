@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObsidianShard : Item
+public class ObsidianShard : PassiveItem
 {
 	private readonly float baseAtk = 50f;
     public ObsidianShard() : base("ObsidianShard", ItemRarity.LEGENDARY, ItemType.FIRE) { }
@@ -23,9 +23,5 @@ public class ObsidianShard : Item
 		if (closestEnemy != null) {
 			laser.Attack( - Vector2.SignedAngle(closestEnemy.transform.position - enemy.transform.position, Vector2.right), enemy);
 		}
-	}
-
-	public override Item MakeCopy() {
-		return new ObsidianShard();
 	}
 }
