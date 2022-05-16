@@ -34,8 +34,8 @@ public class Floor : MonoBehaviour
             print("destroy");
             destroyFloor();
         }
-        if(Input.GetKeyDown(KeyCode.T))
-            Tower.generateNextFloor();
+        if(Input.GetKeyDown(KeyCode.S))
+            AstarPath.active.Scan();
             
     }
 
@@ -267,9 +267,9 @@ public class Floor : MonoBehaviour
         GridGraph gg = data.AddGraph(typeof(GridGraph)) as GridGraph;
 
         // Setup a grid graph with some values
-        int width = 32;
-        int depth = 32;
-        float nodeSize = 1;
+        int width = 80;
+        int depth = 80;
+        float nodeSize = 0.4f;
 
         gg.center = new Vector3(36 * j, 36 * -i, 0);
 
@@ -278,7 +278,8 @@ public class Floor : MonoBehaviour
 
         gg.is2D = true;
         gg.collision.use2D = true;
-        gg.collision.mask = LayerMask.NameToLayer("terrain");
+        gg.collision.mask = removeAllLayerInLayerMask(gg.collision.mask);
+        gg.collision.mask = addLayerToLayerMask(gg.collision.mask, LayerMask.NameToLayer("Terrain"));
     }
  
     public void destroyFloor(){
@@ -302,5 +303,20 @@ public class Floor : MonoBehaviour
         UI.map.Init();
     }
 
+
+    public static LayerMask removeAllLayerInLayerMask(LayerMask layerMask){
+        for (int i = 0; i < 32; i++){
+            if (layerMask == (layerMask | (1 << i)))
+                layerMask |= ~(1 << i);
+        }
+        print("layerMask remove " +  layerMask.value);
+        return layerMask;
+    }
+
+    public static LayerMask addLayerToLayerMask(LayerMask layerMask, int layerToAdd){
+        layerMask |= (1 << layerToAdd);
+        print("layerMask add " +  layerMask.value);
+        return layerMask;
+    }
 
 }

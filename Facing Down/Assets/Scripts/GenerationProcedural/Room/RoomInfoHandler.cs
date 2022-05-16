@@ -8,6 +8,8 @@ public class RoomInfoHandler : MonoBehaviour
     private int nextWaveRank = 0;
     private int maxWaveRankReached = 0;
 
+    public bool IsOver() => isOver;
+
     public void InitRoomInfo()
     {
         foreach (Wave wave in GetComponentsInChildren<Wave>())
@@ -25,21 +27,19 @@ public class RoomInfoHandler : MonoBehaviour
 
     public void EnterRoom()
     {
-        for (int i = 0; i <= maxWaveRankReached; ++i)
-            SummonNextWave<PedestalHandler>(i);
 
         if (!isOver)
         {
             nextWaveRank = 0;
-            int rank = SummonNextWave<EnemyHandler>(nextWaveRank);
-
-            maxWaveRankReached = (nextWaveRank > maxWaveRankReached ? nextWaveRank : nextWaveRank);
-            nextWaveRank = rank;
-            if (nextWaveRank == -1)
-                FinishRoom();
+            NoMoreEnemy();
         }
         else
+        {
+            for (int i = 0; i <= maxWaveRankReached; ++i)
+                SummonNextWave<PedestalHandler>(i);
+
             SummonNextWave<PedestalHandler>(-1);
+        }
     }
 
     public void ExitRoom()
@@ -59,19 +59,19 @@ public class RoomInfoHandler : MonoBehaviour
     {
         if (!isOver)
         {
-            int rank = SummonNextWave<EnemyHandler>(nextWaveRank);
-            SummonNextWave<PedestalHandler>(nextWaveRank);
-
             maxWaveRankReached = (nextWaveRank > maxWaveRankReached ? nextWaveRank : nextWaveRank);
-            nextWaveRank = rank;
+            SummonNextWave<PedestalHandler>(nextWaveRank);
+            int n = SummonNextWave<EnemyHandler>(ref nextWaveRank).GetEnemyLeft();
+
             if (nextWaveRank == -1)
                 FinishRoom();
+            else if (n == 0)
+                NoMoreEnemy();
         }
     }
 
-    private int SummonNextWave<T>(int rank) where T : SpawnPoint
+    private T SummonNextWave<T>(ref int rank) where T : SpawnPoint
     {
-        int nextRank = rank != -1 ? rank + 1 : -1;
 
         Wave nextWave = null;
         foreach(Wave wave in GetComponentsInChildren<Wave>())
@@ -81,18 +81,26 @@ public class RoomInfoHandler : MonoBehaviour
                 break;
             }
 
-        if(nextWave == null)
+        rank = rank != -1 ? rank + 1 : -1;
+        if (nextWave == null)
         {
             foreach (Wave wave in GetComponentsInChildren<Wave>())
                 if (wave.rank == -1)
                 {
                     nextWave = wave;
-                    nextRank = -1;
+                    rank = -1;
                     break;
                 }
         }
         nextWave.GetComponentInChildren<T>().Spawn();
 
-        return nextRank;
+        return nextWave.GetComponentInChildren<T>();
+    }
+
+    private int SummonNextWave<T>(int rank) where T : SpawnPoint
+    {
+        int r = rank;
+        SummonNextWave<T>(ref r);
+        return r;
     }
 }

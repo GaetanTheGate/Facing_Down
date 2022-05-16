@@ -5,8 +5,6 @@ using UnityEngine;
 /// An Item Pedestal, which can grant the player new items. Use SpawnItemPedestal or SpawnRandomItemPedestal to instantiate.
 /// </summary>
 public class ItemPedestal : MonoBehaviour {
-	private static readonly string itemSpritesPath = "Items/Sprites/";
-
 	private static ItemPedestal prefab;
 	private static Dictionary<ItemRarity, Color> haloColors;
 	private static Dictionary<ItemType, GameObject> pedestalPrefabs;
@@ -76,6 +74,9 @@ public class ItemPedestal : MonoBehaviour {
 		this.choice = choice;
 	}
 
+	/// <summary>
+	/// Disables this pedestal and the ones linked by an itemChoice.
+	/// </summary>
 	public void DisablePedestal() {
 		if (pickup != null) {
 			pickup.Disable();

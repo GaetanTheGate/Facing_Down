@@ -13,6 +13,9 @@ public class EnemySpawnPoint : MonoBehaviour, SpawnPoint
     public void Chose()
     {
         enemyChosen = enemyList[Game.random.Next(0, enemyList.Count - 1)];
+        wayPoints = new List<Transform>();
+        for (int i = 0; i < transform.childCount; ++i)
+            wayPoints.Add(transform.GetChild(i).transform);
     }
 
     public void Spawn()
