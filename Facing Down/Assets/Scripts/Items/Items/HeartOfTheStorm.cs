@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeartOfTheStorm : Item
+public class HeartOfTheStorm : PassiveItem
 {
     private readonly float cooldownReduction = 0.3f;
     private readonly float stackCooldownReduction = 0.1f;
@@ -14,9 +14,5 @@ public class HeartOfTheStorm : Item
 
 	public override void OnEnemyKill(Entity enemy) {
 		Game.player.stat.ReloadSpecial(cooldownReduction + (amount - 1) * stackCooldownReduction);
-	}
-
-	public override Item MakeCopy() {
-		return new HeartOfTheStorm();
 	}
 }

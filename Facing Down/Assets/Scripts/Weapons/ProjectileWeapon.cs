@@ -6,7 +6,7 @@ public abstract class ProjectileWeapon : Weapon
 {
     protected float baseSpeed;
 
-    public ProjectileWeapon(string target) : base(target)
+    public ProjectileWeapon(string target, string id) : base(target, id)
     {
 
     }

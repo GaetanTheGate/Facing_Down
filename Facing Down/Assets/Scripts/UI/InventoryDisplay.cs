@@ -23,7 +23,7 @@ public class InventoryDisplay : MonoBehaviour
 	/// Adds a new item to the display.
 	/// </summary>
 	/// <param name="item">The Item to add. Should be an item from the player's inventory.</param>
-	public void AddItemDisplay(Item item) {
+	public void AddItemDisplay(PassiveItem item) {
         ItemDisplay itemDisplay = ItemDisplay.InstantiateItemDisplay(item, display.transform, new Vector2(itemDisplays.Count % ROW_SIZE * offset, itemDisplays.Count / ROW_SIZE * offset));
         itemDisplays.Add(item.GetID(), itemDisplay);
 	}
@@ -32,7 +32,7 @@ public class InventoryDisplay : MonoBehaviour
     /// Removes an item from the display. Should only be called from the inventory.
     /// </summary>
     /// <param name="item">The item to be removed. Should be an item from the player's inventory.</param>
-    public void RemoveItemDisplay(Item item) {
+    public void RemoveItemDisplay(PassiveItem item) {
         Destroy(itemDisplays[item.GetID()]);
         itemDisplays.Remove(item.GetID());
         int index = 0;
@@ -46,7 +46,7 @@ public class InventoryDisplay : MonoBehaviour
     /// Updates an item. Should only be called from the inventory.
     /// </summary>
     /// <param name="item">The item to update. Should be an item from the player's inventory.</param>
-    public void UpdateItemDisplay(Item item) {
+    public void UpdateItemDisplay(PassiveItem item) {
         itemDisplays[item.GetID()].UpdateAmount(); ;
 	}
 

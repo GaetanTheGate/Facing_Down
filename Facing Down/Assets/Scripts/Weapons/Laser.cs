@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Laser : MeleeWeapon
 {
-    public Laser(string target) : base(target)
+    public Laser() : this("Enemy") { }
+    public Laser(string target) : base(target, "Laser")
     {
         baseAtk = 20;
         baseRange = 50;

@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class ItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	private static ItemDisplay prefab;
-	private Item item;
+	private PassiveItem item;
 
 	/// <summary>
 	/// Instantiates a new item display.
@@ -18,7 +18,7 @@ public class ItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 	/// <param name="parent">The parent's tranform</param>
 	/// <param name="localPosition">The item display's position in the parent</param>
 	/// <returns></returns>
-	public static ItemDisplay InstantiateItemDisplay(Item item, Transform parent, Vector2 localPosition) {
+	public static ItemDisplay InstantiateItemDisplay(PassiveItem item, Transform parent, Vector2 localPosition) {
 		if (prefab == null) prefab = Resources.Load<ItemDisplay>("Prefabs/UI/Components/ItemDisplay");
 
 		ItemDisplay itemDisplay = Instantiate<ItemDisplay>(prefab, parent);

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArtificialWings : Item {
+public class ArtificialWings : PassiveItem {
 	public ArtificialWings() : base("ArtificialWings", ItemRarity.COMMON, ItemType.WIND) { }
 
 	public override string GetDescription() {
@@ -15,9 +15,5 @@ public class ArtificialWings : Item {
 
 	public override void OnRemove() {
 		Game.player.stat.ModifyMaxDashes(-1);
-	}
-
-	public override Item MakeCopy() {
-		return new ArtificialWings();
 	}
 }
