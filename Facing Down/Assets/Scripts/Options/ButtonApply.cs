@@ -16,11 +16,10 @@ public class ButtonApply : MonoBehaviour
                 options.volumeValue = go.GetComponent<Slider>().value;
             if(go.name.Contains("Command")){
                 KeyBinding keyBinding = new KeyBinding();
-                keyBinding.action = go.transform.Find("Action").GetComponent<Text>().text;
+                keyBinding.action = go.transform.Find("Action").GetComponent<InfoAction>().idAction;
                 string stringKeyCode = go.transform.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text;
                 keyBinding.key = (KeyCode) System.Enum.Parse(typeof(KeyCode), stringKeyCode);
                 options.commands.Add(keyBinding);
-
             }
         }
 

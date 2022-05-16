@@ -2,35 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ButtonChangeCommand : MonoBehaviour
 {   
     private bool canChange = false;
 
-    private string stringKeyCode;
     public void changeCommand(){
         canChange = true;
     }
 
-    void OnGUI(){
-        print("canChange " + canChange);
+    void Update(){
         if(canChange){
-            if(Input.anyKeyDown){
-                if(Event.current.isMouse){
-                    stringKeyCode = "Mouse" + Event.current.button;
-                    print(stringKeyCode);
+            GetComponentInChildren<Text>().text = "";
+            foreach(KeyCode kc in Enum.GetValues(typeof(KeyCode))){
+                if(Input.GetKeyDown(kc)){
+                    GetComponentInChildren<Text>().text = kc.ToString();
                     canChange = false;
-                    
+                    break;
                 }
-                    
-                else if(Event.current.isKey){
-                    stringKeyCode = Event.current.keyCode.ToString();
-                    print(stringKeyCode);
-                    canChange = false;
-                }
-
-                GetComponentInChildren<Text>().text = stringKeyCode;
-                
             }
                 
         }

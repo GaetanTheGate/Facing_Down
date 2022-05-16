@@ -29,6 +29,6 @@ public class ButtonOptions : MonoBehaviour
         //load volume value
         Slider sliderVolume = GameObject.Find("SliderVolume").GetComponent<Slider>();
         sliderVolume.value = MenuManager.options.volumeValue;
-
+        
     }
 }

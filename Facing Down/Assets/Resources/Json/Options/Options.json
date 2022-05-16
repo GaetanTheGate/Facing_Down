@@ -1,1 +1,1 @@
-{"langue":"En","volumeValue":62.0,"commands":[{"action":"Dash : ","key":323}]}
+{"langue":"En","volumeValue":62.0,"commands":[{"action":"dash","key":323},{"action":"attack","key":324},{"action":"bulletTime","key":32},{"action":"openConsole","key":99},{"action":"openInventoryMap","key":101},{"action":"closeUI","key":27}]}
