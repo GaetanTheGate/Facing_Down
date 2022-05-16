@@ -11,7 +11,7 @@ public class ArmoredCyborgMovement : EnemyMovement
     private EntityCollisionStructure entityCollisionStructure;
     private SpriteRenderer sp;
 
-    //private bool isJumping = false;
+    private bool isJumping = false;
     //private bool isFacingWall = false;
 
     // Start is called before the first frame update
@@ -38,7 +38,7 @@ public class ArmoredCyborgMovement : EnemyMovement
 
         setNextFlag();
 
-        if(entityCollisionStructure.isGrounded) checkAstarObstacles();
+        if (entityCollisionStructure.isGrounded) checkAstarObstacles();
 
         if (isFollowingPlayer) followingPlayerBehaviour();
 
@@ -47,6 +47,13 @@ public class ArmoredCyborgMovement : EnemyMovement
         animator.SetFloat("speed", rb.velocity.x);
         if (rb.velocity.x < 0.3 && rb.velocity.x > -0.3) animator.speed = 1;
         else animator.speed = Mathf.Abs(rb.velocity.x);
+
+    }
+
+    protected override void followingPlayerBehaviour()
+    {
+        base.followingPlayerBehaviour();
+        turnShield();
 
     }
 
@@ -148,13 +155,28 @@ public class ArmoredCyborgMovement : EnemyMovement
             if (waypoint.y >= previousWaypoint.y) previousWaypoint = waypoint;
             else break;
         }
-        if(previousWaypoint.y > transform.position.y + sp.bounds.size.y / 2)
+        Collider2D col = gameObject.transform.Find("Collider").GetComponent<Collider2D>();
+        if (previousWaypoint.y > transform.position.y + col.bounds.size.y / 2)
         {
-            float heightToCheck = previousWaypoint.y - (transform.position.y - sp.bounds.size.y / 2);
-            float heightToJump = Raycasting.checkHighestObstacle(transform, sp, Mathf.Min(heightToCheck, jumpHeight));
-            if (heightToJump > 0 && heightToJump < jumpHeight + 1) jump(heightToJump+0.7f); //triche
+            float heightToCheck = previousWaypoint.y - (transform.position.y - col.bounds.size.y / 2);
+            print(entityCollisionStructure.isGrounded);
+            float heightToJump = Raycasting.checkHighestObstacle(transform, col, Mathf.Min(heightToCheck, jumpHeight));
+            if (!isJumping && heightToJump > 0 && heightToJump < jumpHeight + 1)
+            {
+                isJumping = true;
+                jump(heightToJump + 0.7f); //triche
+                StartCoroutine(startWaitingForFixedUpdate());
+            }
+            
             //if (obstacleChecker.GetComponent<ArmoredCyborgCheckObstacles>() != null && obstacleChecker.GetComponent<ArmoredCyborgCheckObstacles>().isColliding && height < jumpHeight + 1) jump(height);
         }
+    }
+
+    private IEnumerator startWaitingForFixedUpdate() //provisoire
+    {
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+        isJumping = false;
     }
 
     private void jump(float height)
@@ -170,5 +192,10 @@ public class ArmoredCyborgMovement : EnemyMovement
     protected override float calculateDistanceNextFlag()
     {
         return Mathf.Abs(transform.position.x - nextFlag.position.x);
+    }
+
+    private void turnShield()
+    {
+        gameObject.transform.Find("ShieldPivot").transform.localEulerAngles = new Vector3(transform.rotation.x, transform.rotation.y, Vector2.Angle(playerTransform.position - gameObject.transform.position, gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left));
     }
 }

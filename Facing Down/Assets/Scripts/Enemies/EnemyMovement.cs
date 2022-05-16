@@ -77,7 +77,7 @@ public abstract class EnemyMovement : MonoBehaviour
         }
     }
 
-    protected void followingPlayerBehaviour()
+    protected virtual void followingPlayerBehaviour()
     {
         if (path == null) return;
         if (currentWayPoint >= path.vectorPath.Count) return;
