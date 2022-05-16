@@ -8,7 +8,7 @@ public class MenuManager : MonoBehaviour
     public static GameObject gameObjectActions;
     public static GameObject gameObjectOptions;
 
-    public static Options options;
+    public static Options options = new Options();
 
     public static string pathOptions = "Assets/Resources/Json/Options/Options.json";
 
