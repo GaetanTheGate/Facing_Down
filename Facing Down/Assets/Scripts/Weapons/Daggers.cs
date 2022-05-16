@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Daggers : MeleeWeapon
 {
-    public Daggers(string target) : base(target)
+    public Daggers(string target) : base(target, "Daggers")
     {
         isAuto = true;
 

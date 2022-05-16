@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FocusAmber : Item
+public class FocusAmber : PassiveItem
 {
     private readonly float specialDurationIncrease = 0.4f;
     public FocusAmber() : base("FocusAmber", ItemRarity.COMMON, ItemType.THUNDER) { }
@@ -17,9 +17,5 @@ public class FocusAmber : Item
 
 	public override void OnRemove() {
 		Game.player.stat.specialDuration -= specialDurationIncrease;
-	}
-
-	public override Item MakeCopy() {
-		return new FocusAmber();
 	}
 }

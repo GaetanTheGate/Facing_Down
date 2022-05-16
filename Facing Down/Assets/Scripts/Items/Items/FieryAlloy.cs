@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FieryAlloy : Item
+public class FieryAlloy : PassiveItem
 {	
 	private readonly float multiplierAdd = 0.1f;
 
@@ -20,9 +20,5 @@ public class FieryAlloy : Item
 	public override void OnRemove() {
 		Game.player.stat.atkMultipler -= multiplierAdd;
 		Game.player.stat.computeAtk();
-	}
-
-	public override Item MakeCopy() {
-		return new FieryAlloy();
 	}
 }

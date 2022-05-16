@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VoraciousFlames : Item
+public class VoraciousFlames : PassiveItem
 {
 	private bool isActive;
 	private readonly float damageIncrease = 0.2f;
@@ -24,9 +24,5 @@ public class VoraciousFlames : Item
 
 	public override void OnGroundCollisionEnter() {
 		isActive = false;
-	}
-
-	public override Item MakeCopy() {
-		return new VoraciousFlames();
 	}
 }

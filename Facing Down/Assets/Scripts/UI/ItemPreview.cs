@@ -11,7 +11,7 @@ public class ItemPreview : MonoBehaviour
     private Image itemIcon;
     private Text itemDescription;
     private Text itemName;
-    private Item currentItem;
+    private PassiveItem currentItem;
 
     public void Init()
     {
@@ -25,7 +25,7 @@ public class ItemPreview : MonoBehaviour
     /// Sets the icon, name and description according to the items
     /// </summary>
     /// <param name="item"></param>
-    public void SetItem(Item item) {
+    public void SetItem(PassiveItem item) {
         print("2");
         currentItem = item;
         itemIcon.sprite = item.GetSprite(); 
@@ -33,7 +33,7 @@ public class ItemPreview : MonoBehaviour
         itemName.text = item.GetName();
 	}
 
-    public Item GetCurrentItem() {
+    public PassiveItem GetCurrentItem() {
         return currentItem;
 	}
 }

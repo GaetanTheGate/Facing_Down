@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Katana : MeleeWeapon
 {
-    public Katana(string target) : base(target)
+    public Katana(string target) : base(target, "Katana")
     {
         baseAtk = 100;
         baseRange = 3;

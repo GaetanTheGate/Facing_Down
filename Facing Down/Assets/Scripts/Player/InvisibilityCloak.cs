@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvisibilityCloak : Item
+public class InvisibilityCloak : PassiveItem
 {
 	private readonly float invulnerabilityTime = 0.5f;
 	private readonly float stackInvulnerabilityTime = 0.25f;
