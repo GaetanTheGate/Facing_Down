@@ -117,18 +117,19 @@ public class Floor : MonoBehaviour
 
                     gridMap[i,j].transform.position = new Vector2(36 * j, 36 * -i);
 
-                    gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
+                    //gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
 
-                    addGraphPathfinding(i,j);
-
-                    /*if(gridMap[i,j].name == initRoom.name){
+                    if(gridMap[i,j].name == initRoom.name){
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("spawn");}
                     else if(gridMap[i,j].name == "Anteroom")
-                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("anteroom");
-                    else if(gridMap[i,j].name == "BossRoom")
-                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("boss");
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("antichamber");
+                    /*else if(gridMap[i,j].name == "BossRoom")
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("boss");*/
                     else
-                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");*/
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
+
+
+                    addGraphPathfinding(i,j);
                 }
             }
         }
