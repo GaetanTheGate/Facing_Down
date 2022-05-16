@@ -13,8 +13,9 @@ public class ItemPreview : MonoBehaviour
     private Text itemName;
     private Item currentItem;
 
-    void Start()
+    public void Init()
     {
+        print("1");
         itemIcon = transform.Find("Icon").GetComponent<Image>();
         itemDescription = transform.Find("Description").GetComponent<Text>();
         itemName = transform.Find("Name").GetComponent<Text>();
@@ -25,6 +26,7 @@ public class ItemPreview : MonoBehaviour
     /// </summary>
     /// <param name="item"></param>
     public void SetItem(Item item) {
+        print("2");
         currentItem = item;
         itemIcon.sprite = item.GetSprite(); 
         itemDescription.text = item.GetDescription();

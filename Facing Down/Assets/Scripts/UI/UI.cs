@@ -27,6 +27,7 @@ public class UI : MonoBehaviour
         map.Init();
         map.Disable();
 
+        itemPreview.Init();
         itemPreview.gameObject.SetActive(false);
     }
 
