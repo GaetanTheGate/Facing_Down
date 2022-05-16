@@ -2,38 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PedestalSpawnPoint : MonoBehaviour, SpawnPoint
+public abstract class PedestalSpawnPoint : MonoBehaviour, SpawnPoint
 {
     [Range(0,100)] public int chanceToSpawn = 100;
 
-    List<ItemPedestal> itemPossibilityList;
+    protected List<ItemPedestal> itemPossibilityList;
 
-    List<ItemPedestal> chosenItems;
+    protected List<ItemPedestal> chosenItems;
 
     public void Chose()
     {
-        chosenItems = new List<ItemPedestal>();
-        if(Game.random.Next(0, 101) > chanceToSpawn)
-            return;
-
-
-        if (itemPossibilityList == null || itemPossibilityList.Count == 0)
-        {
-            List<Vector2> spawnPoint = new List<Vector2>();
-            foreach (Transform point in GetComponentsInChildren<Transform>())
-                spawnPoint.Add(point.position);
-            chosenItems = new ItemChoice(transform.parent, spawnPoint).GetItemPedestals();
-        }
-        else
-        {
-            List<ItemPedestal> list = new List<ItemPedestal>(itemPossibilityList);
-
-            foreach (Transform point in GetComponentsInChildren<Transform>())
-                chosenItems.Add(GetRandomItemFromList(list));
-        }
-
+        _Chose();
         Despawn();
     }
+
+    protected abstract void _Chose();
 
     public void Spawn()
     {
@@ -47,7 +30,7 @@ public class PedestalSpawnPoint : MonoBehaviour, SpawnPoint
             pedestal.gameObject.SetActive(false);
     }
 
-    private T GetRandomItemFromList<T>(List<T> list)
+    protected T GetRandomItemFromList<T>(List<T> list)
     {
         T _object = list[Game.random.Next(0, list.Count - 1)];
         list.Remove(_object);
