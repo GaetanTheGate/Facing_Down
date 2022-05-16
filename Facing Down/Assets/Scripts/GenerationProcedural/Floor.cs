@@ -26,16 +26,14 @@ public class Floor : MonoBehaviour
 
 
     void Update() {
-        if(Input.GetKeyDown(KeyCode.G)){
+        /*if(Input.GetKeyDown(KeyCode.G)){
             ButtonPlay.initGameManager();
             generateFloor();
         }
         if(Input.GetKeyDown(KeyCode.D)){
             print("destroy");
             destroyFloor();
-        }
-        if(Input.GetKeyDown(KeyCode.S))
-            AstarPath.active.Scan();
+        }*/
             
     }
 
@@ -125,6 +123,8 @@ public class Floor : MonoBehaviour
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("antichamber");
                     /*else if(gridMap[i,j].name == "BossRoom")
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("boss");*/
+                    else if (Game.random.Next(0,10) == 1)
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("treasure");
                     else
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
 
