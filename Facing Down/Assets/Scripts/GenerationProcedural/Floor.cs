@@ -154,10 +154,10 @@ public class Floor : MonoBehaviour
                 if(gridMap[i,j] != null){
                     RoomHandler room = gridMap[i,j].GetComponent<RoomHandler>();
                     if(!room.botDoor && !room.leftDoor && !room.rightDoor && room.topDoor){
-                        if((j + 1 < nbRoomWidth && gridMap[i,j+1] != null))
+                        if((j + 1 < nbRoomWidth && gridMap[i,j+1] != null) && gridMap[i,j+1].name != "TreasureRoom")
                             room.setDoorsOn(RoomHandler.side.Right, gridMap[i,j+1]);
 
-                        else if(j - 1 > 0 && gridMap[i,j-1] != null)
+                        else if(j - 1 > 0 && gridMap[i,j-1] != null && gridMap[i,j-1].name != "TreasureRoom")
                             room.setDoorsOn(RoomHandler.side.Left, gridMap[i,j-1]);
 
                         else if(gridMap[i+1,j] != null)
