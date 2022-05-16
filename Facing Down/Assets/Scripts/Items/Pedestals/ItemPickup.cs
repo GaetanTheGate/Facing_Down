@@ -24,7 +24,12 @@ public class ItemPickup : MonoBehaviour {
 	/// <param name="collision"></param>
 	public void OnTriggerEnter2D(Collider2D collision) {
 		if (collision.CompareTag("Player") && isActive) {
-			Game.player.inventory.AddItem(item);
+			if (item is PassiveItem) {
+				Game.player.inventory.AddItem((PassiveItem) item);
+			}
+			else if (item is Weapon) {
+				Game.player.inventory.SetWeapon((Weapon)item);
+			}
 			pedestal.DisablePedestal();
 		}
 	}

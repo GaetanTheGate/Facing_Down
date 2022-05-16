@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon
+public abstract class Weapon : Item
 {
     protected string target;
 
-    public Weapon(string target) => this.target = target;
+    public Weapon(string target, string id) : base(id) => this.target = target;
 
     protected float baseAtk = 100.0f;
     protected float baseSpan = 1.0f;
@@ -67,5 +67,28 @@ public abstract class Weapon
         gameObject.AddComponent<AttackHit>();
         gameObject.GetComponent<AttackHit>().dmgInfo = dmgInfo;
         gameObject.GetComponent<AttackHit>().layersToHit.Add(target);
+    }
+
+
+    // Item code
+
+    public override string GetSpriteFolderPath()
+    {
+        return "Sprites/Items/Weapons/";
+    }
+
+    public override string GetDescription()
+    {
+        return description.DESCRIPTION;
+    }
+
+    public override Item MakeCopy()
+    {
+        System.Type type = GetType();
+        
+        Weapon newWeapon = (Weapon) type.GetConstructor(new System.Type[0]).Invoke(new Object[0]);
+        newWeapon.target = target;
+
+        return newWeapon;
     }
 }

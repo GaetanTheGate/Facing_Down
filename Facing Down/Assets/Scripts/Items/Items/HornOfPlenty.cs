@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HornOfPlenty : Item
+public class HornOfPlenty : PassiveItem
 {
 	private float healAmount = 0.05f;
 
@@ -14,9 +14,5 @@ public class HornOfPlenty : Item
 
 	public override void OnRoomFinish() {
 		Game.player.stat.Heal(amount * healAmount * Game.player.stat.GetMaxHP());
-	}
-
-	public override Item MakeCopy() {
-		return new HornOfPlenty();
 	}
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RiftMaker : Item
+public class RiftMaker : PassiveItem
 {
 	private float accelerationBoost = 3f;
     public RiftMaker() : base("RiftMaker", ItemRarity.EPIC, ItemType.WIND) { }
@@ -21,9 +21,5 @@ public class RiftMaker : Item
 
 	public override void OnGroundCollisionLeave() {
 		CreateRift();
-	}
-
-	public override Item MakeCopy() {
-		return new RiftMaker();
 	}
 }

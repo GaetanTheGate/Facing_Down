@@ -26,6 +26,7 @@ public static class CommandList
 		Add(new ConsoleCommand<string, float, float>("spawnEnemy", "Spawn the specified enemy at the specified position.", "spawnEnemy <NAME> <x> <y>", (NAME, x, y) => { AdvancedCommandFunctions.SpawnEnemy(NAME, x, y); } ));
 		Add(new ConsoleCommand<string>("help", "Gives the specified command's description.", "help <ID>", (ID) => { AdvancedCommandFunctions.Help(ID); } ));
 		Add(new ConsoleCommand<string, int>("help", "Gives the description of the command with given ID and arg count.", "help <ID> <argCount>", (ID, argCount) => { AdvancedCommandFunctions.Help(ID, argCount); } ));
+		Add(new ConsoleCommand("spawnWings", "Spawns wings", "spawnWings", () => { AdvancedCommandFunctions.SpawnWings(); } ));
 	}
 
 	/// <summary>
@@ -141,7 +142,7 @@ public static class CommandList
 		/// <param name="amount">The amount of items to add.</param>
 		/// <exception cref="CommandRuntimeException">Thrown if there is no item corresponding to the given ID.</exception>
 		public static void AddItem(string ID, int amount) {
-			Item item;
+			PassiveItem item;
 			if (ID == "PrintItem") item = new PrintItem();
 			else item = ItemPool.GetByID(ID);
 			if (item == null) throw new CommandRuntimeException("Item " + ID + " not found");
@@ -150,7 +151,7 @@ public static class CommandList
 		}
 
 		public static void RemoveItem (string ID, int amount) {
-			Item item;
+			PassiveItem item;
 			if (ID == "PrintItem") item = new PrintItem();
 			else item = ItemPool.GetByID(ID);
 			if (item == null) throw new CommandRuntimeException("Item " + ID + " not found");
@@ -160,7 +161,7 @@ public static class CommandList
 		}
 
 		public static void SpawnItem(string ID, float xOffset, float yOffset) {
-			Item item;
+			PassiveItem item;
 			if (ID == "PrintItem") item = new PrintItem();
 			else item = ItemPool.GetByID(ID);
 			if (item == null) throw new CommandRuntimeException("Item " + ID + " not found");
@@ -171,6 +172,11 @@ public static class CommandList
         {
 			Print("ennemi " + name + " spawned at x=" + x + " y=" + y);
 			Object.Instantiate(Resources.Load("Prefabs/Enemies/" + name), new Vector2(x, y), Quaternion.identity);
+		}
+
+		//Debug function, to delete later
+		public static void SpawnWings() {
+			ItemPedestal.SpawnItemPedestal(new Wings("Enemy"), GameObject.FindObjectOfType<Game>().transform, Game.player.self.transform.position + new Vector3(2, 2));
 		}
 	}
 }

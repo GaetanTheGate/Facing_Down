@@ -27,7 +27,10 @@ public static class Localization
     /// <param name="ID">The item's ID</param>
     /// <returns>The corresponding ItemDescription</returns>
     public static ItemDescription GetItemDescription(string ID) {
-        return itemDescriptions[ID];
+        if(itemDescriptions.ContainsKey(ID))
+            return itemDescriptions[ID];
+
+        return new ItemDescription();
 	}
 }
 

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Gun : MeleeWeapon
 {
-    public Gun(string target) : base(target)
+    public Gun() : this("Enemy") { }
+    public Gun(string target) : base(target, "Gun")
     {
         attackWeapon = new Bullet(target);
         specialWeapon = new Laser(target);

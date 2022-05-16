@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoneArmor : Item
+public class StoneArmor : PassiveItem
 {
 	public StoneArmor() : base("StoneArmor", ItemRarity.UNCOMMON, ItemType.EARTH) { }
 
@@ -19,9 +19,5 @@ public class StoneArmor : Item
 
 	public override void OnRemove() {
 		Game.player.stat.ModifyMaxHP(-maxHPAdd);
-	}
-
-	public override Item MakeCopy() {
-		return new StoneArmor();
 	}
 }

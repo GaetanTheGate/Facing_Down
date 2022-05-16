@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ImpenetrableRoots : Item
+public class ImpenetrableRoots : PassiveItem
 {
 	private float damageReduction = 0.9f;
 	public ImpenetrableRoots() : base("ImpenetrableRoots", ItemRarity.COMMON, ItemType.EARTH) { }
@@ -18,9 +18,5 @@ public class ImpenetrableRoots : Item
 			return damage;			
 		}
 		return damage;
-	}
-
-	public override Item MakeCopy() {
-		return new ImpenetrableRoots();
 	}
 }
