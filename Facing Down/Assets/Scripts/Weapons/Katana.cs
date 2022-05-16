@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Katana : MeleeWeapon
 {
+    public Katana() : this("Enemy") { }
     public Katana(string target) : base(target, "Katana")
     {
         baseAtk = 100;

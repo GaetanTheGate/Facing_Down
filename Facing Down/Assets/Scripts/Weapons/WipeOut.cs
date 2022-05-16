@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WipeOut : MeleeWeapon
 {
+    public WipeOut() : this("Enemy") { }
     public WipeOut(string target) : base(target, "WipeOut")
     {
         baseAtk = 500.0f;

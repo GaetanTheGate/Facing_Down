@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Shuriken : ProjectileWeapon
 {
+    public Shuriken() : this("Enemy") { }
     public Shuriken(string target) : base(target, "Shuriken")
     {
         baseAtk = 50f;

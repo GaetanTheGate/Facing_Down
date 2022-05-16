@@ -5,6 +5,8 @@ using UnityEngine;
 public class Wings : MeleeWeapon
 {
     private float difference = 20.0f;
+
+    public Wings() : this("Enemy") { }
     public Wings(string target) : base(target, "Wings")
     {
 

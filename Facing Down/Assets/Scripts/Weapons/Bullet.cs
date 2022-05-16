@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bullet : ProjectileWeapon
 {
     private float angleRange = 20.0f;
+
+    public Bullet() : this("Enemy") { }
     public Bullet(string target) : base(target, "Bullet")
     {
 

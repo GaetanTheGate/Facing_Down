@@ -5,6 +5,7 @@ using UnityEngine;
 public class Explosion : MeleeWeapon
 {
 
+    public Explosion() : this("Enemy") { }
     public Explosion(string target) : base(target, "Explosion")
     {
         baseAtk = 500.0f;

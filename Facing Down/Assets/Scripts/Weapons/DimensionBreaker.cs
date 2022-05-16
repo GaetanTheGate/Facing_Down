@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DimensionBreaker : MeleeWeapon
 {
+    public DimensionBreaker() : this("Enemy") { }
     public DimensionBreaker(string target) : base(target, "DimensionBreaker")
     {
         attackWeapon = EnumWeapon.getRandomWeapon(target);

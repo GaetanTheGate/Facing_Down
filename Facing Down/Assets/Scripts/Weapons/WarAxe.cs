@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WarAxe : MeleeWeapon
 {
+    public WarAxe() : this("Enemy") { }
     public WarAxe(string target) : base(target, "WarAxe")
     {
         baseAtk = 300;

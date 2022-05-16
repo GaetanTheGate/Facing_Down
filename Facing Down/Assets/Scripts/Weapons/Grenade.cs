@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Grenade : ProjectileWeapon
 {
+    public Grenade() : this("Enemy") { }
     public Grenade(string target) : base(target, "Grenade")
     {
         attackWeapon = new Explosion(target);

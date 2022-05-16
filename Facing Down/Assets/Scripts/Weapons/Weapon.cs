@@ -8,6 +8,12 @@ public abstract class Weapon : Item
 
     public Weapon(string target, string id) : base(id) => this.target = target;
 
+    private T GetNewWeapon<T>() where T : Weapon, new()
+    {
+
+        return new T();
+    }
+
     protected float baseAtk = 100.0f;
     protected float baseSpan = 1.0f;
     protected float baseSDelay = 0.0f;
@@ -85,15 +91,10 @@ public abstract class Weapon : Item
     public override Item MakeCopy()
     {
         System.Type type = GetType();
+        
+        Weapon newWeapon = (Weapon) type.GetConstructor(new System.Type[0]).Invoke(new Object[0]);
+        newWeapon.target = target;
 
-        System.Type[] paramTypes = new System.Type[1];
-        paramTypes[0] = typeof(string);
-
-        List<string> paramList = new List<string>();
-        paramList.Add(target);
-
-        type.GetConstructor(new System.Type[0]).Invoke(new Object[0]);
-        type.GetMethod(type.Name).Invoke(this, new Object[0]);
-        throw new System.NotImplementedException();
+        return newWeapon;
     }
 }
