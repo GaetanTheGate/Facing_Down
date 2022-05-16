@@ -11,6 +11,7 @@ public class ItemPickup : MonoBehaviour {
 	}
 	public void SetItem(Item item) {
 		this.item = item;
+		gameObject.GetComponent<SpriteRenderer>().sprite = item.GetSprite();
 	}
 
 	public void SetPedestal(ItemPedestal pedestal) {
