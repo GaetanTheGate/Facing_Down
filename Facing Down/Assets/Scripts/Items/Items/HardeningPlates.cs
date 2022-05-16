@@ -12,6 +12,6 @@ public class HardeningPlates : PassiveItem
 	}
 
 	public override void OnEnemyKill(Entity enemy) {
-		Game.player.GetComponent<PlayerIframes>().getIframeItem(invulnerabilityTime * amount);
+		Game.player.self.GetComponent<PlayerIframes>().getIframeItem(invulnerabilityTime * amount);
 	}
 }

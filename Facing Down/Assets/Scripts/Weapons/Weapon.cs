@@ -8,12 +8,6 @@ public abstract class Weapon : Item
 
     public Weapon(string target, string id) : base(id) => this.target = target;
 
-    private T GetNewWeapon<T>() where T : Weapon, new()
-    {
-
-        return new T();
-    }
-
     protected float baseAtk = 100.0f;
     protected float baseSpan = 1.0f;
     protected float baseSDelay = 0.0f;
