@@ -112,7 +112,7 @@ public class Floor : MonoBehaviour
         for(int i = 0; i < nbRoomHeight; i += 1){
             for(int j = 0; j < nbRoomWidth; j += 1){
                 if (gridMap[i,j] != null){
-
+                    print("roomName " + gridMap[i,j].name + " i -> " + i + " j -> " + j);
                     gridMap[i,j].transform.position = new Vector2(36 * j, 36 * -i);
 
                     //gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
@@ -123,8 +123,9 @@ public class Floor : MonoBehaviour
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("antichamber");
                     /*else if(gridMap[i,j].name == "BossRoom")
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("boss");*/
-                    else if (Game.random.Next(0,10) == 1)
+                    else if (gridMap[i,j].name == "TreasureRoom"){
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("treasure");
+                    }
                     else
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
 
@@ -136,7 +137,6 @@ public class Floor : MonoBehaviour
         
         AstarPath.active.Scan();
         initRoom.GetComponent<RoomHandler>().SetAsStart();
-        //Game.player.transform.position = initRoom.spawn;
         Game.player.transform.position = initRoom.GetComponent<RoomHandler>().transform.position;
     }
 
@@ -167,32 +167,17 @@ public class Floor : MonoBehaviour
                             room.generateSpecificRoomOnSide(RoomHandler.side.Down);
                     }
 
-                    if(!room.botDoor && !room.leftDoor && room.rightDoor && !room.topDoor){
-                        if(gridMap[i+1,j] != null)
-                            room.setDoorsOn(RoomHandler.side.Down, gridMap[i+1,j]);
+                    if(!room.botDoor && !room.leftDoor && room.rightDoor && !room.topDoor)
+                        checkIfRoomIsLinkToRoomWithBotDoor(RoomHandler.side.Right, new Vector2(i,j));
 
-                        else if(j - 1 > 0 && gridMap[i,j-1] != null)
-                            room.setDoorsOn(RoomHandler.side.Left, gridMap[i,j-1]);
-
-                        else
-                            room.generateSpecificRoomOnSide(RoomHandler.side.Down);
-                    }
-
-                    if(!room.botDoor && room.leftDoor && !room.rightDoor && !room.topDoor){
-                        if(gridMap[i+1,j] != null)
-                            room.setDoorsOn(RoomHandler.side.Down, gridMap[i+1,j]);
-
-                        else if(j + 1 < nbRoomWidth && gridMap[i,j+1] != null)
-                            room.setDoorsOn(RoomHandler.side.Right, gridMap[i,j+1]);
-
-                        else
-                            room.generateSpecificRoomOnSide(RoomHandler.side.Down);
-                    }
+                    if(!room.botDoor && room.leftDoor && !room.rightDoor && !room.topDoor)
+                        checkIfRoomIsLinkToRoomWithBotDoor(RoomHandler.side.Left,new Vector2(i,j));
+                        
                     if(!room.botDoor && room.leftDoor && !room.rightDoor && room.topDoor)
-                        checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side.Left,new Vector2(i,j));
+                        checkIfRoomIsLinkToRoomWithBotDoor(RoomHandler.side.Left,new Vector2(i,j));
 
                     if(!room.botDoor && !room.leftDoor && room.rightDoor && room.topDoor)
-                        checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side.Right, new Vector2(i,j));    
+                        checkIfRoomIsLinkToRoomWithBotDoor(RoomHandler.side.Right, new Vector2(i,j));    
                 }
             }
         }
@@ -221,13 +206,13 @@ public class Floor : MonoBehaviour
     }
 
 
-    public static void checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side sideToGo, Vector2 coordinates){
+    public static void checkIfRoomIsLinkToRoomWithBotDoor(RoomHandler.side sideToGo, Vector2 coordinates){
         switch(sideToGo){
             case RoomHandler.side.Left:
                 if(gridMap[(int) coordinates.x, (int) coordinates.y - 1].GetComponent<RoomHandler>().botDoor)
                     return;
                 else if (gridMap[(int) coordinates.x, (int) coordinates.y -1].GetComponent<RoomHandler>().leftDoor)
-                    checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side.Left, new Vector2(coordinates.x, coordinates.y -1));
+                    checkIfRoomIsLinkToRoomWithBotDoor(RoomHandler.side.Left, new Vector2(coordinates.x, coordinates.y -1));
                 else{
                     if(gridMap[(int) coordinates.x + 1, (int) coordinates.y] == null){
                         gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down);
@@ -244,7 +229,7 @@ public class Floor : MonoBehaviour
                 if(gridMap[(int) coordinates.x, (int) coordinates.y + 1].GetComponent<RoomHandler>().botDoor)
                     return;
                 else if (gridMap[(int) coordinates.x, (int) coordinates.y +1].GetComponent<RoomHandler>().rightDoor)
-                    checkIfRoomIsLinkToRoomWithbotDoor(RoomHandler.side.Right, new Vector2(coordinates.x, coordinates.y + 1));
+                    checkIfRoomIsLinkToRoomWithBotDoor(RoomHandler.side.Right, new Vector2(coordinates.x, coordinates.y + 1));
                 else{
                     if(gridMap[(int) coordinates.x + 1, (int) coordinates.y] == null){
                         gridMap[(int) coordinates.x, (int) coordinates.y].GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down);
