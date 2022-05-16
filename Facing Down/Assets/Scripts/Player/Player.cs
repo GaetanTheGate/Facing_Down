@@ -20,9 +20,7 @@ public class Player : AbstractPlayer
         //    stat = gameObject.AddComponent<StatPlayer>();
 
 
-        inventory = self.GetComponent<Inventory>();
-        if (inventory == null)
-            inventory = self.gameObject.AddComponent<Inventory>();
+        inventory = new Inventory();
 
 
         AbstractPlayer player;

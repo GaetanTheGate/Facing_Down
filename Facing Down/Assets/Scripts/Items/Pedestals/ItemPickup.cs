@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ItemPickup : MonoBehaviour {
 	private bool isActive = true;
-	private PassiveItem item;
+	private Item item;
 	private ItemPedestal pedestal;
 
 	public void Start() {
 		if (item == null || pedestal == null) throw new System.Exception("ItemPickup has null attributes, please use SpawnItemPedestal to spawn in-game items.");
 	}
-	public void SetItem(PassiveItem item) {
+	public void SetItem(Item item) {
 		this.item = item;
 		gameObject.GetComponent<SpriteRenderer>().sprite = item.GetSprite();
 	}
@@ -24,7 +24,12 @@ public class ItemPickup : MonoBehaviour {
 	/// <param name="collision"></param>
 	public void OnTriggerEnter2D(Collider2D collision) {
 		if (collision.CompareTag("Player") && isActive) {
-			Game.player.inventory.AddItem(item);
+			if (item is PassiveItem) {
+				Game.player.inventory.AddItem((PassiveItem) item);
+			}
+			else if (item is Weapon) {
+				Game.player.inventory.SetWeapon((Weapon)item);
+			}
 			pedestal.DisablePedestal();
 		}
 	}

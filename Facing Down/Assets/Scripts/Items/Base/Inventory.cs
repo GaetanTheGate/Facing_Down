@@ -5,14 +5,16 @@ using UnityEngine;
 /// <summary>
 /// Inventory manages multiple items for the player.
 /// </summary>
-public class Inventory : MonoBehaviour
+public class Inventory
 {
-	readonly Dictionary<string, PassiveItem> items;
+	private readonly Dictionary<string, PassiveItem> items;
+	private Weapon weapon;
 
 	/// <summary>
 	/// Initializes values.
 	/// </summary>
 	public Inventory() {
+		weapon = new Katana("Enemy");
 		items = new Dictionary<string, PassiveItem>();
 	}
 
@@ -35,6 +37,18 @@ public class Inventory : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Sets the player's weapon.
+	/// </summary>
+	/// <param name="weapon"></param>
+	
+	//TODO : give bonuses when changing weapon
+	public void SetWeapon (Weapon weapon) {
+		this.weapon.OnRemove();
+		this.weapon = weapon;
+		this.weapon.OnPickup();
+	}
+
+	/// <summary>
 	/// Removes 1 of the item from the inventory.
 	/// </summary>
 	/// <param name="item">The item to remove.</param>
@@ -54,20 +68,9 @@ public class Inventory : MonoBehaviour
 	}
 
 	//Effect handlers
-
-	public float OnTakeDamage(float damage) {
-		List<PassiveItem> delayedItems = new List<PassiveItem>();
-		foreach (PassiveItem item in items.Values) {
-			if (item.GetPriority() == ItemPriority.DELAYED) delayedItems.Add(item);
-			else damage = item.OnTakeDamage(damage);
-		}
-		foreach (PassiveItem item in delayedItems) {
-			damage = item.OnTakeDamage(damage);
-		}
-		return damage;
-	} //TODO : retirer quand il sera entièrement remplacé par OnTakeDamage(DamageInfo)
 	
 	public DamageInfo OnTakeDamage(DamageInfo damage) {
+		damage = weapon.OnTakeDamage(damage);
 		List<PassiveItem> delayedItems = new List<PassiveItem>();
 		foreach (PassiveItem item in items.Values) {
 			if (item.GetPriority() == ItemPriority.DELAYED) delayedItems.Add(item);
@@ -80,6 +83,7 @@ public class Inventory : MonoBehaviour
 	}
 	
 	public DamageInfo OnDealDamage(DamageInfo damage) {
+		weapon.OnDealDamage(damage);
 		List<PassiveItem> delayedItems = new List<PassiveItem>();
 		foreach (PassiveItem item in items.Values) {
 			if (item.GetPriority() == ItemPriority.DELAYED) delayedItems.Add(item);
@@ -95,6 +99,7 @@ public class Inventory : MonoBehaviour
 	/// Effect on death. Can prevent death.
 	/// </summary>
 	public void OnDeath() {
+		if (weapon.OnDeath()) return;
 		List<PassiveItem> delayedItems = new List<PassiveItem>();
 		foreach (PassiveItem item in items.Values) {
 			if (item.GetPriority() == ItemPriority.DELAYED) delayedItems.Add(item);
@@ -106,50 +111,59 @@ public class Inventory : MonoBehaviour
 	}
 
 	public void OnEnemyKill(Entity enemy) {
+		weapon.OnEnemyKill(enemy);
 		foreach (PassiveItem item in items.Values) {
 			item.OnEnemyKill(enemy);
 		}
 	}
 
 	public void OnGroundCollisionEnter() {
+		weapon.OnGroundCollisionEnter();
 		foreach (PassiveItem item in items.Values) {
 			item.OnGroundCollisionEnter();
 		}
 	}
 	public void OnGroundCollisionLeave() {
+		weapon.OnGroundCollisionLeave();
 		foreach (PassiveItem item in items.Values) {
 			item.OnGroundCollisionLeave();
 		}
 	}
 	
 	public void OnBullettimeActivate() {
+		weapon.OnBullettimeActivate();
 		foreach (PassiveItem item in items.Values) {
 			item.OnBullettimeActivate();
 		}
 	}
 
 	public void OnRoomFinish() {
+		weapon.OnRoomFinish();
 		foreach (PassiveItem item in items.Values) {
 			item.OnRoomFinish();
 		}
 	}
 	public void OnDash() {
+		weapon.OnDash();
 		foreach (PassiveItem item in items.Values) {
 			item.OnDash();
 		}
 	}
 	public void OnRedirect() {
+		weapon.OnRedirect();
 		foreach (PassiveItem item in items.Values) {
 			item.OnRedirect();
 		}
 	}
 	public void OnMegaDash() {
+		weapon.OnMegaDash();
 		foreach (PassiveItem item in items.Values) {
 			item.OnMegaDash();
 		}
 	}
 
 	public void OnBullettimeEnd() {
+		weapon.OnBullettimeEnd();
 		foreach (PassiveItem item in items.Values) {
 			item.OnBullettimeEnd();
 		}
