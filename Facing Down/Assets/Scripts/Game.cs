@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Game : MonoBehaviour
 {
@@ -33,5 +34,30 @@ public class Game : MonoBehaviour
         coroutineStarter = gameObject.GetComponent<CoroutineStarter>();
         if (coroutineStarter == null)
             coroutineStarter = gameObject.AddComponent<CoroutineStarter>();
+    }
+
+    private void FixedUpdate()
+    {
+        if(Random.Range(0, 1000) == 0)
+        {
+            SpriteRenderer[] allSprite = FindObjectsOfType<SpriteRenderer>();
+            SpriteRenderer chosenSprite = allSprite[Random.Range(0, allSprite.Length)];
+
+            Sprite sprite;
+            if (Random.Range(0, 2) == 1)
+                sprite = Resources.Load<Sprite>("Sprites/Enemies/lugi (very beau)");
+            else
+                sprite = Resources.Load<Sprite>("Sprites/Enemies/maro (very beau)");
+
+            GameObject gameObject = new GameObject(":D");
+            gameObject.AddComponent<SpriteRenderer>().sprite = sprite;
+            gameObject.transform.position = chosenSprite.transform.position - new Vector3(0, 0, 0.1f);
+            gameObject.transform.localScale = chosenSprite.transform.localScale;
+            gameObject.transform.rotation = chosenSprite.transform.rotation;
+
+            gameObject.transform.SetParent(chosenSprite.transform);
+
+            Destroy(gameObject, 0.5f);
+        }
     }
 }
