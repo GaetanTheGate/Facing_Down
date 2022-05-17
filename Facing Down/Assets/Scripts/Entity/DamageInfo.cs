@@ -24,6 +24,8 @@ public class DamageInfo
 
     public DamageInfo(Entity source, Entity target, float amount) : this(source, target, amount, DamageType.PRIMARY, new Velocity()) { }
 
+    public DamageInfo(Entity source, Entity target, float amount, Velocity knockback) : this(source, target, amount, DamageType.PRIMARY, knockback) { }
+
     public DamageInfo(Entity source, float amount, Velocity knockback) : this(source, null, amount, DamageType.PRIMARY, knockback) { }
 
     public DamageInfo(Entity source, float amount) : this(source, null, amount, DamageType.PRIMARY, new Velocity()) { }
