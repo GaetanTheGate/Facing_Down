@@ -10,6 +10,12 @@ public class Floor : MonoBehaviour
     public static int nbRoomHeight = 10; 
 
     public static int nbRoom = (nbRoomHeight * nbRoomWidth) / 3;
+
+
+    public static int nbTreasureRoom = nbRoom / 3;
+    public static int nbBonusRoom = 1;
+    public static float probaGenerateBonusRoom = Mathf.Pow((float) nbTreasureRoom/(nbTreasureRoom+2),nbBonusRoom); 
+
     public static int idRoom = 0;
 
 
@@ -19,28 +25,29 @@ public class Floor : MonoBehaviour
 
     public static List<GameObject> processRooms = new List<GameObject>();
     public static Dictionary<GameObject,List<RoomHandler.side>> validSideOfRoom = new Dictionary<GameObject, List<RoomHandler.side>>();
+
+    public static List<GameObject> processTreasureRooms = new List<GameObject>();
+    public static Dictionary<GameObject,RoomHandler.side> sideToGenerateTreasureRoom = new Dictionary<GameObject, RoomHandler.side>();
     
     
     public static GameObject[,] gridMap = new GameObject[nbRoomHeight, nbRoomWidth];
     public static string moldRoomPath = "Prefabs/Rooms/BaseRooms/BaseRoom"; 
 
-
-    void Update() {
-        /*if(Input.GetKeyDown(KeyCode.G)){
-            ButtonPlay.initGameManager();
-            generateFloor();
-        }
-        if(Input.GetKeyDown(KeyCode.D)){
-            print("destroy");
-            destroyFloor();
-        }*/
-            
-    }
-
     public static void generateFloor(){
         initGenerate();
         generate();
     }
+
+    /*On fait pas de max de salles bonus, mais on réduit les chances à chaque fois : 
+proba = 100% * (T/T+2) ^nombredesallesbonusgénérées
+Ou un truc du genre
+
+Ce qui donne pour T = 3 : 
+60%, puis 36% puis 21.6% etc
+Pour T = 8 : 
+80% puis 64% puis 51% etc
+
+Par contre ça en fait plus spawner en haut qu'en bas je suppose*/
 
 
     public static void initGenerate(){
@@ -109,10 +116,11 @@ public class Floor : MonoBehaviour
 
         linkRoomToAnteroom();
 
+        addTreasureRoom();
+
         for(int i = 0; i < nbRoomHeight; i += 1){
             for(int j = 0; j < nbRoomWidth; j += 1){
                 if (gridMap[i,j] != null){
-                    print("roomName " + gridMap[i,j].name + " i -> " + i + " j -> " + j);
                     gridMap[i,j].transform.position = new Vector2(36 * j, 36 * -i);
 
                     //gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
@@ -121,15 +129,22 @@ public class Floor : MonoBehaviour
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("spawn");}
                     else if(gridMap[i,j].name == "Anteroom")
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("antichamber");
-                    /*else if(gridMap[i,j].name == "BossRoom")
-                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("boss");*/
+                    else if(gridMap[i,j].name == "BossRoom")
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
                     else if (gridMap[i,j].name == "TreasureRoom"){
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("treasure");
                     }
-                    else
-                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
-
-
+                    else{
+                        if(Game.random.NextDouble() < probaGenerateBonusRoom){
+                            nbBonusRoom += 1;
+                            probaGenerateBonusRoom = Mathf.Pow((float) nbTreasureRoom/(nbTreasureRoom+2),nbBonusRoom);
+                            gridMap[i,j].name = "BonusRoom";
+                            gridMap[i,j].GetComponent<RoomHandler>().InitRoom("treasure");
+                        }
+                        else
+                            gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
+                    }
+                        
                     addGraphPathfinding(i,j);
                 }
             }
@@ -267,6 +282,53 @@ public class Floor : MonoBehaviour
         gg.collision.mask = removeAllLayerInLayerMask(gg.collision.mask);
         gg.collision.mask = addLayerToLayerMask(gg.collision.mask, LayerMask.NameToLayer("Terrain"));
     }
+
+    public static KeyValuePair<List<GameObject>,Dictionary<GameObject,List<RoomHandler.side>>> getSpotTreasureRoom(){
+        List<GameObject> potentialRoomToGenerateTreasureRoom = new List<GameObject>();
+        Dictionary<GameObject,List<RoomHandler.side>> sideToGenerateTreasureRoom = new Dictionary<GameObject, List<RoomHandler.side>>();
+
+        for(int i = 0; i < nbRoomHeight; i += 1){
+            for(int j = 0; j < nbRoomWidth; j += 1){
+                if(gridMap[i,j] != null && gridMap[i,j].name != "BossRoom"){
+
+                    List<RoomHandler.side> validSides = new List<RoomHandler.side>();
+                    bool canAdd = false;
+
+                    if(j + 1 < nbRoomWidth && gridMap[i, j+1] == null){
+                        canAdd = true;
+                        validSides.Add(RoomHandler.side.Right);
+                    }
+
+                    if(j - 1 > 0 && gridMap[i, j-1] == null){
+                        canAdd = true;
+                        validSides.Add(RoomHandler.side.Left);
+                    }
+
+                    if(canAdd){
+                        potentialRoomToGenerateTreasureRoom.Add(gridMap[i,j]);
+                        sideToGenerateTreasureRoom.Add(gridMap[i,j],validSides);
+                    }
+                }
+            }
+        }
+
+        return new KeyValuePair<List<GameObject>, Dictionary<GameObject, List<RoomHandler.side>>>(potentialRoomToGenerateTreasureRoom,sideToGenerateTreasureRoom);
+    }
+
+    public static void addTreasureRoom(){
+        KeyValuePair<List<GameObject>,Dictionary<GameObject,List<RoomHandler.side>>> valuePair = getSpotTreasureRoom();
+        List<GameObject> potentialRoomToGenerateTreasureRoom = valuePair.Key;
+        Dictionary<GameObject,List<RoomHandler.side>> sideToGenerateTreasureRoom = valuePair.Value;
+
+        for(int i = 0; i < nbTreasureRoom; i += 1){
+            GameObject processRoomToGenerateTreasureRoom = potentialRoomToGenerateTreasureRoom[Game.random.Next(0,potentialRoomToGenerateTreasureRoom.Count)];
+            potentialRoomToGenerateTreasureRoom.Remove(processRoomToGenerateTreasureRoom);
+            List<RoomHandler.side> sides = sideToGenerateTreasureRoom[processRoomToGenerateTreasureRoom];
+            processRoomToGenerateTreasureRoom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(sides[Game.random.Next(0,sides.Count)],"TreasureRoom");
+        }
+    }
+
+
  
     public void destroyFloor(){
         Destroy(GameObject.Find("Floor"));
@@ -295,13 +357,11 @@ public class Floor : MonoBehaviour
             if (layerMask == (layerMask | (1 << i)))
                 layerMask |= ~(1 << i);
         }
-        print("layerMask remove " +  layerMask.value);
         return layerMask;
     }
 
     public static LayerMask addLayerToLayerMask(LayerMask layerMask, int layerToAdd){
         layerMask |= (1 << layerToAdd);
-        print("layerMask add " +  layerMask.value);
         return layerMask;
     }
 
