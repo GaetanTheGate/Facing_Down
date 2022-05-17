@@ -26,7 +26,8 @@ public static class CommandList
 		Add(new ConsoleCommand<string, float, float>("spawnEnemy", "Spawn the specified enemy at the specified position.", "spawnEnemy <NAME> <x> <y>", (NAME, x, y) => { AdvancedCommandFunctions.SpawnEnemy(NAME, x, y); } ));
 		Add(new ConsoleCommand<string>("help", "Gives the specified command's description.", "help <ID>", (ID) => { AdvancedCommandFunctions.Help(ID); } ));
 		Add(new ConsoleCommand<string, int>("help", "Gives the description of the command with given ID and arg count.", "help <ID> <argCount>", (ID, argCount) => { AdvancedCommandFunctions.Help(ID, argCount); } ));
-		Add(new ConsoleCommand("spawnWings", "Spawns wings", "spawnWings", () => { AdvancedCommandFunctions.SpawnWings(); } ));
+		Add(new ConsoleCommand<string>("getWeapon", "Changes the weapon to the given one.", "getWeapon <ID>", (id) => { AdvancedCommandFunctions.GetWeapon(id); } ));
+		Add(new ConsoleCommand<string, float, float>("spawnWeapon", "Spawn given weapon at given position relative to the player.", "spawnWeapon <ID> <x> <y>", (id, x, y) => { AdvancedCommandFunctions.SpawnWeapon(id, x, y); } ));
 	}
 
 	/// <summary>
@@ -175,8 +176,16 @@ public static class CommandList
 		}
 
 		//Debug function, to delete later
-		public static void SpawnWings() {
-			ItemPedestal.SpawnItemPedestal(new Wings("Enemy"), GameObject.FindObjectOfType<Game>().transform, Game.player.self.transform.position + new Vector3(2, 2));
+		public static void GetWeapon(string id) {
+			Weapon weapon = WeaponPool.GetByID(id);
+			if (weapon == null) throw new CommandRuntimeException("Weapon " + id + " not found");
+			Game.player.inventory.SetWeapon(weapon);
+		}
+
+		public static void SpawnWeapon(string id, float xOffset, float yOffset) {
+			Weapon weapon = WeaponPool.GetByID(id);
+			if (weapon == null) throw new CommandRuntimeException("Weapon " + id + " not found");
+			ItemPedestal.SpawnItemPedestal(weapon, GameObject.FindObjectOfType<Game>().transform, Game.player.self.transform.position + new Vector3(xOffset, yOffset));
 		}
 	}
 }
