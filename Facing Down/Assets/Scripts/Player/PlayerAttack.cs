@@ -15,6 +15,7 @@ public class PlayerAttack : AbstractPlayer
     private DirectionPointer pointer;
     private Player self;
     private Entity selfEntity;
+    private GravityEntity gravity;
 
     private bool attackPressed = false;
 
@@ -41,6 +42,15 @@ public class PlayerAttack : AbstractPlayer
 
         selfEntity = self.self;
         pointer = self.pointer;
+
+
+
+        gravity = selfEntity.GetComponent<GravityEntity>();
+        if (gravity == null)
+        {
+            gravity = selfEntity.gameObject.AddComponent<GravityEntity>();
+            gravity.Init();
+        }
     }
 
     void FixedUpdate()
@@ -74,11 +84,26 @@ public class PlayerAttack : AbstractPlayer
             {
                 ComputeSimpleAttack();
             }
+            
+            float angleDirection = new Velocity(1, pointer.getAngle()).SubToAngle(gravity.gravity.getAngle()).getAngle();
+            if (angleDirection > 180 && angleDirection <= 360)
+                selfEntity.transform.localScale = new Vector3(-1 * Mathf.Abs(self.transform.localScale.x), self.transform.localScale.y, self.transform.localScale.z);
+            else
+                selfEntity.transform.localScale = new Vector3(Mathf.Abs(self.transform.localScale.x), self.transform.localScale.y, self.transform.localScale.z);
             camManager.SetZoomPercent(100);
         }
         else if (attackPressed)
         {
-            if(self.inventory.GetWeapon().IsAuto()) ComputeSimpleAttack();
+            if (self.inventory.GetWeapon().IsAuto())
+            {
+                ComputeSimpleAttack();
+
+                float angleDirection = new Velocity(1, pointer.getAngle()).SubToAngle(gravity.gravity.getAngle()).getAngle();
+                if (angleDirection > 180 && angleDirection <= 360)
+                    selfEntity.transform.localScale = new Vector3(-1 * Mathf.Abs(self.transform.localScale.x), self.transform.localScale.y, self.transform.localScale.z);
+                else
+                    selfEntity.transform.localScale = new Vector3(Mathf.Abs(self.transform.localScale.x), self.transform.localScale.y, self.transform.localScale.z);
+            }
 
             Game.controller.lowSensitivity = true;
             camManager.SetZoomPercent(Mathf.Max(90.0f, 100 - 10 * (chargeTimePassed / chargeTime)));

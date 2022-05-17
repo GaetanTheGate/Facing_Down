@@ -29,6 +29,14 @@ public abstract class Weapon : Item
     public abstract Attack GetAttack(float angle, Entity self);
     public abstract Attack GetSpecial(float angle, Entity self);
 
+    public virtual void _Move(float angle, Entity self)
+    {
+        Velocity newVelo = new Velocity(self.GetComponent<Rigidbody2D>().velocity);
+        newVelo.setAngle(angle);
+
+        self.GetComponent<Rigidbody2D>().velocity = newVelo.GetAsVector2();
+    }
+
     public void Attack(float angle, Entity self)
     {
         startPos = self.transform.position;
@@ -39,6 +47,13 @@ public abstract class Weapon : Item
     {
         startPos = self.transform.position;
         WeaponSpecial(angle, self);
+    }
+
+
+    public void Movement(float angle, Entity self)
+    {
+        startPos = self.transform.position;
+        _Move(angle, self);
     }
 
     public float GetCooldown()
@@ -68,7 +83,6 @@ public abstract class Weapon : Item
         gameObject.GetComponent<AttackHit>().dmgInfo = dmgInfo;
         gameObject.GetComponent<AttackHit>().layersToHit.Add(target);
     }
-
 
     // Item code
 
