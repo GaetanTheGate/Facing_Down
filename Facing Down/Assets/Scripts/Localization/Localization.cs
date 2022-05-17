@@ -8,6 +8,7 @@ public static class Localization
     private static readonly string localizationPath = "Json/Localization/";
 
     private static Dictionary<string, ItemDescription> itemDescriptions;
+    private static Dictionary<string, ItemDescription> weaponDescriptions;
 
     /// <summary>
     /// Initializes all dictionaries
@@ -17,8 +18,8 @@ public static class Localization
 	}
 
     private static void InitItemDescriptions(string lang) {
-        DescriptionList<ItemDescription> descriptionList = JsonUtility.FromJson<DescriptionList<ItemDescription>>(Resources.Load<TextAsset>(localizationPath + lang + "/ItemDescriptions").text);
-        itemDescriptions = descriptionList.ToDictionary();
+        itemDescriptions = JsonUtility.FromJson<DescriptionList<ItemDescription>>(Resources.Load<TextAsset>(localizationPath + lang + "/ItemDescriptions").text).ToDictionary();
+        weaponDescriptions = JsonUtility.FromJson<DescriptionList<ItemDescription>>(Resources.Load<TextAsset>(localizationPath + lang + "/WeaponDescriptions").text).ToDictionary();
     }
 
     /// <summary>
@@ -29,6 +30,13 @@ public static class Localization
     public static ItemDescription GetItemDescription(string ID) {
         if(itemDescriptions.ContainsKey(ID))
             return itemDescriptions[ID];
+
+        return new ItemDescription();
+	}
+
+    public static ItemDescription GetWeaponDescription(string ID) {
+        if (weaponDescriptions.ContainsKey(ID))
+            return weaponDescriptions[ID];
 
         return new ItemDescription();
 	}
