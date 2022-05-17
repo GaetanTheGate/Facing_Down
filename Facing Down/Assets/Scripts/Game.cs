@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    public static CoroutineStarter coroutineStarter;
     public static System.Random random = new System.Random();
     public static GameController controller;
     public static TimeManager time;
@@ -28,5 +29,9 @@ public class Game : MonoBehaviour
             player = Instantiate(Resources.Load(playerPath, typeof(GameObject)) as GameObject).GetComponent<Player>();
             player.transform.SetParent(transform);
         }
+
+        coroutineStarter = gameObject.GetComponent<CoroutineStarter>();
+        if (coroutineStarter == null)
+            coroutineStarter = gameObject.AddComponent<CoroutineStarter>();
     }
 }
