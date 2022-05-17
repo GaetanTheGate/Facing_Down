@@ -119,7 +119,7 @@ public class PlayerAttack : AbstractPlayer
     }
     private void ComputeSpecial()
     {
-        if ( !self.inventory.GetWeapon().CanAttack())
+        if ( !self.inventory.GetWeapon().CanSpecial())
             return;
 
         bulletTime.isInBulletTime = false;

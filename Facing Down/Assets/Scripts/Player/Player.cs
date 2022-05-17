@@ -46,13 +46,6 @@ public class Player : AbstractPlayer
             player.Init();
         }
 
-        player = gameObject.GetComponent<PlayerMaterial>();
-        if (player == null)
-        {
-            player = gameObject.AddComponent<PlayerMaterial>();
-            player.Init();
-        }
-
         player = gameObject.GetComponent<PlayerOnCollisionStructure>();
         if (player == null)
         {

@@ -95,4 +95,40 @@ public class Shuriken : ProjectileWeapon
     {
         GetSpecial(angle, self).startAttack();
     }
+
+    public override void _Move(float angle, Entity self)
+    {
+        canMove = false;
+
+        PhysicsMaterial2D bouciness = new PhysicsMaterial2D
+        {
+            bounciness = 1.1f
+        };
+
+        self.GetComponent<Collider2D>().sharedMaterial = bouciness;
+
+        self.GetComponent<Rigidbody2D>().velocity = new Velocity(20, angle).GetAsVector2();
+        self.GetComponent<Rigidbody2D>().freezeRotation = false;
+
+        Game.coroutineStarter.LaunchCoroutine(EndBounce(10f, self));
+    }
+
+    private IEnumerator EndBounce(float delay, Entity self)
+    {
+        yield return new WaitForSeconds(delay);
+
+        self.GetComponent<Collider2D>().sharedMaterial = null;
+
+        canMove = true;
+
+        yield return new WaitUntil(new System.Func<bool>(self.GetComponent<EntityCollisionStructure>().IsGrounded));
+        Game.coroutineStarter.LaunchCoroutine(EndFreezeRotation(1f, self));
+    }
+
+    private IEnumerator EndFreezeRotation(float delay, Entity self)
+    {
+        yield return new WaitForSeconds(delay);
+
+        self.GetComponent<Rigidbody2D>().freezeRotation = true;
+    }
 }

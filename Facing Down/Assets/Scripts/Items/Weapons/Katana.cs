@@ -32,14 +32,52 @@ public class Katana : MeleeWeapon
 
     public override void WeaponSpecial(float angle, Entity self)
     {
-        LaserAttack laser = (LaserAttack)GetSpecial(angle, self);
+        Vector3 nextPos;
         self.GetComponent<Rigidbody2D>().velocity = new Velocity(self.GetComponent<Rigidbody2D>().velocity).setAngle(angle).GetAsVector2();
 
-
+        LaserAttack laser = (LaserAttack)GetSpecial(angle, self);
         laser.startAttack();
 
-        Vector3 teleportPointVector = new Velocity(laser.rangeCollide - Mathf.Max(self.transform.localScale.x, self.transform.localScale.y), angle).GetAsVector2();
-        self.transform.position = laser.posStartLaser + teleportPointVector;
+        Velocity laserSize = new Velocity(laser.range, angle);
+        float offset = Mathf.Min(Mathf.Abs(self.transform.localScale.x), Mathf.Abs(self.transform.localScale.y)) * 0.4f;
+
+        Collider2D collider = self.GetComponent<Collider2D>();
+        if(collider is BoxCollider2D)
+        {
+            BoxCollider2D box = (BoxCollider2D)collider;
+            offset = Mathf.Min(box.size.x, box.size.y) * 0.4f;
+        }
+        else if(collider is CapsuleCollider2D)
+        {
+            CapsuleCollider2D box = (CapsuleCollider2D)collider;
+            offset = Mathf.Min(box.size.x, box.size.y) * 0.4f;
+        }
+        else if(collider is CircleCollider2D)
+        {
+            CircleCollider2D circle = (CircleCollider2D)collider;
+            offset = circle.radius;
+        }
+
+        Vector3 endLaser = laserSize.GetAsVector2();
+        endLaser += laser.posStartLaser;
+
+        RaycastHit2D resultHit = Physics2D.CircleCast(laser.posStartLaser, offset, laserSize.GetAsVector2(), laserSize.getSpeed(), LayerMask.GetMask("Terrain")) ;
+        Debug.DrawRay(new Vector2(laser.posStartLaser.x, laser.posStartLaser.y) + new Velocity(offset, angle - 180).GetAsVector2(), laserSize.GetAsVector2(), Color.red, 2f);
+
+        if (resultHit.collider == null)
+        {
+            nextPos = endLaser;
+        }
+        else
+        {
+            Velocity endCollision = new Velocity(laserSize).MulToSpeed(resultHit.fraction);
+            laser.range = endCollision.getSpeed();
+
+            nextPos = endCollision.GetAsVector2();
+            nextPos += laser.posStartLaser;
+        }
+
+        self.transform.position = nextPos;
 
         self.GetComponent<RotationEntity>().FlipEntityRelativeToGravity(angle);
         self.GetComponent<RotationEntity>().RotateEntityRelativeToFlip(angle);

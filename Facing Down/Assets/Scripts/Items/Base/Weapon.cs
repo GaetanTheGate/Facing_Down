@@ -19,6 +19,8 @@ public abstract class Weapon : Item
 
     protected bool isAuto = false;
     protected bool canAttack = true;
+    protected bool canSpecial = true;
+    protected bool canMove = true;
 
     public bool forceUnFollow = true;
     public Vector3 startPos;
@@ -62,8 +64,9 @@ public abstract class Weapon : Item
     }
 
     public bool IsAuto() => isAuto;
-
     public bool CanAttack() => canAttack;
+    public bool CanSpecial() => canSpecial;
+    public bool CanMove() => canMove;
 
     public string getAttackPath() => attackPath;
     public string getSpecialPath() => specialPath;

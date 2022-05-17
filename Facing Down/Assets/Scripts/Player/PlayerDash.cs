@@ -74,7 +74,10 @@ public class PlayerDash : AbstractPlayer
 
             if (bulletTime.isInBulletTime)
             {
-                ComputeRedirect();
+                if (!player.inventory.GetWeapon().CanMove())
+                    return;
+
+                ComputeSpecialMove();
 
                 rotation.FlipEntityRelativeToGravity(pointer.getAngle());
                 rotation.RotateEntityRelativeToFlip(pointer.getAngle());
@@ -128,7 +131,7 @@ public class PlayerDash : AbstractPlayer
         Game.time.SetGameSpeedInstant(1.2f);
     }
 
-    private void ComputeRedirect()
+    private void ComputeSpecialMove()
     {
         player.inventory.OnRedirect();
 
