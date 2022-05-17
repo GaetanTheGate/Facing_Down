@@ -10,12 +10,12 @@ public class Wings : MeleeWeapon
     public Wings(string target) : base(target, "Wings")
     {
 
-        baseAtk = 40;
-        baseRange = 2;
+        baseAtk = 50;
+        baseRange = 2.5f;
         baseLenght = 180;
         baseSpan = 0.3f;
         baseEDelay = 0.1f;
-        baseCooldown = - baseEDelay;
+        baseCooldown = - baseEDelay - baseSpan / 2;
 
         attackPath = "Prefabs/Weapons/Wings";
         specialPath = "Prefabs/Weapons/Wings";
@@ -79,7 +79,7 @@ public class Wings : MeleeWeapon
 
         swing.GetComponent<HalfSlashAttack>().src = self;
         swing.GetComponent<HalfSlashAttack>().endDelay = baseEDelay * 2;
-        swing.GetComponent<HalfSlashAttack>().range = baseRange * 3;
+        swing.GetComponent<HalfSlashAttack>().range = baseRange * 2;
         swing.GetComponent<HalfSlashAttack>().lenght = baseLenght - difference;
         swing.GetComponent<HalfSlashAttack>().timeSpan = baseSpan * 2;
         swing.GetComponent<HalfSlashAttack>().followEntity = forceUnFollow;
@@ -151,7 +151,8 @@ public class Wings : MeleeWeapon
     {
         yield return new WaitForSeconds(delay);
 
-        self.GetComponent<Rigidbody2D>().velocity = new Vector2(self.GetComponent<Rigidbody2D>().velocity.x, self.GetComponent<Rigidbody2D>().velocity.y + 1);
+        Rigidbody2D rb = self.GetComponent<Rigidbody2D>();
+        rb.velocity += new Velocity(self.GetComponent<GravityEntity>().gravity).SubToAngle(180).setSpeed(1).GetAsVector2();
 
         Game.coroutineStarter.StartCoroutine(RestoreGravity(duration, self, gravitySpeed));
     }
