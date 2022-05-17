@@ -15,7 +15,7 @@ public class PlayerAttack : AbstractPlayer
     private DirectionPointer pointer;
     private Player self;
     private Entity selfEntity;
-    private GravityEntity gravity;
+    private RotationEntity rotation;
 
     private bool attackPressed = false;
 
@@ -45,11 +45,11 @@ public class PlayerAttack : AbstractPlayer
 
 
 
-        gravity = selfEntity.GetComponent<GravityEntity>();
-        if (gravity == null)
+        rotation = selfEntity.GetComponent<RotationEntity>();
+        if (rotation == null)
         {
-            gravity = selfEntity.gameObject.AddComponent<GravityEntity>();
-            gravity.Init();
+            rotation = selfEntity.gameObject.AddComponent<RotationEntity>();
+            rotation.Init();
         }
     }
 
@@ -84,12 +84,7 @@ public class PlayerAttack : AbstractPlayer
             {
                 ComputeSimpleAttack();
             }
-            
-            float angleDirection = new Velocity(1, pointer.getAngle()).SubToAngle(gravity.gravity.getAngle()).getAngle();
-            if (angleDirection > 180 && angleDirection <= 360)
-                selfEntity.transform.localScale = new Vector3(-1 * Mathf.Abs(self.transform.localScale.x), self.transform.localScale.y, self.transform.localScale.z);
-            else
-                selfEntity.transform.localScale = new Vector3(Mathf.Abs(self.transform.localScale.x), self.transform.localScale.y, self.transform.localScale.z);
+
             camManager.SetZoomPercent(100);
         }
         else if (attackPressed)
@@ -97,12 +92,6 @@ public class PlayerAttack : AbstractPlayer
             if (self.inventory.GetWeapon().IsAuto())
             {
                 ComputeSimpleAttack();
-
-                float angleDirection = new Velocity(1, pointer.getAngle()).SubToAngle(gravity.gravity.getAngle()).getAngle();
-                if (angleDirection > 180 && angleDirection <= 360)
-                    selfEntity.transform.localScale = new Vector3(-1 * Mathf.Abs(self.transform.localScale.x), self.transform.localScale.y, self.transform.localScale.z);
-                else
-                    selfEntity.transform.localScale = new Vector3(Mathf.Abs(self.transform.localScale.x), self.transform.localScale.y, self.transform.localScale.z);
             }
 
             Game.controller.lowSensitivity = true;
@@ -120,6 +109,8 @@ public class PlayerAttack : AbstractPlayer
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.2f);
 
         self.inventory.GetWeapon().Attack(pointer.getAngle(), selfEntity);
+
+        rotation.FlipEntityRelativeToGravity(pointer.getAngle());
     }
 
     private void ComputeBounce()
@@ -134,5 +125,7 @@ public class PlayerAttack : AbstractPlayer
         bulletTime.isInBulletTime = false;
         self.inventory.GetWeapon().Special(pointer.getAngle(), selfEntity);
         if(!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.1f);
+
+        rotation.FlipEntityRelativeToGravity(pointer.getAngle());
     }
 }
