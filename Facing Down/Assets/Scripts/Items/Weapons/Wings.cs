@@ -144,7 +144,7 @@ public class Wings : MeleeWeapon
         float gravitySpeed = self.GetComponent<GravityEntity>().gravity.getSpeed();
         self.GetComponent<GravityEntity>().gravity.setSpeed(0.00001f);
 
-        Game.coroutineStarter.StartCoroutine(StartLooseGravity(0.5f, 10, self, gravitySpeed));
+        Game.coroutineStarter.LaunchCoroutine(StartLooseGravity(0.5f, 10, self, gravitySpeed));
     }
 
     private IEnumerator StartLooseGravity(float delay, float duration, Entity self, float gravitySpeed)
@@ -154,7 +154,7 @@ public class Wings : MeleeWeapon
         Rigidbody2D rb = self.GetComponent<Rigidbody2D>();
         rb.velocity += new Velocity(self.GetComponent<GravityEntity>().gravity).SubToAngle(180).setSpeed(1).GetAsVector2();
 
-        Game.coroutineStarter.StartCoroutine(RestoreGravity(duration, self, gravitySpeed));
+        Game.coroutineStarter.LaunchCoroutine(RestoreGravity(duration, self, gravitySpeed));
     }
 
     private IEnumerator RestoreGravity(float duration, Entity self, float speed)

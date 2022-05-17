@@ -91,8 +91,8 @@ public class Gun : MeleeWeapon
         Rigidbody2D rb = self.GetComponent<Rigidbody2D>();
         rb.velocity = new Velocity(self.GetComponent<GravityEntity>().gravity).SubToAngle(180).setSpeed(20).GetAsVector2();
 
-        Game.coroutineStarter.StartCoroutine(SetVelocityToZeroLoop(self));
-        Game.coroutineStarter.StartCoroutine(RestoreGravity(duration, self, gravitySpeed));
+        Game.coroutineStarter.LaunchCoroutine(SetVelocityToZeroLoop(self));
+        Game.coroutineStarter.LaunchCoroutine(RestoreGravity(duration, self, gravitySpeed));
     }
 
     private IEnumerator RestoreGravity(float duration, Entity self, float speed)
@@ -102,6 +102,7 @@ public class Gun : MeleeWeapon
 
         canMove = true;
     }
+
     private IEnumerator SetVelocityToZeroLoop(Entity self)
     {
         yield return new WaitForFixedUpdate();
@@ -109,6 +110,6 @@ public class Gun : MeleeWeapon
         self.GetComponent<Rigidbody2D>().velocity = Vector3.Lerp(self.GetComponent<Rigidbody2D>().velocity, new Vector3(), 2 * Time.fixedDeltaTime);
 
         if ( ! canMove )
-            Game.coroutineStarter.StartCoroutine(SetVelocityToZeroLoop(self));
+            Game.coroutineStarter.LaunchCoroutine(SetVelocityToZeroLoop(self));
     }
 }
