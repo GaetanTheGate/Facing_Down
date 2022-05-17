@@ -22,7 +22,7 @@ public class PedestalSpawnPoint : MonoBehaviour, SpawnPoint
             List<Vector2> spawnPoint = new List<Vector2>();
             foreach (Transform point in GetComponentsInChildren<Transform>())
                 spawnPoint.Add(point.position);
-            chosenItems = new ItemChoice(transform.parent, spawnPoint).GetItemPedestals();
+            chosenItems = ItemChoice.SpawnItemChoice(transform.parent, spawnPoint).GetItemPedestals();
         }
         else
         {
