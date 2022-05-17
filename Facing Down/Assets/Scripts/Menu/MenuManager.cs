@@ -13,6 +13,7 @@ public class MenuManager : MonoBehaviour
     public static string pathOptions = "Assets/Resources/Json/Options/Options.json";
 
     void Start(){
+
         gameObjectActions = GameObject.Find("Actions");
         gameObjectOptions = GameObject.Find("Options");
 

@@ -145,9 +145,6 @@ public class RoomHandler : MonoBehaviour
 
     //generate a random room on the side onSide 
     public bool generateRoomOnSide(side onSide){
-        print("roomName(handler, normal) " + gameObject.name);
-
-        bool canGenerateTreasureRoom = false;
 
         Vector2 coordinates = getCoordinates(gameObject);
 
@@ -156,25 +153,15 @@ public class RoomHandler : MonoBehaviour
             case side.Right :
                 if(coordinates.y + 1 > Floor.nbRoomWidth - 1 || Floor.gridMap[(int) coordinates.x, (int) coordinates.y + 1] != null){
                     canGenerate = false;
+                    Floor.validSideOfRoom[gameObject].Remove(onSide);
                 }
-                else{
-                    if(Game.random.Next(0,10) == 1){
-                        canGenerateTreasureRoom = true;
-                    }
-                }
-                Floor.validSideOfRoom[gameObject].Remove(onSide);
                 break;
 
             case side.Left :
                 if(coordinates.y - 1 < 0 || Floor.gridMap[(int) coordinates.x, (int) coordinates.y - 1] != null){
                     canGenerate = false;
+                    Floor.validSideOfRoom[gameObject].Remove(onSide);
                 }
-                else{
-                    if(Game.random.Next(0,10) == 1){
-                        canGenerateTreasureRoom = true;
-                    }
-                }
-                Floor.validSideOfRoom[gameObject].Remove(onSide);
                 break;
 
             case side.Down :
@@ -193,22 +180,17 @@ public class RoomHandler : MonoBehaviour
         }
 
         if(canGenerate){
-            if(!canGenerateTreasureRoom){
-                print("génération");
-                GameObject newMoldRoom = instantiateNewMoldRoom();
+            print("génération");
+            GameObject newMoldRoom = instantiateNewMoldRoom();
 
-                addRoomToGridMap(newMoldRoom,coordinates,onSide);
+            addRoomToGridMap(newMoldRoom,coordinates,onSide);
 
-                Floor.processRooms.Add(newMoldRoom);
-                Floor.validSideOfRoom.Add(newMoldRoom,new List<side>(){side.Right,side.Left,side.Down});
-                Floor.validSideOfRoom[newMoldRoom].Remove(onSide);
+            Floor.processRooms.Add(newMoldRoom);
+            Floor.validSideOfRoom.Add(newMoldRoom,new List<side>(){side.Right,side.Left,side.Down});
+            Floor.validSideOfRoom[newMoldRoom].Remove(onSide);
 
-                setDoorsOn(onSide, newMoldRoom);
-                Floor.validSideOfRoom[gameObject].Remove(onSide); 
-            }
-            else{
-                generateSpecificRoomOnSide(onSide,"TreasureRoom");
-            }
+            setDoorsOn(onSide, newMoldRoom);
+            Floor.validSideOfRoom[gameObject].Remove(onSide); 
             
         }
         else{
@@ -225,7 +207,6 @@ public class RoomHandler : MonoBehaviour
 
     //generate a specific room on the side onSide
     public void generateSpecificRoomOnSide(side onSide, string name = ""){
-        print("roomName(handler,specific) " + gameObject.name);
         GameObject newMoldRoom = instantiateNewMoldRoom(name);
         addRoomToGridMap(newMoldRoom, getCoordinates(gameObject), onSide);
         setDoorsOn(onSide,newMoldRoom);
@@ -261,17 +242,9 @@ public class RoomHandler : MonoBehaviour
         switch(side){
             case side.Right :
                 Floor.gridMap[(int) coordinates.x , (int) coordinates.y + 1] = moldRoomToAdd;
-                if(moldRoomToAdd.name == "TreasureRoom"){
-                    print("x -> " + coordinates.x + " y -> " + (coordinates.y + 1));
-                    print(Floor.gridMap[(int) coordinates.x , (int) coordinates.y + 1].name);
-                }
                 break;
             case side.Left :
-                Floor.gridMap[(int) coordinates.x , (int) coordinates.y - 1] = moldRoomToAdd;
-                if(moldRoomToAdd.name == "TreasureRoom"){
-                    print("x -> " + coordinates.x + " y -> " + (coordinates.y - 1));
-                    print(Floor.gridMap[(int) coordinates.x , (int) coordinates.y - 1].name);
-                }                
+                Floor.gridMap[(int) coordinates.x , (int) coordinates.y - 1] = moldRoomToAdd;               
                 break;
             case side.Down : 
                 Floor.gridMap[(int) coordinates.x + 1, (int) coordinates.y] = moldRoomToAdd;
