@@ -5,8 +5,11 @@ public class PlayerDash : AbstractPlayer
     private PlayerBulletTime bulletTime;
     private CameraManager camManager;
     private DirectionPointer pointer;
+    private Player player;
     private Entity self;
     private StatPlayer stat;
+    private Rigidbody2D rb;
+    private GravityEntity gravity;
 
     private float chargeTimePassed = 0.0f;
     private float chargeTime = 1.0f;
@@ -14,19 +17,40 @@ public class PlayerDash : AbstractPlayer
 
     public override void Init()
     {
-        camManager = gameObject.GetComponent<Player>().gameCamera.GetComponent<CameraManager>();
+        player = gameObject.GetComponent<Player>();
+        if (player == null)
+        {
+            player = gameObject.AddComponent<Player>();
+            player.Init();
+        }
+
+        camManager = player.gameCamera.GetComponent<CameraManager>();
         if (camManager == null)
-            camManager = gameObject.GetComponent<Player>().gameCamera.gameObject.AddComponent<CameraManager>();
+            camManager = player.gameCamera.gameObject.AddComponent<CameraManager>();
 
         bulletTime = gameObject.GetComponent<PlayerBulletTime>();
         if (bulletTime == null)
+        {
             bulletTime = gameObject.AddComponent<PlayerBulletTime>();
+            bulletTime.Init();
+        }
+
+        
+
+        self = player.self;
+        pointer = player.pointer;
+
+        stat = player.stat;
 
 
-        self = gameObject.GetComponent<Player>().self;
-        pointer = gameObject.GetComponent<Player>().pointer;
+        rb = Entity.initRigidBody(self.gameObject);
 
-        stat = gameObject.GetComponent<Player>().stat;
+        gravity = self.GetComponent<GravityEntity>();
+        if (gravity == null)
+        {
+            gravity = self.gameObject.AddComponent<GravityEntity>();
+            gravity.Init();
+        }
     }
 
     // Update is called once per frame
@@ -69,6 +93,12 @@ public class PlayerDash : AbstractPlayer
                 }
 
             }
+            float angleDirection = new Velocity(1, pointer.getAngle()).SubToAngle(gravity.gravity.getAngle()).getAngle();
+            if (angleDirection > 180 && angleDirection <= 360)
+                self.transform.localScale = new Vector3(-1 * Mathf.Abs(self.transform.localScale.x), self.transform.localScale.y, self.transform.localScale.z);
+            else
+                self.transform.localScale = new Vector3(Mathf.Abs(self.transform.localScale.x), self.transform.localScale.y, self.transform.localScale.z);
+
             camManager.SetZoomPercent(100);
         }
         else if (movePressed)
@@ -83,9 +113,9 @@ public class PlayerDash : AbstractPlayer
         stat.UseDashes(2);
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(1.6f);
 
-        Game.player.inventory.OnMegaDash();
+        player.inventory.OnMegaDash();
 
-        self.GetComponent<Rigidbody2D>().velocity = new Velocity(stat.getAcceleration() * 1.5f, pointer.getAngle()).GetAsVector2();
+        rb.velocity = new Velocity(stat.getAcceleration() * 1.5f, pointer.getAngle()).GetAsVector2();
     }
 
     private void ComputeSimpleDash()
@@ -96,18 +126,15 @@ public class PlayerDash : AbstractPlayer
         stat.UseDashes(1);
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(1.2f);
 
-        Game.player.inventory.OnDash();
+        player.inventory.OnDash();
 
-        self.GetComponent<Rigidbody2D>().velocity = new Velocity(stat.getAcceleration(), pointer.getAngle()).GetAsVector2();
+        rb.velocity = new Velocity(stat.getAcceleration(), pointer.getAngle()).GetAsVector2();
     }
 
     private void ComputeRedirect()
     {
-        Game.player.inventory.OnRedirect();
+        player.inventory.OnRedirect();
 
-        Velocity newVelo = new Velocity(self.GetComponent<Rigidbody2D>().velocity);
-        newVelo.setAngle(pointer.getAngle());
-
-        self.GetComponent<Rigidbody2D>().velocity = newVelo.GetAsVector2();
+        player.inventory.GetWeapon().Movement(pointer.getAngle(), self);
     }
 }
