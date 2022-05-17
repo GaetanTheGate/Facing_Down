@@ -14,7 +14,8 @@ public class Wings : MeleeWeapon
         baseRange = 2;
         baseLenght = 180;
         baseSpan = 0.3f;
-        baseCooldown = 0.1f;
+        baseEDelay = 0.1f;
+        baseCooldown = - baseEDelay;
 
         attackPath = "Prefabs/Weapons/Wings";
         specialPath = "Prefabs/Weapons/Wings";
@@ -24,6 +25,8 @@ public class Wings : MeleeWeapon
     public override void WeaponAttack(float angle, Entity self)
     {
         GetAttack(angle, self).startAttack();
+
+        Game.coroutineStarter.LaunchCoroutine(onEndAttack(baseSpan, self, angle));
     }
 
     public override Attack GetAttack(float angle, Entity self)
@@ -47,7 +50,6 @@ public class Wings : MeleeWeapon
 
         GameObject swing2 = GameObject.Instantiate(swing);
         swing2.GetComponent<AttackHit>().dmgInfo = dmgInfo;
-        swing.GetComponent<HalfSlashAttack>().onEndAttack += onEndAttack;
 
 
         swing.GetComponent<HalfSlashAttack>().angle = angle - difference;
@@ -85,7 +87,6 @@ public class Wings : MeleeWeapon
 
         GameObject swing2 = GameObject.Instantiate(swing);
         swing2.GetComponent<AttackHit>().dmgInfo = dmgInfo;
-        swing.GetComponent<HalfSlashAttack>().onEndAttack += onEndSpecial;
 
 
         swing.GetComponent<HalfSlashAttack>().angle = angle - difference;
@@ -106,23 +107,60 @@ public class Wings : MeleeWeapon
     public override void WeaponSpecial(float angle, Entity self)
     {
         canAttack = false;
+        canSpecial = false;
 
         GetSpecial(angle, self).startAttack();
+
+        Game.coroutineStarter.LaunchCoroutine(onEndSpecial(baseSpan * 2, self, angle));
     }
 
 
-    private void onEndAttack(Entity self, float angle)
+    private IEnumerator onEndAttack(float delay, Entity self, float angle)
     {
+        yield return new WaitForSeconds(delay);
+
         Velocity newVelo = new Velocity(baseAtk / 6, angle + 180 + difference);
         self.GetComponent<Rigidbody2D>().velocity += newVelo.GetAsVector2();
     }
 
-    private void onEndSpecial(Entity self, float angle)
+    private IEnumerator onEndSpecial(float delay, Entity self, float angle)
     {
+        yield return new WaitForSeconds(delay);
+
         Debug.Log(angle);
         Velocity newVelo = new Velocity(baseAtk / 3, angle + 180 + difference);
         self.GetComponent<Rigidbody2D>().velocity += newVelo.GetAsVector2();
 
         canAttack = true;
+        canSpecial = true;
+    }
+
+    public override void _Move(float angle, Entity self)
+    {
+        canMove = false;
+
+        self.GetComponent<Rigidbody2D>().velocity = self.GetComponent<Rigidbody2D>().velocity * 0.2f;
+
+        float gravitySpeed = self.GetComponent<GravityEntity>().gravity.getSpeed();
+        self.GetComponent<GravityEntity>().gravity.setSpeed(0.00001f);
+
+        Game.coroutineStarter.StartCoroutine(StartLooseGravity(0.5f, 10, self, gravitySpeed));
+    }
+
+    private IEnumerator StartLooseGravity(float delay, float duration, Entity self, float gravitySpeed)
+    {
+        yield return new WaitForSeconds(delay);
+
+        self.GetComponent<Rigidbody2D>().velocity = new Vector2(self.GetComponent<Rigidbody2D>().velocity.x, self.GetComponent<Rigidbody2D>().velocity.y + 1);
+
+        Game.coroutineStarter.StartCoroutine(RestoreGravity(duration, self, gravitySpeed));
+    }
+
+    private IEnumerator RestoreGravity(float duration, Entity self, float speed)
+    {
+        yield return new WaitForSeconds(duration);
+        self.GetComponent<GravityEntity>().gravity.setSpeed(speed);
+
+        canMove = true;
     }
 }
