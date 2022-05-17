@@ -9,7 +9,7 @@ public class PlayerDash : AbstractPlayer
     private Entity self;
     private StatPlayer stat;
     private Rigidbody2D rb;
-    private GravityEntity gravity;
+    private RotationEntity rotation;
 
     private float chargeTimePassed = 0.0f;
     private float chargeTime = 1.0f;
@@ -45,11 +45,11 @@ public class PlayerDash : AbstractPlayer
 
         rb = Entity.initRigidBody(self.gameObject);
 
-        gravity = self.GetComponent<GravityEntity>();
-        if (gravity == null)
+        rotation = self.GetComponent<RotationEntity>();
+        if (rotation == null)
         {
-            gravity = self.gameObject.AddComponent<GravityEntity>();
-            gravity.Init();
+            rotation = self.gameObject.AddComponent<RotationEntity>();
+            rotation.Init();
         }
     }
 
@@ -76,15 +76,16 @@ public class PlayerDash : AbstractPlayer
             {
                 ComputeRedirect();
 
-                bulletTime.isInBulletTime = false;
-                Game.time.SetGameSpeedInstant(2.0f);
+                rotation.FlipEntityRelativeToGravity(pointer.getAngle());
+                rotation.RotateEntityRelativeToFlip(pointer.getAngle());
             }
             else
             {
-                if (chargeTimePassed > chargeTime)
+                if (stat.GetRemainingDashes() <= 0)
+                    return;
+                else if (chargeTimePassed > chargeTime)
                 {
                     ComputeMegaDash();
-                    Game.time.SetGameSpeedInstant(1.6f);
                 }
                 else
                 {
@@ -92,12 +93,10 @@ public class PlayerDash : AbstractPlayer
                     Game.time.SetGameSpeedInstant(1.2f);
                 }
 
+                rotation.FlipEntityRelativeToGravity(pointer.getAngle());
+                rotation.RotateEntityRelativeToFlip(pointer.getAngle());
+
             }
-            float angleDirection = new Velocity(1, pointer.getAngle()).SubToAngle(gravity.gravity.getAngle()).getAngle();
-            if (angleDirection > 180 && angleDirection <= 360)
-                self.transform.localScale = new Vector3(-1 * Mathf.Abs(self.transform.localScale.x), self.transform.localScale.y, self.transform.localScale.z);
-            else
-                self.transform.localScale = new Vector3(Mathf.Abs(self.transform.localScale.x), self.transform.localScale.y, self.transform.localScale.z);
 
             camManager.SetZoomPercent(100);
         }
@@ -107,28 +106,26 @@ public class PlayerDash : AbstractPlayer
 
     private void ComputeMegaDash()
     {
-        if (stat.GetRemainingDashes() <= 0)
-            return;
-
         stat.UseDashes(2);
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(1.6f);
 
         player.inventory.OnMegaDash();
 
         rb.velocity = new Velocity(stat.getAcceleration() * 1.5f, pointer.getAngle()).GetAsVector2();
+
+        Game.time.SetGameSpeedInstant(1.6f);
     }
 
     private void ComputeSimpleDash()
     {
-        if (stat.GetRemainingDashes() <= 0)
-            return;
-
         stat.UseDashes(1);
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(1.2f);
 
         player.inventory.OnDash();
 
         rb.velocity = new Velocity(stat.getAcceleration(), pointer.getAngle()).GetAsVector2();
+
+        Game.time.SetGameSpeedInstant(1.2f);
     }
 
     private void ComputeRedirect()
@@ -136,5 +133,9 @@ public class PlayerDash : AbstractPlayer
         player.inventory.OnRedirect();
 
         player.inventory.GetWeapon().Movement(pointer.getAngle(), self);
+
+
+        bulletTime.isInBulletTime = false;
+        Game.time.SetGameSpeedInstant(2.0f);
     }
 }
