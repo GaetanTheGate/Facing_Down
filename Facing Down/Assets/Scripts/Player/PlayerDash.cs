@@ -74,6 +74,9 @@ public class PlayerDash : AbstractPlayer
 
             if (bulletTime.isInBulletTime)
             {
+                if (!player.inventory.GetWeapon().CanMove())
+                    return;
+
                 ComputeSpecialMove();
 
                 rotation.FlipEntityRelativeToGravity(pointer.getAngle());
@@ -130,9 +133,6 @@ public class PlayerDash : AbstractPlayer
 
     private void ComputeSpecialMove()
     {
-        if (!player.inventory.GetWeapon().CanMove())
-            return;
-
         player.inventory.OnRedirect();
 
         player.inventory.GetWeapon().Movement(pointer.getAngle(), self);
