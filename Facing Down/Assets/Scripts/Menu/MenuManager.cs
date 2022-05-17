@@ -8,10 +8,6 @@ public class MenuManager : MonoBehaviour
     public static GameObject gameObjectActions;
     public static GameObject gameObjectOptions;
 
-    public static Options options = new Options();
-
-    public static string pathOptions = "Assets/Resources/Json/Options/Options.json";
-
     void Start(){
 
         gameObjectActions = GameObject.Find("Actions");
@@ -23,7 +19,6 @@ public class MenuManager : MonoBehaviour
         gameObjectOptions.SetActive(false);
         ButtonDisplayCommand.contentDisplayCommand.SetActive(false);
 
-        options = JsonUtility.FromJson<Options>(File.ReadAllText(pathOptions));
         applyOptions();
     }
 
