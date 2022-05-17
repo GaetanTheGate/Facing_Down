@@ -48,6 +48,8 @@ public class Inventory
 		this.weapon.OnPickup();
 	}
 
+	public Weapon GetWeapon() => weapon;
+
 	/// <summary>
 	/// Removes 1 of the item from the inventory.
 	/// </summary>

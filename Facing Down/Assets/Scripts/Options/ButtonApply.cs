@@ -6,24 +6,34 @@ using System.IO;
 
 public class ButtonApply : MonoBehaviour
 {
-    
     public void apply(){
-        Options options = new Options();
+        
+        ButtonDisplayCommand.contentDisplayCommand.SetActive(true);
         foreach(GameObject go in GameObject.FindGameObjectsWithTag("Option")){
             if(go.name == "DropdownLangue")
-                options.langue = go.GetComponent<Dropdown>().captionText.text;
+                MenuManager.options.langue = go.GetComponent<Dropdown>().captionText.text;
             if(go.name == "SliderVolume")
-                options.volumeValue = go.GetComponent<Slider>().value;
+                MenuManager.options.volumeValue = go.GetComponent<Slider>().value;
             if(go.name.Contains("Command")){
-                KeyBinding keyBinding = new KeyBinding();
+                /*KeyBinding keyBinding = new KeyBinding();
                 keyBinding.action = go.transform.Find("Action").GetComponent<InfoAction>().idAction;
                 string stringKeyCode = go.transform.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text;
                 keyBinding.key = (KeyCode) System.Enum.Parse(typeof(KeyCode), stringKeyCode);
-                options.commands.Add(keyBinding);
+                options.commands.Add(keyBinding);*/
+                foreach(KeyBinding keyBinding in MenuManager.options.commands){
+                    if(keyBinding.action == go.transform.Find("Action").GetComponent<InfoAction>().idAction){
+                        string stringKeyCode = go.transform.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text;
+                        keyBinding.key = (KeyCode) System.Enum.Parse(typeof(KeyCode), stringKeyCode);
+                        break;
+                    }
+                }
+                
             }
         }
+        
+        ButtonDisplayCommand.contentDisplayCommand.SetActive(false);
 
-        string jsonStringOptions = JsonUtility.ToJson(options);
+        string jsonStringOptions = JsonUtility.ToJson(MenuManager.options);
 
         File.WriteAllText(MenuManager.pathOptions,jsonStringOptions);
 

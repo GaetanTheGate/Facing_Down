@@ -191,6 +191,7 @@ public class RoomHandler : MonoBehaviour
 
             setDoorsOn(onSide, newMoldRoom);
             Floor.validSideOfRoom[gameObject].Remove(onSide); 
+            
         }
         else{
             print("génération impossible");
@@ -243,7 +244,7 @@ public class RoomHandler : MonoBehaviour
                 Floor.gridMap[(int) coordinates.x , (int) coordinates.y + 1] = moldRoomToAdd;
                 break;
             case side.Left :
-                Floor.gridMap[(int) coordinates.x , (int) coordinates.y - 1] = moldRoomToAdd;                
+                Floor.gridMap[(int) coordinates.x , (int) coordinates.y - 1] = moldRoomToAdd;               
                 break;
             case side.Down : 
                 Floor.gridMap[(int) coordinates.x + 1, (int) coordinates.y] = moldRoomToAdd;

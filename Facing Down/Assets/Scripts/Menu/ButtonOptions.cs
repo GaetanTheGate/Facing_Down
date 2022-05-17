@@ -29,6 +29,18 @@ public class ButtonOptions : MonoBehaviour
         //load volume value
         Slider sliderVolume = GameObject.Find("SliderVolume").GetComponent<Slider>();
         sliderVolume.value = MenuManager.options.volumeValue;
+
+
+        //load keyBinding
+        ButtonDisplayCommand.contentDisplayCommand.SetActive(true);
+        foreach(KeyBinding keyBinding in MenuManager.options.commands){
+            foreach(Transform child in ButtonDisplayCommand.contentDisplayCommand.transform){
+                GameObject action = child.Find("Action").gameObject;
+                if(keyBinding.action == action.GetComponent<InfoAction>().idAction)
+                    child.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text = keyBinding.key.ToString();
+            }
+        }
+        ButtonDisplayCommand.contentDisplayCommand.SetActive(false);
         
     }
 }

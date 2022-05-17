@@ -40,7 +40,9 @@ public class Katana : MeleeWeapon
 
         Vector3 teleportPointVector = new Velocity(laser.rangeCollide - Mathf.Max(self.transform.localScale.x, self.transform.localScale.y), angle).GetAsVector2();
         self.transform.position = laser.posStartLaser + teleportPointVector;
-        self.transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
+
+        self.GetComponent<RotationEntity>().FlipEntityRelativeToGravity(angle);
+        self.GetComponent<RotationEntity>().RotateEntityRelativeToFlip(angle);
 
 
     }

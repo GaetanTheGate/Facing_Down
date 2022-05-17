@@ -10,14 +10,12 @@ public static class ItemPool
 	private static Dictionary<ItemRarity, Dictionary<string, PassiveItem>> items;
 	private static Dictionary<ItemRarity, int> rarityDistribution; //Weights for each rarity.
 	private static int totalRarityWeight;
-	private static System.Random random;
 
 	/// <summary>
 	/// Initializes values
 	/// </summary>
 	/// New Items should be added here.
     static ItemPool() {
-		random = new System.Random(Random.Range(int.MinValue, int.MaxValue));
 		items = new Dictionary<ItemRarity, Dictionary<string, PassiveItem>>();
 		rarityDistribution = new Dictionary<ItemRarity, int> { {ItemRarity.COMMON, 7}, {ItemRarity.UNCOMMON, 6}, {ItemRarity.RARE, 4}, {ItemRarity.EPIC, 2}, {ItemRarity.LEGENDARY, 1} };
 		ComputeTotalRarityWeight();
@@ -38,10 +36,6 @@ public static class ItemPool
 		Add(new InvisibilityCloak());
 		Add(new ObsidianShard());
 		Add(new RiftMaker());
-	}
-
-	public static void InitSeed(int s) {
-		random = new System.Random(s);
 	}
 
 	/// <summary>
@@ -79,7 +73,7 @@ public static class ItemPool
 	/// <returns>The choosen rarity.</returns>
 	/// <exception cref="System.Exception">Thrown if no rarity is choosen. Should never happen.</exception>
 	public static ItemRarity GetRandomRarity() {
-		int r = random.Next() % totalRarityWeight;
+		int r = Game.random.Next() % totalRarityWeight;
 		foreach(ItemRarity rarity in rarityDistribution.Keys) {
 			r -= rarityDistribution[rarity];
 			if (r < 0) return rarity;
@@ -93,6 +87,6 @@ public static class ItemPool
 	/// <returns>A randomly choosen item from the pool.</returns>
 	public static PassiveItem GetRandomItem() {
 		List<PassiveItem> rarityPool = new List<PassiveItem>(items[GetRandomRarity()].Values);
-		return rarityPool[random.Next() % rarityPool.Count];
+		return rarityPool[Game.random.Next() % rarityPool.Count];
 	}
 }

@@ -13,37 +13,48 @@ public class PlayerAttack : AbstractPlayer
     private PlayerBulletTime bulletTime;
     private CameraManager camManager;
     private DirectionPointer pointer;
-    private Entity self;
-    private StatPlayer stat;
+    private Player self;
+    private Entity selfEntity;
+    private RotationEntity rotation;
 
     private bool attackPressed = false;
 
-    public Weapon weapon;
-    public EnumWeapon.WeaponChoice weaponChosen;
-
     public override void Init()
     {
-        camManager = gameObject.GetComponent<Player>().gameCamera.GetComponent<CameraManager>();
+        self = gameObject.GetComponent<Player>();
+        if (self == null)
+        {
+            self = gameObject.AddComponent<Player>();
+            self.Init();
+        }
+
+        camManager = self.gameCamera.GetComponent<CameraManager>();
         if (camManager == null)
-            camManager = gameObject.GetComponent<Player>().gameCamera.gameObject.AddComponent<CameraManager>();
+            camManager = self.gameCamera.gameObject.AddComponent<CameraManager>();
 
         bulletTime = gameObject.GetComponent<PlayerBulletTime>();
         if (bulletTime == null)
+        {
             bulletTime = gameObject.AddComponent<PlayerBulletTime>();
+            bulletTime.Init();
+        }
 
 
-        self = gameObject.GetComponent<Player>().self;
-        pointer = gameObject.GetComponent<Player>().pointer;
+        selfEntity = self.self;
+        pointer = self.pointer;
 
-        stat = gameObject.GetComponent<Player>().stat;
+
+
+        rotation = selfEntity.GetComponent<RotationEntity>();
+        if (rotation == null)
+        {
+            rotation = selfEntity.gameObject.AddComponent<RotationEntity>();
+            rotation.Init();
+        }
     }
 
     void FixedUpdate()
     {
-        if (weapon == null || ! weapon.GetType().Equals(EnumWeapon.GetWeaponType(weaponChosen)))
-        {
-            weapon = EnumWeapon.GetWeapon(weaponChosen, "Enemy");
-        }
         ComputeAttack();
     }
 
@@ -73,11 +84,15 @@ public class PlayerAttack : AbstractPlayer
             {
                 ComputeSimpleAttack();
             }
+
             camManager.SetZoomPercent(100);
         }
         else if (attackPressed)
         {
-            if(weapon.IsAuto()) ComputeSimpleAttack();
+            if (self.inventory.GetWeapon().IsAuto())
+            {
+                ComputeSimpleAttack();
+            }
 
             Game.controller.lowSensitivity = true;
             camManager.SetZoomPercent(Mathf.Max(90.0f, 100 - 10 * (chargeTimePassed / chargeTime)));
@@ -87,13 +102,15 @@ public class PlayerAttack : AbstractPlayer
 
     private void ComputeSimpleAttack()
     {
-        if (attackRecharge < weapon.GetCooldown() ||  ! weapon.CanAttack())
+        if (attackRecharge < self.inventory.GetWeapon().GetCooldown() ||  !self.inventory.GetWeapon().CanAttack())
             return;
 
         attackRecharge = 0.0f;
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.2f);
 
-        weapon.Attack(pointer.getAngle(), self);
+        self.inventory.GetWeapon().Attack(pointer.getAngle(), selfEntity);
+
+        rotation.FlipEntityRelativeToGravity(pointer.getAngle());
     }
 
     private void ComputeBounce()
@@ -102,11 +119,13 @@ public class PlayerAttack : AbstractPlayer
     }
     private void ComputeSpecial()
     {
-        if ( ! weapon.CanAttack())
+        if ( !self.inventory.GetWeapon().CanAttack())
             return;
 
         bulletTime.isInBulletTime = false;
-        weapon.Special(pointer.getAngle(), self);
+        self.inventory.GetWeapon().Special(pointer.getAngle(), selfEntity);
         if(!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.1f);
+
+        rotation.FlipEntityRelativeToGravity(pointer.getAngle());
     }
 }
