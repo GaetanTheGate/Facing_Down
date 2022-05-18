@@ -20,6 +20,7 @@ public static class Localization
     public static void Init() {
         if (itemDescriptions != null) return;
         InitItemDescriptions(Options.Get().langue);
+        InitUIStrings(Options.Get().langue);
     }
 
     private static void InitItemDescriptions(string lang) {
