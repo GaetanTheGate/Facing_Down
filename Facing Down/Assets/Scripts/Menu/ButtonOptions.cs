@@ -16,9 +16,12 @@ public class ButtonOptions : MonoBehaviour
 
         loadOptions();
         buttonApply.SetActive(false);
+        
     }
 
     public static void loadOptions(){
+        
+
 
         //load langue
         Dropdown dropdownLangue = GameObject.Find("DropdownLangue").GetComponent<Dropdown>();
@@ -45,5 +48,9 @@ public class ButtonOptions : MonoBehaviour
         }
         ButtonDisplayCommand.contentDisplayCommand.SetActive(false);
         
+    }
+
+    public void InitText(){
+        GetComponentInChildren<Text>().text = Localization.GetUIString("buttonOptions").TEXT;
     }
 }

@@ -2,8 +2,68 @@
 	"content" :
 	[
 		{
-			"ID" : "ExampleText",
-			"TEXT" : "This is an example"
+			"ID" : "buttonPLay",
+			"TEXT" : "Play"
+		},
+		{
+			"ID" : "buttonOption",
+			"TEXT" : "Options"
+		},
+		{
+			"ID" : "buttonQuit",
+			"TEXT" : "Quit"
+		},
+		{
+			"ID" : "buttonApply",
+			"TEXT" : "Apply"
+		},
+		{
+			"ID" : "buttonBack",
+			"TEXT" : "Back"
+		},
+		{
+			"ID" : "textOptionLanguage",
+			"TEXT" : "Language :"
+		},
+		{
+			"ID" : "textOptionVolume",
+			"TEXT" : "Volume :"
+		},
+		{
+			"ID" : "textOptionCommand",
+			"TEXT" : "Controls :"
+		},
+		{
+			"ID" : "buttonDisplayCommand",
+			"TEXT" : "Display controls"
+		},
+		{
+			"ID" : "textActionDash",
+			"TEXT" : "Dash:"
+		},
+		{
+			"ID" : "textActionAttack",
+			"TEXT" : "Attack:"
+		},
+		{
+			"ID" : "textActionBulletTime",
+			"TEXT" : "Bullet Time:"
+		},
+		{
+			"ID" : "textActionOpenConsole",
+			"TEXT" : "Open console:"
+		},
+		{
+			"ID" : "textActionOpenIventoryMap",
+			"TEXT" : "Open inventory / map:"
+		},
+		{
+			"ID" : "textActionCloseUI",
+			"TEXT" : "Close UI:"
+		},
+		{
+			"ID" : "buttonChangeCommand",
+			"TEXT" : "Change"
 		}
 	]
 }

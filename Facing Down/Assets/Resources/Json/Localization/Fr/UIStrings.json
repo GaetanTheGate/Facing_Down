@@ -2,8 +2,68 @@
 	"content" :
 	[
 		{
-			"ID" : "ExampleText",
-			"TEXT" : "Ceci est un exemple"
+			"ID" : "buttonPLay",
+			"TEXT" : "Jouer"
+		},
+		{
+			"ID" : "buttonOption",
+			"TEXT" : "Options"
+		},
+		{
+			"ID" : "buttonQuit",
+			"TEXT" : "Quitter"
+		},
+		{
+			"ID" : "buttonApply",
+			"TEXT" : "Appliquer"
+		},
+		{
+			"ID" : "buttonBack",
+			"TEXT" : "Retour"
+		},
+		{
+			"ID" : "textOptionLanguage",
+			"TEXT" : "Langue :"
+		},
+		{
+			"ID" : "textOptionVolume",
+			"TEXT" : "Volume :"
+		},
+		{
+			"ID" : "textOptionCommand",
+			"TEXT" : "Commandes :"
+		},
+		{
+			"ID" : "buttonDisplayCommand",
+			"TEXT" : "Voir les commandes"
+		},
+		{
+			"ID" : "textActionDash",
+			"TEXT" : "Propulsion :"
+		},
+		{
+			"ID" : "textActionAttack",
+			"TEXT" : "Attaque :"
+		},
+		{
+			"ID" : "textActionBulletTime",
+			"TEXT" : "Ralentissement du temps :"
+		},
+		{
+			"ID" : "textActionOpenConsole",
+			"TEXT" : "Ouvrir la console :"
+		},
+		{
+			"ID" : "textActionOpenIventoryMap",
+			"TEXT" : "Ouvrir l'inventaire / la carte :"
+		},
+		{
+			"ID" : "textActionCloseUI",
+			"TEXT" : "Fermer l'UI :"
+		},
+		{
+			"ID" : "buttonChangeCommand",
+			"TEXT" : "Changer"
 		}
 	]
 }

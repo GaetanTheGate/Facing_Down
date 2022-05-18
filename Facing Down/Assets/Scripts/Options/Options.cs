@@ -8,7 +8,9 @@ public class Options
 {
     public static string fullPath = Application.persistentDataPath + "/options.json";
     private static Options options;
-    
+
+    [System.NonSerialized]
+    public Dictionary<string,KeyCode> dicoCommand;
 
     public string langue;
     public float volumeValue;
@@ -24,6 +26,8 @@ public class Options
         commands.Add(new KeyBinding("openConsole", KeyCode.C));
         commands.Add(new KeyBinding("openInventoryMap", KeyCode.E));
         commands.Add(new KeyBinding("closeUI", KeyCode.Escape));
+
+        dicoCommand = commandsToDictionary();
     }
 
     public static Options Get() {
@@ -38,6 +42,7 @@ public class Options
     }
 
     public static void Save() {
+        Options.Get().dicoCommand = Options.Get().commandsToDictionary();
         string jsonStringOptions = JsonUtility.ToJson(Options.Get());
 
         File.WriteAllText(Options.fullPath, jsonStringOptions);

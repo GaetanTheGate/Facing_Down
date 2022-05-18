@@ -8,7 +8,7 @@ public class MenuManager : MonoBehaviour
     public static GameObject gameObjectActions;
     public static GameObject gameObjectOptions;
 
-    void Start(){
+    void Awake(){
         Localization.Init();
 
         gameObjectActions = GameObject.Find("Actions");
