@@ -76,9 +76,11 @@ public abstract class Weapon : Item
     public float getSpan() => baseSpan;
     public float getBaseCooldown() => baseCooldown;
 
-    public void SetBaseAtk(float newAtk) {
-        baseAtk = newAtk;
-    }
+    public void SetBaseAtk(float newAtk) => baseAtk = newAtk;
+    public void SetBaseSDelay(float span) => baseSDelay = span;
+    public void SetBaseSpan(float span) => baseSpan = span;
+    public void SetBaseEDelay(float span) => baseEDelay = span;
+    public void SetBaseCooldown(float cooldown) => baseCooldown = cooldown;
 
     protected void AddHitAttack(GameObject gameObject, DamageInfo dmgInfo)
     {
