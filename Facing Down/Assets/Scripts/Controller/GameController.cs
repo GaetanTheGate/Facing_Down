@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+
+
     [Range(0.0f, 2.0f)] public float sensibility = 0.8f;
 
     private bool isMovementPressed = false;
@@ -38,17 +40,20 @@ public class GameController : MonoBehaviour
 
     private void ComputePress()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        //key dash
+        if (Input.GetKeyDown(Options.Get().dicoCommand["dash"]))
             isMovementPressed = true;
         else
             isMovementPressed = false;
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        //key attack
+        if (Input.GetKeyDown(Options.Get().dicoCommand["attack"]))
             isAttackPressed = true;
         else
             isAttackPressed = false;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        //key bullet time
+        if (Input.GetKeyDown(Options.Get().dicoCommand["bulletTime"]))
             isBulletTimePressed = true;
         else
             isBulletTimePressed = false;
@@ -56,17 +61,17 @@ public class GameController : MonoBehaviour
 
     private void ComputeHeld()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(Options.Get().dicoCommand["dash"]))
             isMovementHeld = true;
         else
             isMovementHeld = false;
 
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKey(Options.Get().dicoCommand["attack"]))
             isAttackHeld = true;
         else
             isAttackHeld = false;
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(Options.Get().dicoCommand["bulletTime"]))
             isBulletTimeHeld = true;
         else
             isBulletTimeHeld = false;
@@ -74,17 +79,17 @@ public class GameController : MonoBehaviour
 
     private void ComputeReleased()
     {
-        if (Input.GetKeyUp(KeyCode.Mouse0))
+        if (Input.GetKeyUp(Options.Get().dicoCommand["dash"]))
             isMovementReleased = true;
         else
             isMovementReleased = false;
 
-        if (Input.GetKeyUp(KeyCode.Mouse1))
+        if (Input.GetKeyUp(Options.Get().dicoCommand["attack"]))
             isAttackReleased = true;
         else
             isAttackReleased = false;
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(Options.Get().dicoCommand["bulletTime"]))
             isBulletTimeReleased = true;
         else
             isBulletTimeReleased = false;

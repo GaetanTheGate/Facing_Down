@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ButtonOptions : MonoBehaviour
 {
+    public static GameObject buttonApply;
+
     public void options(){
         MenuManager.gameObjectActions.SetActive(false);
         MenuManager.gameObjectOptions.SetActive(true);
@@ -13,27 +15,36 @@ public class ButtonOptions : MonoBehaviour
         ButtonBack.gameObjectsToDisable.Add(MenuManager.gameObjectOptions);
 
         loadOptions();
+        buttonApply.SetActive(false);
+        
     }
 
     public static void loadOptions(){
+        
+
 
         //load langue
         Dropdown dropdownLangue = GameObject.Find("DropdownLangue").GetComponent<Dropdown>();
         foreach(Dropdown.OptionData optionData in dropdownLangue.options){
-            if(optionData.text == MenuManager.options.langue){
+            if(optionData.text == Options.Get().langue){
                 dropdownLangue.value = dropdownLangue.options.IndexOf(optionData);
                 break;  
             }
         }
 
         //load volume value
-        Slider sliderVolume = GameObject.Find("SliderVolume").GetComponent<Slider>();
-        sliderVolume.value = MenuManager.options.volumeValue;
+        ButtonAdjustVolume.contentVolume.SetActive(true);
+        GameObject.Find("SliderMasterVolume").GetComponent<Slider>().value = Options.Get().masterVolumeValue;
+        GameObject.Find("SliderMusicVolume").GetComponent<Slider>().value = Options.Get().musicVolumeValue;
+        GameObject.Find("SliderSoundVolume").GetComponent<Slider>().value = Options.Get().soundVolumeValue;
+        ButtonAdjustVolume.contentVolume.SetActive(false);
+
+        
 
 
         //load keyBinding
         ButtonDisplayCommand.contentDisplayCommand.SetActive(true);
-        foreach(KeyBinding keyBinding in MenuManager.options.commands){
+        foreach(KeyBinding keyBinding in Options.Get().commands){
             foreach(Transform child in ButtonDisplayCommand.contentDisplayCommand.transform){
                 GameObject action = child.Find("Action").gameObject;
                 if(keyBinding.action == action.GetComponent<InfoAction>().idAction)
@@ -42,5 +53,9 @@ public class ButtonOptions : MonoBehaviour
         }
         ButtonDisplayCommand.contentDisplayCommand.SetActive(false);
         
+    }
+
+    void Start(){
+        GetComponentInChildren<Text>().text = Localization.GetUIString("buttonOptions").TEXT;
     }
 }

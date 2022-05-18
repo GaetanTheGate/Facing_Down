@@ -12,6 +12,11 @@ public class ButtonDisplayCommand : MonoBehaviour
         ButtonBack.gameObjectsToEnable.Add(MenuManager.gameObjectOptions);
 
         contentDisplayCommand.SetActive(true);
+        ButtonApply.onDisplayCommand = true;
 
+    }
+
+    void Start(){
+        GetComponentInChildren<Text>().text = Localization.GetUIString("buttonDisplayCommand").TEXT;
     }
 }

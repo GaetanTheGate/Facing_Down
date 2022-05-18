@@ -7,9 +7,9 @@ using UnityEngine;
 /// <typeparam name="T"></typeparam>
 
 [System.Serializable]
-public class DescriptionList<T> where T : AbstractDescription
+public class LocalizedTextList<T> where T : LocalizedText
 {
-    public List<T> descriptions;
+    public List<T> content;
 
     /// <summary>
     /// Gets a dictionnary with IDs as keys from the descrption list
@@ -17,8 +17,8 @@ public class DescriptionList<T> where T : AbstractDescription
     /// <returns>The desctriptions stored as a dictionary</returns>
     public Dictionary<string, T> ToDictionary() {
         Dictionary<string, T> dictionary = new Dictionary<string, T>();
-        foreach(T description in descriptions) {
-            dictionary.Add(description.ID, description);
+        foreach(T localizedText in content) {
+            dictionary.Add(localizedText.ID, localizedText);
 		}
         return dictionary;
 	}
