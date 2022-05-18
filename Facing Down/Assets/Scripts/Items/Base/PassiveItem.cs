@@ -41,7 +41,11 @@ public abstract class PassiveItem : Item
         return "Sprites/Items/Items/";
     }
 
-    public int GetAmount()
+	protected override void InitDescription(string id) {
+        this.description = Localization.GetItemDescription(id);
+    }
+
+	public int GetAmount()
     {
         return amount;
     }
