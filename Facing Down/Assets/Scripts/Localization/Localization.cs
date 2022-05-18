@@ -8,6 +8,7 @@ public static class Localization
     private static readonly string localizationPath = "Json/Localization/";
 
     private static Dictionary<string, ItemDescription> itemDescriptions;
+    private static Dictionary<string, UIString> UIStrings;
 
     /// <summary>
     /// Initializes all dictionaries
@@ -22,8 +23,14 @@ public static class Localization
     }
 
     private static void InitItemDescriptions(string lang) {
-        DescriptionList<ItemDescription> descriptionList = JsonUtility.FromJson<DescriptionList<ItemDescription>>(Resources.Load<TextAsset>(localizationPath + lang + "/ItemDescriptions").text);
+        LocalizedTextList<ItemDescription> descriptionList = JsonUtility.FromJson<LocalizedTextList<ItemDescription>>(Resources.Load<TextAsset>(localizationPath + lang + "/ItemDescriptions").text);
         itemDescriptions = descriptionList.ToDictionary();
+    }
+
+    private static void InitUIStrings(string lang) {
+        LocalizedTextList<UIString> stringList = JsonUtility.FromJson<LocalizedTextList<UIString>>(Resources.Load<TextAsset>(localizationPath + lang + "/UIStrings").text);
+        UIStrings = stringList.ToDictionary();
+
     }
 
     /// <summary>
@@ -36,6 +43,13 @@ public static class Localization
             return itemDescriptions[ID];
 
         return new ItemDescription();
+	}
+
+    public static UIString GetUIString(string ID) {
+        if (UIStrings.ContainsKey(ID))
+            return UIStrings[ID];
+
+        return new UIString();
 	}
 }
 
