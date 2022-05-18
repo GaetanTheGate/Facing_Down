@@ -27,7 +27,23 @@
 		},
 		{
 			"ID" : "textOptionVolume",
-			"TEXT" : "Volume :"
+			"TEXT" : "Volume:"
+		},
+		{
+			"ID" : "buttonAdjustVolume",
+			"TEXT" : "Adjust volume:"
+		},
+		{
+			"ID" : "textOptionMasterVolume",
+			"TEXT" : "Master volume:"
+		},
+		{
+			"ID" : "textOptionMusicVolume",
+			"TEXT" : "Music volume:"
+		},
+		{
+			"ID" : "textOptionSoundVolume",
+			"TEXT" : "Ambiance volume:"
 		},
 		{
 			"ID" : "textOptionCommand",

@@ -11,6 +11,12 @@ public class ButtonBack : MonoBehaviour
     public void back(){
         gameObjectsToEnable[gameObjectsToEnable.Count -1].SetActive(true);
         gameObjectsToDisable[gameObjectsToDisable.Count - 1].SetActive(false);
+
+        if(gameObjectsToDisable[gameObjectsToDisable.Count - 1] == ButtonAdjustVolume.contentVolume)
+            ButtonApply.onContentVolume = false;
+        
+        if(gameObjectsToDisable[gameObjectsToDisable.Count - 1] == ButtonDisplayCommand.contentDisplayCommand)
+            ButtonApply.onDisplayCommand = false;
         
         gameObjectsToDisable.RemoveAt(gameObjectsToDisable.Count - 1);
         gameObjectsToEnable.RemoveAt(gameObjectsToEnable.Count -1);

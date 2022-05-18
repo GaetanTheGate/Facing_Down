@@ -30,6 +30,22 @@
 			"TEXT" : "Volume :"
 		},
 		{
+			"ID" : "buttonAdjustVolume",
+			"TEXT" : "Ajuster le volume :"
+		},
+		{
+			"ID" : "textOptionMasterVolume",
+			"TEXT" : "Volume générale :"
+		},
+		{
+			"ID" : "textOptionMusicVolume",
+			"TEXT" : "Volume musique :"
+		},
+		{
+			"ID" : "textOptionSoundVolume",
+			"TEXT" : "Volume ambiance :"
+		},
+		{
 			"ID" : "textOptionCommand",
 			"TEXT" : "Commandes :"
 		},

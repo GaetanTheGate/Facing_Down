@@ -16,10 +16,12 @@ public class MenuManager : MonoBehaviour
 
         ButtonDisplayCommand.contentDisplayCommand = GameObject.Find("ContentDisplayCommand");
         ButtonOptions.buttonApply = GameObject.Find("ButtonApply");
+        ButtonAdjustVolume.contentVolume = GameObject.Find("ContentVolume");
         
         gameObjectActions.SetActive(true);
         gameObjectOptions.SetActive(false);
         ButtonDisplayCommand.contentDisplayCommand.SetActive(false);
+        ButtonAdjustVolume.contentVolume.SetActive(false);
 
         applyOptions();
     }

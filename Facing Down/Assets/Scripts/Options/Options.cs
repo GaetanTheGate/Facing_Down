@@ -13,12 +13,18 @@ public class Options
     public Dictionary<string,KeyCode> dicoCommand;
 
     public string langue;
-    public float volumeValue;
+    public float masterVolumeValue;
+    public float musicVolumeValue;
+    public float soundVolumeValue;
+
+
     public List<KeyBinding> commands = new List<KeyBinding>();
 
     private Options() {
         langue = "En";
-        volumeValue = 100f;
+        masterVolumeValue = 100f;
+        musicVolumeValue = 100f;
+        soundVolumeValue = 100f;
         commands = new List<KeyBinding>();
         commands.Add(new KeyBinding("dash", KeyCode.Mouse0));
         commands.Add(new KeyBinding("attack", KeyCode.Mouse1));

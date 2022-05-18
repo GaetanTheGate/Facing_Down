@@ -7,12 +7,17 @@ using System.IO;
 public class ButtonApply : MonoBehaviour
 {
     public static bool onDisplayCommand = false;
+    public static bool onContentVolume = false;
     public void apply(){
 
         ButtonDisplayCommand.contentDisplayCommand.SetActive(true);
+        ButtonAdjustVolume.contentVolume.SetActive(true);
 
         Options.Get().langue = GameObject.Find("DropdownLangue").GetComponent<Dropdown>().captionText.text;
-        Options.Get().volumeValue = GameObject.Find("SliderVolume").GetComponent<Slider>().value;
+        Options.Get().masterVolumeValue = GameObject.Find("SliderMasterVolume").GetComponent<Slider>().value;
+        Options.Get().musicVolumeValue = GameObject.Find("SliderMusicVolume").GetComponent<Slider>().value;
+        Options.Get().soundVolumeValue = GameObject.Find("SliderSoundVolume").GetComponent<Slider>().value;
+
         GameObject commands = GameObject.Find("ContentDisplayCommand").gameObject;
         for (int i = 0; i < commands.transform.childCount; ++i) {
             GameObject command = commands.transform.GetChild(i).gameObject;
@@ -28,6 +33,11 @@ public class ButtonApply : MonoBehaviour
         if(!onDisplayCommand){
             ButtonDisplayCommand.contentDisplayCommand.SetActive(false);
             onDisplayCommand = false;
+        }
+
+        if(!onContentVolume){
+            ButtonAdjustVolume.contentVolume.SetActive(false);
+            onContentVolume = false;
         }
             
 

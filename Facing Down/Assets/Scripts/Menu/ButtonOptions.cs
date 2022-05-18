@@ -33,8 +33,13 @@ public class ButtonOptions : MonoBehaviour
         }
 
         //load volume value
-        Slider sliderVolume = GameObject.Find("SliderVolume").GetComponent<Slider>();
-        sliderVolume.value = Options.Get().volumeValue;
+        ButtonAdjustVolume.contentVolume.SetActive(true);
+        GameObject.Find("SliderMasterVolume").GetComponent<Slider>().value = Options.Get().masterVolumeValue;
+        GameObject.Find("SliderMusicVolume").GetComponent<Slider>().value = Options.Get().musicVolumeValue;
+        GameObject.Find("SliderSoundVolume").GetComponent<Slider>().value = Options.Get().soundVolumeValue;
+        ButtonAdjustVolume.contentVolume.SetActive(false);
+
+        
 
 
         //load keyBinding
