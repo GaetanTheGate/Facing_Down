@@ -6,9 +6,11 @@ using System.IO;
 
 public class ButtonApply : MonoBehaviour
 {
+    public static bool onDisplayCommand = false;
     public void apply(){
+
         ButtonDisplayCommand.contentDisplayCommand.SetActive(true);
-        Options.Get();
+
         Options.Get().langue = GameObject.Find("DropdownLangue").GetComponent<Dropdown>().captionText.text;
         Options.Get().volumeValue = GameObject.Find("SliderVolume").GetComponent<Slider>().value;
         GameObject commands = GameObject.Find("ContentDisplayCommand").gameObject;
@@ -23,11 +25,17 @@ public class ButtonApply : MonoBehaviour
             }
         }
         
-        ButtonDisplayCommand.contentDisplayCommand.SetActive(false);
+        if(!onDisplayCommand){
+            ButtonDisplayCommand.contentDisplayCommand.SetActive(false);
+            onDisplayCommand = false;
+        }
+            
 
         Options.Save();
 
-        print("options sauvegardé");
+        print("options sauvegardées");
+
+        gameObject.SetActive(false);
 
     }
 }
