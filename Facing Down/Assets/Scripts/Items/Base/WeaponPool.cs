@@ -42,7 +42,7 @@ public static class WeaponPool {
 	/// Get a random weapon.
 	/// </summary>
 	/// <returns>A randomly choosen weapon from the pool.</returns>
-	public static Weapon GetRandomItem() {
+	public static Weapon GetRandomWeapon() {
 		return new List<Weapon>(weapons.Values)[Game.random.Next() % weapons.Count];
 	}
 }

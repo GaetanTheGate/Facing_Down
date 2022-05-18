@@ -94,6 +94,10 @@ public abstract class Weapon : Item
         return "Sprites/Items/Weapons/";
     }
 
+    protected override void InitDescription(string id) {
+        this.description = Localization.GetWeaponDescription(id);
+    }
+
     public override string GetDescription()
     {
         return description.DESCRIPTION;
