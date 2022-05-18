@@ -9,6 +9,12 @@ public class AttackHit : MonoBehaviour
     public List<string> layersToHit = new List<string>();
     private Dictionary<GameObject, bool> entitiesHit = new Dictionary<GameObject, bool>();
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (gameObject.GetComponent<Collider2D>().IsTouching(collision))
+            ComputeAttack(collision, 1.0f);
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (gameObject.GetComponent<Collider2D>().IsTouching(collision))

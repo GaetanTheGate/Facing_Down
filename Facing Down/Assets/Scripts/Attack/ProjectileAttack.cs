@@ -11,7 +11,7 @@ public class ProjectileAttack : ThrowableAttack
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ( ! gameObject.GetComponent<Collider2D>().IsTouching(collision))
+        if (!gameObject.GetComponent<Collider2D>().IsTouching(collision))
             return;
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Terrain"))
@@ -20,9 +20,9 @@ public class ProjectileAttack : ThrowableAttack
         foreach (string layer in layersToDestroyOn)
             if (collision.gameObject.layer.Equals(LayerMask.NameToLayer(layer)))
             {
-                    ++numberOfHit;
-                    if (numberOfHit >= numberOfHitToDestroy)
-                        Destroy(gameObject);
+                ++numberOfHit;
+                if (numberOfHit >= numberOfHitToDestroy)
+                    Destroy(gameObject);
             }
     }
 }

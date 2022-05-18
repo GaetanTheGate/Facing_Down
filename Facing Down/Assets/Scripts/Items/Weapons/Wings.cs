@@ -34,17 +34,18 @@ public class Wings : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(2 * dmg, angle));
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(2 * dmg, angle), baseSDelay + baseSpan + baseEDelay);
         AddHitAttack(swing, dmgInfo);
 
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
 
         swing.GetComponent<HalfSlashAttack>().src = self;
+        swing.GetComponent<HalfSlashAttack>().startDelay = baseSDelay;
+        swing.GetComponent<HalfSlashAttack>().timeSpan = baseSpan;
         swing.GetComponent<HalfSlashAttack>().endDelay = baseEDelay;
         swing.GetComponent<HalfSlashAttack>().range = baseRange;
         swing.GetComponent<HalfSlashAttack>().lenght = baseLenght - difference;
-        swing.GetComponent<HalfSlashAttack>().timeSpan = baseSpan;
         swing.GetComponent<HalfSlashAttack>().followEntity = forceUnFollow;
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
 
@@ -71,17 +72,18 @@ public class Wings : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 5, new Velocity(4 * dmg, angle));
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 5, new Velocity(4 * dmg, angle), baseSDelay * 2 + baseSpan * 2 + baseEDelay * 2);
         AddHitAttack(swing, dmgInfo);
 
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
 
         swing.GetComponent<HalfSlashAttack>().src = self;
+        swing.GetComponent<HalfSlashAttack>().startDelay = baseSDelay * 2;
+        swing.GetComponent<HalfSlashAttack>().timeSpan = baseSpan * 2;
         swing.GetComponent<HalfSlashAttack>().endDelay = baseEDelay * 2;
         swing.GetComponent<HalfSlashAttack>().range = baseRange * 2;
         swing.GetComponent<HalfSlashAttack>().lenght = baseLenght - difference;
-        swing.GetComponent<HalfSlashAttack>().timeSpan = baseSpan * 2;
         swing.GetComponent<HalfSlashAttack>().followEntity = forceUnFollow;
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
 

@@ -52,7 +52,7 @@ public class WarAxe : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 0.5f, new Velocity(0.5f * dmg, angle)));
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 0.5f, new Velocity(0.5f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
 
         swing.transform.position = startPos;
         swing.AddComponent<SwingAttack>();
@@ -76,7 +76,7 @@ public class WarAxe : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(5 * dmg, angle)));
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(5 * dmg, angle), baseSDelay + baseSpan + baseEDelay));
 
         swing.transform.position = startPos;
         swing.AddComponent<SwingAttack>();
@@ -87,9 +87,9 @@ public class WarAxe : MeleeWeapon
         swing.GetComponent<SwingAttack>().range = baseRange;
         swing.GetComponent<SwingAttack>().lenght = baseLenght;
         swing.GetComponent<SwingAttack>().timeSpan = baseSpan;
-        swing.GetComponent<SwingAttack>().followEntity = forceUnFollow;
         swing.GetComponent<SwingAttack>().startDelay = baseSDelay;
         swing.GetComponent<SwingAttack>().endDelay = baseEDelay;
+        swing.GetComponent<SwingAttack>().followEntity = forceUnFollow;
 
         swing.GetComponent<SwingAttack>().way = way;
 
@@ -101,7 +101,7 @@ public class WarAxe : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 2, new Velocity(5 * dmg, angle)));
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 2, new Velocity(5 * dmg, angle), baseSDelay + baseSpan + baseEDelay));
 
         swing.transform.position = startPos;
         swing.AddComponent<SwingAttack>();

@@ -11,7 +11,7 @@ public class Katana : MeleeWeapon
         baseRange = 3;
         baseLenght = 180;
         baseSpan = 0.2f;
-        baseCooldown = 0.1f;
+        baseCooldown = 0.0f;
 
         attackPath = "Prefabs/Weapons/Katana";
         specialPath = "Prefabs/Weapons/KatanaDash";
@@ -91,7 +91,7 @@ public class Katana : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(2 * dmg, angle)));
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(2 * dmg, angle), baseSDelay + baseSpan + baseEDelay));
 
         swing.transform.position = startPos;
         swing.AddComponent<SlashAttack>();
@@ -101,7 +101,9 @@ public class Katana : MeleeWeapon
         swing.GetComponent<SlashAttack>().angle = angle;
         swing.GetComponent<SlashAttack>().range = baseRange;
         swing.GetComponent<SlashAttack>().lenght = baseLenght;
+        swing.GetComponent<SlashAttack>().startDelay = baseSDelay;
         swing.GetComponent<SlashAttack>().timeSpan = baseSpan;
+        swing.GetComponent<SlashAttack>().endDelay = baseEDelay;
         swing.GetComponent<SlashAttack>().followEntity = forceUnFollow;
 
         swing.GetComponent<SlashAttack>().way = way;
@@ -114,7 +116,7 @@ public class Katana : MeleeWeapon
         GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg * 5, new Velocity(0.5f * dmg, angle)));
+        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg * 5, new Velocity(0.5f * dmg, angle), 1)) ;
 
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();
@@ -124,7 +126,8 @@ public class Katana : MeleeWeapon
         laser.GetComponent<LaserAttack>().angle = angle;
         laser.GetComponent<LaserAttack>().range = baseRange * 3;
         laser.GetComponent<LaserAttack>().lenght = self.transform.localScale.x;
-        laser.GetComponent<LaserAttack>().timeSpan = 0.00f;
+        laser.GetComponent<LaserAttack>().startDelay = 0;
+        laser.GetComponent<LaserAttack>().timeSpan = 0;
         laser.GetComponent<LaserAttack>().endDelay = 0.05f;
         laser.GetComponent<LaserAttack>().followEntity = false;
 

@@ -25,7 +25,7 @@ public class Explosion : MeleeWeapon
         GameObject explosion = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(1f, angle));
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(1f, angle), baseSDelay + baseSpan + baseEDelay);
         AddHitAttack(explosion, dmgInfo);
 
         explosion.transform.position = startPos;
@@ -48,7 +48,7 @@ public class Explosion : MeleeWeapon
         GameObject explosion = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 2, new Velocity(1f, angle));
+        DamageInfo dmgInfo = new DamageInfo(self, dmg * baseAtk * 0.1f, new Velocity(1f, angle), 0.1f);
         AddHitAttack(explosion, dmgInfo);
 
         explosion.transform.position = startPos;
@@ -57,9 +57,9 @@ public class Explosion : MeleeWeapon
         explosion.GetComponent<ExplosionAttack>().src = self;
         explosion.GetComponent<ExplosionAttack>().angle = angle;
         explosion.GetComponent<ExplosionAttack>().startDelay = baseSDelay;
-        explosion.GetComponent<ExplosionAttack>().timeSpan = baseSpan * 2.0f;
-        explosion.GetComponent<ExplosionAttack>().endDelay = baseEDelay * 2.0f;
-        explosion.GetComponent<ExplosionAttack>().range = baseRange * 2.0f;
+        explosion.GetComponent<ExplosionAttack>().timeSpan = baseSpan;
+        explosion.GetComponent<ExplosionAttack>().endDelay = baseEDelay;
+        explosion.GetComponent<ExplosionAttack>().range = baseRange;
         explosion.GetComponent<ExplosionAttack>().lenght = baseLenght;
         explosion.GetComponent<ExplosionAttack>().followEntity = false;
 
