@@ -39,7 +39,9 @@ public class Gun : MeleeWeapon
         gun.GetComponent<GunAttack>().transform.position = startPos;
 
         gun.GetComponent<GunAttack>().src = self;
+        gun.GetComponent<GunAttack>().startDelay = baseSDelay;
         gun.GetComponent<GunAttack>().timeSpan = baseSpan;
+        gun.GetComponent<GunAttack>().endDelay = baseEDelay;
         gun.GetComponent<GunAttack>().lenght = 1;
         gun.GetComponent<GunAttack>().followEntity = forceUnFollow;
 
@@ -59,9 +61,9 @@ public class Gun : MeleeWeapon
         gun.GetComponent<GunAttack>().transform.position = startPos;
 
         gun.GetComponent<GunAttack>().src = self;
-        gun.GetComponent<GunAttack>().startDelay = 1.0f;
-        gun.GetComponent<GunAttack>().timeSpan = 1;
-        gun.GetComponent<GunAttack>().endDelay = 0.5f;
+        gun.GetComponent<GunAttack>().startDelay = baseSDelay + 1.0f;
+        gun.GetComponent<GunAttack>().timeSpan = specialWeapon.getSDelay() + specialWeapon.getSpan() + specialWeapon.getEDelay();
+        gun.GetComponent<GunAttack>().endDelay = baseEDelay + 0.5f;
         gun.GetComponent<GunAttack>().lenght = 1;
         gun.GetComponent<GunAttack>().followEntity = false;
 

@@ -10,15 +10,15 @@ public class Laser : MeleeWeapon
         baseAtk = 100;
         baseRange = 50;
         baseLenght = 1;
-        baseSpan = 0.3f;
-        baseEDelay = 5;
+        baseSpan = 0.2f;
+        baseEDelay = 0.2f;
         baseCooldown = 0.1f;
 
         attackPath = "Prefabs/Weapons/Laser";
         specialPath = "Prefabs/Weapons/Laser";
     }
 
-    public int hitPerSecond = 10;
+    public float hitPerSecond = 10;
 
     public override Attack GetAttack(float angle, Entity self)
     {
