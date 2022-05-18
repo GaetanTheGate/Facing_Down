@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ButtonOptions : MonoBehaviour
 {
+    public static GameObject buttonApply;
+
     public void options(){
         MenuManager.gameObjectActions.SetActive(false);
         MenuManager.gameObjectOptions.SetActive(true);
@@ -13,6 +15,7 @@ public class ButtonOptions : MonoBehaviour
         ButtonBack.gameObjectsToDisable.Add(MenuManager.gameObjectOptions);
 
         loadOptions();
+        buttonApply.SetActive(false);
     }
 
     public static void loadOptions(){

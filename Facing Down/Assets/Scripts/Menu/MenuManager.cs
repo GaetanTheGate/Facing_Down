@@ -18,6 +18,7 @@ public class MenuManager : MonoBehaviour
         gameObjectOptions = GameObject.Find("Options");
 
         ButtonDisplayCommand.contentDisplayCommand = GameObject.Find("ContentDisplayCommand");
+        ButtonOptions.buttonApply = GameObject.Find("ButtonApply");
         
         gameObjectActions.SetActive(true);
         gameObjectOptions.SetActive(false);
