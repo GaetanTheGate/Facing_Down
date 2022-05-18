@@ -43,9 +43,17 @@ public class ShadowCaster2DFromComposite : MonoBehaviour
     [MenuItem("2DLights/Rebuild Tilemap")]
     public static void RebuildAll()
     {
+        GameObject shadowContainer = new GameObject("ShadowContainer");
+
         foreach (var item in FindObjectsOfType<ShadowCaster2DFromComposite>())
         {
             item.Rebuild();
+            foreach (var shadow in item._shadowCasters)
+            {
+                Vector3 oldPos = shadow.transform.localPosition;
+                shadow.transform.SetParent(shadowContainer.transform);
+                shadow.transform.position = -oldPos;
+            }
         }
     }
 
