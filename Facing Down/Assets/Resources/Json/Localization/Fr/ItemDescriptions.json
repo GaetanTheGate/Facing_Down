@@ -14,7 +14,7 @@
 		{
 			"ID" : "ResidualEmbers",
 			"NAME" : "Braises Résiduelles",
-			"DESCRIPTION" : "Les attaques réalisées sont répétées après {1}s ,infligeant {0}% de dégâts"
+			"DESCRIPTION" : "Les attaques réalisées sont répétées après {1}s, infligeant {0}% de dégâts"
 		},
 		{
 			"ID" : "MagmaticCoating",

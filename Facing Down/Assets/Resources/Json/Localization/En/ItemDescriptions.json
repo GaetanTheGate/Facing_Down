@@ -1,0 +1,115 @@
+{
+	"descriptions" : 
+	[
+		{
+			"ID" : "PrintItem",
+			"NAME" : "PrintItem",
+			"DESCRIPTION" : "Displays your actions in the debug console"
+		},
+		{
+			"ID" : "BurningCircle",
+			"NAME" : "Burning Circle",
+			"DESCRIPTION" : "Attacks create a damage area dealing {0}% damage to close enemies"
+		},
+		{
+			"ID" : "ResidualEmbers",
+			"NAME" : "Resdidual Enmbers",
+			"DESCRIPTION" : "Repeats attacks after {1}s, dealing {0}% damage"
+		},
+		{
+			"ID" : "MagmaticCoating",
+			"NAME" : "Magmatic Coating",
+			"DESCRIPTION" : "Increase critical strike chance by {0}%"
+		},
+		{
+			"ID" : "FieryAlloy",
+			"NAME" : "Fiery Alloy",
+			"DESCRIPTION" : "Increase damage by {0}%"
+		},
+		{
+			"ID" : "VoraciousFlames",
+			"NAME" : "Voracious Flames",
+			"DESCRIPTION" : "Successive attacks deal {0}% additionnal damage"
+		},
+		{
+			"ID" : "ObsidianShard",
+			"NAME" : "Obsidiaon Shard",
+			"DESCRIPTION" : "Killing an enemy shots 1 projectile dealing {0}% damage to the nearest enemy"
+		},
+		{
+			"ID" : "FocusAmber",
+			"NAME" : "Focus Amber",
+			"DESCRIPTION" : "Increase bullet time duration by {0}%"
+		},
+		{
+			"ID" : "PowerSaver",
+			"NAME" : "Power Saver",
+			"DESCRIPTION" : "Leaving bullet time without using any attack or movement restores {0}% energy"
+		},
+		{
+			"ID" : "HeartOfTheStorm",
+			"NAME" : "Heart of the Storm",
+			"DESCRIPTION" : "Killing an enemy restores {0}% additionnal energy"
+		},
+		{
+			"ID" : "BatteryPack", 
+			"NAME" : "Battery Pack",
+			"DESCRIPTION" : "Increases maximal energy by {0}"
+		},
+		{
+			"ID" : "OverchargedCoil",
+			"NAME" : "Overcharged Coil",
+			"DESCRIPTION" : "Activating bullet time deals {0}% damage to all enemies"
+		},
+		{
+			"ID" : "ImpenetrableRoots",
+			"NAME" : "Impenetrable Roots",
+			"DESCRIPTION" : "When on the ground, reduce all damage taken by {0}%"
+		},
+		{
+			"ID" : "HardeningPlates",
+			"NAME" : "Hardening Plates",
+			"DESCRIPTION" : "Killing an enemy grants a {0}s invulnerability"
+		},
+		{
+			"ID" : "StoneArmor",
+			"NAME" : "Stone Armor",
+			"DESCRIPTION" : "Increase max HP by {0}"
+		},
+		{
+			"ID" : "HornOfPlenty",
+			"NAME" : "Horn of Plenty",
+			"DESCRIPTION" : "Finishing a room restore {0}% of max HP."
+		},
+		{
+			"ID" : "SylvanBreastplate",
+			"NAME" : "Sylvan Breastplate",
+			"DESCRIPTION" : "Reduce all damage taken by {0}"
+		},
+		{
+			"ID" : "ClayClone",
+			"NAME" : "Clay Clone",
+			"DESCRIPTION" : "Upon death, resurrect with 100% HP"
+		},
+		{
+			"ID" : "Lightness",
+			"NAME" : "Lightness",
+			"DESCRIPTION" : "Increase dashing speed by {0}%"
+		},
+		{
+			"ID" : "ArtificialWings",
+			"NAME" : "Artificial Wings",
+			"DESCRIPTION" : "Increase max amount of dash by {0}"
+		},
+		{
+			"ID" : "RiftMaker",
+			"NAME" : "Rift Maker",
+			"DESCRIPTION" : "Landing creates a rift, increasing dashing speed by {0}%"
+		},
+		{
+			"ID" : "InvisibilityCloak",
+			"NAME" : "Invisibility Cloak",
+			"DESCRIPTION" : "Dashing or redirecting grants a{0}s invulnerability"
+		}
+	]
+}
