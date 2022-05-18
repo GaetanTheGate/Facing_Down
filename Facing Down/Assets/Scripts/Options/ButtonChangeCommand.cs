@@ -25,5 +25,9 @@ public class ButtonChangeCommand : MonoBehaviour
                 
         }
     }
+
+    void Start(){
+        transform.Find("ButtonChangeCommand").GetComponentInChildren<Text>().text = Localization.GetUIString("buttonChangeCommand").TEXT;
+    }
     
 }

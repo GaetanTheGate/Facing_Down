@@ -15,4 +15,8 @@ public class ButtonDisplayCommand : MonoBehaviour
         ButtonApply.onDisplayCommand = true;
 
     }
+
+    void Start(){
+        GetComponentInChildren<Text>().text = Localization.GetUIString("buttonDisplayCommand").TEXT;
+    }
 }

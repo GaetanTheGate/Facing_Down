@@ -2,11 +2,11 @@
 	"content" :
 	[
 		{
-			"ID" : "buttonPLay",
+			"ID" : "buttonPlay",
 			"TEXT" : "Jouer"
 		},
 		{
-			"ID" : "buttonOption",
+			"ID" : "buttonOptions",
 			"TEXT" : "Options"
 		},
 		{
@@ -54,7 +54,7 @@
 			"TEXT" : "Ouvrir la console :"
 		},
 		{
-			"ID" : "textActionOpenIventoryMap",
+			"ID" : "textActionOpenInventoryMap",
 			"TEXT" : "Ouvrir l'inventaire / la carte :"
 		},
 		{

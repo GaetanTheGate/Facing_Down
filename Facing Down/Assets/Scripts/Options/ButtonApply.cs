@@ -38,4 +38,8 @@ public class ButtonApply : MonoBehaviour
         gameObject.SetActive(false);
 
     }
+
+    void Start(){
+        GetComponentInChildren<Text>().text = Localization.GetUIString("buttonApply").TEXT;
+    }
 }

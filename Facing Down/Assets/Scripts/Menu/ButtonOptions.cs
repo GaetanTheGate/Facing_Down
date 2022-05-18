@@ -50,7 +50,7 @@ public class ButtonOptions : MonoBehaviour
         
     }
 
-    public void InitText(){
+    void Start(){
         GetComponentInChildren<Text>().text = Localization.GetUIString("buttonOptions").TEXT;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonBack : MonoBehaviour
 {
@@ -13,5 +14,9 @@ public class ButtonBack : MonoBehaviour
         
         gameObjectsToDisable.RemoveAt(gameObjectsToDisable.Count - 1);
         gameObjectsToEnable.RemoveAt(gameObjectsToEnable.Count -1);
+    }
+
+    void Start(){
+        GetComponentInChildren<Text>().text = Localization.GetUIString("buttonBack").TEXT;
     }
 }
