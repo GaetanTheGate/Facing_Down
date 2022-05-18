@@ -103,8 +103,7 @@ public abstract class Weapon : Item
     {
         System.Type type = GetType();
         
-        Weapon newWeapon = (Weapon) type.GetConstructor(new System.Type[0]).Invoke(new Object[0]);
-        newWeapon.target = target;
+        Weapon newWeapon = (Weapon) type.GetConstructor(new System.Type[] { typeof(string) }).Invoke(new object[] { target });
 
         return newWeapon;
     }
