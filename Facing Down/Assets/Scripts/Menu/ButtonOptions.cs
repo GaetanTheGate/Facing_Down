@@ -23,7 +23,7 @@ public class ButtonOptions : MonoBehaviour
         //load langue
         Dropdown dropdownLangue = GameObject.Find("DropdownLangue").GetComponent<Dropdown>();
         foreach(Dropdown.OptionData optionData in dropdownLangue.options){
-            if(optionData.text == MenuManager.options.langue){
+            if(optionData.text == Options.Get().langue){
                 dropdownLangue.value = dropdownLangue.options.IndexOf(optionData);
                 break;  
             }
@@ -31,12 +31,12 @@ public class ButtonOptions : MonoBehaviour
 
         //load volume value
         Slider sliderVolume = GameObject.Find("SliderVolume").GetComponent<Slider>();
-        sliderVolume.value = MenuManager.options.volumeValue;
+        sliderVolume.value = Options.Get().volumeValue;
 
 
         //load keyBinding
         ButtonDisplayCommand.contentDisplayCommand.SetActive(true);
-        foreach(KeyBinding keyBinding in MenuManager.options.commands){
+        foreach(KeyBinding keyBinding in Options.Get().commands){
             foreach(Transform child in ButtonDisplayCommand.contentDisplayCommand.transform){
                 GameObject action = child.Find("Action").gameObject;
                 if(keyBinding.action == action.GetComponent<InfoAction>().idAction)
