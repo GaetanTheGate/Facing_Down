@@ -51,7 +51,7 @@ public class StatEntity : MonoBehaviour
 
     public virtual void TakeDamage(DamageInfo dmgInfo)
     {
-        if (isDead) return;
+        if (isDead || (int)dmgInfo.amount == 0) return;
         currentHitPoints -= (int)dmgInfo.amount;
         if(canTakeKnockBack) GetComponent<Rigidbody2D>().velocity += dmgInfo.knockback.GetAsVector2();
         //Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);

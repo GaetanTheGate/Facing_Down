@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 7282961454404124648}
   - component: {fileID: 2636053849786887917}
   - component: {fileID: 5020886612260108186}
+  - component: {fileID: 9190409244484086776}
+  - component: {fileID: 6429884454043052767}
   - component: {fileID: 7413152328130919178}
   - component: {fileID: 57929617020628038}
   - component: {fileID: 2309372258539726207}
@@ -171,6 +173,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleEffect: {fileID: 9055697219738078380, guid: 3e69d5fa86c044d48ad456d73640b81a, type: 3}
+--- !u!114 &9190409244484086776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768237271763726879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53895edcfe27e334c8af9bf3d0e07da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6429884454043052767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768237271763726879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b38ee20abe638dc42ad772c5acb33f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7413152328130919178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,7 +371,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 335810
+  m_InstanceId: 168298
 --- !u!50 &446854090
 Rigidbody2D:
   serializedVersion: 4

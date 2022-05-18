@@ -28,7 +28,7 @@ public class BossChargeLaserParticles : MonoBehaviour
         }
         if(pSystem != null && animator.GetBool("isChargingLaser") == false)
         {
-            pSystem.Stop();
+            Destroy(pSystem.gameObject);
             wasDoneOnce = false;
         }
     }

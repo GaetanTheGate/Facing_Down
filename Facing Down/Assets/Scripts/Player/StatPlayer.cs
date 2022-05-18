@@ -47,13 +47,13 @@ public class StatPlayer : StatEntity
     {
         UI.healthBar.UpdateHP();
         Debug.Log("TOOK DAMAGE");
-        if (isDead) return;
+        if (isDead || (int)damage.amount == 0) return;
         if (!playerIframes.isIframe)
         {
             damage = Game.player.inventory.OnTakeDamage(damage);
             base.TakeDamage(damage);
             //hpText.text = currentHitPoints.ToString();
-            playerIframes.getIframe(2f);
+            playerIframes.getIframe(Mathf.Min(2f, damage.hitCooldown));
         }
     }
 

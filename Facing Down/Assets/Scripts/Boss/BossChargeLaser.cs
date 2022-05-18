@@ -29,12 +29,13 @@ public class BossChargeLaser : StateMachineBehaviour
     {
         timePassedAnim += Time.deltaTime;
         timePassedTotal += Time.deltaTime;
-        if(timePassedTotal >= delayTotal)
+
+        if (timePassedTotal >= delayTotal)
         {
             animator.SetBool("isChargingLaser", false);
             return;
         } 
-        if(timePassedAnim >= delayAnim)
+        else if(timePassedAnim >= delayAnim)
         {
             count += 1;
             Vector3 tempScale = new Vector3();

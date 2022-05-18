@@ -2,18 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossShoot : StateMachineBehaviour
+public class BossLaserAim : StateMachineBehaviour
 {
-    Vector2 playerPosition;
-    Bullet bullet;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        playerPosition = Game.player.self.gameObject.transform.position;
-        bullet = new Bullet("Player");
-        bullet.Special(Angles.AngleBetweenVector2(animator.transform.position, playerPosition), animator.GetComponent<Entity>());
-        animator.SetTrigger("idle");
+        animator.SetFloat("laserAttackIndicatorDuration", stateInfo.length);
+        animator.SetBool("isLaserAttackIndicatorActive", true);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -25,6 +21,6 @@ public class BossShoot : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //animator.ResetTrigger("idle");
+        animator.SetBool("isLaserAttackIndicatorActive", false);
     }
 }
