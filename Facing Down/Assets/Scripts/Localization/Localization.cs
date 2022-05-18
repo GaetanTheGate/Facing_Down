@@ -13,8 +13,13 @@ public static class Localization
     /// Initializes all dictionaries
     /// </summary>
     static Localization() {
-        InitItemDescriptions("fr");
+        Init();
 	}
+
+    public static void Init() {
+        if (itemDescriptions != null) return;
+        InitItemDescriptions(Options.Get().langue);
+    }
 
     private static void InitItemDescriptions(string lang) {
         DescriptionList<ItemDescription> descriptionList = JsonUtility.FromJson<DescriptionList<ItemDescription>>(Resources.Load<TextAsset>(localizationPath + lang + "/ItemDescriptions").text);
