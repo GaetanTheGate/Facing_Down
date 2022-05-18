@@ -9,7 +9,7 @@ public class AttackHit : MonoBehaviour
     public List<string> layersToHit = new List<string>();
     private Dictionary<GameObject, bool> entitiesHit = new Dictionary<GameObject, bool>();
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (gameObject.GetComponent<Collider2D>().IsTouching(collision))
             ComputeAttack(collision, 1.0f);
@@ -30,7 +30,7 @@ public class AttackHit : MonoBehaviour
                 damage.amount *= dmgMultiplier;
                 damage.target = collision.GetComponent<Entity>();
                 statEntity.TakeDamage(damage);
-                waitForAttack(2.0f, collision.gameObject);
+                waitForAttack(damage.hitCooldown, collision.gameObject);
             }
         }
     }
