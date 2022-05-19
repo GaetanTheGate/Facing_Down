@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1313226279427424932}
   - component: {fileID: 5439487725589846464}
   - component: {fileID: 1559503136907556901}
+  - component: {fileID: 3889072038878755943}
+  - component: {fileID: 2059255240869466078}
   m_Layer: 3
   m_Name: ThunderPedestal
   m_TagString: Untagged
@@ -129,3 +131,78 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.95, y: 0.78}
   m_EdgeRadius: 0
+--- !u!114 &3889072038878755943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5897454847739648855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.75
+  m_Color: {r: 0.93725497, g: 0.8470589, b: 0.9960785, a: 1}
+  m_Intensity: 1
+  m_LightVolumeOpacity: 0
+  m_ApplyToSortingLayers: 00000000
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 0
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 0.25
+  m_ShadowVolumeIntensity: 0
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 1
+  m_PointLightOuterRadius: 3
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &2059255240869466078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5897454847739648855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.45, y: -0.45, z: 0}
+  - {x: 0.45, y: -0.45, z: 0}
+  - {x: 0.4, y: -0.3, z: 0}
+  - {x: 0.05, y: -0.2, z: 0}
+  - {x: 0.2, y: 0, z: 0}
+  - {x: 0.4, y: 0.1, z: 0}
+  - {x: 0.4, y: 0.25, z: 0}
+  - {x: -0.4, y: 0.25, z: 0}
+  - {x: -0.4, y: 0.1, z: 0}
+  - {x: -0.2, y: 0, z: 0}
+  - {x: -0.05, y: -0.2, z: 0}
+  - {x: -0.4, y: -0.3, z: 0}
+  m_ShapePathHash: -998753333
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -6823894
