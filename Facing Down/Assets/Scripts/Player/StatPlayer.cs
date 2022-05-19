@@ -125,6 +125,7 @@ public class StatPlayer : StatEntity
 
     public void ModifySpecialLeft(float amount) {
         specialLeft += amount;
+        Debug.Log(specialLeft);
         UI.specialBar.UpdateSpecial();
 	}
 }

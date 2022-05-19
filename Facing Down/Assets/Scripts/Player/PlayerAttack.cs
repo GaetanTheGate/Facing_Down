@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : AbstractPlayer
+public class PlayerAttack : AbstractPlayer, InputListener
 {
 
     private float chargeTimePassed = 0.0f;
@@ -17,9 +17,7 @@ public class PlayerAttack : AbstractPlayer
     private Entity selfEntity;
     private RotationEntity rotation;
 
-    private bool attackPressed = false;
-
-    public override void Init()
+    protected override void Initialize()
     {
         self = gameObject.GetComponent<Player>();
         if (self == null)
@@ -51,53 +49,41 @@ public class PlayerAttack : AbstractPlayer
             rotation = selfEntity.gameObject.AddComponent<RotationEntity>();
             rotation.Init();
         }
+
+        Game.controller.Subscribe(Options.Get().dicoCommand["attack"], this);
     }
 
-    void FixedUpdate()
-    {
-        ComputeAttack();
+    public void OnInputPressed () {
+        chargeTimePassed = 0;
     }
 
-    private void ComputeAttack()
-    {
+    public void OnInputHeld() {
+        if (self.inventory.GetWeapon().IsAuto()) {
+            ComputeSimpleAttack();
+        }
+
+        Game.controller.lowSensitivity = true;
+        camManager.SetZoomPercent(Mathf.Max(90.0f, 100 - 10 * (chargeTimePassed / chargeTime)));
+        if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.6f);
+    }
+
+    public void OnInputReleased() {
+        chargeTimePassed = 0;
+        Game.controller.lowSensitivity = false;
+
+        if (bulletTime.isInBulletTime) {
+            ComputeSpecial();
+        }
+        else {
+            ComputeSimpleAttack();
+        }
+
+        camManager.SetZoomPercent(100);
+    }
+
+    public void UpdateAfterInput() {
         attackRecharge += Time.fixedDeltaTime;
         chargeTimePassed += Time.fixedDeltaTime;
-
-        
-
-        if (Game.controller.IsAttackHeld() && !attackPressed)
-        {
-            attackPressed = true;
-            chargeTimePassed = 0;
-        }
-        else if (!Game.controller.IsAttackHeld() && attackPressed)
-        {
-            attackPressed = false;
-            chargeTimePassed = 0;
-            Game.controller.lowSensitivity = false;
-
-            if (bulletTime.isInBulletTime)
-            {
-                ComputeSpecial();
-            }
-            else
-            {
-                ComputeSimpleAttack();
-            }
-
-            camManager.SetZoomPercent(100);
-        }
-        else if (attackPressed)
-        {
-            if (self.inventory.GetWeapon().IsAuto())
-            {
-                ComputeSimpleAttack();
-            }
-
-            Game.controller.lowSensitivity = true;
-            camManager.SetZoomPercent(Mathf.Max(90.0f, 100 - 10 * (chargeTimePassed / chargeTime)));
-            if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.6f);
-        }
     }
 
     private void ComputeSimpleAttack()
@@ -113,10 +99,6 @@ public class PlayerAttack : AbstractPlayer
         rotation.FlipEntityRelativeToGravity(pointer.getAngle());
     }
 
-    private void ComputeBounce()
-    {
-
-    }
     private void ComputeSpecial()
     {
         if ( !self.inventory.GetWeapon().CanSpecial())

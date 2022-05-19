@@ -13,7 +13,7 @@ public class Player : AbstractPlayer
 
 
 
-    public override void Init()
+    protected override void Initialize()
     {
         //stat = GetComponent<StatPlayer>();
         //if (stat == null)
