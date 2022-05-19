@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossLaser : StateMachineBehaviour
+public class BossPhase2Laser : StateMachineBehaviour
 {
     //Vector2 playerPosition;
     float laserAttackDuration;
@@ -13,7 +13,7 @@ public class BossLaser : StateMachineBehaviour
     {
         //playerPosition = Game.player.self.gameObject.transform.position;
         //laser.Attack(Angles.AngleBetweenVector2(animator.transform.position, playerPosition), entity);
-        laserAttackDuration = 1f;
+        laserAttackDuration = 10f;
         canEndState = false;
         animator.SetFloat("laserAttackDuration", laserAttackDuration);
         animator.SetBool("isLaserAttackActive", true);
@@ -23,7 +23,7 @@ public class BossLaser : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(canEndState) animator.SetBool("isLaserAttackActive", false);
+        if (canEndState) animator.SetBool("isLaserAttackActive", false);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5020886612260108186}
   - component: {fileID: 9190409244484086776}
   - component: {fileID: 6429884454043052767}
+  - component: {fileID: 2179466773266013748}
   - component: {fileID: 7413152328130919178}
   - component: {fileID: 57929617020628038}
   - component: {fileID: 5398362867117948233}
@@ -196,6 +197,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38ee20abe638dc42ad772c5acb33f42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2179466773266013748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768237271763726879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d64155bf04c44c43bff3fab244b3f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleEffect: {fileID: 4444086625000399477, guid: b4e67a2e2d0f3dc4b8ac81698e5dd9a9, type: 3}
 --- !u!114 &7413152328130919178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad009292beaab1d4a989b19a796968c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 1000
+  maxHitPoints: 10000
   baseAtk: 100
   atkMultipler: 1
   critRate: 5
@@ -269,6 +283,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   canTakeKnockBack: 0
+  canTakeDamage: 1
 --- !u!114 &2202224303238259629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,7 +336,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 107218
+  m_InstanceId: 226066
 --- !u!50 &446854090
 Rigidbody2D:
   serializedVersion: 4

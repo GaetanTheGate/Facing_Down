@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossPhase2 : StateMachineBehaviour
+public class BossPhase2LaserAim : StateMachineBehaviour
 {
-    SpriteRenderer sp;
-
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetBool("isPhase2", true);
-        sp = animator.GetComponent<SpriteRenderer>();
-        sp.color = new Color(255, 0, 0, 1);
-        animator.GetComponent<StatEntity>().canTakeDamage = false;
+        animator.SetFloat("laserAttackIndicatorDuration", stateInfo.length);
+        animator.SetBool("isLaserAttackIndicatorActive", true);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -24,7 +20,6 @@ public class BossPhase2 : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetComponent<StatEntity>().canTakeDamage = true;
-        //sp.color = new Color(255, 255, 255, 1);
+        animator.SetBool("isLaserAttackIndicatorActive", false);
     }
 }

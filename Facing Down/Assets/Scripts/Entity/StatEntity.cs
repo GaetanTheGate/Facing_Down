@@ -20,6 +20,7 @@ public class StatEntity : MonoBehaviour
     protected bool isDead = false;
 
     public bool canTakeKnockBack = true;
+    public bool canTakeDamage = true;
 
     public void InitStats(int maxHP, float atk, float critRate = 0, float critDamage = 150) {
         this.maxHitPoints = maxHP;
@@ -52,11 +53,11 @@ public class StatEntity : MonoBehaviour
     public virtual void TakeDamage(DamageInfo dmgInfo)
     {
         if (isDead || (int)dmgInfo.amount == 0) return;
-        currentHitPoints -= (int)dmgInfo.amount;
+        if(canTakeDamage) currentHitPoints -= (int)dmgInfo.amount;
         if(canTakeKnockBack) GetComponent<Rigidbody2D>().velocity += dmgInfo.knockback.GetAsVector2();
         //Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
-        if(onHit != null && currentHitPoints > 0) onHit.Invoke(dmgInfo);
+        if(canTakeDamage && onHit != null && currentHitPoints > 0) onHit.Invoke(dmgInfo);
         checkIfDead(dmgInfo);
     }
 

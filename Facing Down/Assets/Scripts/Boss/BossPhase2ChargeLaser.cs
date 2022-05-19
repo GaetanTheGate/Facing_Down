@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossChargeLaser : StateMachineBehaviour
+public class BossPhase2ChargeLaser : StateMachineBehaviour
 {
     Vector3 originalScale;
     float scaleToChange;
@@ -20,7 +20,7 @@ public class BossChargeLaser : StateMachineBehaviour
         timePassedAnim = 0f;
         timePassedTotal = 0f;
         delayAnim = 0.05f;
-        delayTotal = 2f;
+        delayTotal = 1.5f;
         count = 0;
     }
 
@@ -34,8 +34,8 @@ public class BossChargeLaser : StateMachineBehaviour
         {
             animator.SetBool("isChargingLaser", false);
             return;
-        } 
-        else if(timePassedAnim >= delayAnim)
+        }
+        else if (timePassedAnim >= delayAnim)
         {
             count += 1;
             Vector3 tempScale = new Vector3();
