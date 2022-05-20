@@ -59,5 +59,6 @@ public class BossPhase2ChargeLaser : StateMachineBehaviour
     {
         animator.transform.localScale = originalScale;
         animator.SetBool("isChargingLaser", false);
+        Destroy(animator.GetComponent<BossChargeLaserParticles>().pSystem.gameObject);
     }
 }

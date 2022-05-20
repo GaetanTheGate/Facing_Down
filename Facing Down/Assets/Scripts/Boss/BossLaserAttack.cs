@@ -7,6 +7,7 @@ public class BossLaserAttack : MonoBehaviour
     private Animator animator;
     private Laser laser;
     private Entity entity;
+    public List<Attack> laserAttacks;
     bool wasDoneOnce = false;
 
     private void Start()
@@ -16,20 +17,28 @@ public class BossLaserAttack : MonoBehaviour
         entity = GetComponent<Entity>();
     }
 
-    private void laserAttack(float angleOffset, float duration)
+    private List<Attack> laserAttack(float angleOffset, float duration)
     {
         laser.SetBaseAtk(200);
         laser.SetBaseSDelay(0);
         laser.SetBaseSpan(0.3f);
         laser.SetBaseLenght(2);
-        laser.SetBaseEDelay(duration-0.3f);
-        laser.Special(45 + angleOffset, entity);
-        laser.Special(135 + angleOffset, entity);
-        laser.Special(225 + angleOffset, entity);
-        laser.Special(315 + angleOffset, entity);
+        laser.SetBaseEDelay(duration - 0.3f);
+        List<Attack> attackList = new List<Attack>
+        {
+            laser.GetSpecial(45 + angleOffset, entity),
+            laser.GetSpecial(135 + angleOffset, entity),
+            laser.GetSpecial(225 + angleOffset, entity),
+            laser.GetSpecial(315 + angleOffset, entity)
+        };
+        foreach (Attack attack in attackList)
+        {
+            attack.startAttack();
+        }
+        return attackList;
     }
 
-    private void laserAttackPhase2(float angleOffset, float duration)
+    private List<Attack> laserAttackPhase2(float angleOffset, float duration)
     {
         laser.SetBaseAtk(200);
         laser.SetBaseSDelay(0);
@@ -50,6 +59,7 @@ public class BossLaserAttack : MonoBehaviour
             attack.startAttack();
         }
         StartCoroutine(moveLasers(attackList, 0.05f));
+        return attackList;
     }
 
     private void FixedUpdate()
@@ -57,8 +67,8 @@ public class BossLaserAttack : MonoBehaviour
         if (!wasDoneOnce && animator.GetBool("isLaserAttackActive"))
         {
             wasDoneOnce = true;
-            if (animator.GetBool("isPhase2")) laserAttackPhase2(animator.GetFloat("laserAngleOffset"), animator.GetFloat("laserAttackDuration"));
-            else laserAttack(animator.GetFloat("laserAngleOffset"), animator.GetFloat("laserAttackDuration"));
+            if (animator.GetBool("isPhase2")) laserAttacks = laserAttackPhase2(animator.GetFloat("laserAngleOffset"), animator.GetFloat("laserAttackDuration"));
+            else laserAttacks = laserAttack(animator.GetFloat("laserAngleOffset"), animator.GetFloat("laserAttackDuration"));
         }
         if (!animator.GetBool("isLaserAttackActive"))
         {

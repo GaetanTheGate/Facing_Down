@@ -5,8 +5,12 @@ using UnityEngine;
 public class BossDeathParticles : MonoBehaviour
 {
     Animator animator;
-    public ParticleSystem particleEffect;
-    ParticleSystem pSystem;
+    public ParticleSystem particleEffectSparks;
+    public ParticleSystem particleEffectExplosion;
+    public ParticleSystem particleEffectFinalExplosion;
+    public ParticleSystem pSystemSparks;
+    public ParticleSystem pSystemExplosion;
+    public ParticleSystem pSystemFinalExplosion;
     bool wasDoneOnce = false;
 
     // Start is called before the first frame update
@@ -21,13 +25,19 @@ public class BossDeathParticles : MonoBehaviour
         if(!wasDoneOnce && animator.GetBool("isDying"))
         {
             wasDoneOnce = true;
-            pSystem = Instantiate(particleEffect, transform.position, Quaternion.identity);
+            pSystemSparks = Instantiate(particleEffectSparks, transform.position, Quaternion.identity);
+            pSystemExplosion = Instantiate(particleEffectExplosion, transform.position, Quaternion.identity);
         }
-        if(pSystem != null && !animator.GetBool("isDying"))
+        if(!animator.GetBool("isDying"))
         {
-            ParticleSystem.MainModule main = pSystem.main;
-            main.loop = false;
+            //ParticleSystem.MainModule main = pSystem.main;
+            //main.loop = false;
             wasDoneOnce = false;
+            //Destroy(gameObject);
+        }
+        if (animator.GetBool("isDyingFinalExplosion"))
+        {
+            pSystemFinalExplosion = Instantiate(particleEffectFinalExplosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

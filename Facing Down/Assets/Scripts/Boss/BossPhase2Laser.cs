@@ -30,6 +30,11 @@ public class BossPhase2Laser : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("isLaserAttackActive", false);
+        List<Attack> tmp = animator.GetComponent<BossLaserAttack>().laserAttacks;
+        for (int i = 0; i < tmp.Count; i++)
+        {
+            Destroy(tmp[i].gameObject);
+        }
     }
 
     private IEnumerator waitLaserDuration(float duration)

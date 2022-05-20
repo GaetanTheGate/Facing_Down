@@ -7,6 +7,7 @@ public class BossLaserAttackIndicator : MonoBehaviour
     private Animator animator;
     private Laser laser;
     private Entity entity;
+    public List<Attack> laserIndicators;
     bool wasDoneOnce = false;
 
     private void Start()
@@ -16,7 +17,7 @@ public class BossLaserAttackIndicator : MonoBehaviour
         entity = GetComponent<Entity>();
     }
 
-    private void laserAttackIndicator(float angleOffset, float duration)
+    private List<Attack> laserAttackIndicator(float angleOffset, float duration)
     {
 
         laser.SetBaseAtk(0);
@@ -36,6 +37,7 @@ public class BossLaserAttackIndicator : MonoBehaviour
             attack.color = new Color(0, 255, 0, 0.5f);
             attack.startAttack();
         }
+        return attackList;
     }
 
     private void FixedUpdate()
@@ -43,7 +45,7 @@ public class BossLaserAttackIndicator : MonoBehaviour
         if (!wasDoneOnce && animator.GetBool("isLaserAttackIndicatorActive") == true)
         {
             wasDoneOnce = true;
-            laserAttackIndicator(animator.GetFloat("laserAngleOffset"), animator.GetFloat("laserAttackIndicatorDuration"));
+            laserIndicators = laserAttackIndicator(animator.GetFloat("laserAngleOffset"), animator.GetFloat("laserAttackIndicatorDuration"));
         }
         if (animator.GetBool("isLaserAttackIndicatorActive") == false)
         {
