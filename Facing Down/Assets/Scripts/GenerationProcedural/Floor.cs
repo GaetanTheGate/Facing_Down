@@ -120,7 +120,7 @@ public class Floor : MonoBehaviour
                     else if(gridMap[i,j].name == "Anteroom")
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("antichamber");
                     else if(gridMap[i,j].name == "BossRoom")
-                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("boss");
                     else if (gridMap[i,j].name == "TreasureRoom"){
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("treasure");
                     }
