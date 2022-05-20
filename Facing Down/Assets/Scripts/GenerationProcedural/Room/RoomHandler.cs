@@ -119,6 +119,7 @@ public class RoomHandler : MonoBehaviour
     //display the room on the UI and set the current room to this
     public void OnEnterRoom()
     {
+        GetComponentInChildren<DoorsHandler>().lockTop = true ;
         GetComponentInChildren<LightHandler>(true).SetLightsState(true);
 
         Map.changeColorMapicon(Game.currentRoom.gameObject,GetComponentInParent<RoomHandler>().gameObject);
