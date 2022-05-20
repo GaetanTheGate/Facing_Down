@@ -7,7 +7,7 @@ public class PlayerOnCollisionStructure : AbstractPlayer
     private StatPlayer statPlayer;
     private EntityCollisionStructure entityCollisionStructure;
 
-    public override void Init()
+    protected override void Initialize()
     {
 
         statPlayer = gameObject.GetComponent<Player>().stat;

@@ -19,6 +19,7 @@ public class Game : MonoBehaviour
         controller = gameObject.GetComponent<GameController>();
         if (controller == null)
             controller = gameObject.AddComponent<GameController>();
+        controller.Init();
 
         time = gameObject.GetComponent<TimeManager>();
         if (time == null)
