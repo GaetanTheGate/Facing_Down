@@ -31,9 +31,10 @@ public class BossLaser : StateMachineBehaviour
     {
         animator.SetBool("isLaserAttackActive", false);
         List<Attack> tmp = animator.GetComponent<BossLaserAttack>().laserAttacks;
+        Debug.Log(tmp.Count);
         for (int i = 0; i < tmp.Count; i++)
         {
-            Destroy(tmp[i].gameObject);
+            if(tmp[i] != null) Destroy(tmp[i].gameObject);
         }
     }
 

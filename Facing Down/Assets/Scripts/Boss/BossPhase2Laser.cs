@@ -33,7 +33,7 @@ public class BossPhase2Laser : StateMachineBehaviour
         List<Attack> tmp = animator.GetComponent<BossLaserAttack>().laserAttacks;
         for (int i = 0; i < tmp.Count; i++)
         {
-            Destroy(tmp[i].gameObject);
+            if (tmp[i] != null) Destroy(tmp[i].gameObject);
         }
     }
 

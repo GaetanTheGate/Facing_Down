@@ -25,7 +25,7 @@ public class BossLaserAim : StateMachineBehaviour
         List<Attack> tmp = animator.GetComponent<BossLaserAttackIndicator>().laserIndicators;
         for (int i = 0; i < tmp.Count; i++)
         {
-            Destroy(tmp[i].gameObject);
+            if (tmp[i] != null) Destroy(tmp[i].gameObject);
         }
     }
 }
