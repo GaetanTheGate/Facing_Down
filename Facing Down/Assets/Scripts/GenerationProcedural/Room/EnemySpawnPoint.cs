@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawnPoint : MonoBehaviour, SpawnPoint
 {
-    public List<Transform> wayPoints;
+    public List<Transform> wayPoints = new List<Transform>();
     public List<GameObject> enemyList;
 
     private GameObject enemyChosen;
