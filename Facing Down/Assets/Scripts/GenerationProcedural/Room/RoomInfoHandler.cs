@@ -12,6 +12,7 @@ public class RoomInfoHandler : MonoBehaviour
 
     public void InitRoomInfo()
     {
+        GetComponentInChildren<LightHandler>(true).SetLightsState(false);
         foreach (Wave wave in GetComponentsInChildren<Wave>())
         {
             wave.GetComponentInChildren<EnemyHandler>().Chose();
@@ -27,6 +28,7 @@ public class RoomInfoHandler : MonoBehaviour
 
     public void EnterRoom()
     {
+        GetComponentInChildren<LightHandler>(true).SetLightsState(true);
 
         if (!isOver)
         {
@@ -44,6 +46,7 @@ public class RoomInfoHandler : MonoBehaviour
 
     public void ExitRoom()
     {
+        GetComponentInChildren<LightHandler>(true).SetLightsState(false);
         foreach (Wave wave in GetComponentsInChildren<Wave>())
         {
             wave.GetComponentInChildren<EnemyHandler>().Despawn();
