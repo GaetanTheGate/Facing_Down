@@ -26,6 +26,8 @@ public class AttachGameObjectsToParticles : MonoBehaviour
             m_Instances.Add(Instantiate(m_Prefab, m_ParticleSystem.transform));
 
         bool worldSpace = (m_ParticleSystem.main.simulationSpace == ParticleSystemSimulationSpace.World);
+        //bool sizeAffectRange = m_ParticleSystem.lights.sizeAffectsRange;
+        //Debug.Log("range mult : " + m_ParticleSystem.lights.rangeMultiplier);
         for (int i = 0; i < m_Instances.Count; i++)
         {
             if (i < count)
@@ -34,6 +36,7 @@ public class AttachGameObjectsToParticles : MonoBehaviour
                     m_Instances[i].transform.position = m_Particles[i].position;
                 else
                     m_Instances[i].transform.localPosition = m_Particles[i].position;
+                //if (sizeAffectRange) m_Instances[i].GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().pointLightOuterRadius += 1f;
                 m_Instances[i].SetActive(true);
             }
             else

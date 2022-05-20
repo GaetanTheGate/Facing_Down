@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleEffect: {fileID: 9055697219738078380, guid: 3e69d5fa86c044d48ad456d73640b81a, type: 3}
+  pSystem: {fileID: 0}
 --- !u!114 &9190409244484086776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53895edcfe27e334c8af9bf3d0e07da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  laserIndicators: []
 --- !u!114 &6429884454043052767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38ee20abe638dc42ad772c5acb33f42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  laserAttacks: []
 --- !u!114 &2179466773266013748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +212,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d64155bf04c44c43bff3fab244b3f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleEffect: {fileID: 4444086625000399477, guid: b4e67a2e2d0f3dc4b8ac81698e5dd9a9, type: 3}
+  particleEffectSparks: {fileID: 4444086625000399477, guid: b4e67a2e2d0f3dc4b8ac81698e5dd9a9, type: 3}
+  particleEffectExplosion: {fileID: 2474711653007251409, guid: 136c13c619daf20488ab3cb32b17fc6f, type: 3}
+  particleEffectFinalExplosion: {fileID: 2474711653007251409, guid: 449b04f4331865045bcbecc333142dbb, type: 3}
+  pSystemSparks: {fileID: 0}
+  pSystemExplosion: {fileID: 0}
+  pSystemFinalExplosion: {fileID: 0}
 --- !u!114 &7413152328130919178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,7 +350,7 @@ MonoBehaviour:
   - {x: -0.37264138, y: 0.050023075, z: 0}
   m_ShapePathHash: 1886672136
   m_Mesh: {fileID: 0}
-  m_InstanceId: 378586
+  m_InstanceId: 241034
 --- !u!50 &446854090
 Rigidbody2D:
   serializedVersion: 4

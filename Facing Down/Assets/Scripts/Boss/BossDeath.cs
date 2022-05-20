@@ -22,6 +22,10 @@ public class BossDeath : StateMachineBehaviour
         if (canEndState)
         {
             animator.SetBool("isDying", false);
+            ParticleSystem.MainModule mainSparks = animator.GetComponent<BossDeathParticles>().pSystemSparks.main;
+            mainSparks.loop = false;
+            animator.GetComponent<BossDeathParticles>().pSystemExplosion.Stop();
+            animator.SetBool("isDyingFinalExplosion", true);
         }
     }
 
@@ -29,6 +33,7 @@ public class BossDeath : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("isDying", false);
+        animator.SetBool("isDyingFinalExplosion", false);
     }
 
     private IEnumerator waitLaserDuration(float duration)

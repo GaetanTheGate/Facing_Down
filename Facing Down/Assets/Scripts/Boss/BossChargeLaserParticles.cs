@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossChargeLaserParticles : MonoBehaviour
 {
     public ParticleSystem particleEffect;
-    private ParticleSystem pSystem;
+    public ParticleSystem pSystem;
     private Animator animator;
     bool wasDoneOnce = false;
 
@@ -26,9 +26,9 @@ public class BossChargeLaserParticles : MonoBehaviour
             wasDoneOnce = true;
             launchChargingParticles();
         }
-        if(pSystem != null && animator.GetBool("isChargingLaser") == false)
+        if(animator.GetBool("isChargingLaser") == false)
         {
-            Destroy(pSystem.gameObject);
+            //Destroy(pSystem.gameObject);
             wasDoneOnce = false;
         }
     }
