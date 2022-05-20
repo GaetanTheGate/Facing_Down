@@ -15,6 +15,12 @@ public class AttackHit : MonoBehaviour
             ComputeAttack(collision, 1.0f);
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (gameObject.GetComponent<Collider2D>().IsTouching(collision))
+            ComputeAttack(collision, 1.0f);
+    }
+
     public void ComputeAttack(Collider2D collision, float dmgMultiplier)
     {
         foreach (string layer in layersToHit)
@@ -30,7 +36,7 @@ public class AttackHit : MonoBehaviour
                 damage.amount *= dmgMultiplier;
                 damage.target = collision.GetComponent<Entity>();
                 statEntity.TakeDamage(damage);
-                waitForAttack(2.0f, collision.gameObject);
+                waitForAttack(damage.hitCooldown, collision.gameObject);
             }
         }
     }

@@ -15,12 +15,9 @@ public class WeaponPedestalSpawnPoint : PedestalSpawnPoint
         {
             List<Vector2> spawnPoint = new List<Vector2>();
             foreach (Transform point in GetComponentsInChildren<Transform>())
-                ItemPedestal.SpawnItemPedestal(EnumWeapon.getRandomWeapon("Enemy"), transform.parent, point.position);
+                spawnPoint.Add(point.position);
 
-            /*foreach (Transform point in GetComponentsInChildren<Transform>())
-            spawnPoint.Add(point.position);
-
-            chosenItems = new ItemChoice(transform.parent, spawnPoint).GetItemPedestals();*/
+            chosenItems = ItemChoice.SpawnWeaponChoice(transform.parent, spawnPoint).GetItemPedestals();
         }
         else
         {

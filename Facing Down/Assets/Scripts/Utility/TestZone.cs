@@ -12,6 +12,8 @@ public class TestZone : MonoBehaviour
         RoomHandler room = GetComponentInChildren<RoomHandler>();
         room.SetAsStart();
         Game.player.self.transform.position = room.transform.position;
+        
         AstarPath.active.Scan();
+        ShadowCaster2DFromComposite.RebuildAll();
     }
 }

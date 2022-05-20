@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerDash : AbstractPlayer
+public class PlayerDash : AbstractPlayer, InputListener
 {
     private PlayerBulletTime bulletTime;
     private CameraManager camManager;
@@ -13,9 +13,8 @@ public class PlayerDash : AbstractPlayer
 
     private float chargeTimePassed = 0.0f;
     private float chargeTime = 1.0f;
-    private bool movePressed = false;
 
-    public override void Init()
+    protected override void Initialize()
     {
         player = gameObject.GetComponent<Player>();
         if (player == null)
@@ -51,57 +50,49 @@ public class PlayerDash : AbstractPlayer
             rotation = self.gameObject.AddComponent<RotationEntity>();
             rotation.Init();
         }
+
+        Game.controller.Subscribe(Options.Get().dicoCommand["dash"], this);
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        ComputeDash();
+    public void OnInputPressed() {
+        chargeTimePassed = 0;
     }
 
-    private void ComputeDash()
-    {
+    public void OnInputHeld() {
+        camManager.SetZoomPercent(Mathf.Min(130.0f, 100 + 30 * (chargeTimePassed / chargeTime)));
+    }
+
+    public void OnInputReleased() {
+        if (bulletTime.isInBulletTime) {
+            if (!player.inventory.GetWeapon().CanMove())
+                return;
+
+            ComputeSpecialMove();
+
+            rotation.FlipEntityRelativeToGravity(pointer.getAngle());
+            rotation.RotateEntityRelativeToFlip(pointer.getAngle());
+        }
+        else {
+            if (stat.GetRemainingDashes() <= 0)
+                return;
+            else if (chargeTimePassed > chargeTime) {
+                ComputeMegaDash();
+            }
+            else {
+                ComputeSimpleDash();
+                Game.time.SetGameSpeedInstant(1.2f);
+            }
+
+            rotation.FlipEntityRelativeToGravity(pointer.getAngle());
+            rotation.RotateEntityRelativeToFlip(pointer.getAngle());
+
+        }
+
+        camManager.SetZoomPercent(100);
+    }
+
+    public void UpdateAfterInput() {
         chargeTimePassed += Time.fixedDeltaTime;
-
-        if (Game.controller.IsMovementHeld() && !movePressed)
-        {
-            movePressed = true;
-            chargeTimePassed = 0;
-        }
-        else if (!Game.controller.IsMovementHeld() && movePressed)
-        {
-            movePressed = false;
-
-            if (bulletTime.isInBulletTime)
-            {
-                ComputeRedirect();
-
-                rotation.FlipEntityRelativeToGravity(pointer.getAngle());
-                rotation.RotateEntityRelativeToFlip(pointer.getAngle());
-            }
-            else
-            {
-                if (stat.GetRemainingDashes() <= 0)
-                    return;
-                else if (chargeTimePassed > chargeTime)
-                {
-                    ComputeMegaDash();
-                }
-                else
-                {
-                    ComputeSimpleDash();
-                    Game.time.SetGameSpeedInstant(1.2f);
-                }
-
-                rotation.FlipEntityRelativeToGravity(pointer.getAngle());
-                rotation.RotateEntityRelativeToFlip(pointer.getAngle());
-
-            }
-
-            camManager.SetZoomPercent(100);
-        }
-        else if (movePressed)
-            camManager.SetZoomPercent(Mathf.Min(130.0f, 100 + 30 * (chargeTimePassed / chargeTime)));
     }
 
     private void ComputeMegaDash()
@@ -128,8 +119,10 @@ public class PlayerDash : AbstractPlayer
         Game.time.SetGameSpeedInstant(1.2f);
     }
 
-    private void ComputeRedirect()
+    private void ComputeSpecialMove()
     {
+        if (Game.player.stat.GetSpecialLeft() < 1) return;
+        Game.player.stat.ModifySpecialLeft(-1);
         player.inventory.OnRedirect();
 
         player.inventory.GetWeapon().Movement(pointer.getAngle(), self);

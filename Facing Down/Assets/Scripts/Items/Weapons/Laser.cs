@@ -7,26 +7,25 @@ public class Laser : MeleeWeapon
     public Laser() : this("Enemy") { }
     public Laser(string target) : base(target, "Laser")
     {
-        baseAtk = 20;
+        baseAtk = 100;
         baseRange = 50;
         baseLenght = 1;
-        baseSpan = 0.3f;
+        baseSpan = 0.2f;
+        baseEDelay = 0.2f;
         baseCooldown = 0.1f;
 
         attackPath = "Prefabs/Weapons/Laser";
         specialPath = "Prefabs/Weapons/Laser";
     }
 
-    private int hitPerSecond = 10;
+    public float hitPerSecond = 10;
 
     public override Attack GetAttack(float angle, Entity self)
     {
-        float lenghtAtk = 1.0f /  hitPerSecond;
-
         GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle));
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
         AddHitAttack(laser, dmgInfo);
 
         laser.transform.position = startPos;
@@ -36,25 +35,13 @@ public class Laser : MeleeWeapon
         laser.GetComponent<LaserAttack>().angle = angle;
         laser.GetComponent<LaserAttack>().range = baseRange;
         laser.GetComponent<LaserAttack>().lenght = baseLenght;
-        laser.GetComponent<LaserAttack>().timeSpan = lenghtAtk;
-        laser.GetComponent<LaserAttack>().endDelay = 0.0f;
+        laser.GetComponent<LaserAttack>().startDelay = baseSDelay;
+        laser.GetComponent<LaserAttack>().timeSpan = baseSpan;
+        laser.GetComponent<LaserAttack>().endDelay = baseEDelay;
 
         laser.GetComponent<LaserAttack>().followEntity = forceUnFollow;
 
-        GameObject attack = new GameObject();
-        attack.AddComponent<CompositeAttack>();
-        attack.GetComponent<CompositeAttack>().attackList.Add(laser.GetComponent<LaserAttack>());
-        
-        for (float startDelay = lenghtAtk; startDelay < baseSpan; startDelay += lenghtAtk){
-
-            GameObject newLaser = GameObject.Instantiate(laser);
-            newLaser.GetComponent<LaserAttack>().startDelay = startDelay;
-            newLaser.GetComponent<AttackHit>().dmgInfo = dmgInfo;
-
-            attack.GetComponent<CompositeAttack>().attackList.Add(newLaser.GetComponent<LaserAttack>());
-        }
-
-        return attack.GetComponent<CompositeAttack>();
+        return laser.GetComponent<LaserAttack>();
     }
 
     public override Attack GetSpecial(float angle, Entity self)
@@ -64,7 +51,7 @@ public class Laser : MeleeWeapon
         GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 2, new Velocity(0.125f * dmg, angle));
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * lenghtAtk, new Velocity(0.125f * dmg, angle), lenghtAtk);
         AddHitAttack(laser, dmgInfo);
 
         laser.transform.position = startPos;
@@ -73,27 +60,14 @@ public class Laser : MeleeWeapon
         laser.GetComponent<LaserAttack>().src = self;
         laser.GetComponent<LaserAttack>().angle = angle;
         laser.GetComponent<LaserAttack>().range = baseRange;
-        laser.GetComponent<LaserAttack>().lenght = baseLenght * 2;
-        laser.GetComponent<LaserAttack>().timeSpan = lenghtAtk;
-        laser.GetComponent<LaserAttack>().endDelay = lenghtAtk / 2.0f;
+        laser.GetComponent<LaserAttack>().lenght = baseLenght;
+        laser.GetComponent<LaserAttack>().startDelay = baseSDelay;
+        laser.GetComponent<LaserAttack>().timeSpan = baseSpan;
+        laser.GetComponent<LaserAttack>().endDelay = baseEDelay;
 
         laser.GetComponent<LaserAttack>().followEntity = forceUnFollow;
 
-        GameObject attack = new GameObject();
-        attack.AddComponent<CompositeAttack>();
-        attack.GetComponent<CompositeAttack>().attackList.Add(laser.GetComponent<LaserAttack>());
-
-        for (float startDelay = lenghtAtk; startDelay <  1.0f; startDelay += lenghtAtk)
-        {
-
-            GameObject newLaser = GameObject.Instantiate(laser);
-            newLaser.GetComponent<LaserAttack>().startDelay = startDelay;
-            newLaser.GetComponent<AttackHit>().dmgInfo = dmgInfo;
-
-            attack.GetComponent<CompositeAttack>().attackList.Add(newLaser.GetComponent<LaserAttack>());
-        }
-
-        return attack.GetComponent<CompositeAttack>();
+        return laser.GetComponent<LaserAttack>();
     }
 
     public override void WeaponAttack(float angle, Entity self)

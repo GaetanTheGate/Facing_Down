@@ -37,23 +37,23 @@ public static class Raycasting
     public static float checkHighestObstacle(Transform objTransform, Collider2D collider, float maxHeight)
     {
         float xPos;
-        float width = 1;
+        //float width = 1;
         float highest = 0;
 
-        xPos = objTransform.localScale.x < 0 ? objTransform.position.x - collider.bounds.size.x / 2 - width/2 - Mathf.Epsilon : objTransform.position.x + collider.bounds.size.x / 2 + width/2 + Mathf.Epsilon;
+        //xPos = objTransform.localScale.x < 0 ? objTransform.position.x - collider.bounds.size.x / 2 - width/2 - Mathf.Epsilon : objTransform.position.x + collider.bounds.size.x / 2 + width/2 + Mathf.Epsilon;
         //RaycastHit2D hit = Physics2D.BoxCast(new Vector2(xPos, objTransform.position.y - objSpriteRenderer.bounds.size.y / 2 - Mathf.Epsilon), new Vector2(width, maxHeight), 0f, new Vector2(0, 1));
 
-        Debug.Log("maxHeight : " + maxHeight);
+        //Debug.Log("maxHeight : " + maxHeight);
         for (int i = 0; i <= maxHeight / 0.1f + 1; i++)
         {
             xPos = objTransform.localScale.x < 0 ? objTransform.position.x - collider.bounds.size.x / 2 - Mathf.Epsilon : objTransform.position.x + collider.bounds.size.x / 2 + Mathf.Epsilon;
             Debug.DrawRay(new Vector2(xPos, objTransform.position.y - collider.bounds.size.y / 2 + Mathf.Epsilon + i * 0.1f), new Vector2(objTransform.localScale.x, 0), Color.green);
             RaycastHit2D hit = Physics2D.Raycast(new Vector2(xPos, objTransform.position.y - collider.bounds.size.y / 2 + Mathf.Epsilon + i * 0.1f), new Vector2(objTransform.localScale.x, 0), 1f, LayerMask.GetMask("Terrain"));
             if (hit.collider != null && hit.collider.gameObject.layer.Equals(LayerMask.NameToLayer("Terrain"))) highest = hit.point.y - (objTransform.position.y - collider.bounds.size.y / 2);
-            if (hit.collider != null && hit.collider.gameObject.layer.Equals(LayerMask.NameToLayer("Terrain"))) Debug.Log(hit.point.y + " " +(objTransform.position.y - collider.bounds.size.y / 2));
-            if (hit.collider != null) Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
+            //if (hit.collider != null && hit.collider.gameObject.layer.Equals(LayerMask.NameToLayer("Terrain"))) Debug.Log(hit.point.y + " " +(objTransform.position.y - collider.bounds.size.y / 2));
+            //if (hit.collider != null) Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
         }
-        Debug.Log("highest " + highest);
+        //Debug.Log("highest " + highest);
         return highest;
     }
 }

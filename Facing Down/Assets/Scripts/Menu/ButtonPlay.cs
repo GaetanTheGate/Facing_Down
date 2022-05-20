@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class ButtonPlay : MonoBehaviour
@@ -25,5 +26,9 @@ public class ButtonPlay : MonoBehaviour
     public void generateDonjon(){
         initGameManager();
         Tower.generateNextFloor();
+    }
+
+    void Start(){
+        GetComponentInChildren<Text>().text = Localization.GetUIString("buttonPlay").TEXT;
     }
 }

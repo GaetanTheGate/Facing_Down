@@ -8,17 +8,34 @@ public static class Localization
     private static readonly string localizationPath = "Json/Localization/";
 
     private static Dictionary<string, ItemDescription> itemDescriptions;
+    private static Dictionary<string, ItemDescription> weaponDescriptions;
+    private static Dictionary<string, UIString> UIStrings;
 
     /// <summary>
     /// Initializes all dictionaries
     /// </summary>
     static Localization() {
-        InitItemDescriptions("fr");
+        Init();
 	}
 
+    public static void Init() {
+        if (itemDescriptions != null) return;
+        InitItemDescriptions(Options.Get().langue);
+		InitWeaponDescriptions(Options.Get().langue);
+        InitUIStrings(Options.Get().langue);
+    }
+
     private static void InitItemDescriptions(string lang) {
-        DescriptionList<ItemDescription> descriptionList = JsonUtility.FromJson<DescriptionList<ItemDescription>>(Resources.Load<TextAsset>(localizationPath + lang + "/ItemDescriptions").text);
-        itemDescriptions = descriptionList.ToDictionary();
+        itemDescriptions = JsonUtility.FromJson<LocalizedTextList<ItemDescription>>(Resources.Load<TextAsset>(localizationPath + lang + "/ItemDescriptions").text).ToDictionary();
+    }
+	
+	private static void InitWeaponDescriptions(string lang) {
+		weaponDescriptions = JsonUtility.FromJson<LocalizedTextList<ItemDescription>>(Resources.Load<TextAsset>(localizationPath + lang + "/WeaponDescriptions").text).ToDictionary();
+	}
+		
+
+    private static void InitUIStrings(string lang) {
+        UIStrings = JsonUtility.FromJson<LocalizedTextList<UIString>>(Resources.Load<TextAsset>(localizationPath + lang + "/UIStrings").text).ToDictionary();
     }
 
     /// <summary>
@@ -31,6 +48,20 @@ public static class Localization
             return itemDescriptions[ID];
 
         return new ItemDescription();
+	}
+
+    public static ItemDescription GetWeaponDescription(string ID) {
+        if (weaponDescriptions.ContainsKey(ID))
+            return weaponDescriptions[ID];
+
+        return new ItemDescription();
+	}
+
+    public static UIString GetUIString(string ID) {
+        if (UIStrings.ContainsKey(ID))
+            return UIStrings[ID];
+
+        return new UIString();
 	}
 }
 

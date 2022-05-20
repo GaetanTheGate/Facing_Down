@@ -24,7 +24,7 @@ public class WipeOut : MeleeWeapon
         GameObject explosion = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(1f, angle));
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(1f, angle), baseSDelay + baseSpan + baseEDelay);
         AddHitAttack(explosion, dmgInfo);
 
         explosion.transform.position = startPos;
@@ -42,12 +42,14 @@ public class WipeOut : MeleeWeapon
         return explosion.GetComponent<ExplosionAttack>();
     }
 
+    private float hitPerSecond = 10f;
+
     public override Attack GetSpecial(float angle, Entity self)
     {
         GameObject explosion = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 2, new Velocity(1f, angle));
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg / hitPerSecond, new Velocity(1f, angle), 1f / hitPerSecond);
         AddHitAttack(explosion, dmgInfo);
 
         explosion.transform.position = startPos;
@@ -55,10 +57,10 @@ public class WipeOut : MeleeWeapon
 
         explosion.GetComponent<ExplosionAttack>().src = self;
         explosion.GetComponent<ExplosionAttack>().angle = angle;
-        explosion.GetComponent<ExplosionAttack>().startDelay = baseSDelay + 0.5f;
-        explosion.GetComponent<ExplosionAttack>().timeSpan = baseSpan * 2.0f;
-        explosion.GetComponent<ExplosionAttack>().endDelay = baseEDelay * 2.0f;
-        explosion.GetComponent<ExplosionAttack>().range = baseRange * 2.0f;
+        explosion.GetComponent<ExplosionAttack>().startDelay = baseSDelay;
+        explosion.GetComponent<ExplosionAttack>().timeSpan = baseSpan;
+        explosion.GetComponent<ExplosionAttack>().endDelay = baseEDelay;
+        explosion.GetComponent<ExplosionAttack>().range = baseRange;
         explosion.GetComponent<ExplosionAttack>().lenght = baseLenght;
         explosion.GetComponent<ExplosionAttack>().followEntity = false;
 

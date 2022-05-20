@@ -41,6 +41,10 @@ public class ItemPedestal : Pedestal {
 		return SpawnItemPedestal(ItemPool.GetRandomItem(), parent, position);
 	}
 
+	public static ItemPedestal SpawnRandomWeaponPedestal(Transform parent, Vector2 position) {
+		return SpawnItemPedestal(WeaponPool.GetRandomWeapon(), parent, position);
+	}
+
 	/// <summary>
 	/// Spawns an item pedestal
 	/// </summary>

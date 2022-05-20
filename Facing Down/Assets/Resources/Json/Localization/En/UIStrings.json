@@ -1,0 +1,85 @@
+{
+	"content" :
+	[
+		{
+			"ID" : "buttonPlay",
+			"TEXT" : "Play"
+		},
+		{
+			"ID" : "buttonOptions",
+			"TEXT" : "Options"
+		},
+		{
+			"ID" : "buttonQuit",
+			"TEXT" : "Quit"
+		},
+		{
+			"ID" : "buttonApply",
+			"TEXT" : "Apply"
+		},
+		{
+			"ID" : "buttonBack",
+			"TEXT" : "Back"
+		},
+		{
+			"ID" : "textOptionLanguage",
+			"TEXT" : "Language :"
+		},
+		{
+			"ID" : "textOptionVolume",
+			"TEXT" : "Volume:"
+		},
+		{
+			"ID" : "buttonAdjustVolume",
+			"TEXT" : "Adjust volume:"
+		},
+		{
+			"ID" : "textOptionMasterVolume",
+			"TEXT" : "Master volume:"
+		},
+		{
+			"ID" : "textOptionMusicVolume",
+			"TEXT" : "Music volume:"
+		},
+		{
+			"ID" : "textOptionSoundVolume",
+			"TEXT" : "Ambiance volume:"
+		},
+		{
+			"ID" : "textOptionCommand",
+			"TEXT" : "Controls :"
+		},
+		{
+			"ID" : "buttonDisplayCommand",
+			"TEXT" : "Display controls"
+		},
+		{
+			"ID" : "textActionDash",
+			"TEXT" : "Dash:"
+		},
+		{
+			"ID" : "textActionAttack",
+			"TEXT" : "Attack:"
+		},
+		{
+			"ID" : "textActionBulletTime",
+			"TEXT" : "Bullet Time:"
+		},
+		{
+			"ID" : "textActionOpenConsole",
+			"TEXT" : "Open console:"
+		},
+		{
+			"ID" : "textActionOpenInventoryMap",
+			"TEXT" : "Open inventory / map:"
+		},
+		{
+			"ID" : "textActionCloseUI",
+			"TEXT" : "Close UI:"
+		},
+		{
+			"ID" : "buttonChangeCommand",
+			"TEXT" : "Change"
+		}
+	]
+}

@@ -25,7 +25,7 @@ public class Bullet : ProjectileWeapon
         GameObject bullet = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(bullet, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle)));
+        AddHitAttack(bullet, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
 
         bullet.AddComponent<ProjectileAttack>();
         bullet.transform.position = startPos;
@@ -35,6 +35,8 @@ public class Bullet : ProjectileWeapon
 
         bullet.GetComponent<ProjectileAttack>().angle = angle;
         bullet.GetComponent<ProjectileAttack>().acceleration = 1.0f;
+        bullet.GetComponent<ProjectileAttack>().startDelay = baseSDelay;
+        bullet.GetComponent<ProjectileAttack>().timeSpan = baseSpan;
         bullet.GetComponent<ProjectileAttack>().endDelay = baseEDelay;
         bullet.GetComponent<ProjectileAttack>().speed = baseSpeed;
 
@@ -48,7 +50,7 @@ public class Bullet : ProjectileWeapon
         GameObject bullet = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle));
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
         AddHitAttack(bullet, dmgInfo);
 
         bullet.AddComponent<ProjectileAttack>();
@@ -58,6 +60,8 @@ public class Bullet : ProjectileWeapon
         bullet.GetComponent<ProjectileAttack>().layersToDestroyOn.Add(target);
 
         bullet.GetComponent<ProjectileAttack>().acceleration = 1.0f;
+        bullet.GetComponent<ProjectileAttack>().startDelay = baseSDelay;
+        bullet.GetComponent<ProjectileAttack>().timeSpan = baseSpan;
         bullet.GetComponent<ProjectileAttack>().endDelay = baseEDelay;
         bullet.GetComponent<ProjectileAttack>().speed = baseSpeed;
         bullet.GetComponent<ProjectileAttack>().angle = Random.Range(angle - angleRange, angle + angleRange);
@@ -70,7 +74,7 @@ public class Bullet : ProjectileWeapon
         {
             GameObject newBullet = GameObject.Instantiate(bullet);
             newBullet.GetComponent<ProjectileAttack>().angle = Random.Range(angle - angleRange, angle + angleRange);
-            newBullet.GetComponent<ProjectileAttack>().startDelay = i * (1.0f / numberOfShot);
+            newBullet.GetComponent<ProjectileAttack>().startDelay = baseSDelay + i * (1.0f / numberOfShot);
             newBullet.GetComponent<AttackHit>().dmgInfo = dmgInfo;
 
             attack.GetComponent<CompositeAttack>().attackList.Add(newBullet.GetComponent<ProjectileAttack>());

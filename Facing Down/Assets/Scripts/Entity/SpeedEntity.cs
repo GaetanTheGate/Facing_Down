@@ -7,7 +7,7 @@ public class SpeedEntity : AbstractPlayer
     private Rigidbody2D rb;
     private StatPlayer stat;
 
-    public override void Init()
+    protected override void Initialize()
     {
         rb = gameObject.GetComponent<Player>().self.gameObject.GetComponent<Rigidbody2D>();
         stat = gameObject.GetComponent<Player>().stat;

@@ -2,41 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBulletTime : AbstractPlayer
+public class PlayerBulletTime : AbstractPlayer, InputListener
 {
-    private bool bulletTimePressed = false;
-
     public bool isInBulletTime = false;
 
-    public override void Init()
+    private float startTime;
+
+    protected override void Initialize()
     {
+        Debug.Log("INIT");
+        Game.controller.Subscribe(Options.Get().dicoCommand["bulletTime"], this);
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        ComputeBulletTime();
+    public void OnInputPressed() {
+        if (!isInBulletTime) {
+            ActivateBulletTime();
+		}
+	}
+
+    public void OnInputReleased() {
+        if (isInBulletTime) {
+            Game.player.inventory.OnBullettimeEnd();
+            EndBulletTime();
+		}
+	}
+
+    public void OnInputHeld() {
+
     }
 
-
-    private void ComputeBulletTime()
-    {
-        if (Game.controller.IsBulletTimeHeld() && !bulletTimePressed)
-        {
-            bulletTimePressed = true;
-            isInBulletTime = true;
-            Game.player.inventory.OnBullettimeActivate();
-        }
-        else if (!Game.controller.IsBulletTimeHeld() && bulletTimePressed)
-        {
-            if (isInBulletTime) Game.player.inventory.OnBullettimeEnd();
-            bulletTimePressed = false;
-            isInBulletTime = false;
-        }
-
-        if (isInBulletTime)
+	public void UpdateAfterInput() {
+        if (isInBulletTime && Game.player.stat.GetSpecialLeft() == 0) {
+            Game.player.inventory.OnBullettimeEnd();
+            EndBulletTime();
+		}
+        if (isInBulletTime) {
+            if (Game.time.GetGameSpeed() > 0)
+            Game.player.stat.ModifySpecialLeft(- Time.fixedDeltaTime / (float)Game.player.stat.specialDuration / Game.time.GetGameSpeed());
             Game.time.SetGameSpeed(0.00f);
-        else
+        }
+        else {
+            if (Game.time.GetGameSpeed() > 0)
+                Game.player.stat.ModifySpecialLeft(Time.fixedDeltaTime / (float)Game.player.stat.specialCooldown / Game.time.GetGameSpeed());
             Game.time.SetGameSpeed(1.0f);
+        }
     }
+
+	public void ActivateBulletTime() {
+        startTime = Time.time;
+        Game.player.inventory.OnBullettimeActivate();
+        isInBulletTime = true;
+	}
+
+    public void EndBulletTime() {
+        isInBulletTime = false;
+	}
 }

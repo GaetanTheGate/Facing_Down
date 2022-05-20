@@ -175,4 +175,9 @@ public class EntityCollisionStructure : AbstractEntity
         }*/
 
     }
+
+    public bool IsGrounded()
+    {
+        return isGrounded;
+    }
 }

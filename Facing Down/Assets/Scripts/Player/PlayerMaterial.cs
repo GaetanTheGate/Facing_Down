@@ -7,7 +7,7 @@ public class PlayerMaterial : AbstractPlayer
 
     [Range(0.0f, 1.0f)] public float highSpeedFriction = 0.1f;
     [Range(0.0f, 1.0f)] public float slowSpeedFriction = 0.6f;
-    public override void Init()
+    protected override void Initialize()
     {
         self = gameObject.GetComponent<Player>().self;
 

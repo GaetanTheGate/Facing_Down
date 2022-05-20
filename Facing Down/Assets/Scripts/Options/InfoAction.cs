@@ -5,5 +5,4 @@ using UnityEngine;
 public class InfoAction : MonoBehaviour
 {
     public string idAction;
-    public string text; 
 }

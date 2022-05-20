@@ -1,34 +1,44 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
-    [Range(0.0f, 2.0f)] public float sensibility = 0.8f;
 
-    private bool isMovementPressed = false;
-    private bool isMovementHeld = false;
-    private bool isMovementReleased = false;
-    private bool isAttackPressed = false;
-    private bool isAttackHeld = false;
-    private bool isAttackReleased = false;
-    private bool isBulletTimePressed = false;
-    private bool isBulletTimeHeld = false;
-    private bool isBulletTimeReleased = false;
+
+    [Range(0.0f, 2.0f)] public float sensibility = 0.8f;
 
     private Vector2 pointer = new Vector2(0.0f, 0.0f);
 
     public bool lowSensitivity = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    private List<KeyCode> listenedKeys = new List<KeyCode>();
 
-    }
+    private Dictionary<KeyCode, List<InputListener>> listeners = new Dictionary<KeyCode, List<InputListener>>();
+    private Dictionary<KeyCode, bool> keyPress = new Dictionary<KeyCode, bool>();
+    private Dictionary<KeyCode, bool> keyHold = new Dictionary<KeyCode, bool>();
+    private Dictionary<KeyCode, bool> keyRelease = new Dictionary<KeyCode, bool>();
+
+    public void Init() {
+        listenedKeys.Add(Options.Get().dicoCommand["dash"]);
+        listenedKeys.Add(Options.Get().dicoCommand["bulletTime"]);
+        listenedKeys.Add(Options.Get().dicoCommand["attack"]);
+
+        foreach (KeyCode key in listenedKeys) {
+            keyPress.Add(key, false);
+            keyHold.Add(key, false);
+            keyRelease.Add(key, false);
+            listeners.Add(key, new List<InputListener>());
+		}
+	}
+
+    public void Subscribe(KeyCode key, InputListener listener) {
+        listeners[key].Add(listener);
+	}
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         ComputePress();
-        ComputeHeld();
         ComputeReleased();
 
 
@@ -36,98 +46,50 @@ public class GameController : MonoBehaviour
         pointer.y = Input.GetAxis("Mouse Y") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
     }
 
-    private void ComputePress()
+	private void FixedUpdate() {
+        foreach (KeyCode key in listenedKeys) {
+            if (keyPress[key]) {
+                foreach (InputListener listener in listeners[key]) {
+                    listener.OnInputPressed();
+                }
+                keyPress[key] = false;
+            }
+            if (keyHold[key]) {
+                foreach (InputListener listener in listeners[key]) {
+                    listener.OnInputHeld();
+                }
+            }
+            if (keyRelease[key]) {
+                foreach (InputListener listener in listeners[key]) {
+                    listener.OnInputReleased();
+                }
+                keyRelease[key] = false;
+            }
+        }
+        foreach (List<InputListener> listenerList in listeners.Values) {
+            foreach (InputListener listener in listenerList) {
+                listener.UpdateAfterInput();
+			}
+		}
+	}
+	private void ComputePress()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-            isMovementPressed = true;
-        else
-            isMovementPressed = false;
-
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-            isAttackPressed = true;
-        else
-            isAttackPressed = false;
-
-        if (Input.GetKeyDown(KeyCode.Space))
-            isBulletTimePressed = true;
-        else
-            isBulletTimePressed = false;
-    }
-
-    private void ComputeHeld()
-    {
-        if (Input.GetKey(KeyCode.Mouse0))
-            isMovementHeld = true;
-        else
-            isMovementHeld = false;
-
-        if (Input.GetKey(KeyCode.Mouse1))
-            isAttackHeld = true;
-        else
-            isAttackHeld = false;
-
-        if (Input.GetKey(KeyCode.Space))
-            isBulletTimeHeld = true;
-        else
-            isBulletTimeHeld = false;
+        foreach (KeyCode key in listenedKeys) {
+            if (Input.GetKeyDown(key)) {
+                keyPress[key] = true;
+                keyHold[key] = true;
+			}
+		}
     }
 
     private void ComputeReleased()
     {
-        if (Input.GetKeyUp(KeyCode.Mouse0))
-            isMovementReleased = true;
-        else
-            isMovementReleased = false;
-
-        if (Input.GetKeyUp(KeyCode.Mouse1))
-            isAttackReleased = true;
-        else
-            isAttackReleased = false;
-
-        if (Input.GetKeyUp(KeyCode.Space))
-            isBulletTimeReleased = true;
-        else
-            isBulletTimeReleased = false;
-    }
-
-    public bool IsMovementPressed()
-    {
-        return isMovementPressed;
-    }
-    public bool IsAttackPressed()
-    {
-        return isAttackPressed;
-    }
-    public bool IsBulletTimePressed()
-    {
-        return isBulletTimePressed;
-    }
-
-    public bool IsMovementHeld()
-    {
-        return isMovementHeld;
-    }
-    public bool IsAttackHeld()
-    {
-        return isAttackHeld;
-    }
-    public bool IsBulletTimeHeld()
-    {
-        return isBulletTimeHeld;
-    }
-
-
-    public bool IsMovementReleased()
-    {
-        return isMovementReleased;
-    }
-    public bool IsAttackReleased()
-    {
-        return isAttackReleased;
-    }
-    public bool IsBulletTimeReleased()
-    {
-        return isBulletTimeReleased;
+        foreach (KeyCode key in listenedKeys) {
+            if (Input.GetKeyUp(key)) {
+                keyRelease[key] = true;
+                keyHold[key] = false;
+            }
+        }
     }
 
     public Vector2 getPointer()

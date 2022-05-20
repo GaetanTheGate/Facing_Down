@@ -38,6 +38,7 @@ public abstract class ThrowableAttack : Attack
 
         transform.rotation = Quaternion.Euler(0, 0, angle);
         rb.velocity = new Vector3();
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
     }
 
     protected virtual void Behaviour(float percentageTime) { }

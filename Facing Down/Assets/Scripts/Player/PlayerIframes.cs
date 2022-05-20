@@ -63,5 +63,6 @@ public class PlayerIframes : MonoBehaviour
     private IEnumerator startIframeItemRoutine(float duration)
     {
         yield return new WaitForSeconds(duration);
+        isIframe = false;
     }
 }

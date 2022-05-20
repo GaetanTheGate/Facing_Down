@@ -6,5 +6,11 @@ using UnityEngine;
 public class KeyBinding 
 {
     public string action;
-    public KeyCode key; 
+    public KeyCode key;
+
+    public KeyBinding() { }
+    public KeyBinding(string action, KeyCode key) {
+        this.action = action;
+        this.key = key;
+	}
 }

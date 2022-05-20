@@ -1,0 +1,85 @@
+{
+	"content" :
+	[
+		{
+			"ID" : "buttonPlay",
+			"TEXT" : "Jouer"
+		},
+		{
+			"ID" : "buttonOptions",
+			"TEXT" : "Options"
+		},
+		{
+			"ID" : "buttonQuit",
+			"TEXT" : "Quitter"
+		},
+		{
+			"ID" : "buttonApply",
+			"TEXT" : "Appliquer"
+		},
+		{
+			"ID" : "buttonBack",
+			"TEXT" : "Retour"
+		},
+		{
+			"ID" : "textOptionLanguage",
+			"TEXT" : "Langue :"
+		},
+		{
+			"ID" : "textOptionVolume",
+			"TEXT" : "Volume :"
+		},
+		{
+			"ID" : "buttonAdjustVolume",
+			"TEXT" : "Ajuster le volume :"
+		},
+		{
+			"ID" : "textOptionMasterVolume",
+			"TEXT" : "Volume générale :"
+		},
+		{
+			"ID" : "textOptionMusicVolume",
+			"TEXT" : "Volume musique :"
+		},
+		{
+			"ID" : "textOptionSoundVolume",
+			"TEXT" : "Volume ambiance :"
+		},
+		{
+			"ID" : "textOptionCommand",
+			"TEXT" : "Commandes :"
+		},
+		{
+			"ID" : "buttonDisplayCommand",
+			"TEXT" : "Voir les commandes"
+		},
+		{
+			"ID" : "textActionDash",
+			"TEXT" : "Propulsion :"
+		},
+		{
+			"ID" : "textActionAttack",
+			"TEXT" : "Attaque :"
+		},
+		{
+			"ID" : "textActionBulletTime",
+			"TEXT" : "Ralentissement du temps :"
+		},
+		{
+			"ID" : "textActionOpenConsole",
+			"TEXT" : "Ouvrir la console :"
+		},
+		{
+			"ID" : "textActionOpenInventoryMap",
+			"TEXT" : "Ouvrir l'inventaire / la carte :"
+		},
+		{
+			"ID" : "textActionCloseUI",
+			"TEXT" : "Fermer l'UI :"
+		},
+		{
+			"ID" : "buttonChangeCommand",
+			"TEXT" : "Changer"
+		}
+	]
+}

@@ -32,7 +32,13 @@ public class RoomHandler : MonoBehaviour
 	//choose a room category and set state doors
     public void InitRoom(string category)
     {
-        if(GetComponentInChildren<RoomInfoHandler>() == null) SetRoomInfo(category);
+
+        if (GetComponentInChildren<DoorsHandler>() == null) SetBaseRoom(category);
+        if (GetComponentInChildren<RoomInfoHandler>() == null) SetRoomInfo(category);
+
+
+        GetComponentInChildren<LightHandler>(true).SetLightsState(false);
+
         GetComponentInChildren<DoorsHandler>().SetDoorsState(leftDoor, rightDoor, topDoor, botDoor);
         GetComponentInChildren<DoorsHandler>().SetDoors();
         GetComponentInChildren<DoorsHandler>().SetClosedState(false);
@@ -42,7 +48,28 @@ public class RoomHandler : MonoBehaviour
         GetComponentInChildren<RoomInfoHandler>().InitRoomInfo();
     }
 
+    private string baseRoomFolder = "Prefabs/Rooms/BaseRooms";
     private string roomInfoFolder = "Prefabs/Rooms/RoomsInfo";
+
+    public void SetBaseRoom(string category)
+    {
+        Object[] roomList = Resources.LoadAll(baseRoomFolder, typeof(GameObject));
+
+
+        List<Object> fileToChooseFrom = new List<Object>();
+        foreach (Object o in roomList)
+        {
+            if (o.name.Contains(category))
+                fileToChooseFrom.Add(o);
+        }
+
+        foreach (Object o in fileToChooseFrom)
+            print(o.name);
+
+        GameObject roomInfo = Instantiate((GameObject)fileToChooseFrom[Game.random.Next(0, fileToChooseFrom.Count)]);
+        roomInfo.transform.SetParent(transform);
+        roomInfo.transform.localPosition = new Vector3();
+    }
 
     //instantiate a room prefab according to a category (basic, boss, anteroom, spawn)
     public void SetRoomInfo(string category)
@@ -92,6 +119,7 @@ public class RoomHandler : MonoBehaviour
     //display the room on the UI and set the current room to this
     public void OnEnterRoom()
     {
+        GetComponentInChildren<LightHandler>(true).SetLightsState(true);
 
         Map.changeColorMapicon(Game.currentRoom.gameObject,GetComponentInParent<RoomHandler>().gameObject);
         if (isInRoom)
@@ -101,8 +129,8 @@ public class RoomHandler : MonoBehaviour
         Game.currentRoom = this;
         hasVisited = true;
 
-        GetComponentInChildren<RoomHiderHandler>(true).SetBlurState(false);
-        GetComponentInChildren<RoomHiderHandler>(true).SetDarknessState(false);
+        //GetComponentInChildren<RoomHiderHandler>(true).SetBlurState(false);
+        //GetComponentInChildren<RoomHiderHandler>(true).SetDarknessState(false);
 
         GetComponentInChildren<RoomInfoHandler>().EnterRoom();
         isCompleted = GetComponentInChildren<RoomInfoHandler>().IsOver();
@@ -118,18 +146,20 @@ public class RoomHandler : MonoBehaviour
     //hide the room on the UI
     public void OnExitRoom()
     {
-        
+
+        GetComponentInChildren<LightHandler>(true).SetLightsState(false);
+
         isInRoom = false;
 
-        GetComponentInChildren<RoomInfoHandler>().ExitRoom();
+        //GetComponentInChildren<RoomInfoHandler>().ExitRoom();
 
-        GetComponentInChildren<RoomHiderHandler>(true).SetBlurState(true);
+        //GetComponentInChildren<RoomHiderHandler>(true).SetBlurState(true);
 
         GetComponentInChildren<DoorsHandler>().SetClosedState(false);
         GetComponentInChildren<DoorsHandler>().SetCloseDoor();
 
-        if( !isCompleted)
-            GetComponentInChildren<RoomHiderHandler>(true).SetDarknessState(true);
+        //if( !isCompleted)
+        //    GetComponentInChildren<RoomHiderHandler>(true).SetDarknessState(true);
         
         
     }

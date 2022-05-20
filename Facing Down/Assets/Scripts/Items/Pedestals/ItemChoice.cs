@@ -7,7 +7,15 @@ using UnityEngine;
 /// </summary>
 public class ItemChoice {
     private bool active;
-    private List<ItemPedestal> itemPedestals;
+    private List<ItemPedestal> pedestals;
+
+    public ItemChoice (List<ItemPedestal> pedestals) {
+        active = true;
+        this.pedestals = pedestals;
+        foreach (ItemPedestal pedestal in this.pedestals) {
+            pedestal.SetItemChoice(this);
+		}
+    }
 
 
     /// <summary>
@@ -15,14 +23,20 @@ public class ItemChoice {
     /// </summary>
     /// <param name="parent"></param>
     /// <param name="positions"></param>
-    public ItemChoice(Transform parent, List<Vector2> positions) {
-        active = true;
-        itemPedestals = new List<ItemPedestal>();
+    public static ItemChoice SpawnItemChoice (Transform parent, List<Vector2> positions) {
+        List<ItemPedestal> pedestals = new List<ItemPedestal>();
         foreach (Vector2 position in positions) {
-            ItemPedestal itemPedestal = ItemPedestal.SpawnRandomItemPedestal(parent, position);
-            itemPedestal.SetItemChoice(this);
-            itemPedestals.Add(itemPedestal);
+            pedestals.Add(ItemPedestal.SpawnRandomItemPedestal(parent, position));
 		}
+        return new ItemChoice(pedestals);
+    }
+
+    public static ItemChoice SpawnWeaponChoice(Transform parent, List<Vector2> positions) {
+        List<ItemPedestal> pedestals = new List<ItemPedestal>();
+        foreach (Vector2 position in positions) {
+            pedestals.Add(ItemPedestal.SpawnRandomWeaponPedestal(parent, position));
+        }
+        return new ItemChoice(pedestals);
     }
 
     /// <summary>
@@ -31,10 +45,10 @@ public class ItemChoice {
     public void DisablePedestals() {
         if (!active) return;
         active = false;
-        foreach (ItemPedestal itemPedestal in itemPedestals) itemPedestal.DisablePedestal();
+        foreach (ItemPedestal itemPedestal in pedestals) itemPedestal.DisablePedestal();
     }
 
     public List<ItemPedestal> GetItemPedestals() {
-        return itemPedestals;
+        return pedestals;
     }
 }

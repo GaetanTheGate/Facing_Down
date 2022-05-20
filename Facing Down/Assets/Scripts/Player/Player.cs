@@ -13,7 +13,7 @@ public class Player : AbstractPlayer
 
 
 
-    public override void Init()
+    protected override void Initialize()
     {
         //stat = GetComponent<StatPlayer>();
         //if (stat == null)
@@ -43,13 +43,6 @@ public class Player : AbstractPlayer
         if (player == null)
         {
             player = gameObject.AddComponent<PlayerBulletTime>();
-            player.Init();
-        }
-
-        player = gameObject.GetComponent<PlayerMaterial>();
-        if (player == null)
-        {
-            player = gameObject.AddComponent<PlayerMaterial>();
             player.Init();
         }
 

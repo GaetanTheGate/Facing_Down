@@ -38,16 +38,6 @@ public class Floor : MonoBehaviour
         generate();
     }
 
-    /*On fait pas de max de salles bonus, mais on réduit les chances à chaque fois : 
-proba = 100% * (T/T+2) ^nombredesallesbonusgénérées
-Ou un truc du genre
-
-Ce qui donne pour T = 3 : 
-60%, puis 36% puis 21.6% etc
-Pour T = 8 : 
-80% puis 64% puis 51% etc
-
-Par contre ça en fait plus spawner en haut qu'en bas je suppose*/
 
 
     public static void initGenerate(){
@@ -330,10 +320,9 @@ Par contre ça en fait plus spawner en haut qu'en bas je suppose*/
 
 
  
-    public void destroyFloor(){
+    public static void destroyFloor(){
         Destroy(GameObject.Find("Floor"));
         UI.map.ResetMapDisplay();
-        StartCoroutine(waiter());
     }
 
     public static void resetVar(){
@@ -345,7 +334,8 @@ Par contre ça en fait plus spawner en haut qu'en bas je suppose*/
         initRoom = null;
     }
 
-    public static IEnumerator<YieldInstruction> waiter(){
+    public static IEnumerator<YieldInstruction> changeFloor(){
+        destroyFloor();
         yield return new WaitForSeconds(1);
         Tower.generateNextFloor();
         UI.map.Init();

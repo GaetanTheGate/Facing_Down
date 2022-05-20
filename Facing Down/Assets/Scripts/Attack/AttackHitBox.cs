@@ -10,4 +10,9 @@ public class AttackHitBox : MonoBehaviour
     {
         GetComponentInParent<AttackHit>().ComputeAttack(collision, multiplier);
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        GetComponentInParent<AttackHit>().ComputeAttack(collision, multiplier);
+    }
 }
