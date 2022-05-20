@@ -121,6 +121,8 @@ public class PlayerDash : AbstractPlayer, InputListener
 
     private void ComputeSpecialMove()
     {
+        if (Game.player.stat.GetSpecialLeft() < 1) return;
+        Game.player.stat.ModifySpecialLeft(-1);
         player.inventory.OnRedirect();
 
         player.inventory.GetWeapon().Movement(pointer.getAngle(), self);

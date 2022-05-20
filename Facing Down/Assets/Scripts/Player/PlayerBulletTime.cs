@@ -32,14 +32,18 @@ public class PlayerBulletTime : AbstractPlayer, InputListener
     }
 
 	public void UpdateAfterInput() {
-        if (isInBulletTime && Time.time > startTime + Game.player.stat.specialDuration) {
+        if (isInBulletTime && Game.player.stat.GetSpecialLeft() == 0) {
             Game.player.inventory.OnBullettimeEnd();
             EndBulletTime();
 		}
         if (isInBulletTime) {
+            if (Game.time.GetGameSpeed() > 0)
+            Game.player.stat.ModifySpecialLeft(- Time.fixedDeltaTime / (float)Game.player.stat.specialDuration / Game.time.GetGameSpeed());
             Game.time.SetGameSpeed(0.00f);
         }
         else {
+            if (Game.time.GetGameSpeed() > 0)
+                Game.player.stat.ModifySpecialLeft(Time.fixedDeltaTime / (float)Game.player.stat.specialCooldown / Game.time.GetGameSpeed());
             Game.time.SetGameSpeed(1.0f);
         }
     }

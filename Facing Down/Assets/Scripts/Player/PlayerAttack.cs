@@ -103,6 +103,8 @@ public class PlayerAttack : AbstractPlayer, InputListener
     {
         if ( !self.inventory.GetWeapon().CanSpecial())
             return;
+        if (Game.player.stat.GetSpecialLeft() < 3) return;
+        Game.player.stat.ModifySpecialLeft(-3);
 
         bulletTime.isInBulletTime = false;
         self.inventory.GetWeapon().Special(pointer.getAngle(), selfEntity);
