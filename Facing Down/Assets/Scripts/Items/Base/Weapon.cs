@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : Item
-{
+public abstract class Weapon : Item {
     protected string target;
 
-    public Weapon(string target, string id) : base(id) => this.target = target;
+    public Weapon(string target, string id) : base(id) { 
+        this.target = target;
+        this.stat = new WeaponStat(); 
+    }
 
     protected float baseAtk = 100.0f;
     protected float baseSpan = 1.0f;
     protected float baseSDelay = 0.0f;
     protected float baseEDelay = 0.0f;
     protected float baseCooldown = 0.1f;
+
+    public WeaponStat stat;
 
     protected string attackPath = "Prefabs/Weapons/Katana";
     protected string specialPath = "Prefabs/Weapons/Katana";

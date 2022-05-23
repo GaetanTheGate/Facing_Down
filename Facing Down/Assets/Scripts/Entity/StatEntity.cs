@@ -31,7 +31,8 @@ public class StatEntity : MonoBehaviour
     public virtual void Start()
     {
         computeAtk();
-        currentHitPoints = maxHitPoints;
+        currentHitPoints = GetMaxHP();
+        UI.healthBar.UpdateHP();
         animator = gameObject.GetComponent<Animator>();
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
     }
@@ -76,7 +77,7 @@ public class StatEntity : MonoBehaviour
         if (maxHitPoints < currentHitPoints) currentHitPoints = maxHitPoints;
 	}
 
-    public int GetMaxHP() {
+    public virtual int GetMaxHP() {
         return maxHitPoints;
 	}
 
@@ -85,7 +86,7 @@ public class StatEntity : MonoBehaviour
 	}
 
     public virtual void SetCurrentHP(int HP) {
-        currentHitPoints = HP;
+        currentHitPoints = Mathf.Min(HP, GetMaxHP());
     }
 
     public bool getIsDead() { return isDead; }

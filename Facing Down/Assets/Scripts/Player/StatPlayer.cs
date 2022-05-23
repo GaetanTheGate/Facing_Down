@@ -1,47 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
 
 public class StatPlayer : StatEntity
 {
+    public readonly int BASE_HP = 1000;
+    public readonly int BASE_ATK = 100;
+    public readonly int BASE_CRIT_RATE = 5;
+    public readonly int BASE_CRIT_DMG = 150;
+    public readonly float BASE_ACCELERATION = 12;
+    public readonly int BASE_MAX_DASH = 6;
+    public readonly int BASE_MAX_SPECIAL = 4;
+    public readonly float BASE_SPE_DURATION = 2;
+    public readonly float BASE_SPE_COOLDOWN = 10;
+
     private PlayerIframes playerIframes;
 
     //public Text hpText;
 
-    private float rawAcceleration;
-    private float acceleration = 10;
+    private float acceleration;
+    [Min(0.0f)] public float minAcceleration = 1;
     [Min(0.0f)] public float maxAcceleration = 20;
     [Min(0.0f)] public float maxSpeed = 50;
 
-    private int numberOfDashes = 0;
-    [SerializeField] private int maxDashes = 10;
+    private int numberOfDashes;
+    private int maxDashes;
 
-    [Min(0)] public float specialCooldown = 10;
-    [Min(0)] public float specialDuration = 2;
-    [SerializeField] private int maxSpecial = 4;
-    private float specialLeft = 4;
+    private float specialCooldown;
+    private float specialDuration;
+    private int maxSpecial;
+    private float specialLeft;
 
     public override void Start()
     {
-        InitStats(1000, 100, 5, 150);
+        InitStats(BASE_HP, BASE_ATK, BASE_CRIT_RATE, BASE_CRIT_DMG);
         base.Start();
+
+        acceleration = BASE_ACCELERATION;
+        numberOfDashes = 0;
+        maxDashes = BASE_MAX_DASH;
+        specialCooldown = BASE_SPE_DURATION;
+        specialDuration = BASE_SPE_DURATION;
+        maxSpecial = BASE_MAX_DASH;
+        specialLeft = maxSpecial;
+
         playerIframes = GetComponentInChildren<PlayerIframes>();
-        //hpText.text = currentHitPoints.ToString();
-        rawAcceleration = acceleration;
         //UI.healthBar.UpdateHP();
         //UI.specialBar.UpdateSpecial();
         //UI.dashBar.UpdateDashes();
     }
-
-    public void ModifyAcceleration(float amount) {
-        rawAcceleration += amount;
-        acceleration = Mathf.Max(0, Mathf.Min(rawAcceleration, maxAcceleration));
-	}
-
-    public float getAcceleration() {
-        return acceleration;
-	}
 
     public override void TakeDamage(DamageInfo damage)
     {
@@ -68,12 +73,20 @@ public class StatPlayer : StatEntity
         }
     }
 
+    public void ModifyAcceleration(float amount) {
+        acceleration += amount;
+    }
+
+    public float GetAcceleration() {
+        return Mathf.Max(minAcceleration, Mathf.Min(maxAcceleration, acceleration * Game.player.inventory.GetWeapon().stat.accelerationMult));
+    }
+
     /// <summary>
     /// Gives back special charges to the player.
     /// </summary>
     /// <param name="amount">The amount of special charge to give.</param>
     public void ReloadSpecial(float amount) {
-        specialLeft = Mathf.Max(maxSpecial, specialLeft + amount);
+        specialLeft = Mathf.Max(0, Mathf.Min(GetMaxSpecial(), specialLeft + amount));
 	}
 
 	public override void ModifyMaxHP(int amount) {
@@ -86,12 +99,16 @@ public class StatPlayer : StatEntity
         UI.healthBar.UpdateHP();
 	}
 
-    public int GetMaxDashes() {
-        return maxDashes;
+	public override int GetMaxHP() {
+        return Mathf.FloorToInt(maxHitPoints * Game.player.inventory.GetWeapon().stat.HPMult);
+	}
+
+	public int GetMaxDashes() {
+        return maxDashes + Game.player.inventory.GetWeapon().stat.addMaxDashes;
 	}
 
     public int GetRemainingDashes() {
-        return maxDashes - numberOfDashes;
+        return GetMaxDashes() - numberOfDashes;
 	}
 
     public void UseDashes(int amount) {
@@ -110,7 +127,7 @@ public class StatPlayer : StatEntity
 	}
 
     public int GetMaxSpecial() {
-        return maxSpecial;
+        return maxSpecial + Game.player.inventory.GetWeapon().stat.addMaxSpecial;
 	}
 
     public float GetSpecialLeft() {
@@ -126,5 +143,21 @@ public class StatPlayer : StatEntity
     public void ModifySpecialLeft(float amount) {
         specialLeft = Mathf.Min(maxSpecial, Mathf.Max(0, specialLeft + amount));
         UI.specialBar.UpdateSpecial();
+	}
+
+    public void ModifySpecialDuration(float amount) {
+        specialDuration += amount;
+	}
+
+    public float GetSpecialDuration() {
+        return specialDuration * Game.player.inventory.GetWeapon().stat.specialDurationMult;
+	}
+
+    public void ModifySpecialCooldown(float amount) {
+        specialCooldown += amount;
+	}
+
+    public float GetSpecialCooldown() {
+        return specialCooldown * Game.player.inventory.GetWeapon().stat.specialCooldownMult;
 	}
 }
