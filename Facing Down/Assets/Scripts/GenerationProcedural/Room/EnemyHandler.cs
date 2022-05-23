@@ -25,23 +25,19 @@ public class EnemyHandler : MonoBehaviour, SpawnPoint
 
     public void Chose()
     {
-        foreach (EnemySpawnPoint spawnPoint in GetComponentsInChildren<EnemySpawnPoint>())
-            spawnPoint.Chose();
+        foreach(SpawnPoint spawnPoint in GetComponentsInChildren<SpawnPoint>())
+            if( ! spawnPoint.Equals(this)) spawnPoint.Chose();
     }
 
     public void Spawn()
     {
-
-
-        foreach (EnemySpawnPoint spawnPoint in GetComponentsInChildren<EnemySpawnPoint>())
-        {
-            spawnPoint.Spawn();
-        }
+        foreach (SpawnPoint spawnPoint in GetComponentsInChildren<SpawnPoint>())
+            if (!spawnPoint.Equals(this)) spawnPoint.Spawn();
     }
 
     public void Despawn()
     {
-        foreach (EnemySpawnPoint spawnPoint in GetComponentsInChildren<EnemySpawnPoint>())
-            spawnPoint.Despawn();
+        foreach (SpawnPoint spawnPoint in GetComponentsInChildren<SpawnPoint>())
+            if (!spawnPoint.Equals(this)) spawnPoint.Despawn();
     }
 }
