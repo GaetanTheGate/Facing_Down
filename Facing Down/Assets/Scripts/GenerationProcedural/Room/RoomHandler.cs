@@ -66,9 +66,10 @@ public class RoomHandler : MonoBehaviour
         foreach (Object o in fileToChooseFrom)
             print(o.name);
 
-        GameObject roomInfo = Instantiate((GameObject)fileToChooseFrom[Game.random.Next(0, fileToChooseFrom.Count)]);
-        roomInfo.transform.SetParent(transform);
-        roomInfo.transform.localPosition = new Vector3();
+        GameObject baseRoom = Instantiate((GameObject)fileToChooseFrom[Game.random.Next(0, fileToChooseFrom.Count)]);
+        baseRoom.name.Replace("(Clone)", "");
+        baseRoom.transform.SetParent(transform);
+        baseRoom.transform.localPosition = new Vector3();
     }
 
     //instantiate a room prefab according to a category (basic, boss, anteroom, spawn)
@@ -88,6 +89,7 @@ public class RoomHandler : MonoBehaviour
             print(o.name);
 
         GameObject roomInfo = Instantiate( (GameObject) fileToChooseFrom[Game.random.Next(0, fileToChooseFrom.Count)]);
+        roomInfo.name.Replace("(Clone)", "");
         roomInfo.transform.SetParent(transform);
         roomInfo.transform.localPosition = new Vector3();
     }

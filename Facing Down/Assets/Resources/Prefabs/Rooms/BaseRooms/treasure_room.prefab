@@ -1,62 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6316242236083248358
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8146547280443986410}
-  - component: {fileID: 3882401593839603032}
-  m_Layer: 0
-  m_Name: ShadowCaster
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8146547280443986410
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6316242236083248358}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 9009553525576729063}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3882401593839603032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6316242236083248358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 0
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 1
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: 0.4999707, y: -0.5, z: 0}
-  - {x: 0.4999707, y: 0.5, z: 0}
-  - {x: -0.5, y: 0.4999707, z: 0}
-  - {x: -0.4999707, y: -0.5, z: 0}
-  m_ShapePathHash: 0
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 71736
 --- !u!1001 &3806695954906495187
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14622,11 +14565,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cac8e210b3c4b547b103f0e5ceb36d3, type: 3}
---- !u!4 &9009553525576729063 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5322204721732172084, guid: 9cac8e210b3c4b547b103f0e5ceb36d3, type: 3}
-  m_PrefabInstance: {fileID: 3806695954906495187}
-  m_PrefabAsset: {fileID: 0}
 --- !u!19719996 &1386854179302625360 stripped
 TilemapCollider2D:
   m_CorrespondingSourceObject: {fileID: 2876394205830670467, guid: 9cac8e210b3c4b547b103f0e5ceb36d3, type: 3}

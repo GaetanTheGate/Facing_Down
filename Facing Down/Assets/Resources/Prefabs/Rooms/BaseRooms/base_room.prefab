@@ -224,8 +224,6 @@ GameObject:
   - component: {fileID: 7627588767625800688}
   - component: {fileID: 5359905830270121087}
   - component: {fileID: 5026949822819044225}
-  - component: {fileID: 163683689902349385}
-  - component: {fileID: 1387433284921564307}
   m_Layer: 3
   m_Name: base_room
   m_TagString: Untagged
@@ -2432,33 +2430,6 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
---- !u!114 &163683689902349385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5322204721732172087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f48a8d66b2adc46887f23a3a88ac01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
---- !u!114 &1387433284921564307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5322204721732172087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 591d5bedaf859574bace2c897d6dcd03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  castsShadows: 1
-  selfShadows: 1
 --- !u!1 &5322204721853671149
 GameObject:
   m_ObjectHideFlags: 0
@@ -2473,6 +2444,7 @@ GameObject:
   - component: {fileID: 6449030363777007775}
   - component: {fileID: 6687757545722313323}
   - component: {fileID: 1507753630253510308}
+  - component: {fileID: 5132813738582265525}
   m_Layer: 3
   m_Name: RightWall
   m_TagString: Untagged
@@ -2879,6 +2851,19 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &5132813738582265525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322204721853671149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f33299a7930e4d97617803c649d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &5322204721927489061
 GameObject:
   m_ObjectHideFlags: 0
@@ -2893,6 +2878,7 @@ GameObject:
   - component: {fileID: 5684300034325041170}
   - component: {fileID: 3153093162457267903}
   - component: {fileID: 2876394205830670467}
+  - component: {fileID: 3155146771210295134}
   m_Layer: 3
   m_Name: LeftWall
   m_TagString: Untagged
@@ -3299,6 +3285,19 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &3155146771210295134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322204721927489061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f33299a7930e4d97617803c649d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &5322204722080667428
 GameObject:
   m_ObjectHideFlags: 0
@@ -3313,6 +3312,7 @@ GameObject:
   - component: {fileID: 896414987380546597}
   - component: {fileID: 2358180953049872570}
   - component: {fileID: 3119660031166451596}
+  - component: {fileID: 3303567664374565344}
   m_Layer: 3
   m_Name: TopWall
   m_TagString: Untagged
@@ -3693,22 +3693,10 @@ CompositeCollider2D:
   m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
-    - - {x: -16.000029, y: -8}
-      - {x: -15.999971, y: 16}
-      - {x: 16, y: 15.999971}
-      - {x: 16.000029, y: -8}
-      - {x: 18, y: -7.9999704}
-      - {x: 17.999971, y: 18}
-      - {x: -18, y: 17.999971}
-      - {x: -17.999971, y: -8}
-    - - {x: 15.999971, y: -18}
-      - {x: 15.999971, y: -16}
-      - {x: 5, y: -16.000029}
-      - {x: 5.000029, y: -18}
-    - - {x: -5.000029, y: -18}
-      - {x: -5.000029, y: -16}
-      - {x: -16, y: -16.000029}
-      - {x: -15.999971, y: -18}
+    - - {x: 4.999971, y: 16}
+      - {x: 4.999971, y: 18}
+      - {x: -5, y: 17.999971}
+      - {x: -4.999971, y: 16}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!19719996 &3119660031166451596
@@ -3727,6 +3715,19 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &3303567664374565344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322204722080667428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f33299a7930e4d97617803c649d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &5322204722305740126
 GameObject:
   m_ObjectHideFlags: 0
@@ -3741,6 +3742,7 @@ GameObject:
   - component: {fileID: 9220368525390637920}
   - component: {fileID: 2904755696980808403}
   - component: {fileID: 3445201794311980538}
+  - component: {fileID: 4227067701375106020}
   m_Layer: 3
   m_Name: BottomWall
   m_TagString: Untagged
@@ -4155,6 +4157,19 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &4227067701375106020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322204722305740126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f33299a7930e4d97617803c649d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &5322204722426909990
 GameObject:
   m_ObjectHideFlags: 0
@@ -4169,6 +4184,7 @@ GameObject:
   - component: {fileID: 3848938025043590424}
   - component: {fileID: 2501990626065465899}
   - component: {fileID: 5644219002237998947}
+  - component: {fileID: 6692932211941831185}
   m_Layer: 3
   m_Name: BottomBlock
   m_TagString: Untagged
@@ -4535,6 +4551,19 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &6692932211941831185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322204722426909990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f33299a7930e4d97617803c649d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &5322204722596342788
 GameObject:
   m_ObjectHideFlags: 0
@@ -4549,6 +4578,7 @@ GameObject:
   - component: {fileID: 2767501339274062961}
   - component: {fileID: 1142307023875126436}
   - component: {fileID: 290831009068145573}
+  - component: {fileID: 5929913176544033071}
   m_Layer: 3
   m_Name: LeftBlock
   m_TagString: Untagged
@@ -4895,6 +4925,19 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &5929913176544033071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322204722596342788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f33299a7930e4d97617803c649d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &5322204722969448961
 GameObject:
   m_ObjectHideFlags: 0
@@ -4910,6 +4953,7 @@ GameObject:
   - component: {fileID: 5832353773553721741}
   - component: {fileID: 2697805396637268683}
   - component: {fileID: 4657871897705013051}
+  - component: {fileID: 9201679417992545625}
   m_Layer: 3
   m_Name: TopDoor
   m_TagString: Untagged
@@ -5136,16 +5180,16 @@ CompositeCollider2D:
   m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
-    - - {x: -4.062505, y: 15.99999}
-      - {x: -3.99999, y: 16.031263}
-      - {x: -4.0000253, y: 18.00001}
-      - {x: -5.00001, y: 17.999975}
-      - {x: -4.9999747, y: 15.99999}
-    - - {x: 4.9999747, y: 15.99999}
-      - {x: 4.9999747, y: 18.00001}
-      - {x: 3.99999, y: 17.999975}
-      - {x: 3.9999952, y: 16.093739}
-      - {x: 4.062512, y: 15.99999}
+    - - {x: 4.999971, y: 16}
+      - {x: 4.999971, y: 18}
+      - {x: 4, y: 17.999971}
+      - {x: 4.0000043, y: 16.093744}
+      - {x: 4.0625143, y: 16}
+    - - {x: -4.062506, y: 16}
+      - {x: -4, y: 16.031265}
+      - {x: -4.000029, y: 18}
+      - {x: -5, y: 17.999971}
+      - {x: -4.999971, y: 16}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!19719996 &2697805396637268683
@@ -5176,6 +5220,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0601f6dfba76d0741b85d71f763c0480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9201679417992545625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322204722969448961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f33299a7930e4d97617803c649d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &5322204723026033279
 GameObject:
   m_ObjectHideFlags: 0
@@ -5227,6 +5284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e3ede216164344996493fe315e6d58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockTop: 0
   left: 0
   right: 0
   top: 0
@@ -5247,6 +5305,7 @@ GameObject:
   - component: {fileID: 7890307606085234558}
   - component: {fileID: 7698548037240629577}
   - component: {fileID: 1305131247890369998}
+  - component: {fileID: 6561217999042020696}
   m_Layer: 3
   m_Name: RightDoor
   m_TagString: Untagged
@@ -5536,6 +5595,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0601f6dfba76d0741b85d71f763c0480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6561217999042020696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322204723147765911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f33299a7930e4d97617803c649d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &5322204723330092917
 GameObject:
   m_ObjectHideFlags: 0
@@ -5551,6 +5623,7 @@ GameObject:
   - component: {fileID: 7923355400937180495}
   - component: {fileID: 2160290900691756316}
   - component: {fileID: 5679574237337129375}
+  - component: {fileID: 4849192371578953297}
   m_Layer: 3
   m_Name: BottomDoor
   m_TagString: Untagged
@@ -5821,6 +5894,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0601f6dfba76d0741b85d71f763c0480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4849192371578953297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322204723330092917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f33299a7930e4d97617803c649d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &5322204723413661434
 GameObject:
   m_ObjectHideFlags: 0
@@ -5835,6 +5921,7 @@ GameObject:
   - component: {fileID: 2008776970147993143}
   - component: {fileID: 3512318977681331254}
   - component: {fileID: 7500632672257537981}
+  - component: {fileID: 6084294312453832271}
   m_Layer: 3
   m_Name: TopBlock
   m_TagString: Untagged
@@ -6221,6 +6308,19 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &6084294312453832271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322204723413661434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f33299a7930e4d97617803c649d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &5322204723522888208
 GameObject:
   m_ObjectHideFlags: 0
@@ -6236,6 +6336,7 @@ GameObject:
   - component: {fileID: 6693879075186021563}
   - component: {fileID: 4266884512185152028}
   - component: {fileID: 5564366680562707934}
+  - component: {fileID: 7092911717817842599}
   m_Layer: 3
   m_Name: LeftDoor
   m_TagString: Untagged
@@ -6525,6 +6626,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0601f6dfba76d0741b85d71f763c0480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7092911717817842599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322204723522888208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f33299a7930e4d97617803c649d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &5322204723617179599
 GameObject:
   m_ObjectHideFlags: 0
@@ -6539,6 +6653,7 @@ GameObject:
   - component: {fileID: 2826363930768694500}
   - component: {fileID: 3827803502103003198}
   - component: {fileID: 5313893107848234069}
+  - component: {fileID: 6613284449642221747}
   m_Layer: 3
   m_Name: RightBlock
   m_TagString: Untagged
@@ -6885,6 +7000,19 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &6613284449642221747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322204723617179599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f33299a7930e4d97617803c649d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfShadows: 1
 --- !u!1 &6927729997172641072
 GameObject:
   m_ObjectHideFlags: 0

@@ -504,8 +504,7 @@ GameObject:
   - component: {fileID: 2104912103950774398}
   - component: {fileID: 1158437620995649749}
   - component: {fileID: 4705687736423094855}
-  - component: {fileID: 6600429001792218007}
-  - component: {fileID: 3439187996847355440}
+  - component: {fileID: 68315651240927327}
   m_Layer: 3
   m_Name: Terrain
   m_TagString: Untagged
@@ -849,7 +848,7 @@ Tilemap:
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -23, y: -19, z: 0}
-  m_Size: {x: 47, y: 40, z: 1}
+  m_Size: {x: 47, y: 42, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -978,7 +977,7 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
---- !u!114 &6600429001792218007
+--- !u!114 &68315651240927327
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -987,23 +986,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6887189809862564729}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f48a8d66b2adc46887f23a3a88ac01, type: 3}
+  m_Script: {fileID: 11500000, guid: c83f33299a7930e4d97617803c649d10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
---- !u!114 &3439187996847355440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6887189809862564729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 591d5bedaf859574bace2c897d6dcd03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  castsShadows: 1
   selfShadows: 1
 --- !u!1001 &1988608636280059935
 PrefabInstance:
