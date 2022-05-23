@@ -12,7 +12,7 @@ public class PlayerDash : AbstractPlayer, InputListener
     private RotationEntity rotation;
 
     private float chargeTimePassed = 0.0f;
-    private float chargeTime = 1.0f;
+    private float chargeTime = 0.2f;
 
     protected override void Initialize()
     {
@@ -59,7 +59,7 @@ public class PlayerDash : AbstractPlayer, InputListener
     }
 
     public void OnInputHeld() {
-        camManager.SetZoomPercent(Mathf.Min(130.0f, 100 + 30 * (chargeTimePassed / chargeTime)));
+        camManager.SetZoomPercent(Mathf.Min(110.0f, 100 + 10 * (chargeTimePassed / chargeTime)));
     }
 
     public void OnInputReleased() {
