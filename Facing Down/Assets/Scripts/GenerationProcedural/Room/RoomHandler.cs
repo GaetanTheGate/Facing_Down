@@ -25,7 +25,6 @@ public class RoomHandler : MonoBehaviour
     //set this room to a start
     public void SetAsStart()
     {
-        Game.currentRoom = this;
         OnEnterRoom();
     }
 
@@ -37,7 +36,8 @@ public class RoomHandler : MonoBehaviour
         if (GetComponentInChildren<RoomInfoHandler>() == null) SetRoomInfo(category);
 
 
-        GetComponentInChildren<LightHandler>(true).SetLightsState(false);
+        foreach (LightHandler handler in GetComponentsInChildren<LightHandler>(true))
+            handler.SetLightsState(false);
 
         GetComponentInChildren<DoorsHandler>().SetDoorsState(leftDoor, rightDoor, topDoor, botDoor);
         GetComponentInChildren<DoorsHandler>().SetDoors();
@@ -122,9 +122,11 @@ public class RoomHandler : MonoBehaviour
     public void OnEnterRoom()
     {
         GetComponentInChildren<DoorsHandler>().lockTop = true ;
-        GetComponentInChildren<LightHandler>(true).SetLightsState(true);
+        foreach(LightHandler handler in GetComponentsInChildren<LightHandler>(true))
+            handler.SetLightsState(true);
 
-        Map.changeColorMapicon(Game.currentRoom.gameObject,GetComponentInParent<RoomHandler>().gameObject);
+        Map.onColorMapicon(GetComponentInParent<RoomHandler>().gameObject);
+
         if (isInRoom)
             return;
 
@@ -150,7 +152,10 @@ public class RoomHandler : MonoBehaviour
     public void OnExitRoom()
     {
 
-        GetComponentInChildren<LightHandler>(true).SetLightsState(false);
+        foreach (LightHandler handler in GetComponentsInChildren<LightHandler>(true))
+            handler.SetLightsState(false);
+
+        Map.offColorMapicon(GetComponentInParent<RoomHandler>().gameObject);
 
         isInRoom = false;
 
