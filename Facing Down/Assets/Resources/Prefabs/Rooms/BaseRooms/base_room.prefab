@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 7627588767625800688}
   - component: {fileID: 5359905830270121087}
   - component: {fileID: 5026949822819044225}
+  - component: {fileID: 1435462390166170078}
   m_Layer: 3
   m_Name: base_room
   m_TagString: Untagged
@@ -2430,6 +2431,18 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &1435462390166170078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322204721732172087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb81a9bf03fd66541bea93f253ae4dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5322204721853671149
 GameObject:
   m_ObjectHideFlags: 0
