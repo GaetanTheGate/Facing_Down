@@ -36,7 +36,8 @@ public class StatEntity : MonoBehaviour
     }
 
     public void Heal(float amount) {
-        currentHitPoints = Mathf.Max(maxHitPoints, currentHitPoints + Mathf.CeilToInt(amount));
+        Debug.Log("HEAL : " + amount);
+        currentHitPoints = Mathf.Min(GetMaxHP(), currentHitPoints + Mathf.CeilToInt(amount));
 	}
 
     public virtual void TakeDamage(DamageInfo dmgInfo)
@@ -54,6 +55,12 @@ public class StatEntity : MonoBehaviour
         if (onDeath != null && currentHitPoints <= 0) {
             if (lastDamageTaken != null && lastDamageTaken.source == Game.player.self) {
                 Game.player.inventory.OnEnemyKill(gameObject.GetComponent<Entity>());
+                if (Random.value > 0.5) {
+                    Game.player.stat.Heal(Game.player.stat.GetMaxHP() / 100);
+				}
+                else {
+                    Game.player.stat.ModifySpecialLeft(0.5f);
+				}
             }
             onDeath.Invoke();
             isDead = true;

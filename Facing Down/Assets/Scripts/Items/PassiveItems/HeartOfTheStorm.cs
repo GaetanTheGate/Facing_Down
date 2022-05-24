@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class HeartOfTheStorm : PassiveItem
 {
-    private readonly float cooldownReduction = 0.3f;
-    private readonly float stackCooldownReduction = 0.1f;
+    private readonly float cooldownReduction = 0.25f;
     public HeartOfTheStorm() : base("HeartOfTheStorm", ItemRarity.UNCOMMON, ItemType.THUNDER) { }
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, (cooldownReduction + ((amount - 1) * stackCooldownReduction)) * 100);
+		return string.Format(description.DESCRIPTION, cooldownReduction* amount * 100);
 	}
 
 	public override void OnEnemyKill(Entity enemy) {
-		Game.player.stat.ReloadSpecial(cooldownReduction + (amount - 1) * stackCooldownReduction);
+		Game.player.stat.ModifySpecialLeft(cooldownReduction * amount * 100);
 	}
 }

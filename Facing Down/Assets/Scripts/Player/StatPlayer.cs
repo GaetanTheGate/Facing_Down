@@ -6,7 +6,7 @@ public class StatPlayer : StatEntity
     public readonly int BASE_ATK = 100;
     public readonly int BASE_CRIT_RATE = 5;
     public readonly int BASE_CRIT_DMG = 150;
-    public readonly float BASE_ACCELERATION = 12;
+    public readonly float BASE_ACCELERATION = 10;
     public readonly int BASE_MAX_DASH = 6;
     public readonly int BASE_MAX_SPECIAL = 4;
     public readonly float BASE_SPE_DURATION = 2;
@@ -37,7 +37,7 @@ public class StatPlayer : StatEntity
         acceleration = BASE_ACCELERATION;
         numberOfDashes = 0;
         maxDashes = BASE_MAX_DASH;
-        specialCooldown = BASE_SPE_DURATION;
+        specialCooldown = BASE_SPE_COOLDOWN;
         specialDuration = BASE_SPE_DURATION;
         maxSpecial = BASE_MAX_DASH;
         specialLeft = maxSpecial;
@@ -80,14 +80,6 @@ public class StatPlayer : StatEntity
     public float GetAcceleration() {
         return Mathf.Max(minAcceleration, Mathf.Min(maxAcceleration, acceleration * Game.player.inventory.GetWeapon().stat.accelerationMult));
     }
-
-    /// <summary>
-    /// Gives back special charges to the player.
-    /// </summary>
-    /// <param name="amount">The amount of special charge to give.</param>
-    public void ReloadSpecial(float amount) {
-        specialLeft = Mathf.Max(0, Mathf.Min(GetMaxSpecial(), specialLeft + amount));
-	}
 
 	public override void ModifyMaxHP(int amount) {
 		base.ModifyMaxHP(amount);
