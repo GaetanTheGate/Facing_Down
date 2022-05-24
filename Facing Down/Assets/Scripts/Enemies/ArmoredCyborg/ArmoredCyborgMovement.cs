@@ -159,7 +159,7 @@ public class ArmoredCyborgMovement : EnemyMovement
         if (previousWaypoint.y > transform.position.y + col.bounds.size.y / 2)
         {
             float heightToCheck = previousWaypoint.y - (transform.position.y - col.bounds.size.y / 2);
-            print(entityCollisionStructure.isGrounded);
+            //print(entityCollisionStructure.isGrounded);
             float heightToJump = Raycasting.checkHighestObstacle(transform, col, Mathf.Min(heightToCheck, jumpHeight));
             if (!isJumping && heightToJump > 0 && heightToJump < jumpHeight + 1)
             {

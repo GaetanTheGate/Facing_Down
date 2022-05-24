@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerDash : AbstractPlayer
+public class PlayerDash : AbstractPlayer, InputListener
 {
     private PlayerBulletTime bulletTime;
     private CameraManager camManager;
@@ -12,10 +12,9 @@ public class PlayerDash : AbstractPlayer
     private RotationEntity rotation;
 
     private float chargeTimePassed = 0.0f;
-    private float chargeTime = 1.0f;
-    private bool movePressed = false;
+    private float chargeTime = 0.2f;
 
-    public override void Init()
+    protected override void Initialize()
     {
         player = gameObject.GetComponent<Player>();
         if (player == null)
@@ -52,57 +51,48 @@ public class PlayerDash : AbstractPlayer
             rotation.Init();
         }
 
+        Game.controller.Subscribe(Options.Get().dicoCommand["dash"], this);
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        ComputeDash();
+    public void OnInputPressed() {
+        chargeTimePassed = 0;
     }
 
-    private void ComputeDash()
-    {
+    public void OnInputHeld() {
+        camManager.SetZoomPercent(Mathf.Min(110.0f, 100 + 10 * (chargeTimePassed / chargeTime)));
+    }
+
+    public void OnInputReleased() {
+        if (bulletTime.isInBulletTime) {
+            if (!player.inventory.GetWeapon().CanMove())
+                return;
+
+            ComputeSpecialMove();
+
+            rotation.FlipEntityRelativeToGravity(pointer.getAngle());
+            rotation.RotateEntityRelativeToFlip(pointer.getAngle());
+        }
+        else {
+            if (stat.GetRemainingDashes() <= 0)
+                return;
+            else if (chargeTimePassed > chargeTime) {
+                ComputeMegaDash();
+            }
+            else {
+                ComputeSimpleDash();
+                Game.time.SetGameSpeedInstant(1.2f);
+            }
+
+            rotation.FlipEntityRelativeToGravity(pointer.getAngle());
+            rotation.RotateEntityRelativeToFlip(pointer.getAngle());
+
+        }
+
+        camManager.SetZoomPercent(100);
+    }
+
+    public void UpdateAfterInput() {
         chargeTimePassed += Time.fixedDeltaTime;
-
-        if (Game.controller.IsMovementHeld() && !movePressed)
-        {
-            movePressed = true;
-            chargeTimePassed = 0;
-        }
-        else if (!Game.controller.IsMovementHeld() && movePressed)
-        {
-            movePressed = false;
-
-            if (bulletTime.isInBulletTime)
-            {
-                ComputeRedirect();
-
-                rotation.FlipEntityRelativeToGravity(pointer.getAngle());
-                rotation.RotateEntityRelativeToFlip(pointer.getAngle());
-            }
-            else
-            {
-                if (stat.GetRemainingDashes() <= 0)
-                    return;
-                else if (chargeTimePassed > chargeTime)
-                {
-                    ComputeMegaDash();
-                }
-                else
-                {
-                    ComputeSimpleDash();
-                    Game.time.SetGameSpeedInstant(1.2f);
-                }
-
-                rotation.FlipEntityRelativeToGravity(pointer.getAngle());
-                rotation.RotateEntityRelativeToFlip(pointer.getAngle());
-
-            }
-
-            camManager.SetZoomPercent(100);
-        }
-        else if (movePressed)
-            camManager.SetZoomPercent(Mathf.Min(130.0f, 100 + 30 * (chargeTimePassed / chargeTime)));
     }
 
     private void ComputeMegaDash()
@@ -112,7 +102,7 @@ public class PlayerDash : AbstractPlayer
 
         player.inventory.OnMegaDash();
 
-        rb.velocity = new Velocity(stat.getAcceleration() * 1.5f, pointer.getAngle()).GetAsVector2();
+        rb.velocity = new Velocity(stat.GetAcceleration() * 1.5f, pointer.getAngle()).GetAsVector2();
 
         Game.time.SetGameSpeedInstant(1.6f);
     }
@@ -124,13 +114,15 @@ public class PlayerDash : AbstractPlayer
 
         player.inventory.OnDash();
 
-        rb.velocity = new Velocity(stat.getAcceleration(), pointer.getAngle()).GetAsVector2();
+        rb.velocity = new Velocity(stat.GetAcceleration(), pointer.getAngle()).GetAsVector2();
 
         Game.time.SetGameSpeedInstant(1.2f);
     }
 
-    private void ComputeRedirect()
+    private void ComputeSpecialMove()
     {
+        if (Game.player.stat.GetSpecialLeft() < 1) return;
+        Game.player.stat.ModifySpecialLeft(-1);
         player.inventory.OnRedirect();
 
         player.inventory.GetWeapon().Movement(pointer.getAngle(), self);

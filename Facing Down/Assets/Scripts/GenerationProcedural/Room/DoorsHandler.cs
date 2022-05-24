@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DoorsHandler : MonoBehaviour
 {
+    public bool lockTop = false;
+
     public bool left = false;
     public bool right = false;
     public bool top = false;
@@ -70,6 +72,11 @@ public class DoorsHandler : MonoBehaviour
     public void SetCloseDoor()
     {
         foreach (Door child in GetComponentsInChildren<Door>())
-            child.Close(doorClosed);
+            if (child.name.Equals("TopDoor"))
+            {
+                child.Close(lockTop || doorClosed);
+            }
+            else
+                child.Close(doorClosed);
     }
 }

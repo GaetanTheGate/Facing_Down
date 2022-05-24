@@ -128,12 +128,14 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+  canTakeKnockBack: 1
+  canTakeDamage: 1
   maxAcceleration: 20
   maxSpeed: 50
   maxDashes: 10
   specialCooldown: 10
   specialDuration: 2
-  maxSpecial: 3
+  maxSpecial: 4
 --- !u!114 &657911100868528698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,7 +221,7 @@ MonoBehaviour:
   - {x: -0.2, y: 0.2, z: 0}
   m_ShapePathHash: 816645463
   m_Mesh: {fileID: 0}
-  m_InstanceId: 39286
+  m_InstanceId: 49240
 --- !u!1 &657911101350130789
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,7 +510,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0

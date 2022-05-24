@@ -13,9 +13,11 @@ public abstract class Item{
 
     public Item(string id) {
         this.ID = id;
-        this.description = Localization.GetItemDescription(id);
+        InitDescription(id);
         this.sprite = Resources.Load<Sprite>(GetSpriteFolderPath() + ID);
 	}
+
+    protected abstract void InitDescription(string id);
 
     //getters
 
@@ -45,7 +47,6 @@ public abstract class Item{
     /// </summary>
     /// <param name="damage">The amount of damage taken.</param>
     /// <returns>The new amount of damage that will be taken.</returns>
-    public virtual float OnTakeDamage(float damage) { return damage; } //TODO : Retirer quand il sera entièrement remplacé par OnTakeDamage(DamageInfo)
     public virtual DamageInfo OnTakeDamage(DamageInfo damage) { return damage; }
 
     public virtual DamageInfo OnDealDamage(DamageInfo damage) { return damage; }

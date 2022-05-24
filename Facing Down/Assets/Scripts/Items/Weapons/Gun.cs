@@ -39,7 +39,9 @@ public class Gun : MeleeWeapon
         gun.GetComponent<GunAttack>().transform.position = startPos;
 
         gun.GetComponent<GunAttack>().src = self;
+        gun.GetComponent<GunAttack>().startDelay = baseSDelay;
         gun.GetComponent<GunAttack>().timeSpan = baseSpan;
+        gun.GetComponent<GunAttack>().endDelay = baseEDelay;
         gun.GetComponent<GunAttack>().lenght = 1;
         gun.GetComponent<GunAttack>().followEntity = forceUnFollow;
 
@@ -59,9 +61,9 @@ public class Gun : MeleeWeapon
         gun.GetComponent<GunAttack>().transform.position = startPos;
 
         gun.GetComponent<GunAttack>().src = self;
-        gun.GetComponent<GunAttack>().startDelay = 1.0f;
-        gun.GetComponent<GunAttack>().timeSpan = 1;
-        gun.GetComponent<GunAttack>().endDelay = 0.5f;
+        gun.GetComponent<GunAttack>().startDelay = baseSDelay + 1.0f;
+        gun.GetComponent<GunAttack>().timeSpan = specialWeapon.getSDelay() + specialWeapon.getSpan() + specialWeapon.getEDelay();
+        gun.GetComponent<GunAttack>().endDelay = baseEDelay + 0.5f;
         gun.GetComponent<GunAttack>().lenght = 1;
         gun.GetComponent<GunAttack>().followEntity = false;
 
@@ -70,5 +72,46 @@ public class Gun : MeleeWeapon
         gun.GetComponent<GunAttack>().isSpecial = true;
 
         return gun.GetComponent<GunAttack>();
+    }
+
+    public override void _Move(float angle, Entity self)
+    {
+        canMove = false;
+
+        self.GetComponent<Rigidbody2D>().velocity = self.GetComponent<Rigidbody2D>().velocity * 0.2f;
+
+        float gravitySpeed = self.GetComponent<GravityEntity>().gravity.getSpeed();
+        self.GetComponent<GravityEntity>().gravity.setSpeed(0.00001f);
+
+        Game.coroutineStarter.StartCoroutine(StartLooseGravity(1f, 10, self, gravitySpeed));
+    }
+
+    private IEnumerator StartLooseGravity(float delay, float duration, Entity self, float gravitySpeed)
+    {
+        yield return new WaitForSeconds(delay);
+
+        Rigidbody2D rb = self.GetComponent<Rigidbody2D>();
+        rb.velocity = new Velocity(self.GetComponent<GravityEntity>().gravity).SubToAngle(180).setSpeed(20).GetAsVector2();
+
+        Game.coroutineStarter.LaunchCoroutine(SetVelocityToZeroLoop(self));
+        Game.coroutineStarter.LaunchCoroutine(RestoreGravity(duration, self, gravitySpeed));
+    }
+
+    private IEnumerator RestoreGravity(float duration, Entity self, float speed)
+    {
+        yield return new WaitForSeconds(duration);
+        self.GetComponent<GravityEntity>().gravity.setSpeed(speed);
+
+        canMove = true;
+    }
+
+    private IEnumerator SetVelocityToZeroLoop(Entity self)
+    {
+        yield return new WaitForFixedUpdate();
+
+        self.GetComponent<Rigidbody2D>().velocity = Vector3.Lerp(self.GetComponent<Rigidbody2D>().velocity, new Vector3(), 2 * Time.fixedDeltaTime);
+
+        if ( ! canMove )
+            Game.coroutineStarter.LaunchCoroutine(SetVelocityToZeroLoop(self));
     }
 }

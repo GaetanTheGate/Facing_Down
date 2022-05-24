@@ -17,12 +17,14 @@ public class Shuriken : ProjectileWeapon
         specialPath = "Prefabs/Weapons/BouncyShuriken";
     }
 
+    private float hitPerSecond = 3;
+
     public override Attack GetAttack(float angle, Entity self)
     {
         GameObject shuriken = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(shuriken, new DamageInfo(self, baseAtk * dmg, new Velocity(1.0f * dmg, angle)));
+        AddHitAttack(shuriken, new DamageInfo(self, baseAtk * dmg, new Velocity(1.0f * dmg, angle), 1f / hitPerSecond));
 
         shuriken.AddComponent<ProjectileAttack>();
         shuriken.transform.position = startPos;
@@ -31,6 +33,7 @@ public class Shuriken : ProjectileWeapon
 
         shuriken.GetComponent<ProjectileAttack>().angle = angle;
         shuriken.GetComponent<ProjectileAttack>().acceleration = 1.0f;
+        shuriken.GetComponent<ProjectileAttack>().startDelay = baseSDelay;
         shuriken.GetComponent<ProjectileAttack>().timeSpan = baseSpan;
         shuriken.GetComponent<ProjectileAttack>().endDelay = baseEDelay;
         shuriken.GetComponent<ProjectileAttack>().speed = baseSpeed;
@@ -46,7 +49,7 @@ public class Shuriken : ProjectileWeapon
         GameObject shuriken = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 2, new Velocity(1.0f * dmg, angle));
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 2, new Velocity(1.0f * dmg, angle), 1f / hitPerSecond);
         AddHitAttack(shuriken, dmgInfo);
 
         shuriken.AddComponent<ProjectileAttack>();
@@ -56,6 +59,7 @@ public class Shuriken : ProjectileWeapon
 
         shuriken.GetComponent<ProjectileAttack>().angle = angle;
         shuriken.GetComponent<ProjectileAttack>().acceleration = 1.0f;
+        shuriken.GetComponent<ProjectileAttack>().startDelay = baseSDelay;
         shuriken.GetComponent<ProjectileAttack>().timeSpan = baseSpan;
         shuriken.GetComponent<ProjectileAttack>().endDelay = 10;
         shuriken.GetComponent<ProjectileAttack>().speed = baseSpeed * 0.75f;
@@ -94,5 +98,41 @@ public class Shuriken : ProjectileWeapon
     public override void WeaponSpecial(float angle, Entity self)
     {
         GetSpecial(angle, self).startAttack();
+    }
+
+    public override void _Move(float angle, Entity self)
+    {
+        canMove = false;
+
+        PhysicsMaterial2D bouciness = new PhysicsMaterial2D
+        {
+            bounciness = 1.1f
+        };
+
+        self.GetComponent<Collider2D>().sharedMaterial = bouciness;
+
+        self.GetComponent<Rigidbody2D>().velocity = new Velocity(20, angle).GetAsVector2();
+        self.GetComponent<Rigidbody2D>().freezeRotation = false;
+
+        Game.coroutineStarter.LaunchCoroutine(EndBounce(10f, self));
+    }
+
+    private IEnumerator EndBounce(float delay, Entity self)
+    {
+        yield return new WaitForSeconds(delay);
+
+        self.GetComponent<Collider2D>().sharedMaterial = null;
+
+        canMove = true;
+
+        yield return new WaitUntil(new System.Func<bool>(self.GetComponent<EntityCollisionStructure>().IsGrounded));
+        Game.coroutineStarter.LaunchCoroutine(EndFreezeRotation(1f, self));
+    }
+
+    private IEnumerator EndFreezeRotation(float delay, Entity self)
+    {
+        yield return new WaitForSeconds(delay);
+
+        self.GetComponent<Rigidbody2D>().freezeRotation = true;
     }
 }

@@ -88,7 +88,7 @@ public class Daggers : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(0.25f * dmg, angle)));
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(0.25f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
 
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
@@ -97,6 +97,7 @@ public class Daggers : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().acceleration = 3.0f;
         swing.GetComponent<HalfSlashAttack>().range = baseRange;
         swing.GetComponent<HalfSlashAttack>().lenght = baseLenght;
+        swing.GetComponent<HalfSlashAttack>().startDelay = baseSDelay;
         swing.GetComponent<HalfSlashAttack>().timeSpan = baseSpan;
         swing.GetComponent<HalfSlashAttack>().endDelay = baseEDelay;
         swing.GetComponent<HalfSlashAttack>().followEntity = forceUnFollow;
@@ -112,7 +113,7 @@ public class Daggers : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 0.5f, new Velocity(0.125f * dmg, angle)));
+        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg * 0.5f, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
 
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
@@ -122,7 +123,7 @@ public class Daggers : MeleeWeapon
         swing.GetComponent<HalfSlashAttack>().range = baseRange * 0.75f;
         swing.GetComponent<HalfSlashAttack>().lenght = baseLenght * 0.75f;
         swing.GetComponent<HalfSlashAttack>().timeSpan = 0.1f / countMax;
-        swing.GetComponent<HalfSlashAttack>().startDelay = startDelay;
+        swing.GetComponent<HalfSlashAttack>().startDelay = baseSDelay + startDelay;
         swing.GetComponent<HalfSlashAttack>().endDelay = 0.05f / countMax;
         swing.GetComponent<HalfSlashAttack>().followEntity = false;
         swing.GetComponent<HalfSlashAttack>().inOut = HalfSlashAttack.InOut.In;
@@ -137,7 +138,7 @@ public class Daggers : MeleeWeapon
     {
         GameObject swing1 = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 2, new Velocity(0.5f * dmg, angle));
+        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 2, new Velocity(0.5f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
         AddHitAttack(swing1, dmgInfo);
 
         swing1.transform.position = startPos;

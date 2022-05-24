@@ -12,6 +12,8 @@ public class RoomInfoHandler : MonoBehaviour
 
     public void InitRoomInfo()
     {
+        GetComponentInChildren<LightHandler>(true).SetLightsState(false);
+        GetComponentInChildren<ActiveWhenEnemy>(true).SetGameObjectState(false);
         foreach (Wave wave in GetComponentsInChildren<Wave>())
         {
             wave.GetComponentInChildren<EnemyHandler>().Chose();
@@ -22,15 +24,18 @@ public class RoomInfoHandler : MonoBehaviour
     public void FinishRoom()
     {
         isOver = true;
+        GetComponentInChildren<ActiveWhenEnemy>(true).SetGameObjectState(false);
         GetComponentInParent<RoomHandler>().OnFinishRoom();
     }
 
     public void EnterRoom()
     {
+        GetComponentInChildren<LightHandler>(true).SetLightsState(true);
 
         if (!isOver)
         {
             nextWaveRank = 0;
+            GetComponentInChildren<ActiveWhenEnemy>(true).SetGameObjectState(true);
             NoMoreEnemy();
         }
         else
@@ -44,6 +49,8 @@ public class RoomInfoHandler : MonoBehaviour
 
     public void ExitRoom()
     {
+        GetComponentInChildren<ActiveWhenEnemy>(true).SetGameObjectState(false);
+        GetComponentInChildren<LightHandler>(true).SetLightsState(false);
         foreach (Wave wave in GetComponentsInChildren<Wave>())
         {
             wave.GetComponentInChildren<EnemyHandler>().Despawn();

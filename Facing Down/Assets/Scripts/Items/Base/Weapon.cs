@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : Item
-{
+public abstract class Weapon : Item {
     protected string target;
 
-    public Weapon(string target, string id) : base(id) => this.target = target;
+    public Weapon(string target, string id) : base(id) { 
+        this.target = target;
+        this.stat = new WeaponStat(); 
+    }
 
     protected float baseAtk = 100.0f;
     protected float baseSpan = 1.0f;
@@ -14,11 +16,15 @@ public abstract class Weapon : Item
     protected float baseEDelay = 0.0f;
     protected float baseCooldown = 0.1f;
 
+    public WeaponStat stat;
+
     protected string attackPath = "Prefabs/Weapons/Katana";
     protected string specialPath = "Prefabs/Weapons/Katana";
 
     protected bool isAuto = false;
     protected bool canAttack = true;
+    protected bool canSpecial = true;
+    protected bool canMove = true;
 
     public bool forceUnFollow = true;
     public Vector3 startPos;
@@ -62,8 +68,9 @@ public abstract class Weapon : Item
     }
 
     public bool IsAuto() => isAuto;
-
     public bool CanAttack() => canAttack;
+    public bool CanSpecial() => canSpecial;
+    public bool CanMove() => canMove;
 
     public string getAttackPath() => attackPath;
     public string getSpecialPath() => specialPath;
@@ -73,9 +80,11 @@ public abstract class Weapon : Item
     public float getSpan() => baseSpan;
     public float getBaseCooldown() => baseCooldown;
 
-    public void SetBaseAtk(float newAtk) {
-        baseAtk = newAtk;
-    }
+    public void SetBaseAtk(float newAtk) => baseAtk = newAtk;
+    public void SetBaseSDelay(float span) => baseSDelay = span;
+    public void SetBaseSpan(float span) => baseSpan = span;
+    public void SetBaseEDelay(float span) => baseEDelay = span;
+    public void SetBaseCooldown(float cooldown) => baseCooldown = cooldown;
 
     protected void AddHitAttack(GameObject gameObject, DamageInfo dmgInfo)
     {
@@ -91,6 +100,10 @@ public abstract class Weapon : Item
         return "Sprites/Items/Weapons/";
     }
 
+    protected override void InitDescription(string id) {
+        this.description = Localization.GetWeaponDescription(id);
+    }
+
     public override string GetDescription()
     {
         return description.DESCRIPTION;
@@ -100,8 +113,7 @@ public abstract class Weapon : Item
     {
         System.Type type = GetType();
         
-        Weapon newWeapon = (Weapon) type.GetConstructor(new System.Type[0]).Invoke(new Object[0]);
-        newWeapon.target = target;
+        Weapon newWeapon = (Weapon) type.GetConstructor(new System.Type[] { typeof(string) }).Invoke(new object[] { target });
 
         return newWeapon;
     }

@@ -1,5 +1,5 @@
-
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using Pathfinding;
 
@@ -120,7 +120,7 @@ public class Floor : MonoBehaviour
                     else if(gridMap[i,j].name == "Anteroom")
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("antichamber");
                     else if(gridMap[i,j].name == "BossRoom")
-                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("basic");
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("boss");
                     else if (gridMap[i,j].name == "TreasureRoom"){
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("treasure");
                     }
@@ -139,10 +139,16 @@ public class Floor : MonoBehaviour
                 }
             }
         }
-        
-        AstarPath.active.Scan();
+
+        Game.coroutineStarter.LaunchCoroutine(WaitForAstarScan());
         initRoom.GetComponent<RoomHandler>().SetAsStart();
         Game.player.transform.position = initRoom.GetComponent<RoomHandler>().transform.position;
+    }
+
+    private static IEnumerator WaitForAstarScan()
+    {
+        yield return new WaitForFixedUpdate();
+        AstarPath.active.Scan();
     }
 
     public static bool checkIfRoomOnLineBeforeAnteroom(){
@@ -334,7 +340,7 @@ public class Floor : MonoBehaviour
         initRoom = null;
     }
 
-    public static IEnumerator<YieldInstruction> changeFloor(){
+    public static IEnumerator changeFloor(){
         destroyFloor();
         yield return new WaitForSeconds(1);
         Tower.generateNextFloor();

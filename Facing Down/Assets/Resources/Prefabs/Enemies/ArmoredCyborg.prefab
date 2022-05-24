@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 7939279752225125526}
   - component: {fileID: 2031199047652779864}
   - component: {fileID: 6913128310083045697}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -3
   m_Sprite: {fileID: 4346836856989966536, guid: 797e47c60648f554ca2b44526013d0fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -280,7 +280,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -3
   m_Sprite: {fileID: -7827374038766925829, guid: c1617ea20babc94458dd456bfc984a18, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -478,6 +478,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  canTakeKnockBack: 1
 --- !u!114 &191769382907067283
 MonoBehaviour:
   m_ObjectHideFlags: 0
