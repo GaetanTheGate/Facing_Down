@@ -12,7 +12,7 @@ public class VoraciousFlames : PassiveItem
 	}
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, damageIncrease * 100);
+		return string.Format(description.DESCRIPTION, damageIncrease * amount * 100);
 	}
 
 	public override DamageInfo OnDealDamage(DamageInfo damage) {

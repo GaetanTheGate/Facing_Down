@@ -54,6 +54,14 @@
 			"TEXT" : "Display controls"
 		},
 		{
+			"ID" : "textOptionCommandsKeyBoard",
+			"TEXT" : "KeyBoard / Mouse:"
+		},
+		{
+			"ID" : "textOptionCommandsController",
+			"TEXT" : "Controler:"
+		},
+		{
 			"ID" : "textActionDash",
 			"TEXT" : "Dash:"
 		},

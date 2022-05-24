@@ -120,11 +120,25 @@ public class Map : MonoBehaviour
     }
 
     public static void changeColorMapicon(GameObject roomToHide, GameObject roomToDisplay){
-        foreach(Object o in GameObject.FindObjectsOfType(typeof(GameObject), true)){
-            if((((GameObject) o).CompareTag("MapIcon") && o.name == "MapIcon"+roomToHide.name))
-                ((GameObject) o).GetComponent<Image>().color = Color.white;
-            if((((GameObject) o).CompareTag("MapIcon") && o.name == "MapIcon"+roomToDisplay.name))
-                ((GameObject) o).GetComponent<Image>().color = Color.blue;
+        onColorMapicon(roomToDisplay);
+        offColorMapicon(roomToHide);
+    }
+
+    public static void onColorMapicon(GameObject roomToDisplay)
+    {
+        foreach (Object o in GameObject.FindObjectsOfType(typeof(GameObject), true))
+        {
+            if ((((GameObject)o).CompareTag("MapIcon") && o.name == "MapIcon" + roomToDisplay.name))
+                ((GameObject)o).GetComponent<Image>().color = Color.blue;
+        }
+    }
+
+    public static void offColorMapicon(GameObject roomToHide)
+    {
+        foreach (Object o in GameObject.FindObjectsOfType(typeof(GameObject), true))
+        {
+            if ((((GameObject)o).CompareTag("MapIcon") && o.name == "MapIcon" + roomToHide.name))
+                ((GameObject)o).GetComponent<Image>().color = Color.white;
         }
     }
 

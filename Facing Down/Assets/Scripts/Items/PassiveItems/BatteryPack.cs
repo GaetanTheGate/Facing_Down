@@ -8,7 +8,7 @@ public class BatteryPack : PassiveItem
     public BatteryPack() : base("BatteryPack", ItemRarity.EPIC, ItemType.THUNDER) { }
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, maxSpecialIncrease);
+		return string.Format(description.DESCRIPTION, maxSpecialIncrease * amount);
 	}
 
 	public override void OnPickup() {

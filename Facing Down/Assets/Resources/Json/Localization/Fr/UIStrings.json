@@ -54,6 +54,14 @@
 			"TEXT" : "Voir les commandes"
 		},
 		{
+			"ID" : "textOptionCommandsKeyBoard",
+			"TEXT" : "Clavier / Souris :"
+		},
+		{
+			"ID" : "textOptionCommandsController",
+			"TEXT" : "Manette :"
+		},
+		{
 			"ID" : "textActionDash",
 			"TEXT" : "Propulsion :"
 		},

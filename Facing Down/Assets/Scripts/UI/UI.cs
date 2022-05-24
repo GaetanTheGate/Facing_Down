@@ -37,7 +37,7 @@ public class UI : MonoBehaviour
 	private void OnGUI() {
 		if (Event.current.type == EventType.KeyDown) {
             if (console.IsToggled()) {
-                if (Event.current.keyCode == Options.Get().dicoCommand["closeUI"]) {
+                if (Event.current.keyCode == Options.Get().dicoCommandsKeyBoard["closeUI"]) {
                     console.Toggle();
                 }
             }
@@ -50,10 +50,10 @@ public class UI : MonoBehaviour
 				}
             }
             else {
-                if (Event.current.keyCode == Options.Get().dicoCommand["openConsole"]) {
+                if (Event.current.keyCode == Options.Get().dicoCommandsKeyBoard["openConsole"]) {
                     console.Toggle();
                 }
-                else if (Event.current.keyCode == Options.Get().dicoCommand["openInventoryMap"]) {
+                else if (Event.current.keyCode == Options.Get().dicoCommandsKeyBoard["openInventoryMap"]) {
                     inventoryDisplay.Enable();
                     map.Enable();
                     UnlockCursor();

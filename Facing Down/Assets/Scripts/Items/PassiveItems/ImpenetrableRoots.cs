@@ -8,7 +8,7 @@ public class ImpenetrableRoots : PassiveItem
 	public ImpenetrableRoots() : base("ImpenetrableRoots", ItemRarity.COMMON, ItemType.EARTH) { }
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, (1 - damageReduction) * 100);
+		return string.Format(description.DESCRIPTION, (1 - Mathf.Pow(damageReduction, amount)) * 100);
 	}
 
 	public override DamageInfo OnTakeDamage(DamageInfo damage) {

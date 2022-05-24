@@ -6,7 +6,7 @@ public class ArtificialWings : PassiveItem {
 	public ArtificialWings() : base("ArtificialWings", ItemRarity.COMMON, ItemType.WIND) { }
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, 1);
+		return string.Format(description.DESCRIPTION, amount);
 	}
 
 	public override void OnPickup() {

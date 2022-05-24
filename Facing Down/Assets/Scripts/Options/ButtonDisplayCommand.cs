@@ -6,13 +6,16 @@ using UnityEngine.UI;
 public class ButtonDisplayCommand : MonoBehaviour
 {
 
-    public static GameObject contentDisplayCommand;
+    public static GameObject contentDisplayCommands;
+    public static GameObject contentDisplayCommandKeyBoard;
+    public static GameObject contentDisplayCommandController;
     public void displayCommand(){
-        ButtonBack.gameObjectsToDisable.Add(contentDisplayCommand);
+        ButtonBack.gameObjectsToDisable.Add(contentDisplayCommands);
         ButtonBack.gameObjectsToEnable.Add(MenuManager.gameObjectOptions);
 
-        contentDisplayCommand.SetActive(true);
-        ButtonApply.onDisplayCommand = true;
+        contentDisplayCommands.SetActive(true);
+        contentDisplayCommandKeyBoard.SetActive(true);
+        ButtonApply.onDisplayCommands = true;
 
     }
 

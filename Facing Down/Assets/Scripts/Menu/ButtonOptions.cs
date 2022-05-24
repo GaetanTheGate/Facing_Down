@@ -43,15 +43,25 @@ public class ButtonOptions : MonoBehaviour
 
 
         //load keyBinding
-        ButtonDisplayCommand.contentDisplayCommand.SetActive(true);
-        foreach(KeyBinding keyBinding in Options.Get().commands){
-            foreach(Transform child in ButtonDisplayCommand.contentDisplayCommand.transform){
+        ButtonDisplayCommand.contentDisplayCommandKeyBoard.SetActive(true);
+        foreach(KeyBinding keyBinding in Options.Get().commandsKeyBoard){
+            foreach(Transform child in ButtonDisplayCommand.contentDisplayCommandKeyBoard.transform){
                 GameObject action = child.Find("Action").gameObject;
                 if(keyBinding.action == action.GetComponent<InfoAction>().idAction)
                     child.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text = keyBinding.key.ToString();
             }
         }
-        ButtonDisplayCommand.contentDisplayCommand.SetActive(false);
+        ButtonDisplayCommand.contentDisplayCommandKeyBoard.SetActive(false);
+
+        ButtonDisplayCommand.contentDisplayCommandController.SetActive(true);
+        foreach(KeyBinding keyBinding in Options.Get().commandsController){
+            foreach(Transform child in ButtonDisplayCommand.contentDisplayCommandController.transform){
+                GameObject action = child.Find("Action").gameObject;
+                if(keyBinding.action == action.GetComponent<InfoAction>().idAction)
+                    child.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text = keyBinding.key.ToString();
+            }
+        }
+        ButtonDisplayCommand.contentDisplayCommandController.SetActive(false);
         
     }
 

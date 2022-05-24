@@ -8,7 +8,7 @@ public class ObsidianShard : PassiveItem
     public ObsidianShard() : base("ObsidianShard", ItemRarity.LEGENDARY, ItemType.FIRE) { }
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, baseAtk);
+		return string.Format(description.DESCRIPTION, baseAtk * amount);
 	}
 
 	public override void OnEnemyKill(Entity enemy) {

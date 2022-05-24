@@ -8,14 +8,14 @@ public class FocusAmber : PassiveItem
     public FocusAmber() : base("FocusAmber", ItemRarity.COMMON, ItemType.THUNDER) { }
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, specialDurationIncrease * 100);
+		return string.Format(description.DESCRIPTION, specialDurationIncrease * amount * 100);
 	}
 
 	public override void OnPickup() {
-		Game.player.stat.specialDuration += specialDurationIncrease;
+		Game.player.stat.ModifySpecialDuration(specialDurationIncrease * Game.player.stat.BASE_SPE_DURATION);
 	}
 
 	public override void OnRemove() {
-		Game.player.stat.specialDuration -= specialDurationIncrease;
+		Game.player.stat.ModifySpecialDuration(specialDurationIncrease * Game.player.stat.BASE_SPE_DURATION);
 	}
 }

@@ -12,7 +12,7 @@ public class PlayerDash : AbstractPlayer, InputListener
     private RotationEntity rotation;
 
     private float chargeTimePassed = 0.0f;
-    private float chargeTime = 1.0f;
+    private float chargeTime = 0.2f;
 
     protected override void Initialize()
     {
@@ -51,7 +51,7 @@ public class PlayerDash : AbstractPlayer, InputListener
             rotation.Init();
         }
 
-        Game.controller.Subscribe(Options.Get().dicoCommand["dash"], this);
+        Game.controller.Subscribe(Options.Get().dicoCommandsKeyBoard["dash"], this);
     }
 
     public void OnInputPressed() {
@@ -59,7 +59,7 @@ public class PlayerDash : AbstractPlayer, InputListener
     }
 
     public void OnInputHeld() {
-        camManager.SetZoomPercent(Mathf.Min(130.0f, 100 + 30 * (chargeTimePassed / chargeTime)));
+        camManager.SetZoomPercent(Mathf.Min(110.0f, 100 + 10 * (chargeTimePassed / chargeTime)));
     }
 
     public void OnInputReleased() {
@@ -102,7 +102,7 @@ public class PlayerDash : AbstractPlayer, InputListener
 
         player.inventory.OnMegaDash();
 
-        rb.velocity = new Velocity(stat.getAcceleration() * 1.5f, pointer.getAngle()).GetAsVector2();
+        rb.velocity = new Velocity(stat.GetAcceleration() * 1.5f, pointer.getAngle()).GetAsVector2();
 
         Game.time.SetGameSpeedInstant(1.6f);
     }
@@ -114,7 +114,7 @@ public class PlayerDash : AbstractPlayer, InputListener
 
         player.inventory.OnDash();
 
-        rb.velocity = new Velocity(stat.getAcceleration(), pointer.getAngle()).GetAsVector2();
+        rb.velocity = new Velocity(stat.GetAcceleration(), pointer.getAngle()).GetAsVector2();
 
         Game.time.SetGameSpeedInstant(1.2f);
     }

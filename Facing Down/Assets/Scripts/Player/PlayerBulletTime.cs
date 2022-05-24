@@ -11,7 +11,7 @@ public class PlayerBulletTime : AbstractPlayer, InputListener
     protected override void Initialize()
     {
         Debug.Log("INIT");
-        Game.controller.Subscribe(Options.Get().dicoCommand["bulletTime"], this);
+        Game.controller.Subscribe(Options.Get().dicoCommandsKeyBoard["bulletTime"], this);
     }
 
     public void OnInputPressed() {
@@ -38,12 +38,12 @@ public class PlayerBulletTime : AbstractPlayer, InputListener
 		}
         if (isInBulletTime) {
             if (Game.time.GetGameSpeed() > 0)
-            Game.player.stat.ModifySpecialLeft(- Time.fixedDeltaTime / (float)Game.player.stat.specialDuration / Game.time.GetGameSpeed());
+            Game.player.stat.ModifySpecialLeft(- Time.fixedDeltaTime / Game.player.stat.GetSpecialDuration() / Game.time.GetGameSpeed());
             Game.time.SetGameSpeed(0.00f);
         }
         else {
             if (Game.time.GetGameSpeed() > 0)
-                Game.player.stat.ModifySpecialLeft(Time.fixedDeltaTime / (float)Game.player.stat.specialCooldown / Game.time.GetGameSpeed());
+                Game.player.stat.ModifySpecialLeft(Time.fixedDeltaTime / Game.player.stat.GetSpecialCooldown() / Game.time.GetGameSpeed());
             Game.time.SetGameSpeed(1.0f);
         }
     }

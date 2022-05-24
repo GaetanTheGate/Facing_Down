@@ -12,7 +12,7 @@ public class DoorTrigger : MonoBehaviour
                 return;
 
             Game.currentRoom.OnExitRoom();
-            GetComponentInParent<RoomHandler>().OnEnterRoom();
+            GetComponentInParent<BaseRoomHandler>().OnEnterRoom();
         }
         
     }

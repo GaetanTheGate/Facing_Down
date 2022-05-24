@@ -6,11 +6,12 @@ using System.IO;
 
 public class ButtonApply : MonoBehaviour
 {
-    public static bool onDisplayCommand = false;
+    public static bool onDisplayCommands = false;
     public static bool onContentVolume = false;
     public void apply(){
 
-        ButtonDisplayCommand.contentDisplayCommand.SetActive(true);
+        ButtonDisplayCommand.contentDisplayCommandKeyBoard.SetActive(true);
+        ButtonDisplayCommand.contentDisplayCommandController.SetActive(true);
         ButtonAdjustVolume.contentVolume.SetActive(true);
 
         Options.Get().langue = GameObject.Find("DropdownLangue").GetComponent<Dropdown>().captionText.text;
@@ -18,10 +19,10 @@ public class ButtonApply : MonoBehaviour
         Options.Get().musicVolumeValue = GameObject.Find("SliderMusicVolume").GetComponent<Slider>().value;
         Options.Get().soundVolumeValue = GameObject.Find("SliderSoundVolume").GetComponent<Slider>().value;
 
-        GameObject commands = GameObject.Find("ContentDisplayCommand").gameObject;
-        for (int i = 0; i < commands.transform.childCount; ++i) {
-            GameObject command = commands.transform.GetChild(i).gameObject;
-            foreach (KeyBinding keyBinding in Options.Get().commands) {
+        GameObject commandsKeyBoard = GameObject.Find("ContentDisplayCommandKeyBoard").gameObject;
+        for (int i = 0; i < commandsKeyBoard.transform.childCount; ++i) {
+            GameObject command = commandsKeyBoard.transform.GetChild(i).gameObject;
+            foreach (KeyBinding keyBinding in Options.Get().commandsKeyBoard) {
                 if (keyBinding.action == command.transform.Find("Action").GetComponent<InfoAction>().idAction) {
                     string stringKeyCode = command.transform.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text;
                     keyBinding.key = (KeyCode)System.Enum.Parse(typeof(KeyCode), stringKeyCode);
@@ -29,10 +30,24 @@ public class ButtonApply : MonoBehaviour
                 }
             }
         }
+
+        GameObject commandsController = GameObject.Find("ContentDisplayCommandController").gameObject;
+        for (int i = 0; i < commandsController.transform.childCount; ++i) {
+            GameObject command = commandsController.transform.GetChild(i).gameObject;
+            foreach (KeyBinding keyBinding in Options.Get().commandsController) {
+                if (keyBinding.action == command.transform.Find("Action").GetComponent<InfoAction>().idAction) {
+                    string stringKeyCode = command.transform.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text;
+                    keyBinding.key = (KeyCode)System.Enum.Parse(typeof(KeyCode), stringKeyCode);
+                    break;
+                }
+            }
+        }
+
         
-        if(!onDisplayCommand){
-            ButtonDisplayCommand.contentDisplayCommand.SetActive(false);
-            onDisplayCommand = false;
+        
+        if(!onDisplayCommands){
+            ButtonDisplayCommand.contentDisplayCommands.SetActive(false);
+            onDisplayCommands = false;
         }
 
         if(!onContentVolume){
