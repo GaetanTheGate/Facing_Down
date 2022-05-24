@@ -102,7 +102,7 @@ public class PlayerDash : AbstractPlayer, InputListener
 
         player.inventory.OnMegaDash();
 
-        rb.velocity = new Velocity(stat.getAcceleration() * 1.5f, pointer.getAngle()).GetAsVector2();
+        rb.velocity = new Velocity(stat.GetAcceleration() * 1.5f, pointer.getAngle()).GetAsVector2();
 
         Game.time.SetGameSpeedInstant(1.6f);
     }
@@ -114,7 +114,7 @@ public class PlayerDash : AbstractPlayer, InputListener
 
         player.inventory.OnDash();
 
-        rb.velocity = new Velocity(stat.getAcceleration(), pointer.getAngle()).GetAsVector2();
+        rb.velocity = new Velocity(stat.GetAcceleration(), pointer.getAngle()).GetAsVector2();
 
         Game.time.SetGameSpeedInstant(1.2f);
     }

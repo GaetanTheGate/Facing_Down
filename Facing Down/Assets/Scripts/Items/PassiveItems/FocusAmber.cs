@@ -12,10 +12,10 @@ public class FocusAmber : PassiveItem
 	}
 
 	public override void OnPickup() {
-		Game.player.stat.specialDuration += specialDurationIncrease;
+		Game.player.stat.ModifySpecialDuration(specialDurationIncrease);
 	}
 
 	public override void OnRemove() {
-		Game.player.stat.specialDuration -= specialDurationIncrease;
+		Game.player.stat.ModifySpecialDuration(specialDurationIncrease);
 	}
 }

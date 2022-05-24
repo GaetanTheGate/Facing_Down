@@ -17,7 +17,6 @@ public class HealthBar : MonoBehaviour
 		HPFill = (RectTransform) transform.Find("HPFill").transform;
 		healthText = GetComponentInChildren<Text>();
 		height = ((RectTransform) transform).sizeDelta.y;
-		UpdateHP();
 	}
 
 	public void UpdateHP() {
