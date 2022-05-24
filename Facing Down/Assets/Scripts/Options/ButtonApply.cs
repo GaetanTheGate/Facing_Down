@@ -10,6 +10,7 @@ public class ButtonApply : MonoBehaviour
     public static bool onContentVolume = false;
     public void apply(){
 
+        ButtonDisplayCommand.contentDisplayCommands.SetActive(true);
         ButtonDisplayCommand.contentDisplayCommandKeyBoard.SetActive(true);
         ButtonDisplayCommand.contentDisplayCommandController.SetActive(true);
         ButtonAdjustVolume.contentVolume.SetActive(true);

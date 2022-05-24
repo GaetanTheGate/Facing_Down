@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class UI : MonoBehaviour
 {
     public static InventoryDisplay inventoryDisplay;
@@ -37,12 +38,13 @@ public class UI : MonoBehaviour
 	private void OnGUI() {
 		if (Event.current.type == EventType.KeyDown) {
             if (console.IsToggled()) {
-                if (Event.current.keyCode == Options.Get().dicoCommandsKeyBoard["closeUI"]) {
+                if (Event.current.keyCode == Options.Get().dicoCommandsKeyBoard["closeUI"] || Event.current.keyCode == Options.Get().dicoCommandsController["closeUI"] ) {
                     console.Toggle();
+                    
                 }
             }
             else if (inventoryDisplay.IsEnabled()) {
-                if (Event.current.keyCode == KeyCode.Escape) {
+                if (Event.current.keyCode == Options.Get().dicoCommandsKeyBoard["closeUI"] || Event.current.keyCode == Options.Get().dicoCommandsController["closeUI"]) {
                     inventoryDisplay.Disable();
                     map.Disable();
                     LockCursor();
@@ -50,10 +52,10 @@ public class UI : MonoBehaviour
 				}
             }
             else {
-                if (Event.current.keyCode == Options.Get().dicoCommandsKeyBoard["openConsole"]) {
+                if (Event.current.keyCode == Options.Get().dicoCommandsKeyBoard["openConsole"] || Event.current.keyCode == Options.Get().dicoCommandsController["openConsole"] ) {
                     console.Toggle();
                 }
-                else if (Event.current.keyCode == Options.Get().dicoCommandsKeyBoard["openInventoryMap"]) {
+                else if (Event.current.keyCode == Options.Get().dicoCommandsKeyBoard["openInventoryMap"] || Event.current.keyCode == Options.Get().dicoCommandsController["openInventoryMap"] ){
                     inventoryDisplay.Enable();
                     map.Enable();
                     UnlockCursor();

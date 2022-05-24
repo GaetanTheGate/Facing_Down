@@ -10,8 +10,9 @@ public class Options
     private static Options options;
 
     [System.NonSerialized]
-    public Dictionary<string,KeyCode> dicoCommandsKeyBoard;
-    public Dictionary<string,KeyCode> dicoCommandsController;
+    public Dictionary<string,KeyCode> dicoCommandsKeyBoard = new Dictionary<string, KeyCode>();
+    [System.NonSerialized]
+    public Dictionary<string,KeyCode> dicoCommandsController = new Dictionary<string, KeyCode>();
 
     public string langue;
     public float masterVolumeValue;
@@ -22,7 +23,7 @@ public class Options
     public List<KeyBinding> commandsKeyBoard = new List<KeyBinding>();
     public List<KeyBinding> commandsController = new List<KeyBinding>();
 
-    private Options() {
+    public void getDefaultOption() {
         langue = "En";
         masterVolumeValue = 100f;
         musicVolumeValue = 100f;
@@ -50,9 +51,14 @@ public class Options
 
     public static Options Get() {
         if (options == null) {
-            if (File.Exists(fullPath)) options = JsonUtility.FromJson<Options>(File.ReadAllText(fullPath));
+            if (File.Exists(fullPath)){
+                options = JsonUtility.FromJson<Options>(File.ReadAllText(fullPath));
+                options.dicoCommandsController = options.commandsControllerToDictionary();
+                options.dicoCommandsKeyBoard = options.commandsKeyBoardToDictionary();
+            } 
             else {
                 options = new Options();
+                options.getDefaultOption();
                 Save();
 			}
         }
@@ -60,6 +66,7 @@ public class Options
     }
 
     public static void Save() {
+        Options.Get().dicoCommandsController = Options.Get().commandsControllerToDictionary();
         Options.Get().dicoCommandsKeyBoard = Options.Get().commandsKeyBoardToDictionary();
         string jsonStringOptions = JsonUtility.ToJson(Options.Get());
 

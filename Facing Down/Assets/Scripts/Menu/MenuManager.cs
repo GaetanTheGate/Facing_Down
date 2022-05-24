@@ -36,6 +36,8 @@ public class MenuManager : MonoBehaviour
         ButtonDisplayCommand.contentDisplayCommands.SetActive(false);
         ButtonAdjustVolume.contentVolume.SetActive(false);
 
+        
+
         applyOptions();
     }
 
