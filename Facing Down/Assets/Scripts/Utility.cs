@@ -7,4 +7,9 @@ public static class Utility
     public static int mod(int x, int m) {
 		return (x % m + m) % m;
 	}
+
+	public static float mod(float x, float m)
+	{
+		return (x % m + m) % m;
+	}
 }

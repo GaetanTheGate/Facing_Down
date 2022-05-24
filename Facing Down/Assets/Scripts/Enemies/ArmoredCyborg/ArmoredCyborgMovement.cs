@@ -5,14 +5,9 @@ using Pathfinding;
 
 public class ArmoredCyborgMovement : EnemyMovement
 {
-    public float jumpHeight = 2f;
 
     //private ArmoredCyborgAttack armoredCyborgAttack;
     private EntityCollisionStructure entityCollisionStructure;
-    private SpriteRenderer sp;
-
-    private bool isJumping = false;
-    //private bool isFacingWall = false;
 
     // Start is called before the first frame update
     public override void Start()
@@ -25,7 +20,6 @@ public class ArmoredCyborgMovement : EnemyMovement
             entityCollisionStructure = gameObject.AddComponent<EntityCollisionStructure>();
             entityCollisionStructure.Init();
         }
-        sp = gameObject.GetComponent<SpriteRenderer>();
 
 
         nextFlag = flags[0];
@@ -34,11 +28,7 @@ public class ArmoredCyborgMovement : EnemyMovement
 
     public override void FixedUpdate()
     {
-        //if (entityCollisionStructure.isGrounded) isJumping = false;
-
         setNextFlag();
-
-        if (entityCollisionStructure.isGrounded) checkAstarObstacles();
 
         if (isFollowingPlayer) followingPlayerBehaviour();
 
@@ -64,43 +54,16 @@ public class ArmoredCyborgMovement : EnemyMovement
             rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(path.vectorPath[currentWayPoint].x - transform.position.x, 0).normalized * movementSpeed, 5 * Time.deltaTime);
             if (Vector2.Distance(transform.position, path.vectorPath[currentWayPoint]) < 1f) currentWayPoint++;
         }
-
-        if (nextFlag.position.x < transform.position.x && !isFlipped)
+        if (gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").transform.localRotation.eulerAngles.z > 90 && !isFlipped)
         {
             isFlipped = true;
-            animator.SetBool("isFlipped", isFlipped);
             gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
         }
-        else if (nextFlag.position.x >= transform.position.x && isFlipped)
+        else if (gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").transform.localRotation.eulerAngles.z < 90 && isFlipped)
         {
             isFlipped = false;
-            animator.SetBool("isFlipped", isFlipped);
             gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
         }
-
-        /*if (!(isFacingWall && entityCollisionStructure.isWalled) && Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax)
-        {
-            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, rb.velocity.y).normalized * movementSpeed, 5 * Time.deltaTime);
-        }
-        else if (Vector2.Distance(nextFlag.position, transform.position) < rangeFromPlayerMin)
-        {
-            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(transform.position.x - nextFlag.position.x, rb.velocity.y).normalized * movementSpeed, 5 * Time.deltaTime);
-        }
-
-        armoredCyborgAttack.attackPlayer(nextFlag.position);
-
-        if (nextFlag.position.x < transform.position.x && !isFlipped)
-        {
-            isFlipped = true;
-            animator.SetBool("isFlipped", isFlipped);
-            gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
-        }
-        else if (nextFlag.position.x >= transform.position.x && isFlipped)
-        {
-            isFlipped = false;
-            animator.SetBool("isFlipped", isFlipped);
-            gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
-        }*/
     }
 
     protected override void moveNotFollowingPlayer()
@@ -113,82 +76,6 @@ public class ArmoredCyborgMovement : EnemyMovement
         if (!entityCollisionStructure.isWalled) rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(nextFlag.position.x - transform.position.x, 0).normalized * movementSpeed * 0.75f, 5 * Time.deltaTime);
     }
 
-    /*private void checkObstacles()
-    {
-        isFacingWall = false;
-        foreach (Vector2 normal in entityCollisionStructure.contactNormalsRelativeToGravity)
-        {
-            if (new Velocity(normal).getAngle() > 100 && new Velocity(normal).getAngle() < 260)
-            {
-                if (transform.localScale.x > 0)
-                {
-                    isFacingWall = true;
-                }
-            }
-            else if (new Velocity(normal).getAngle() > 280 || new Velocity(normal).getAngle() < 80)
-            {
-                if(transform.localScale.x < 0)
-                {
-                    isFacingWall = true;
-                }
-            }
-
-        }
-        if (!isJumping && entityCollisionStructure.isWalled && isFacingWall && 
-            ((isFollowingPlayer && Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax) || ((!isFollowingPlayer) && Mathf.Abs(transform.position.x - nextFlag.position.x) >= Mathf.Abs(transform.localScale.x))))
-        {
-            float height = Raycasting.checkObstacleJumpable(transform, sp, jumpHeight);
-            if (height != 0f)
-            {
-                isJumping = true;
-                jump(height);
-            }
-        }
-    }*/
-
-    private void checkAstarObstacles() //triche
-    {
-        if (!seeker.IsDone() || path == null) return;
-        Vector3 previousWaypoint = path.vectorPath[0];
-        foreach (Vector3 waypoint in path.vectorPath)
-        {
-            if (waypoint.y >= previousWaypoint.y) previousWaypoint = waypoint;
-            else break;
-        }
-        Collider2D col = gameObject.transform.Find("Collider").GetComponent<Collider2D>();
-        if (previousWaypoint.y > transform.position.y + col.bounds.size.y / 2)
-        {
-            float heightToCheck = previousWaypoint.y - (transform.position.y - col.bounds.size.y / 2);
-            //print(entityCollisionStructure.isGrounded);
-            float heightToJump = Raycasting.checkHighestObstacle(transform, col, Mathf.Min(heightToCheck, jumpHeight));
-            if (!isJumping && heightToJump > 0 && heightToJump < jumpHeight + 1)
-            {
-                isJumping = true;
-                jump(heightToJump + 0.7f); //triche
-                StartCoroutine(startWaitingForFixedUpdate());
-            }
-            
-            //if (obstacleChecker.GetComponent<ArmoredCyborgCheckObstacles>() != null && obstacleChecker.GetComponent<ArmoredCyborgCheckObstacles>().isColliding && height < jumpHeight + 1) jump(height);
-        }
-    }
-
-    private IEnumerator startWaitingForFixedUpdate() //provisoire
-    {
-        yield return new WaitForFixedUpdate();
-        yield return new WaitForFixedUpdate();
-        isJumping = false;
-    }
-
-    private void jump(float height)
-    {
-        print("JUMP");
-        Velocity jump =  new Velocity(GetComponent<GravityEntity>().gravity);
-
-        jump.AddToAngle(180);
-        jump.setSpeed(height*jump.getSpeed());
-        rb.velocity = jump.GetAsVector2();
-    }
-
     protected override float calculateDistanceNextFlag()
     {
         return Mathf.Abs(transform.position.x - nextFlag.position.x);
@@ -196,6 +83,33 @@ public class ArmoredCyborgMovement : EnemyMovement
 
     private void turnShield()
     {
-        gameObject.transform.Find("ShieldPivot").transform.localEulerAngles = new Vector3(transform.rotation.x, transform.rotation.y, Vector2.Angle(playerTransform.position - gameObject.transform.position, gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left));
+        float angleMax = 45 * Time.fixedDeltaTime;
+
+        float anglePlayer = Angles.AngleBetweenVector2(transform.position, playerTransform.position);
+        float angleShield = gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").transform.localRotation.eulerAngles.z;
+
+
+        anglePlayer = Utility.mod(anglePlayer, 360);
+
+        if (anglePlayer > 180 && anglePlayer <= 270)
+        {
+            anglePlayer = 180;
+            angleShield = anglePlayer;
+        }
+        else if (anglePlayer > 270 && anglePlayer <= 360)
+        {
+            anglePlayer = 0;
+            angleShield = anglePlayer;
+        }
+
+
+        float newAngle = Mathf.MoveTowardsAngle(angleShield, anglePlayer, angleMax);
+        gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").transform.localRotation = Quaternion.Euler(0,0, newAngle);
+
+
+        if (isFlipped)
+            gameObject.transform.Find("ShieldPivot_y").localRotation = Quaternion.Euler(0, 180, 0);
+        else
+            gameObject.transform.Find("ShieldPivot_y").localRotation = Quaternion.Euler(0, 0, 0);
     }
 }

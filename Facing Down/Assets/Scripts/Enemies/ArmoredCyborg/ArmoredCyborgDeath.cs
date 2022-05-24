@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ArmoredCyborgDeath : EnemyDeath
 {
+    public ParticleSystem particleEffectExplosion;
+
     public override void die()
     {
         base.die();
-        animator.SetBool("dead", true);
-        Destroy(parentToDestroy, animator.GetCurrentAnimatorStateInfo(0).length);
+        Instantiate(particleEffectExplosion, transform.position, Quaternion.identity);
+        Destroy(parentToDestroy);
     }
 }

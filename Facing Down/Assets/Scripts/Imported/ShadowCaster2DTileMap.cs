@@ -29,7 +29,6 @@ public class ShadowCaster2DTileMap : MonoBehaviour
 
         for (int i = 0; i < tilemapCollider.pathCount; i++)
         {
-            Debug.Log("generate !");
             Vector2[] pathVertices = new Vector2[tilemapCollider.GetPathPointCount(i)];
             tilemapCollider.GetPath(i, pathVertices);
             GameObject shadowCaster = new GameObject("shadow_caster_" + i);
