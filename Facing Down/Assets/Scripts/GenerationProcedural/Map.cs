@@ -138,7 +138,7 @@ public class Map : MonoBehaviour
         foreach (Object o in GameObject.FindObjectsOfType(typeof(GameObject), true))
         {
             if ((((GameObject)o).CompareTag("MapIcon") && o.name == "MapIcon" + roomToHide.name))
-                ((GameObject)o).GetComponent<Image>().color = Color.blue;
+                ((GameObject)o).GetComponent<Image>().color = Color.white;
         }
     }
 

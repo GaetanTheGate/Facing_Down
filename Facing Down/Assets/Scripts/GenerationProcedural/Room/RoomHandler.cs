@@ -218,7 +218,6 @@ public class RoomHandler : MonoBehaviour
         }
 
         if(canGenerate){
-            print("génération");
             GameObject newMoldRoom = instantiateNewMoldRoom();
 
             addRoomToGridMap(newMoldRoom,coordinates,onSide);
@@ -230,9 +229,6 @@ public class RoomHandler : MonoBehaviour
             setDoorsOn(onSide, newMoldRoom);
             Floor.validSideOfRoom[gameObject].Remove(onSide); 
             
-        }
-        else{
-            print("génération impossible");
         }
 
         if (Floor.validSideOfRoom[gameObject].Count == 0){
