@@ -17,7 +17,12 @@ public class ButtonChangeCommand : MonoBehaviour
             GetComponentInChildren<Text>().text = "";
             foreach(KeyCode kc in Enum.GetValues(typeof(KeyCode))){
                 if(Input.GetKeyDown(kc)){
-                    GetComponentInChildren<Text>().text = kc.ToString();
+                    string text ;
+                    if(kc.ToString().Contains("JoystickButton"))
+                        text = keycodeControllerToSTring(kc);
+                    else
+                        text = kc.ToString();
+                    GetComponentInChildren<Text>().text = text;
                     canChange = false;
                     break;
                 }
@@ -48,32 +53,72 @@ public class ButtonChangeCommand : MonoBehaviour
                 bouton = "Bouton Y";
                 break;
             case KeyCode.JoystickButton4:
+                bouton = "Bouton LB";
+                break;
+            case KeyCode.JoystickButton5:
                 bouton = "Bouton RB";
                 break;
-            case KeyCode.JoystickButton0:
-                bouton = "Bouton A";
+            case KeyCode.JoystickButton6:
+                bouton = "Bouton start";
                 break;
-            case KeyCode.JoystickButton0:
-                bouton = "Bouton A";
+            case KeyCode.JoystickButton7:
+                bouton = "Bouton select";
                 break;
-            case KeyCode.JoystickButton0:
-                bouton = "Bouton A";
+            case KeyCode.JoystickButton8:
+                bouton = "Bouton xBox";
                 break;
-            case KeyCode.JoystickButton0:
-                bouton = "Bouton A";
+            case KeyCode.JoystickButton9:
+                bouton = "Bouton joystick gauche";
                 break;
-            case KeyCode.JoystickButton0:
-                bouton = "Bouton A";
-                break;
-            case KeyCode.JoystickButton0:
-                bouton = "Bouton A";
-                break;
-            case KeyCode.JoystickButton0:
-                bouton = "Bouton A";
+            case KeyCode.JoystickButton10:
+                bouton = "Bouton joystick droit";
                 break;
         }
 
-        return null;
+        return bouton;
     }
+
+    public static KeyCode stringToKeyCode(string text){
+        KeyCode kc = KeyCode.None;
+        switch(text){
+            case "Bouton A":
+                kc = KeyCode.JoystickButton0;
+                break;
+            case "Bouton B":
+                kc = KeyCode.JoystickButton1;
+                break;
+            case "Bouton X":
+                kc = KeyCode.JoystickButton2;
+                break;
+            case "Bouton Y":
+                kc = KeyCode.JoystickButton3;
+                break;
+            case "Bouton LB":
+                kc = KeyCode.JoystickButton4;
+                break;
+            case "Bouton RB":
+                kc = KeyCode.JoystickButton5;
+                break;
+            case "Bouton start":
+                kc = KeyCode.JoystickButton6;
+                break;
+            case "Bouton select":
+                kc = KeyCode.JoystickButton7;
+                break;
+            case "Bouton xBox":
+                kc = KeyCode.JoystickButton8;
+                break;
+            case "Bouton joystick gauche":
+                kc = KeyCode.JoystickButton9;
+                break;
+            case "Bouton joystick droit":
+                kc = KeyCode.JoystickButton10;
+                break;
+        }
+
+        return kc;
+    }
+
+
     
 }

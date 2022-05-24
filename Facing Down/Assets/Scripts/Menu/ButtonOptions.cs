@@ -58,7 +58,7 @@ public class ButtonOptions : MonoBehaviour
             foreach(Transform child in ButtonDisplayCommand.contentDisplayCommandController.transform){
                 GameObject action = child.Find("Action").gameObject;
                 if(keyBinding.action == action.GetComponent<InfoAction>().idAction)
-                    child.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text = keyBinding.key.ToString();
+                    child.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text = ButtonChangeCommand.keycodeControllerToSTring(keyBinding.key);
             }
         }
         ButtonDisplayCommand.contentDisplayCommandController.SetActive(false);
