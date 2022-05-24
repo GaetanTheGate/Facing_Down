@@ -11,12 +11,12 @@ public class WeaponStat
     public float specialDurationMult;
     public float specialCooldownMult;
 
-    public WeaponStat (float HPMult = 1, float accelerationMult = 1, int addMaxDashes = 0, int addMaxSpecial = 0, float specialDurationMult = 1, float specialCooldownMult = 1) {
-        this.HPMult = HPMult;
-        this.accelerationMult = accelerationMult;
-        this.addMaxDashes = addMaxDashes;
-        this.addMaxSpecial = addMaxSpecial;
-        this.specialDurationMult = specialDurationMult;
-        this.specialCooldownMult = specialCooldownMult;
+    public WeaponStat () {
+        this.HPMult = 1;
+        this.accelerationMult = 1;
+        this.addMaxDashes = 0;
+        this.addMaxSpecial = 0;
+        this.specialDurationMult = 1;
+        this.specialCooldownMult = 1;
 	}
 }

@@ -7,7 +7,6 @@ public class Katana : MeleeWeapon
     public Katana() : this("Enemy") { }
     public Katana(string target) : base(target, "Katana")
     {
-        stat = new WeaponStat(2, 2, 10, -2, 10, 0.1f);
         baseAtk = 100;
         baseRange = 3;
         baseLenght = 180;
