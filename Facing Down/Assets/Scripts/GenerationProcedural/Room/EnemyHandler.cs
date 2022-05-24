@@ -12,6 +12,8 @@ public class EnemyHandler : MonoBehaviour, SpawnPoint
     {
         enemyLeft -= 1;
         if(checkIfNoEnemy()) GetComponentInParent<RoomInfoHandler>().NoMoreEnemy();
+        if(GetComponentInParent<RoomInfoHandler>().IsOver()) Game.player.inventory.OnRoomFinish();
+
     }
 
     public void EnemyAdded()

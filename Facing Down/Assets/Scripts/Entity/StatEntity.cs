@@ -36,16 +36,17 @@ public class StatEntity : MonoBehaviour
     }
 
     public void Heal(float amount) {
-        Debug.Log("HEAL : " + amount);
         currentHitPoints = Mathf.Min(GetMaxHP(), currentHitPoints + Mathf.CeilToInt(amount));
 	}
 
     public virtual void TakeDamage(DamageInfo dmgInfo)
     {
         if (isDead || (int)dmgInfo.amount == 0) return;
+
+        if (dmgInfo.source == Game.player.self) dmgInfo = Game.player.inventory.OnDealDamage(dmgInfo);
+
         if(canTakeDamage) currentHitPoints -= (int)dmgInfo.amount;
         if(canTakeKnockBack) GetComponent<Rigidbody2D>().velocity += dmgInfo.knockback.GetAsVector2();
-        //Debug.Log("entité : " + this.name + " hp = " + currentHitPoints);
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
         if(canTakeDamage && onHit != null && currentHitPoints > 0) onHit.Invoke(dmgInfo);
         checkIfDead(dmgInfo);

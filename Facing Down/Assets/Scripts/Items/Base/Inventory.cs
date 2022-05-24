@@ -93,10 +93,10 @@ public class Inventory
 		List<PassiveItem> delayedItems = new List<PassiveItem>();
 		foreach (PassiveItem item in items.Values) {
 			if (item.GetPriority() == ItemPriority.DELAYED) delayedItems.Add(item);
-			else damage = item.OnTakeDamage(damage);
+			else damage = item.OnDealDamage(damage);
 		}
 		foreach (PassiveItem item in delayedItems) {
-			damage = item.OnTakeDamage(damage);
+			damage = item.OnDealDamage(damage);
 		}
 		return damage;
 	}
