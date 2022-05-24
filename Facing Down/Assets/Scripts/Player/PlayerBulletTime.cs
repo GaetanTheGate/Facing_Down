@@ -11,7 +11,7 @@ public class PlayerBulletTime : AbstractPlayer, InputListener
     protected override void Initialize()
     {
         Debug.Log("INIT");
-        Game.controller.Subscribe(Options.Get().dicoCommand["bulletTime"], this);
+        Game.controller.Subscribe(Options.Get().dicoCommandsKeyBoard["bulletTime"], this);
     }
 
     public void OnInputPressed() {

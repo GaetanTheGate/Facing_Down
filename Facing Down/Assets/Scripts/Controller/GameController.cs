@@ -19,9 +19,9 @@ public class GameController : MonoBehaviour
     private Dictionary<KeyCode, bool> keyRelease = new Dictionary<KeyCode, bool>();
 
     public void Init() {
-        listenedKeys.Add(Options.Get().dicoCommand["dash"]);
-        listenedKeys.Add(Options.Get().dicoCommand["bulletTime"]);
-        listenedKeys.Add(Options.Get().dicoCommand["attack"]);
+        listenedKeys.Add(Options.Get().dicoCommandsKeyBoard["dash"]);
+        listenedKeys.Add(Options.Get().dicoCommandsKeyBoard["bulletTime"]);
+        listenedKeys.Add(Options.Get().dicoCommandsKeyBoard["attack"]);
 
         foreach (KeyCode key in listenedKeys) {
             keyPress.Add(key, false);
