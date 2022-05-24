@@ -86,7 +86,7 @@ public abstract class Weapon : Item {
     public void SetBaseEDelay(float span) => baseEDelay = span;
     public void SetBaseCooldown(float cooldown) => baseCooldown = cooldown;
 
-    protected void AddHitAttack(GameObject gameObject, DamageInfo dmgInfo)
+    protected virtual void AddHitAttack(GameObject gameObject, DamageInfo dmgInfo)
     {
         gameObject.AddComponent<AttackHit>();
         gameObject.GetComponent<AttackHit>().dmgInfo = dmgInfo;

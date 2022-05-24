@@ -6,6 +6,7 @@ public class DamageInfo
 {
     private static float baseHitCooldown = 2.0f;
 
+    public bool isMelee = false;
     public Velocity knockback;
     public Entity source;
     public Entity target;
