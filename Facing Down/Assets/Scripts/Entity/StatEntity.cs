@@ -30,7 +30,7 @@ public class StatEntity : MonoBehaviour
     public virtual void Start()
     {
         currentHitPoints = GetMaxHP();
-        UI.healthBar.UpdateHP();
+        //UI.healthBar.UpdateHP();
         animator = gameObject.GetComponent<Animator>();
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
     }

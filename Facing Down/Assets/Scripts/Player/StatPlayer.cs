@@ -92,7 +92,8 @@ public class StatPlayer : StatEntity
 	}
 
 	public override int GetMaxHP() {
-        return Mathf.FloorToInt(maxHitPoints * Game.player.inventory.GetWeapon().stat.HPMult);
+        //return Mathf.FloorToInt(maxHitPoints * Game.player.inventory.GetWeapon().stat.HPMult);
+        return 1;
 	}
 
 	public int GetMaxDashes() {

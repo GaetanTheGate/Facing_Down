@@ -8,6 +8,7 @@ public class ArmoredCyborgMovement : EnemyMovement
 
     //private ArmoredCyborgAttack armoredCyborgAttack;
     private EntityCollisionStructure entityCollisionStructure;
+    private bool isAtBorder;
 
     // Start is called before the first frame update
     public override void Start()
@@ -24,6 +25,7 @@ public class ArmoredCyborgMovement : EnemyMovement
 
         nextFlag = flags[0];
         rangeFromPlayerMax = 1.5f;
+        isAtBorder = false;
     }
 
     public override void FixedUpdate()
@@ -49,10 +51,13 @@ public class ArmoredCyborgMovement : EnemyMovement
 
     public override void moveFollowingPlayer()
     {
-        if (Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax)
+        if (!isAtBorder)
         {
-            rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(path.vectorPath[currentWayPoint].x - transform.position.x, 0).normalized * movementSpeed, 5 * Time.deltaTime);
-            if (Vector2.Distance(transform.position, path.vectorPath[currentWayPoint]) < 1f) currentWayPoint++;
+            if (Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax)
+            {
+                rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(path.vectorPath[currentWayPoint].x - transform.position.x, 0).normalized * movementSpeed, 5 * Time.deltaTime);
+                if (Vector2.Distance(transform.position, path.vectorPath[currentWayPoint]) < 1f) currentWayPoint++;
+            }
         }
         if (gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").transform.localRotation.eulerAngles.z > 90 && !isFlipped)
         {
@@ -94,12 +99,14 @@ public class ArmoredCyborgMovement : EnemyMovement
         if (anglePlayer > 180 && anglePlayer <= 270)
         {
             anglePlayer = 180;
-            angleShield = anglePlayer;
+            if( !(angleShield < 180 && angleShield > 0))
+                angleShield = anglePlayer;
         }
         else if (anglePlayer > 270 && anglePlayer <= 360)
         {
             anglePlayer = 0;
-            angleShield = anglePlayer;
+            if (!(angleShield < 180 && angleShield > 0))
+                angleShield = anglePlayer;
         }
 
 
@@ -111,5 +118,15 @@ public class ArmoredCyborgMovement : EnemyMovement
             gameObject.transform.Find("ShieldPivot_y").localRotation = Quaternion.Euler(0, 180, 0);
         else
             gameObject.transform.Find("ShieldPivot_y").localRotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    public void childTriggerExitGround()
+    {
+        isAtBorder = true;
+    }
+
+    public void childTriggerEnterGround()
+    {
+        isAtBorder = false;
     }
 }
