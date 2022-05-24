@@ -8,7 +8,7 @@ public class SylvanBreastplate : PassiveItem
     public SylvanBreastplate() : base("SylvanBreastplate", ItemRarity.EPIC, ItemType.EARTH, ItemPriority.DELAYED) { }
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, damageReduction);
+		return string.Format(description.DESCRIPTION, damageReduction * amount);
 	}
 	public override DamageInfo OnTakeDamage(DamageInfo damage) {
 		damage.amount = Mathf.Max(damage.amount - damageReduction * amount, 1);

@@ -36,6 +36,7 @@ public static class ItemPool
 		Add(new InvisibilityCloak());
 		Add(new ObsidianShard());
 		Add(new RiftMaker());
+		Add(new PowerSaver());
 	}
 
 	/// <summary>

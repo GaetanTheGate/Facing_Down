@@ -44,7 +44,7 @@
 		{
 			"ID" : "PowerSaver",
 			"NAME" : "Récupérateur d'Énergie",
-			"DESCRIPTION" : "Sortir du bullet time sans effectuer d'action rend {0}% d'énergie"
+			"DESCRIPTION" : "Sortir du bullet time sans effectuer d'action rend {0:0} énergie"
 		},
 		{
 			"ID" : "HeartOfTheStorm",
@@ -64,7 +64,7 @@
 		{
 			"ID" : "ImpenetrableRoots",
 			"NAME" : "Racines Impénétrables",
-			"DESCRIPTION" : "Au contact avec le sol, réduit les dégâts subis de {0}%"
+			"DESCRIPTION" : "Au contact avec le sol, réduit les dégâts subis de {0:0}%"
 		},
 		{
 			"ID" : "HardeningPlates",
@@ -74,7 +74,7 @@
 		{
 			"ID" : "StoneArmor",
 			"NAME" : "Armure Rocheuse",
-			"DESCRIPTION" : "Augmente les PV maximum de {0}"
+			"DESCRIPTION" : "Augmente les PV maximum de {0}%"
 		},
 		{
 			"ID" : "HornOfPlenty",

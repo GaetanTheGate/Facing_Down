@@ -8,7 +8,7 @@ public class HardeningPlates : PassiveItem
     public HardeningPlates() : base("HardeningPlates", ItemRarity.UNCOMMON, ItemType.EARTH) { }
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, invulnerabilityTime);
+		return string.Format(description.DESCRIPTION, invulnerabilityTime * amount);
 	}
 
 	public override void OnEnemyKill(Entity enemy) {

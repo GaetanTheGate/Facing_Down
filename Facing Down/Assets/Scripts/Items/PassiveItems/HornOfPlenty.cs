@@ -9,7 +9,7 @@ public class HornOfPlenty : PassiveItem
     public HornOfPlenty() : base("HornOfPlenty", ItemRarity.RARE, ItemType.EARTH) { }
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, healAmount * 100);
+		return string.Format(description.DESCRIPTION, healAmount * amount *  100);
 	}
 
 	public override void OnRoomFinish() {

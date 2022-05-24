@@ -9,7 +9,7 @@ public class FieryAlloy : PassiveItem
 	public FieryAlloy() : base("FieryAlloy", ItemRarity.UNCOMMON, ItemType.FIRE) {}
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, atkAdd * 100);
+		return string.Format(description.DESCRIPTION, atkAdd * amount * 100);
 	}
 
 	public override void OnPickup() {

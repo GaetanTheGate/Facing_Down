@@ -8,7 +8,7 @@ public class MagmaticCoating : PassiveItem
 	public MagmaticCoating() : base("MagmaticCoating", ItemRarity.COMMON, ItemType.FIRE) { }
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, critRate);
+		return string.Format(description.DESCRIPTION, critRate * amount);
 	}
 
 	public override void OnPickup() {

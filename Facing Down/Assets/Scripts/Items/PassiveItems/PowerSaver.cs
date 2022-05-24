@@ -8,7 +8,7 @@ public class PowerSaver : PassiveItem
     public PowerSaver() : base("PowerSaver", ItemRarity.UNCOMMON, ItemType.THUNDER) { }
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, specialRetrieved * 100);
+		return string.Format(description.DESCRIPTION, (1 - Mathf.Pow(1 - specialRetrieved, amount)) * 100);
 	}
 
 	public override void OnBullettimeEnd() {

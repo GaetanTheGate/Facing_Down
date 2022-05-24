@@ -44,7 +44,7 @@
 		{
 			"ID" : "PowerSaver",
 			"NAME" : "Power Saver",
-			"DESCRIPTION" : "Leaving bullet time without using any attack or movement restores {0}% energy"
+			"DESCRIPTION" : "Leaving bullet time without using any attack or movement restores {0:0}% energy"
 		},
 		{
 			"ID" : "HeartOfTheStorm",
@@ -64,7 +64,7 @@
 		{
 			"ID" : "ImpenetrableRoots",
 			"NAME" : "Impenetrable Roots",
-			"DESCRIPTION" : "When on the ground, reduce all damage taken by {0}%"
+			"DESCRIPTION" : "When on the ground, reduce all damage taken by {0:0}%"
 		},
 		{
 			"ID" : "HardeningPlates",
@@ -74,7 +74,7 @@
 		{
 			"ID" : "StoneArmor",
 			"NAME" : "Stone Armor",
-			"DESCRIPTION" : "Increase max HP by {0}"
+			"DESCRIPTION" : "Increase max HP by {0}%"
 		},
 		{
 			"ID" : "HornOfPlenty",

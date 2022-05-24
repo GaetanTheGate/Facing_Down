@@ -9,7 +9,7 @@ public class HeartOfTheStorm : PassiveItem
     public HeartOfTheStorm() : base("HeartOfTheStorm", ItemRarity.UNCOMMON, ItemType.THUNDER) { }
 
 	public override string GetDescription() {
-		return string.Format(description.DESCRIPTION, cooldownReduction * 100);
+		return string.Format(description.DESCRIPTION, (cooldownReduction + ((amount - 1) * stackCooldownReduction)) * 100);
 	}
 
 	public override void OnEnemyKill(Entity enemy) {
