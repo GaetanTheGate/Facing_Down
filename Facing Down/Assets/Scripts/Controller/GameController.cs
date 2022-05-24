@@ -11,28 +11,36 @@ public class GameController : MonoBehaviour
 
     public bool lowSensitivity = false;
 
-    private List<KeyCode> listenedKeys = new List<KeyCode>();
+    private List<Dictionary<string, KeyCode>> controlers;
 
-    private Dictionary<KeyCode, List<InputListener>> listeners = new Dictionary<KeyCode, List<InputListener>>();
-    private Dictionary<KeyCode, bool> keyPress = new Dictionary<KeyCode, bool>();
-    private Dictionary<KeyCode, bool> keyHold = new Dictionary<KeyCode, bool>();
-    private Dictionary<KeyCode, bool> keyRelease = new Dictionary<KeyCode, bool>();
+    private Dictionary<KeyCode, List<InputListener>> listeners;
+    private Dictionary<KeyCode, bool> keyPress;
+    private Dictionary<KeyCode, bool> keyHold;
+    private Dictionary<KeyCode, bool> keyRelease;
 
     public void Init() {
-        listenedKeys.Add(Options.Get().dicoCommandsKeyBoard["dash"]);
-        listenedKeys.Add(Options.Get().dicoCommandsKeyBoard["bulletTime"]);
-        listenedKeys.Add(Options.Get().dicoCommandsKeyBoard["attack"]);
+        controlers = new List<Dictionary<string, KeyCode>>();
+        controlers.Add(Options.Get().dicoCommandsController);
+        controlers.Add(Options.Get().dicoCommandsKeyBoard);
 
-        foreach (KeyCode key in listenedKeys) {
-            keyPress.Add(key, false);
-            keyHold.Add(key, false);
-            keyRelease.Add(key, false);
-            listeners.Add(key, new List<InputListener>());
-		}
+        listeners = new Dictionary<KeyCode, List<InputListener>>();
+        keyPress = new Dictionary<KeyCode, bool>();
+        keyHold = new Dictionary<KeyCode, bool>();
+        keyRelease = new Dictionary<KeyCode, bool>();
 	}
 
-    public void Subscribe(KeyCode key, InputListener listener) {
-        listeners[key].Add(listener);
+    public void Subscribe(string action, InputListener listener) {
+        foreach (Dictionary<string, KeyCode> controler in controlers) {
+            if (!controler.ContainsKey(action)) continue;
+            KeyCode key = controler[action];
+            if (!listeners.ContainsKey(key)) {
+                listeners.Add(key, new List<InputListener>());
+                keyPress.Add(key, false);
+                keyHold.Add(key, false);
+                keyRelease.Add(key, false);
+            }
+            listeners[key].Add(listener);
+        }
 	}
 
     // Update is called once per frame
@@ -47,7 +55,7 @@ public class GameController : MonoBehaviour
     }
 
 	private void FixedUpdate() {
-        foreach (KeyCode key in listenedKeys) {
+        foreach (KeyCode key in listeners.Keys) {
             if (keyPress[key]) {
                 foreach (InputListener listener in listeners[key]) {
                     listener.OnInputPressed();
@@ -74,7 +82,7 @@ public class GameController : MonoBehaviour
 	}
 	private void ComputePress()
     {
-        foreach (KeyCode key in listenedKeys) {
+        foreach (KeyCode key in listeners.Keys) {
             if (Input.GetKeyDown(key)) {
                 keyPress[key] = true;
                 keyHold[key] = true;
@@ -84,7 +92,7 @@ public class GameController : MonoBehaviour
 
     private void ComputeReleased()
     {
-        foreach (KeyCode key in listenedKeys) {
+        foreach (KeyCode key in listeners.Keys) {
             if (Input.GetKeyUp(key)) {
                 keyRelease[key] = true;
                 keyHold[key] = false;

@@ -51,7 +51,7 @@ public class PlayerDash : AbstractPlayer, InputListener
             rotation.Init();
         }
 
-        Game.controller.Subscribe(Options.Get().dicoCommandsKeyBoard["dash"], this);
+        Game.controller.Subscribe("dash", this);
     }
 
     public void OnInputPressed() {
