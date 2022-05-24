@@ -6,8 +6,6 @@ public class StatEntity : MonoBehaviour
     [SerializeField] protected int maxHitPoints = 10;
     protected int currentHitPoints;
 
-    [Min(0.0f)] public float baseAtk = 100;
-    [Min(0.0f)] public float atkMultipler = 1;
     private float atk;
 
     [Min(0.0f)] public float critRate = 5;
@@ -23,28 +21,18 @@ public class StatEntity : MonoBehaviour
 
     public void InitStats(int maxHP, float atk, float critRate = 0, float critDamage = 150) {
         this.maxHitPoints = maxHP;
-        this.baseAtk = atk;
+        this.atk = atk;
         this.critRate = critRate;
         this.critDmg = critDamage;
 	}
 
     public virtual void Start()
     {
-        computeAtk();
         currentHitPoints = GetMaxHP();
         UI.healthBar.UpdateHP();
         animator = gameObject.GetComponent<Animator>();
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
     }
-
-    public void computeAtk()
-    {
-        atk = baseAtk * atkMultipler;
-    }
-
-    public float getAtk() {
-        return atk;
-	}
 
     public void Heal(float amount) {
         currentHitPoints = Mathf.Max(maxHitPoints, currentHitPoints + Mathf.CeilToInt(amount));
@@ -69,6 +57,14 @@ public class StatEntity : MonoBehaviour
             onDeath.Invoke();
             isDead = true;
         }
+    }
+
+    public void ModifyAtk(float amount) {
+        this.atk += amount;
+	}
+
+    public float getAtk() {
+        return atk;
     }
 
     public virtual void ModifyMaxHP(int amount) {
