@@ -121,7 +121,7 @@ public class Wings : MeleeWeapon
     {
         yield return new WaitForSeconds(delay);
 
-        Velocity newVelo = new Velocity(baseAtk / 6, angle + 180 + difference);
+        Velocity newVelo = new Velocity(baseAtk / 6, angle + 180);
         self.GetComponent<Rigidbody2D>().velocity += newVelo.GetAsVector2();
     }
 
@@ -130,7 +130,7 @@ public class Wings : MeleeWeapon
         yield return new WaitForSeconds(delay);
 
         Debug.Log(angle);
-        Velocity newVelo = new Velocity(baseAtk / 3, angle + 180 + difference);
+        Velocity newVelo = new Velocity(baseAtk / 3, angle + 180);
         self.GetComponent<Rigidbody2D>().velocity += newVelo.GetAsVector2();
 
         canAttack = true;
