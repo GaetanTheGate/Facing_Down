@@ -10,7 +10,8 @@ public class Options
     private static Options options;
 
     [System.NonSerialized]
-    public Dictionary<string,KeyCode> dicoCommand;
+    public Dictionary<string,KeyCode> dicoCommandsKeyBoard;
+    public Dictionary<string,KeyCode> dicoCommandsController;
 
     public string langue;
     public float masterVolumeValue;
@@ -18,22 +19,33 @@ public class Options
     public float soundVolumeValue;
 
 
-    public List<KeyBinding> commands = new List<KeyBinding>();
+    public List<KeyBinding> commandsKeyBoard = new List<KeyBinding>();
+    public List<KeyBinding> commandsController = new List<KeyBinding>();
 
     private Options() {
         langue = "En";
         masterVolumeValue = 100f;
         musicVolumeValue = 100f;
         soundVolumeValue = 100f;
-        commands = new List<KeyBinding>();
-        commands.Add(new KeyBinding("dash", KeyCode.Mouse0));
-        commands.Add(new KeyBinding("attack", KeyCode.Mouse1));
-        commands.Add(new KeyBinding("bulletTime", KeyCode.Space));
-        commands.Add(new KeyBinding("openConsole", KeyCode.C));
-        commands.Add(new KeyBinding("openInventoryMap", KeyCode.E));
-        commands.Add(new KeyBinding("closeUI", KeyCode.Escape));
 
-        dicoCommand = commandsToDictionary();
+        commandsKeyBoard = new List<KeyBinding>();
+        commandsKeyBoard.Add(new KeyBinding("dash", KeyCode.Mouse0));
+        commandsKeyBoard.Add(new KeyBinding("attack", KeyCode.Mouse1));
+        commandsKeyBoard.Add(new KeyBinding("bulletTime", KeyCode.Space));
+        commandsKeyBoard.Add(new KeyBinding("openConsole", KeyCode.C));
+        commandsKeyBoard.Add(new KeyBinding("openInventoryMap", KeyCode.E));
+        commandsKeyBoard.Add(new KeyBinding("closeUI", KeyCode.Escape));
+
+        commandsController = new List<KeyBinding>();
+        commandsController.Add(new KeyBinding("dash", KeyCode.A));
+        commandsController.Add(new KeyBinding("attack", KeyCode.Z));
+        commandsController.Add(new KeyBinding("bulletTime", KeyCode.E));
+        commandsController.Add(new KeyBinding("openConsole", KeyCode.R));
+        commandsController.Add(new KeyBinding("openInventoryMap", KeyCode.T));
+        commandsController.Add(new KeyBinding("closeUI", KeyCode.Y));    
+
+        dicoCommandsKeyBoard = commandsKeyBoardToDictionary();
+        dicoCommandsController = commandsControllerToDictionary();
     }
 
     public static Options Get() {
@@ -48,17 +60,25 @@ public class Options
     }
 
     public static void Save() {
-        Options.Get().dicoCommand = Options.Get().commandsToDictionary();
+        Options.Get().dicoCommandsKeyBoard = Options.Get().commandsKeyBoardToDictionary();
         string jsonStringOptions = JsonUtility.ToJson(Options.Get());
 
         File.WriteAllText(Options.fullPath, jsonStringOptions);
     }
 
-    public Dictionary<string,KeyCode> commandsToDictionary(){
-        Dictionary<string,KeyCode> dicCommand = new Dictionary<string, KeyCode>();
-        foreach(KeyBinding keyBinding in commands){
-            dicCommand.Add(keyBinding.action, keyBinding.key);
+    public Dictionary<string,KeyCode> commandsKeyBoardToDictionary(){
+        Dictionary<string,KeyCode> dicCommandKeyBoard = new Dictionary<string, KeyCode>();
+        foreach(KeyBinding keyBinding in commandsKeyBoard){
+            dicCommandKeyBoard.Add(keyBinding.action, keyBinding.key);
         }
-        return dicCommand;
+        return dicCommandKeyBoard;
+    }
+
+    public Dictionary<string,KeyCode> commandsControllerToDictionary(){
+        Dictionary<string,KeyCode> dicCommandController = new Dictionary<string, KeyCode>();
+        foreach(KeyBinding keyBinding in commandsController){
+            dicCommandController.Add(keyBinding.action, keyBinding.key);
+        }
+        return dicCommandController;
     }
 }

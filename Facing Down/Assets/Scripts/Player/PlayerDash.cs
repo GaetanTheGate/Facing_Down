@@ -51,6 +51,7 @@ public class PlayerDash : AbstractPlayer
             rotation = self.gameObject.AddComponent<RotationEntity>();
             rotation.Init();
         }
+
     }
 
     // Update is called once per frame

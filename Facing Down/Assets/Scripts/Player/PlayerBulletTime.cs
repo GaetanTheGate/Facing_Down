@@ -10,6 +10,7 @@ public class PlayerBulletTime : AbstractPlayer
 
     public override void Init()
     {
+
     }
 
     // Update is called once per frame

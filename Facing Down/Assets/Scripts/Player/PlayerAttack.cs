@@ -51,6 +51,7 @@ public class PlayerAttack : AbstractPlayer
             rotation = selfEntity.gameObject.AddComponent<RotationEntity>();
             rotation.Init();
         }
+
     }
 
     void FixedUpdate()

@@ -20,13 +20,20 @@ public class MenuManager : MonoBehaviour
         gameObjectActions = GameObject.Find("Actions");
         gameObjectOptions = GameObject.Find("Options");
 
-        ButtonDisplayCommand.contentDisplayCommand = GameObject.Find("ContentDisplayCommand");
+        ButtonDisplayCommand.contentDisplayCommands = GameObject.Find("ContentDisplayCommands");
+        ButtonDisplayCommand.contentDisplayCommandKeyBoard = GameObject.Find("ContentDisplayCommandKeyBoard");
+        ButtonDisplayCommand.contentDisplayCommandController = GameObject.Find("ContentDisplayCommandController");
+
+        ControlerManager.typeControler.Add(ButtonDisplayCommand.contentDisplayCommandKeyBoard);
+        ControlerManager.typeControler.Add(ButtonDisplayCommand.contentDisplayCommandController);
+        ControlerManager.currentControl = ControlerManager.typeControler[0];
+
         ButtonOptions.buttonApply = GameObject.Find("ButtonApply");
         ButtonAdjustVolume.contentVolume = GameObject.Find("ContentVolume");
         
         gameObjectActions.SetActive(true);
         gameObjectOptions.SetActive(false);
-        ButtonDisplayCommand.contentDisplayCommand.SetActive(false);
+        ButtonDisplayCommand.contentDisplayCommands.SetActive(false);
         ButtonAdjustVolume.contentVolume.SetActive(false);
 
         applyOptions();
