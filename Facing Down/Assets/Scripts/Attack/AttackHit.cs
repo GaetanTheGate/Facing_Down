@@ -33,8 +33,11 @@ public class AttackHit : MonoBehaviour
                 if (!entitiesHit.ContainsKey(collision.gameObject)) entitiesHit.Add(collision.gameObject, false);
                 else if (entitiesHit[collision.gameObject]) entitiesHit[collision.gameObject] = false;
                 else continue;
+                print("------------------------");
+                print(collision);
                 StatEntity statEntity = collision.GetComponent<StatEntity>();
-                
+                print(statEntity);
+
                 DamageInfo damage = new DamageInfo(dmgInfo);
                 damage.amount *= dmgMultiplier;
                 damage.target = collision.GetComponent<Entity>();
