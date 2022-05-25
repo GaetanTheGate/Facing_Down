@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnergyBall : ProjectileWeapon
 {
-    private float angleRange = 20.0f;
+    //private float angleRange = 20.0f;
 
     public EnergyBall() : this("Enemy") { }
     public EnergyBall(string target) : base(target, "EnergyBall")
@@ -41,7 +41,7 @@ public class EnergyBall : ProjectileWeapon
         return energyBall.GetComponent<ProjectileAttack>();
     }
 
-    private int numberOfShot = 20;
+    //private int numberOfShot = 20;
 
     public float rangeMax = 20f;
 
