@@ -1,10 +1,34 @@
 {
-	"content" : 
-	[
+	"content": [
 		{
-			"ID" : "Katana", 
-			"NAME" : "Katana",
-			"DESCRIPTION" : "KATANA DESCRIPTION ENGLISH"
+			"ID": "Katana",
+			"NAME": "Katana",
+			"DESCRIPTION": "Swift notches with high reach. Allows for more speed. Damage scales with speed."
+		},
+		{
+			"ID": "Wings",
+			"NAME": "Wings",
+			"DESCRIPTION": "Two wings propulsing backwards. Gives a high air mobility."
+		},
+		{
+			"ID": "Daggers",
+			"NAME": "Daggers",
+			"DESCRIPTION": "Very fast stabs with low reach. Chaining attacks rewards with a higher critical rate."
+		},
+		{
+			"ID": "WarAxe",
+			"NAME": "WarAxe",
+			"DESCRIPTION": "Slow swings with a very high reach. High damage, but only on the Axe's blades."
+		},
+		{
+			"ID": "Gun",
+			"NAME": "Gun",
+			"DESCRIPTION": "Fire small bullets that stops on hit. Very high firing rate."
+		},
+		{
+			"ID": "Shuriken",
+			"NAME": "Shuriken",
+			"DESCRIPTION": "Sends a fast and large projectile able to go throught enemies."
 		}
 	]
 }
