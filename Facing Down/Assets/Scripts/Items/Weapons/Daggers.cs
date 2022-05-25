@@ -10,7 +10,7 @@ public class Daggers : MeleeWeapon
         isAuto = true;
 
         baseAtk = 60;
-        baseRange = 1;
+        baseRange = 2;
         baseLenght = 45;
         baseEDelay = 0.05f;
         baseSpan = 0.1f;
