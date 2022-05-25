@@ -1,10 +1,34 @@
 {
-	"content" : 
-	[
+	"content": [
 		{
-			"ID" : "Katana", 
-			"NAME" : "Katana",
-			"DESCRIPTION" : "KATANA DESCRIPTION"
+			"ID": "Katana",
+			"NAME": "Katana",
+			"DESCRIPTION": "Grandes entailles rapides. Offre plus de vitesse. Les degats augmentent avec la vitesse."
+		},
+		{
+			"ID": "Wings",
+			"NAME": "Wings",
+			"DESCRIPTION": "Coups doubles propulsant en arrière. Offre une grande mobilité aérienne."
+		},
+		{
+			"ID": "Daggers",
+			"NAME": "Daggers",
+			"DESCRIPTION": "Entailles très rapide avec peu de portée. Enchainer les coups augmentent les chances de coups critique."
+		},
+		{
+			"ID": "WarAxe",
+			"NAME": "WarAxe",
+			"DESCRIPTION": "Coups lent à très grande portée. Dégats élevés, mais uniquement sur les lames de la hache."
+		},
+		{
+			"ID": "Gun",
+			"NAME": "Gun",
+			"DESCRIPTION": "Tire des projectiles fin s'arretant sur les ennemis. Cadence de tir très élevée."
+		},
+		{
+			"ID": "Shuriken",
+			"NAME": "Shuriken",
+			"DESCRIPTION": "Envoie un projectile rapide et large transpersant les ennemis."
 		}
 	]
 }

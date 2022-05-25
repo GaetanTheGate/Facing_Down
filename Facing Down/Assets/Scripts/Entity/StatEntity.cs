@@ -14,7 +14,7 @@ public class StatEntity : MonoBehaviour
     public UnityEvent<DamageInfo> onHit;
     public UnityEvent onDeath;
     private Animator animator;
-
+    
     protected bool isDead = false;
 
     public bool canTakeKnockBack = true;

@@ -12,9 +12,10 @@ public abstract class Item{
     private Sprite sprite;
 
     public Item(string id) {
-        this.ID = id;
+        ID = id;
         InitDescription(id);
-        this.sprite = Resources.Load<Sprite>(GetSpriteFolderPath() + ID);
+        sprite = Resources.Load<Sprite>(GetSpriteFolderPath() + ID);
+        if (sprite == null) sprite = Resources.Load<Sprite>("Sprites/Items/Items/PlaceHolder");
 	}
 
     protected abstract void InitDescription(string id);
