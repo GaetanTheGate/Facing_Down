@@ -88,7 +88,7 @@ public class ArmoredCyborgMovement : EnemyMovement
 
     private void turnShield()
     {
-        float angleMax = 45 * Time.fixedDeltaTime;
+        float angleMax = 60 * Time.fixedDeltaTime;
 
         float anglePlayer = Angles.AngleBetweenVector2(transform.position, playerTransform.position);
         float angleShield = gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").transform.localRotation.eulerAngles.z;
