@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 using System.Collections;
 
 public class Game : MonoBehaviour
@@ -12,7 +11,6 @@ public class Game : MonoBehaviour
 
 
     public static RoomHandler currentRoom;
-    public static UnityEvent<Vector3> roomChange = new UnityEvent<Vector3>();
 
     private string playerPath = "Prefabs/Player/Player";
     private void Awake()

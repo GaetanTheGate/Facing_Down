@@ -1,6 +1,7 @@
-
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class RoomHandler : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class RoomHandler : MonoBehaviour
     public bool isCompleted = false;
 
     private bool isInRoom = false;
+
+    private static UnityEvent<Vector3> roomChange = new UnityEvent<Vector3>();
 
     public enum side{
         Right,
@@ -47,7 +50,7 @@ public class RoomHandler : MonoBehaviour
 
         GetComponentInChildren<RoomInfoHandler>().InitRoomInfo();
 
-        Game.roomChange.AddListener(UpdateActiveState);
+        roomChange.AddListener(UpdateActiveState);
     }
 
     public void UpdateActiveState(Vector3 currentRoomPosition) {
@@ -131,7 +134,7 @@ public class RoomHandler : MonoBehaviour
     //display the room on the UI and set the current room to this
     public void OnEnterRoom()
     {
-        Game.roomChange.Invoke(transform.position);
+        roomChange.Invoke(transform.position);
 
         GetComponentInChildren<DoorsHandler>().lockTop = true;
         foreach(LightHandler handler in GetComponentsInChildren<LightHandler>(true))
