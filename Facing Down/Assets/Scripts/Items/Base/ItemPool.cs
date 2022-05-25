@@ -37,6 +37,7 @@ public static class ItemPool
 		Add(new ObsidianShard());
 		Add(new RiftMaker());
 		Add(new PowerSaver());
+		Add(new OverchargedCoil());
 	}
 
 	/// <summary>
