@@ -14,17 +14,31 @@ public class ButtonChangeCommand : MonoBehaviour
 
     void Update(){
         if(canChange){
-            GetComponentInChildren<Text>().text = "";
-            foreach(KeyCode kc in Enum.GetValues(typeof(KeyCode))){
-                if(Input.GetKeyDown(kc)){
-                    string text ;
-                    if(kc.ToString().Contains("JoystickButton"))
-                        text = keycodeControllerToSTring(kc);
-                    else
-                        text = kc.ToString();
-                    GetComponentInChildren<Text>().text = text;
-                    canChange = false;
-                    break;
+            if(Input.GetAxis("Button LT") > 0){
+                print("button LT");
+                GetComponentInChildren<Text>().text = "Button LT";
+                canChange = false;
+            }
+                
+            else if(Input.GetAxis("Button RT") > 0){
+                print("button RT");
+                GetComponentInChildren<Text>().text = "Button RT";
+                canChange = false;
+            }
+                
+            else {
+                GetComponentInChildren<Text>().text = "";
+                foreach(KeyCode kc in Enum.GetValues(typeof(KeyCode))){
+                    if(Input.GetKeyDown(kc)){
+                        string text ;
+                        if(kc.ToString().Contains("JoystickButton"))
+                            text = keycodeControllerToSTring(kc);
+                        else
+                            text = kc.ToString();
+                        GetComponentInChildren<Text>().text = text;
+                        canChange = false;
+                        break;
+                    }
                 }
             }
                 
@@ -73,6 +87,15 @@ public class ButtonChangeCommand : MonoBehaviour
             case KeyCode.JoystickButton10:
                 bouton = "Bouton joystick droit";
                 break;
+            case KeyCode.JoystickButton11:
+                bouton = "Button LT";
+                break;
+            case KeyCode.JoystickButton12:
+                bouton = "Button RT";
+                break;
+            default :
+                bouton = kc.ToString();
+                break;
         }
 
         return bouton;
@@ -113,6 +136,15 @@ public class ButtonChangeCommand : MonoBehaviour
                 break;
             case "Bouton joystick droit":
                 kc = KeyCode.JoystickButton10;
+                break;
+            case "Button LT":
+                kc = KeyCode.JoystickButton11;
+                break;
+            case "Button RT":
+                kc = KeyCode.JoystickButton12;
+                break;
+            default :
+                kc = KeyCode.None;
                 break;
         }
 

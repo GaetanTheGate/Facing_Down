@@ -104,4 +104,21 @@ public class GameController : MonoBehaviour
     {
         return pointer;
     }
+
+    public static bool checkIfkeyCodeIsPressed(KeyCode kc){
+        if(kc == KeyCode.JoystickButton11){
+            if (Input.GetAxis("Button LT") > 0)
+                return true;
+            else
+                return false;
+        }
+        else if (kc == KeyCode.JoystickButton12){
+            if(Input.GetAxis("Button RT") > 0)
+                return true;
+            else
+                return false;
+        }
+        else
+            return Input.GetKey(kc);
+    }
 }
