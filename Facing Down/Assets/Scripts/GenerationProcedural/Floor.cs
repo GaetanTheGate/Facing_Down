@@ -62,6 +62,7 @@ public class Floor : MonoBehaviour
         gridMap[nbRoomHeight - 3, nbRoomWidth / 2] = anteroom;
 
         anteroom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down,"BossRoom");
+        gridMap[nbRoomHeight - 2, nbRoomWidth / 2].GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down,"NextFloor");
        
     }
 
@@ -124,6 +125,8 @@ public class Floor : MonoBehaviour
                     else if (gridMap[i,j].name == "TreasureRoom"){
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("treasure");
                     }
+                    else if(gridMap[i,j].name == "NextFloor")
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("nextFloor");
                     else{
                         if(Game.random.NextDouble() < probaGenerateBonusRoom){
                             nbBonusRoom += 1;
@@ -285,7 +288,7 @@ public class Floor : MonoBehaviour
 
         for(int i = 0; i < nbRoomHeight; i += 1){
             for(int j = 0; j < nbRoomWidth; j += 1){
-                if(gridMap[i,j] != null && gridMap[i,j].name != "BossRoom"){
+                if(gridMap[i,j] != null && gridMap[i,j].name != "BossRoom" && gridMap[i,j].name != "NextFloor"){
 
                     List<RoomHandler.side> validSides = new List<RoomHandler.side>();
                     bool canAdd = false;

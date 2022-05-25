@@ -55,6 +55,7 @@ public class PlayerDash : AbstractPlayer, InputListener
     }
 
     public void OnInputPressed() {
+        print("onInputPressed");
         chargeTimePassed = 0;
     }
 

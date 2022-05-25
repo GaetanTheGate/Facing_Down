@@ -18,6 +18,9 @@ public class GameController : MonoBehaviour
     private Dictionary<KeyCode, bool> keyHold;
     private Dictionary<KeyCode, bool> keyRelease;
 
+    private static bool onAxisButtonLT = false;
+    private static bool onAxisButtonRT = false;
+
     public void Init() {
         controlers = new List<Dictionary<string, KeyCode>>();
         controlers.Add(Options.Get().dicoCommandsController);
@@ -83,7 +86,7 @@ public class GameController : MonoBehaviour
 	private void ComputePress()
     {
         foreach (KeyCode key in listeners.Keys) {
-            if (Input.GetKeyDown(key)) {
+            if (checkIfkeyCodeIsPressed(key)) {
                 keyPress[key] = true;
                 keyHold[key] = true;
 			}
@@ -93,7 +96,7 @@ public class GameController : MonoBehaviour
     private void ComputeReleased()
     {
         foreach (KeyCode key in listeners.Keys) {
-            if (Input.GetKeyUp(key)) {
+            if (checkIfkeyCodeIsReleased(key)) {
                 keyRelease[key] = true;
                 keyHold[key] = false;
             }
@@ -107,18 +110,48 @@ public class GameController : MonoBehaviour
 
     public static bool checkIfkeyCodeIsPressed(KeyCode kc){
         if(kc == KeyCode.JoystickButton11){
-            if (Input.GetAxis("Button LT") > 0)
+            if (!onAxisButtonLT && Input.GetAxis("Button LT") > 0){
+                onAxisButtonLT = true;
                 return true;
+            }
             else
                 return false;
         }
-        else if (kc == KeyCode.JoystickButton12){
-            if(Input.GetAxis("Button RT") > 0)
+        else if (!onAxisButtonRT && kc == KeyCode.JoystickButton12){
+            if(Input.GetAxis("Button RT") > 0){
+                onAxisButtonRT = true;
                 return true;
+            }
+                
             else
                 return false;
         }
         else
-            return Input.GetKey(kc);
+            return Input.GetKeyDown(kc);
     }
+
+    public static bool checkIfkeyCodeIsReleased(KeyCode kc){
+        if(kc == KeyCode.JoystickButton11){
+            if (onAxisButtonLT && Input.GetAxis("Button LT") == 0){
+                onAxisButtonLT = false;
+                return true;
+            }
+                
+            else
+                return false ;
+        }
+        else if (kc == KeyCode.JoystickButton12){
+            if(Input.GetAxis("Button RT") == 0){
+                onAxisButtonRT = false;
+                return false;
+            }
+                
+            else
+                return true;
+        }
+        else
+            return Input.GetKeyUp(kc);
+    }
+
+
 }
