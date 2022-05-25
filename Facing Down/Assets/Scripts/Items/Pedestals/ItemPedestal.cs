@@ -16,7 +16,7 @@ public class ItemPedestal : Pedestal {
 
 	private static void InitStaticValues() {
 		prefab = Resources.Load<ItemPedestal>("Prefabs/Items/Pedestal/ItemPedestal");
-		weaponPrefab = Resources.Load<GameObject>("Prefabs/Items/Pedestal/ThunderPedestal"); //TODO : CHANGE THIS
+		weaponPrefab = Resources.Load<GameObject>("Prefabs/Items/Pedestal/WeaponPedestal");
 		pedestalPrefabs = new Dictionary<ItemType, GameObject> {
 			{ItemType.FIRE, Resources.Load<GameObject>("Prefabs/Items/Pedestal/FirePedestal")},
 			{ItemType.EARTH, Resources.Load<GameObject>("Prefabs/Items/Pedestal/EarthPedestal")},
