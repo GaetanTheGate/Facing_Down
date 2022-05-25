@@ -46,7 +46,17 @@ public class RoomHandler : MonoBehaviour
 
 
         GetComponentInChildren<RoomInfoHandler>().InitRoomInfo();
+
+        Game.roomChange.AddListener(UpdateActiveState);
     }
+
+    public void UpdateActiveState(Vector3 currentRoomPosition) {
+        
+        bool active = (currentRoomPosition - transform.position).magnitude < 64;
+        for (int i = 0; i < transform.childCount; ++i) {
+            transform.GetChild(i).gameObject.SetActive(active);
+        }
+	}
 
     private string baseRoomFolder = "Prefabs/Rooms/BaseRooms";
     private string roomInfoFolder = "Prefabs/Rooms/RoomsInfo";
@@ -121,7 +131,9 @@ public class RoomHandler : MonoBehaviour
     //display the room on the UI and set the current room to this
     public void OnEnterRoom()
     {
-        GetComponentInChildren<DoorsHandler>().lockTop = true ;
+        Game.roomChange.Invoke(transform.position);
+
+        GetComponentInChildren<DoorsHandler>().lockTop = true;
         foreach(LightHandler handler in GetComponentsInChildren<LightHandler>(true))
             handler.SetLightsState(true);
 
