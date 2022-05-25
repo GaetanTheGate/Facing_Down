@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Game.time.GetGameSpeed() == 0) return;
         ComputePress();
         ComputeReleased();
 
