@@ -37,8 +37,8 @@ public class ItemPedestal : Pedestal {
 	/// <param name="parent">The pickup's tranform's parent</param>
 	/// <param name="position">The pickup's position</param>
 	/// <returns>The created pedestal</returns>
-	public static ItemPedestal SpawnRandomItemPedestal(Transform parent, Vector2 position) {
-		return SpawnItemPedestal(ItemPool.GetRandomItem(), parent, position);
+	public static ItemPedestal SpawnRandomItemPedestal(Transform parent, Vector2 position, ItemRarity minRarity, ItemRarity maxRarity) {
+		return SpawnItemPedestal(ItemPool.GetRandomItem(minRarity, maxRarity), parent, position);
 	}
 
 	public static ItemPedestal SpawnRandomWeaponPedestal(Transform parent, Vector2 position) {
