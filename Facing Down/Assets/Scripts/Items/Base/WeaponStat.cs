@@ -14,8 +14,8 @@ public class WeaponStat
     public WeaponStat () {
         this.HPMult = 1;
         this.accelerationMult = 1;
-        this.addMaxDashes = 0;
-        this.addMaxSpecial = 0;
+        this.addMaxDashes = 1;
+        this.addMaxSpecial = 3;
         this.specialDurationMult = 1;
         this.specialCooldownMult = 1;
 	}

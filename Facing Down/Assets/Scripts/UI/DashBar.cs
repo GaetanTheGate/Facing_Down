@@ -27,22 +27,32 @@ public class DashBar : MonoBehaviour
     /// </summary>
     void Start()
     {
+        Init();
+    }
+
+    public void Init()
+    {
         dashIconPrefab = Resources.Load<GameObject>("Prefabs/UI/Components/DashIcon");
 
         dashIcons = new List<GameObject>();
-        for (int i = 0; i < maxIcons; ++i) {
+        for (int i = 0; i < maxIcons; ++i)
+        {
             GameObject dashIcon = Instantiate<GameObject>(dashIconPrefab, transform);
             dashIcon.transform.localPosition = new Vector2(xOffset * i, 0);
             dashIcon.GetComponent<Image>().color = dashInactiveColor;
             dashIcon.SetActive(false);
             dashIcons.Add(dashIcon);
-		}
+        }
 
         dashPlusIconPrefab = Resources.Load<GameObject>("Prefabs/UI/Components/DashPlusIcon");
-        dashPlusIcon = Instantiate<GameObject>(dashPlusIconPrefab, transform);
-        dashPlusIcon.transform.localPosition = new Vector2((maxIcons - 1) * xOffset,0);
-        dashPlusIcon.GetComponent<Image>().color = dashPlusInactiveColor;
-        dashPlusIcon.SetActive(false);
+        
+        if(dashPlusIcon == null)
+        {
+            dashPlusIcon = Instantiate<GameObject>(dashPlusIconPrefab, transform);
+            dashPlusIcon.transform.localPosition = new Vector2((maxIcons - 1) * xOffset, 0);
+            dashPlusIcon.GetComponent<Image>().color = dashPlusInactiveColor;
+            dashPlusIcon.SetActive(false);
+        }
 
         dashActiveColor = new Color(0f, 0.9f, 0f);
         dashInactiveColor = new Color(0f, 0.4f, 0f);

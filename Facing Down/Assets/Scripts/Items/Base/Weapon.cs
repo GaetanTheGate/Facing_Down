@@ -7,7 +7,7 @@ public abstract class Weapon : Item {
 
     public Weapon(string target, string id) : base(id) { 
         this.target = target;
-        this.stat = new WeaponStat(); 
+        //this.stat = ; 
     }
 
     protected float baseAtk = 100.0f;
@@ -16,7 +16,7 @@ public abstract class Weapon : Item {
     protected float baseEDelay = 0.0f;
     protected float baseCooldown = 0.1f;
 
-    public WeaponStat stat;
+    public WeaponStat stat = new WeaponStat();
     protected DamageType dmgType = DamageType.PRIMARY;
 
     protected string attackPath = "Prefabs/Weapons/Katana";

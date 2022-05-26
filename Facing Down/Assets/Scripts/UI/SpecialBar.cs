@@ -20,16 +20,26 @@ public class SpecialBar : MonoBehaviour
 
     void Start()
     {
+        Init();
+    }
+
+    public void Init()
+    {
         specialChargePrefab = Resources.Load<GameObject>("Prefabs/UI/Components/SpecialCharge");
+        
         specialCharges = new List<GameObject>();
-        for (int i = 0; i < maxIcons; ++i) {
+        for (int i = 0; i < maxIcons; ++i)
+        {
             GameObject specialCharge = Instantiate<GameObject>(specialChargePrefab, transform);
             specialCharge.transform.localPosition = new Vector2(xOffset * i, 0);
             specialCharges.Add(specialCharge);
         }
 
-        specialChargePlus = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/UI/Components/SpecialChargePlus"), transform);
-        specialChargePlus.transform.localPosition = new Vector2(maxIcons * xOffset, 0);
+        if(specialChargePlus == null)
+        {
+            specialChargePlus = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/UI/Components/SpecialChargePlus"), transform);
+            specialChargePlus.transform.localPosition = new Vector2(maxIcons * xOffset, 0);
+        }
 
         currentMaxSpecial = maxIcons;
         currentSpecialLeft = maxIcons;

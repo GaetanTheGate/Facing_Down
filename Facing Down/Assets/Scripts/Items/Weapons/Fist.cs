@@ -10,10 +10,10 @@ public class Fist : MeleeWeapon
         baseAtk = 100;
         baseRange = 1f;
         baseLenght = 45;
-        baseEDelay = 2.025f;
+        baseEDelay = 0.025f;
         baseSpan = 0.05f;
         baseSDelay = 0.025f;
-        baseCooldown =  - 2-(baseEDelay + baseSpan + baseSDelay)/2;
+        baseCooldown = -(baseEDelay + baseSpan + baseSDelay)/2;
 
         attackPath = "Prefabs/Weapons/Fist";
         specialPath = "Prefabs/Weapons/Fist";

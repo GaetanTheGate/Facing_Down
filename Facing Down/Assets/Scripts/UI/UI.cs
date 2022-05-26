@@ -14,16 +14,33 @@ public class UI : MonoBehaviour
     public static MapDisplay map;
 
     private void Start() {
-        inventoryDisplay = gameObject.GetComponentInChildren<InventoryDisplay>();
-        healthBar = gameObject.GetComponentInChildren<HealthBar>();
-        specialBar = gameObject.GetComponentInChildren<SpecialBar>();
-        dashBar = gameObject.GetComponentInChildren<DashBar>();
-        console = gameObject.GetComponentInChildren<Console>();
-        map = gameObject.GetComponentInChildren<MapDisplay>();
-        itemPreview = gameObject.GetComponentInChildren<ItemPreview>();
+        Init();
+    }
+
+    public static void Init()
+    {
+        GameObject gameObject = UnityEngine.Object.FindObjectsOfType<UI>()[0].gameObject;
+        if (inventoryDisplay == null)
+            inventoryDisplay = gameObject.GetComponentInChildren<InventoryDisplay>();
+        if (healthBar == null)
+            healthBar = gameObject.GetComponentInChildren<HealthBar>();
+        if (specialBar == null)
+            specialBar = gameObject.GetComponentInChildren<SpecialBar>();
+        if (dashBar == null)
+            dashBar = gameObject.GetComponentInChildren<DashBar>();
+        if (console == null)
+            console = gameObject.GetComponentInChildren<Console>();
+        if (map == null)
+            map = gameObject.GetComponentInChildren<MapDisplay>();
+        if (itemPreview == null)
+            itemPreview = gameObject.GetComponentInChildren<ItemPreview>();
+
 
         inventoryDisplay.Init();
         inventoryDisplay.Disable();
+        healthBar.Init();
+        specialBar.Init();
+        dashBar.Init();
         map.Init();
         map.Disable();
 

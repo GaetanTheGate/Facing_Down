@@ -14,9 +14,18 @@ public class HealthBar : MonoBehaviour
 	Text healthText;
 
 	private void Start() {
-		HPFill = (RectTransform) transform.Find("HPFill").transform;
-		healthText = GetComponentInChildren<Text>();
-		height = ((RectTransform) transform).sizeDelta.y;
+		Init();
+	}
+
+	public void Init()
+	{
+		if(HPFill == null)
+			HPFill = (RectTransform)transform.Find("HPFill").transform;
+
+		if (healthText == null)
+			healthText = GetComponentInChildren<Text>();
+
+		height = ((RectTransform)transform).sizeDelta.y;
 	}
 
 	public void UpdateHP() {
