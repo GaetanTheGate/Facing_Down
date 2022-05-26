@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DoorsHandler : MonoBehaviour
 {
-    public bool lockTop = false;
+    protected bool lockTop = false;
 
     public bool left = false;
     public bool right = false;
@@ -12,6 +12,12 @@ public class DoorsHandler : MonoBehaviour
     public bool bot = false;
 
     public bool doorClosed = false;
+
+    public void LockTop(bool state)
+    {
+        lockTop = state;
+        SetCloseDoor();
+    }
 
     public void SetDoorsState(bool left, bool right, bool top, bool bot)
     {

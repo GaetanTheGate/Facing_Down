@@ -136,14 +136,15 @@ public class RoomHandler : MonoBehaviour
     {
         roomChange.Invoke(transform.position);
 
-        GetComponentInChildren<DoorsHandler>().lockTop = true;
-        foreach(LightHandler handler in GetComponentsInChildren<LightHandler>(true))
+        if (isInRoom)
+            return;
+
+
+        GetComponentInChildren<DoorsHandler>().LockTop(true);
+        foreach (LightHandler handler in GetComponentsInChildren<LightHandler>(true))
             handler.SetLightsState(true);
 
         Map.onColorMapicon(GetComponentInParent<RoomHandler>().gameObject);
-
-        if (isInRoom)
-            return;
 
         isInRoom = true;
         Game.currentRoom = this;
