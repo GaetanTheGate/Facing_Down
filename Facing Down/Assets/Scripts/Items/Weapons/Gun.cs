@@ -15,6 +15,10 @@ public class Gun : MeleeWeapon
 
         isAuto = true;
 
+        stat.HPMult = 0.75f;
+        stat.specialDurationMult = 1.25f;
+        stat.specialCooldownMult = 1.25f;
+
         attackPath = "Prefabs/Weapons/Gun";
         specialPath = "Prefabs/Weapons/Gun";
     }

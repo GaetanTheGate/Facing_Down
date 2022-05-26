@@ -16,6 +16,11 @@ public class Daggers : MeleeWeapon
         baseSpan = 0.1f;
         baseCooldown = -0.07f;
 
+        stat.addMaxDashes = 2;
+        stat.accelerationMult = 0.75f;
+        stat.addMaxSpecial = 2;
+        stat.specialCooldownMult = 0.75f;
+
         attackPath = "Prefabs/Weapons/Daggers";
         specialPath = "Prefabs/Weapons/Daggers";
     }
