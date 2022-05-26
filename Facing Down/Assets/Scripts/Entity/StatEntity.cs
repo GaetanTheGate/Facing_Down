@@ -78,8 +78,8 @@ public class StatEntity : MonoBehaviour
 
     public virtual void ModifyMaxHP(int amount) {
         maxHitPoints += amount;
-        if (maxHitPoints <= 0) maxHitPoints = 1;
-        if (maxHitPoints < currentHitPoints) currentHitPoints = maxHitPoints;
+        if (GetMaxHP() <= 0) maxHitPoints = 1;
+        if (GetMaxHP() < currentHitPoints) currentHitPoints = GetMaxHP();
 	}
 
     public virtual int GetMaxHP() {
