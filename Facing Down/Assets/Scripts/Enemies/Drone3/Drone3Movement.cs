@@ -20,8 +20,13 @@ public class Drone3Movement : EnemyMovement
         enemyAttack = gameObject.GetComponent<Drone3Attack>();
         nextFlag = flags[0];
 
-        gameObject.transform.Find("Flashlight").GetComponent<Light2D>().pointLightOuterRadius = aggroViewDistance;
-        gameObject.transform.Find("Flashlight").GetComponent<Light2D>().pointLightInnerRadius = aggroViewDistance / 10;
+        angleViewDistance = 75f;
+
+        Light2D flashlight = gameObject.transform.Find("Flashlight").GetComponent<Light2D>();
+        flashlight.pointLightOuterRadius = aggroViewDistance;
+        flashlight.pointLightInnerRadius = aggroViewDistance / 10;
+        flashlight.pointLightOuterAngle = angleViewDistance;
+        flashlight.pointLightInnerAngle = angleViewDistance / 2;
     }
 
     public override void moveFollowingPlayer()

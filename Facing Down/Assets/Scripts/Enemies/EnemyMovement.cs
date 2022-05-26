@@ -15,6 +15,7 @@ public abstract class EnemyMovement : MonoBehaviour
     protected GameObject player;
     public float aggroDistance = 2f;
     public float aggroViewDistance = 10f;
+    public float angleViewDistance = 135f;
     public float rangeFromPlayerMin = 4f;
     public float rangeFromPlayerMax = 5f;
     protected bool isFollowingPlayer = false;
@@ -69,7 +70,7 @@ public abstract class EnemyMovement : MonoBehaviour
 
     protected void setNextFlag()
     {
-        if (checkRayCastsHitTag(Raycasting.castRayFanInAngleFromEntity(transform, isFlipped ? 180 : 0, 135, aggroViewDistance), "Player") ||
+        if (checkRayCastsHitTag(Raycasting.castRayFanInAngleFromEntity(transform, isFlipped ? 180 : 0, angleViewDistance, aggroViewDistance), "Player") ||
                 Vector2.Distance(transform.position, playerTransform.position) <= aggroDistance)
         {
             nextFlag = playerTransform;
