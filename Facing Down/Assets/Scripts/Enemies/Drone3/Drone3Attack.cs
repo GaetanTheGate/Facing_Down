@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Drone3Attack : EnemyAttack
 {
+    private Bullet bullet;
+
+    public override void Start()
+    {
+        base.Start();
+        bullet = new Bullet("Player");
+    }
     public override void attackPlayer(Vector2 playerPosition)
     {
         if (timePassed >= delay && !isAttacking)

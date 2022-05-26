@@ -3,16 +3,17 @@ using UnityEngine;
 public class EnergyBall : ProjectileWeapon
 {
     //private float angleRange = 20.0f;
+    public float FocusRangeMax = 20f;
 
     public EnergyBall() : this("Enemy") { }
     public EnergyBall(string target) : base(target, "EnergyBall")
     {
 
         baseAtk = 30f;
-        baseSpeed = 5;
+        baseSpeed = 5f;
         baseSpan = 3f;
         baseEDelay = 7.0f;
-        baseCooldown = -baseEDelay + 0.1f;
+        baseCooldown = -9;
 
         attackPath = "Prefabs/Weapons/EnergyBall";
         specialPath = "Prefabs/Weapons/EnergyBall";
@@ -44,18 +45,24 @@ public class EnergyBall : ProjectileWeapon
 
     //private int numberOfShot = 20;
 
-    public float rangeMax = 20f;
+    
 
     public override Attack GetSpecial(float angle, Entity self)
     {
         Transform following = null;
 
-        /*for (float range = 1f; range < 20; range += 1){
-
-        }*/
-        Collider2D collider = Physics2D.OverlapCircle(self.transform.position, rangeMax, LayerMask.GetMask(target));
-        if (collider != null)
-            following = collider.transform;
+        Collider2D collider;
+        for (int i = 1; i <= FocusRangeMax; i++)
+        {
+            collider = Physics2D.OverlapCircle(self.transform.position, i, LayerMask.GetMask(target));
+            if (collider != null)
+            {
+                following = collider.transform;
+                break;
+            }
+                
+        }
+        
         Debug.Log(following.gameObject.name);
         GameObject energyBall = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 

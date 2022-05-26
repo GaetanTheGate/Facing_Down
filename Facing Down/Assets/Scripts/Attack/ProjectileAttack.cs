@@ -18,8 +18,9 @@ public class ProjectileAttack : ThrowableAttack
         if (collision.gameObject.layer == LayerMask.NameToLayer("Terrain"))
             if (isUsingEndAnimation)
             {
-                gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 gameObject.GetComponent<Animator>().SetBool("isDead", true);
+                gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                Destroy(gameObject.GetComponent<ProjectileAttack>());
             }
             else
                 Destroy(gameObject);
@@ -32,8 +33,9 @@ public class ProjectileAttack : ThrowableAttack
                 {
                     if (isUsingEndAnimation)
                     {
-                        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                         gameObject.GetComponent<Animator>().SetBool("isDead", true);
+                        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                        Destroy(gameObject.GetComponent<ProjectileAttack>());
                     }
                     else
                         Destroy(gameObject);
