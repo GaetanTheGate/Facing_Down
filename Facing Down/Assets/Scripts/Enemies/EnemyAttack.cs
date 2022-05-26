@@ -9,14 +9,13 @@ public abstract class EnemyAttack : MonoBehaviour
     protected bool isAttacking = false;
     protected bool canAttack = true;
 
-    protected Bullet bullet;
+    
 
     protected Animator animator;
 
     // Start is called before the first frame update
     public virtual void Start()
     {
-        bullet = new Bullet("Player");
         animator = gameObject.GetComponent<Animator>();
     }
 

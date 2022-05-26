@@ -18,6 +18,9 @@ public abstract class Attack : MonoBehaviour
     public delegate void endAttackEvent(Entity self, float angle);
     public event endAttackEvent onEndAttack;
 
+
+    public bool isUsingEndAnimation = false;
+
     void Awake()
     {
         //gameObject.SetActive(false);
@@ -52,7 +55,8 @@ public abstract class Attack : MonoBehaviour
         {
             attackEnd();
             if (onEndAttack != null) onEndAttack(src, angle);
-            Destroy(gameObject);
+            if (isUsingEndAnimation) gameObject.GetComponent<Animator>().SetBool("isDead", true);
+            else Destroy(gameObject);
         }
 
         float percentageTime = (timePassed - startDelay) / timeSpan;

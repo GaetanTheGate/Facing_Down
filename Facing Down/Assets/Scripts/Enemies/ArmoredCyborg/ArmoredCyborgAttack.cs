@@ -5,6 +5,13 @@ using UnityEngine;
 public class ArmoredCyborgAttack : EnemyAttack
 {
     public float bashRange = 3f;
+    private StunShot stunShot;
+
+    public override void Start()
+    {
+        base.Start();
+        stunShot = new StunShot("Player");
+    }
 
     /*public override void attackPlayer(Vector2 playerPosition)
     {
@@ -47,10 +54,11 @@ public class ArmoredCyborgAttack : EnemyAttack
 
     public override void attackPlayer(Vector2 playerPosition)
     {
-        if (timePassed >= delay && !isAttacking && Vector2.Distance(transform.position, playerPosition) <= bashRange)
+        if (timePassed >= delay && !isAttacking && canAttack)
         {
             isAttacking = true;
-            if(canAttack) bash(playerPosition);
+            if (Vector2.Distance(transform.position, playerPosition) <= bashRange) bash(playerPosition);
+            else shoot(playerPosition);
         }
     }
 
@@ -61,10 +69,25 @@ public class ArmoredCyborgAttack : EnemyAttack
         StartCoroutine(bashWait(1f));
     }
 
+    private void shoot(Vector2 targetPosition)
+    {
+        print("shoot");
+        stunShot.startPos = new Vector3(transform.position.x + 2, transform.position.y, transform.position.z);
+        stunShot.WeaponAttack(Angles.AngleBetweenVector2(transform.position, targetPosition), gameObject.GetComponent<Entity>());
+        StartCoroutine(shootWait(1f));
+    }
+
     protected IEnumerator bashWait(float vulnerableDuration)
     {
         yield return new WaitForSeconds(vulnerableDuration);
         gameObject.transform.Find("ShieldPivot_y").gameObject.SetActive(true);
+        timePassed = 0f;
+        isAttacking = false;
+    }
+    
+    protected IEnumerator shootWait(float vulnerableDuration)
+    {
+        yield return new WaitForSeconds(vulnerableDuration);
         timePassed = 0f;
         isAttacking = false;
     }
