@@ -24,12 +24,16 @@ public class BossPhase2Idle : StateMachineBehaviour
         if (!isChoiceDone && timePassed >= delay)
         {
             isChoiceDone = true;
-            random = Random.Range(1, 6);
+            random = Random.Range(1, 11);
             if (random >= 0 && random <= 4)
             {
                 animator.SetTrigger("shoot");
             }
-            else if (random == 5)
+            else if (random >= 5 && random <= 8)
+            {
+                animator.SetTrigger("energyBall");
+            }
+            else if (random >= 9 && random <= 10)
             {
                 animator.SetFloat("laserAngleOffset", Random.Range(0, 2) * 45);
                 animator.SetBool("isChargingLaser", true);

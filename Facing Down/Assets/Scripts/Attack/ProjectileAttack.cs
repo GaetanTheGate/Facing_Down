@@ -8,6 +8,7 @@ public class ProjectileAttack : ThrowableAttack
 
     public int numberOfHitToDestroy = 1;
     private int numberOfHit = 0;
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,14 +16,29 @@ public class ProjectileAttack : ThrowableAttack
             return;
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Terrain"))
-            Destroy(gameObject);
+            if (isUsingEndAnimation)
+            {
+                gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                gameObject.GetComponent<Animator>().SetBool("isDead", true);
+            }
+            else
+                Destroy(gameObject);
 
         foreach (string layer in layersToDestroyOn)
             if (collision.gameObject.layer.Equals(LayerMask.NameToLayer(layer)))
             {
                 ++numberOfHit;
-                if (numberOfHit >= numberOfHitToDestroy)
-                    Destroy(gameObject);
+                if(numberOfHit >= numberOfHitToDestroy)
+                {
+                    if (isUsingEndAnimation)
+                    {
+                        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                        gameObject.GetComponent<Animator>().SetBool("isDead", true);
+                    }
+                    else
+                        Destroy(gameObject);
+                }
+                    
             }
     }
 }

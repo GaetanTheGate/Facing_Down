@@ -37,6 +37,7 @@ public class EnergyBall : ProjectileWeapon
         energyBall.GetComponent<ProjectileAttack>().timeSpan = baseSpan;
         energyBall.GetComponent<ProjectileAttack>().endDelay = baseEDelay;
         energyBall.GetComponent<ProjectileAttack>().speed = baseSpeed;
+        energyBall.GetComponent<ProjectileAttack>().isUsingEndAnimation = true;
 
         return energyBall.GetComponent<ProjectileAttack>();
     }
@@ -75,6 +76,7 @@ public class EnergyBall : ProjectileWeapon
         energyBall.GetComponent<ProjectileAttack>().speed = baseSpeed;
         energyBall.GetComponent<ProjectileAttack>().followTransform = following;
         energyBall.GetComponent<ProjectileAttack>().followMaxAngle = 180f;
+        energyBall.GetComponent<ProjectileAttack>().isUsingEndAnimation = true;
 
         return energyBall.GetComponent<ProjectileAttack>();
     }
