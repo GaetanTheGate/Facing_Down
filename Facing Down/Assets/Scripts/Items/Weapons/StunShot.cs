@@ -34,7 +34,7 @@ public class StunShot : ProjectileWeapon
         stunShot.GetComponent<ProjectileAttack>().layersToDestroyOn.Add(target);
 
         stunShot.GetComponent<ProjectileAttack>().angle = angle;
-        stunShot.GetComponent<ProjectileAttack>().acceleration = 1f;
+        stunShot.GetComponent<ProjectileAttack>().acceleration = 0f;
         stunShot.GetComponent<ProjectileAttack>().startDelay = baseSDelay;
         stunShot.GetComponent<ProjectileAttack>().timeSpan = baseSpan;
         stunShot.GetComponent<ProjectileAttack>().endDelay = baseEDelay;
@@ -71,7 +71,7 @@ public class StunShot : ProjectileWeapon
         stunShot.GetComponent<ProjectileAttack>().layersToDestroyOn.Add(target);
 
         stunShot.GetComponent<ProjectileAttack>().angle = angle;
-        stunShot.GetComponent<ProjectileAttack>().acceleration = 0.8f;
+        stunShot.GetComponent<ProjectileAttack>().acceleration = 0f;
         stunShot.GetComponent<ProjectileAttack>().startDelay = baseSDelay;
         stunShot.GetComponent<ProjectileAttack>().timeSpan = baseSpan;
         stunShot.GetComponent<ProjectileAttack>().endDelay = baseEDelay;

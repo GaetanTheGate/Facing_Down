@@ -13,7 +13,7 @@ public class BossPhase2Laser : StateMachineBehaviour
     {
         //playerPosition = Game.player.self.gameObject.transform.position;
         //laser.Attack(Angles.AngleBetweenVector2(animator.transform.position, playerPosition), entity);
-        laserAttackDuration = 10f;
+        laserAttackDuration = 5f;
         canEndState = false;
         animator.SetFloat("laserAttackDuration", laserAttackDuration);
         animator.SetBool("isLaserAttackActive", true);

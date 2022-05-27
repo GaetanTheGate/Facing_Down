@@ -12,8 +12,9 @@ public class BossEnergyBall : StateMachineBehaviour
     {
         playerPosition = Game.player.self.gameObject.transform.position;
         energyBall = new EnergyBall("Player");
-        energyBall.startPos = animator.transform.Find("Cannon").transform.position;
-        energyBall.WeaponAttack(Angles.AngleBetweenVector2(animator.transform.position, playerPosition), animator.GetComponent<Entity>());
+        Transform cannon = animator.transform.Find("Cannon");
+        energyBall.startPos = cannon.position;
+        energyBall.WeaponAttack(Angles.AngleBetweenVector2(cannon.position, playerPosition), animator.GetComponent<Entity>());
         animator.SetTrigger("idle");
     }
 

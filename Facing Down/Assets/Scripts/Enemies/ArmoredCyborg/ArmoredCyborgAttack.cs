@@ -71,7 +71,6 @@ public class ArmoredCyborgAttack : EnemyAttack
 
     private void shoot(Vector2 targetPosition)
     {
-        print("shoot");
         stunShot.startPos = new Vector3(transform.position.x + 2, transform.position.y, transform.position.z);
         stunShot.WeaponAttack(Angles.AngleBetweenVector2(transform.position, targetPosition), gameObject.GetComponent<Entity>());
         StartCoroutine(shootWait(1f));

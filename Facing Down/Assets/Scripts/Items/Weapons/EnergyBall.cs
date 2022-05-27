@@ -10,7 +10,7 @@ public class EnergyBall : ProjectileWeapon
     {
 
         baseAtk = 30f;
-        baseSpeed = 5f;
+        baseSpeed = 8f;
         baseSpan = 3f;
         baseEDelay = 7.0f;
         baseCooldown = -9;
@@ -33,7 +33,7 @@ public class EnergyBall : ProjectileWeapon
         energyBall.GetComponent<ProjectileAttack>().layersToDestroyOn.Add(target);
 
         energyBall.GetComponent<ProjectileAttack>().angle = angle;
-        energyBall.GetComponent<ProjectileAttack>().acceleration = 0.2f;
+        energyBall.GetComponent<ProjectileAttack>().acceleration = 0f;
         energyBall.GetComponent<ProjectileAttack>().startDelay = baseSDelay;
         energyBall.GetComponent<ProjectileAttack>().timeSpan = baseSpan;
         energyBall.GetComponent<ProjectileAttack>().endDelay = baseEDelay;

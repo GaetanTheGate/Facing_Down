@@ -8,8 +8,11 @@ public class BossDeathParticles : MonoBehaviour
     public ParticleSystem particleEffectSparks;
     public ParticleSystem particleEffectExplosion;
     public ParticleSystem particleEffectFinalExplosion;
+    [HideInInspector]
     public ParticleSystem pSystemSparks;
+    [HideInInspector]
     public ParticleSystem pSystemExplosion;
+    [HideInInspector]
     public ParticleSystem pSystemFinalExplosion;
     bool wasDoneOnce = false;
 
