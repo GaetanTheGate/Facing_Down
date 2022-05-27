@@ -6,8 +6,8 @@ using Pathfinding;
 public class Floor : MonoBehaviour
 {
 
-    public static int nbRoomWidth = 5;
-    public static int nbRoomHeight = 10; 
+    public static int nbRoomWidth = 7;
+    public static int nbRoomHeight = 15; 
 
     public static int nbRoom = (nbRoomHeight * nbRoomWidth) / 3;
 
@@ -55,18 +55,12 @@ public class Floor : MonoBehaviour
         gridMap[0, nbRoomWidth / 2] = initRoom;
 
 
-        GameObject anteroom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
-        anteroom.name = "Anteroom";
-        anteroom.transform.SetParent(floor.transform);
         
-        gridMap[nbRoomHeight - 3, nbRoomWidth / 2] = anteroom;
-
-        anteroom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down,"BossRoom");
        
     }
 
     public static void generate(){
-        while (!checkIfRoomOnLineBeforeAnteroom() && nbRoom > 0){
+        while (nbRoom > 0){
             if(processRooms.Count == 0){
                 print("plus de possibilité de générer une salle");
                 break;
@@ -104,7 +98,7 @@ public class Floor : MonoBehaviour
             
         }
 
-        linkRoomToAnteroom();
+        generateBossRoom();
 
         addTreasureRoom();
 
@@ -124,6 +118,8 @@ public class Floor : MonoBehaviour
                     else if (gridMap[i,j].name == "TreasureRoom"){
                         gridMap[i,j].GetComponent<RoomHandler>().InitRoom("treasure");
                     }
+                    else if(gridMap[i,j].name == "NextFloor")
+                        gridMap[i,j].GetComponent<RoomHandler>().InitRoom("nextFloor");
                     else{
                         if(Game.random.NextDouble() < probaGenerateBonusRoom){
                             nbBonusRoom += 1;
@@ -151,16 +147,39 @@ public class Floor : MonoBehaviour
         AstarPath.active.Scan();
     }
 
-    public static bool checkIfRoomOnLineBeforeAnteroom(){
-        for (int i = 0; i < nbRoomWidth; i++){
-            if(gridMap[nbRoomHeight - 4,i] != null)
-                return true;
+    public static void generateBossRoom(){
+        int anteroomLine = 0;
+        for(int i = 0; i < nbRoomHeight; i += 1){
+            bool isRoomOnLine = false;
+            for(int j = 0; j < nbRoomWidth; j += 1){
+                if(gridMap[i,j] != null){
+                    isRoomOnLine = true;
+                    break;
+                }
+                    
+            }
+            if(!isRoomOnLine){
+                anteroomLine = i;
+                break;
+            }
         }
-        return false;
-    }
 
-    public static void linkRoomToAnteroom(){
-        for(int i = 0; i < nbRoomHeight - 3; i += 1){
+        print("anterooLine " + anteroomLine);
+        GameObject anteroom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
+        anteroom.name = "Anteroom";
+        anteroom.transform.SetParent(GameObject.Find("Floor").transform);
+        
+        gridMap[anteroomLine, nbRoomWidth / 2] = anteroom;
+
+        anteroom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down,"BossRoom");
+        gridMap[anteroomLine + 1, nbRoomWidth / 2].GetComponent<RoomHandler>().generateSpecificRoomOnSide(RoomHandler.side.Down,"NextFloor");
+
+        linkRoomToAnteroom(anteroomLine);
+
+    } 
+
+    public static void linkRoomToAnteroom(int anteroomLine){
+        for(int i = 0; i < anteroomLine; i += 1){
             for(int j = 0; j < nbRoomWidth; j += 1){
                 if(gridMap[i,j] != null){
                     RoomHandler room = gridMap[i,j].GetComponent<RoomHandler>();
@@ -196,20 +215,20 @@ public class Floor : MonoBehaviour
 
         
         for(int i = 0; i < nbRoomWidth/2; i +=1){
-            if(gridMap[nbRoomHeight-3, i] != null){
-                RoomHandler room = gridMap[nbRoomHeight-3,i].GetComponent<RoomHandler>();
-                if(gridMap[nbRoomHeight-3, i + 1] != null)
-                    room.setDoorsOn(RoomHandler.side.Right, gridMap[nbRoomHeight-3,i + 1]);
+            if(gridMap[anteroomLine, i] != null){
+                RoomHandler room = gridMap[anteroomLine,i].GetComponent<RoomHandler>();
+                if(gridMap[anteroomLine, i + 1] != null)
+                    room.setDoorsOn(RoomHandler.side.Right, gridMap[anteroomLine,i + 1]);
                 else
                     room.generateSpecificRoomOnSide(RoomHandler.side.Right);
             }
         }
 
         for(int i = nbRoomWidth - 1; i > nbRoomWidth/2; i -=1){
-            if(gridMap[nbRoomHeight-3, i] != null){
-                RoomHandler room = gridMap[nbRoomHeight-3,i].GetComponent<RoomHandler>();
-                    if(gridMap[nbRoomHeight-3, i - 1] != null)
-                        room.setDoorsOn(RoomHandler.side.Left, gridMap[nbRoomHeight-3,i - 1]);
+            if(gridMap[anteroomLine, i] != null){
+                RoomHandler room = gridMap[anteroomLine,i].GetComponent<RoomHandler>();
+                    if(gridMap[anteroomLine, i - 1] != null)
+                        room.setDoorsOn(RoomHandler.side.Left, gridMap[anteroomLine,i - 1]);
                     else
                         room.generateSpecificRoomOnSide(RoomHandler.side.Left);
             }
@@ -285,7 +304,7 @@ public class Floor : MonoBehaviour
 
         for(int i = 0; i < nbRoomHeight; i += 1){
             for(int j = 0; j < nbRoomWidth; j += 1){
-                if(gridMap[i,j] != null && gridMap[i,j].name != "BossRoom"){
+                if(gridMap[i,j] != null && gridMap[i,j].name != "BossRoom" && gridMap[i,j].name != "NextFloor"){
 
                     List<RoomHandler.side> validSides = new List<RoomHandler.side>();
                     bool canAdd = false;
@@ -295,7 +314,7 @@ public class Floor : MonoBehaviour
                         validSides.Add(RoomHandler.side.Right);
                     }
 
-                    if(j - 1 > 0 && gridMap[i, j-1] == null){
+                    if(j - 1 >= 0 && gridMap[i, j-1] == null){
                         canAdd = true;
                         validSides.Add(RoomHandler.side.Left);
                     }
@@ -316,11 +335,23 @@ public class Floor : MonoBehaviour
         List<GameObject> potentialRoomToGenerateTreasureRoom = valuePair.Key;
         Dictionary<GameObject,List<RoomHandler.side>> sideToGenerateTreasureRoom = valuePair.Value;
 
-        for(int i = 0; i < nbTreasureRoom; i += 1){
+        int toIndex = (potentialRoomToGenerateTreasureRoom.Count < nbTreasureRoom ? potentialRoomToGenerateTreasureRoom.Count : nbTreasureRoom);
+        for(int i = 0; i < toIndex; i += 1){
             GameObject processRoomToGenerateTreasureRoom = potentialRoomToGenerateTreasureRoom[Game.random.Next(0,potentialRoomToGenerateTreasureRoom.Count)];
-            potentialRoomToGenerateTreasureRoom.Remove(processRoomToGenerateTreasureRoom);
             List<RoomHandler.side> sides = sideToGenerateTreasureRoom[processRoomToGenerateTreasureRoom];
-            processRoomToGenerateTreasureRoom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(sides[Game.random.Next(0,sides.Count)],"TreasureRoom");
+
+            RoomHandler.side side = sides[Game.random.Next(0,sides.Count)];
+
+            Vector2 coordinates = RoomHandler.getCoordinates(processRoomToGenerateTreasureRoom);
+
+            if ((side == RoomHandler.side.Right && gridMap[(int) coordinates.x,(int) coordinates.y + 1] == null) || (side == RoomHandler.side.Left && gridMap[(int) coordinates.x,(int) coordinates.y - 1] == null))
+                processRoomToGenerateTreasureRoom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(side ,"TreasureRoom");
+            sides.Remove(side);
+            if(sides.Count == 0)
+                potentialRoomToGenerateTreasureRoom.Remove(processRoomToGenerateTreasureRoom);
+            else
+                sideToGenerateTreasureRoom[processRoomToGenerateTreasureRoom] = sides;
+
         }
     }
 

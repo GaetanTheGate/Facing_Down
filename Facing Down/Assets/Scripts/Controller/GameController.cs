@@ -11,28 +11,39 @@ public class GameController : MonoBehaviour
 
     public bool lowSensitivity = false;
 
-    private List<KeyCode> listenedKeys = new List<KeyCode>();
+    private List<Dictionary<string, KeyCode>> controlers;
 
-    private Dictionary<KeyCode, List<InputListener>> listeners = new Dictionary<KeyCode, List<InputListener>>();
-    private Dictionary<KeyCode, bool> keyPress = new Dictionary<KeyCode, bool>();
-    private Dictionary<KeyCode, bool> keyHold = new Dictionary<KeyCode, bool>();
-    private Dictionary<KeyCode, bool> keyRelease = new Dictionary<KeyCode, bool>();
+    private Dictionary<KeyCode, List<InputListener>> listeners;
+    private Dictionary<KeyCode, bool> keyPress;
+    private Dictionary<KeyCode, bool> keyHold;
+    private Dictionary<KeyCode, bool> keyRelease;
+
+    private static bool onAxisButtonLT = false;
+    private static bool onAxisButtonRT = false;
 
     public void Init() {
-        listenedKeys.Add(Options.Get().dicoCommandsKeyBoard["dash"]);
-        listenedKeys.Add(Options.Get().dicoCommandsKeyBoard["bulletTime"]);
-        listenedKeys.Add(Options.Get().dicoCommandsKeyBoard["attack"]);
+        controlers = new List<Dictionary<string, KeyCode>>();
+        controlers.Add(Options.Get().dicoCommandsController);
+        controlers.Add(Options.Get().dicoCommandsKeyBoard);
 
-        foreach (KeyCode key in listenedKeys) {
-            keyPress.Add(key, false);
-            keyHold.Add(key, false);
-            keyRelease.Add(key, false);
-            listeners.Add(key, new List<InputListener>());
-		}
+        listeners = new Dictionary<KeyCode, List<InputListener>>();
+        keyPress = new Dictionary<KeyCode, bool>();
+        keyHold = new Dictionary<KeyCode, bool>();
+        keyRelease = new Dictionary<KeyCode, bool>();
 	}
 
-    public void Subscribe(KeyCode key, InputListener listener) {
-        listeners[key].Add(listener);
+    public void Subscribe(string action, InputListener listener) {
+        foreach (Dictionary<string, KeyCode> controler in controlers) {
+            if (!controler.ContainsKey(action)) continue;
+            KeyCode key = controler[action];
+            if (!listeners.ContainsKey(key)) {
+                listeners.Add(key, new List<InputListener>());
+                keyPress.Add(key, false);
+                keyHold.Add(key, false);
+                keyRelease.Add(key, false);
+            }
+            listeners[key].Add(listener);
+        }
 	}
 
     // Update is called once per frame
@@ -48,7 +59,7 @@ public class GameController : MonoBehaviour
     }
 
 	private void FixedUpdate() {
-        foreach (KeyCode key in listenedKeys) {
+        foreach (KeyCode key in listeners.Keys) {
             if (keyPress[key]) {
                 foreach (InputListener listener in listeners[key]) {
                     listener.OnInputPressed();
@@ -75,8 +86,8 @@ public class GameController : MonoBehaviour
 	}
 	private void ComputePress()
     {
-        foreach (KeyCode key in listenedKeys) {
-            if (Input.GetKeyDown(key)) {
+        foreach (KeyCode key in listeners.Keys) {
+            if (checkIfkeyCodeIsPressed(key)) {
                 keyPress[key] = true;
                 keyHold[key] = true;
 			}
@@ -85,8 +96,8 @@ public class GameController : MonoBehaviour
 
     private void ComputeReleased()
     {
-        foreach (KeyCode key in listenedKeys) {
-            if (Input.GetKeyUp(key)) {
+        foreach (KeyCode key in listeners.Keys) {
+            if (checkIfkeyCodeIsReleased(key)) {
                 keyRelease[key] = true;
                 keyHold[key] = false;
             }
@@ -97,4 +108,73 @@ public class GameController : MonoBehaviour
     {
         return pointer;
     }
+
+    public static bool checkIfkeyCodeIsPressed(KeyCode kc){
+        if(kc == KeyCode.JoystickButton11){
+            if (!onAxisButtonLT && Input.GetAxis("Button LT") > 0){
+                onAxisButtonLT = true;
+                return true;
+            }
+            else
+                return false;
+        }
+        else if (!onAxisButtonRT && kc == KeyCode.JoystickButton12){
+            if(Input.GetAxis("Button RT") > 0){
+                onAxisButtonRT = true;
+                return true;
+            }
+                
+            else
+                return false;
+        }
+        else
+            return Input.GetKeyDown(kc);
+    }
+
+    public static bool checkIfkeyCodeIsReleased(KeyCode kc){
+        if(kc == KeyCode.JoystickButton11){
+            if (onAxisButtonLT && Input.GetAxis("Button LT") == 0){
+                onAxisButtonLT = false;
+                return true;
+            }
+                
+            else
+                return false ;
+        }
+        else if (kc == KeyCode.JoystickButton12){
+            if(onAxisButtonRT && Input.GetAxis("Button RT") == 0){
+                onAxisButtonRT = false;
+                return true;
+            }
+                
+            else
+                return false;
+        }
+        else
+            return Input.GetKeyUp(kc);
+    }
+
+    public static bool checkIfkeyCodeIsPressedOnGUI(KeyCode kc){
+        if(kc == KeyCode.JoystickButton11){
+            if (!onAxisButtonLT && Input.GetAxis("Button LT") > 0){
+                onAxisButtonLT = true;
+                return true;
+            }
+            else
+                return false;
+        }
+        else if (!onAxisButtonRT && kc == KeyCode.JoystickButton12){
+            if(Input.GetAxis("Button RT") > 0){
+                onAxisButtonRT = true;
+                return true;
+            }
+                
+            else
+                return false;
+        }
+        else
+            return Input.GetKey(kc);
+    }
+
+
 }

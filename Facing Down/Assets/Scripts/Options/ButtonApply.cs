@@ -10,6 +10,7 @@ public class ButtonApply : MonoBehaviour
     public static bool onContentVolume = false;
     public void apply(){
 
+        ButtonDisplayCommand.contentDisplayCommands.SetActive(true);
         ButtonDisplayCommand.contentDisplayCommandKeyBoard.SetActive(true);
         ButtonDisplayCommand.contentDisplayCommandController.SetActive(true);
         ButtonAdjustVolume.contentVolume.SetActive(true);
@@ -36,8 +37,7 @@ public class ButtonApply : MonoBehaviour
             GameObject command = commandsController.transform.GetChild(i).gameObject;
             foreach (KeyBinding keyBinding in Options.Get().commandsController) {
                 if (keyBinding.action == command.transform.Find("Action").GetComponent<InfoAction>().idAction) {
-                    string stringKeyCode = command.transform.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text;
-                    keyBinding.key = (KeyCode)System.Enum.Parse(typeof(KeyCode), stringKeyCode);
+                    keyBinding.key = ButtonChangeCommand.stringToKeyCode(command.transform.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text);
                     break;
                 }
             }

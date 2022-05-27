@@ -6,7 +6,6 @@ public class ThunderLights : StateMachineBehaviour
 {
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log(animator.gameObject.name);
         animator.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().enabled = false;
     }
 

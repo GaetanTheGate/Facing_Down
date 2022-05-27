@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class UI : MonoBehaviour
 {
     public static InventoryDisplay inventoryDisplay;
@@ -52,32 +53,34 @@ public class UI : MonoBehaviour
     /// Enables/Disables UI elements depending on user input
     /// </summary>
 	private void OnGUI() {
-		if (Event.current.type == EventType.KeyDown) {
             if (console.IsToggled()) {
-                if (Event.current.keyCode == Options.Get().dicoCommandsKeyBoard["closeUI"]) {
-                    console.Toggle();
+                if (GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsKeyBoard["closeUI"]) || 
+                    GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsController["closeUI"]) ) {
+                        console.Toggle();
                 }
             }
             else if (inventoryDisplay.IsEnabled()) {
-                if (Event.current.keyCode == KeyCode.Escape) {
-                    inventoryDisplay.Disable();
-                    map.Disable();
-                    LockCursor();
-                    Game.time.SetGameSpeedInstant(1);
+                if (GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsKeyBoard["closeUI"]) || 
+                    GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsController["closeUI"])) {
+                        inventoryDisplay.Disable();
+                        map.Disable();
+                        LockCursor();
+                        Game.time.SetGameSpeedInstant(1);
 				}
             }
             else {
-                if (Event.current.keyCode == Options.Get().dicoCommandsKeyBoard["openConsole"]) {
-                    console.Toggle();
+                if (GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsKeyBoard["openConsole"]) || 
+                    GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsController["openConsole"]) ) {
+                        console.Toggle();
                 }
-                else if (Event.current.keyCode == Options.Get().dicoCommandsKeyBoard["openInventoryMap"]) {
-                    inventoryDisplay.Enable();
-                    map.Enable();
-                    UnlockCursor();
-                    Game.time.SetGameSpeedInstant(0);
+                else if (GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsKeyBoard["openInventoryMap"]) || 
+                        GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsController["openInventoryMap"] )){
+                            inventoryDisplay.Enable();
+                            map.Enable();
+                            UnlockCursor();
+                            Game.time.SetGameSpeedInstant(0);
                 }
             }
-		}
 	}
 
     private void LockCursor() {
