@@ -28,9 +28,9 @@ public class Map : MonoBehaviour
                         mapIcon.GetComponent<Image>().color = Color.blue;
                     if(Floor.gridMap[i, j].name == "BossRoom")
                         mapIcon.GetComponent<Image>().color = Color.red;
-                    if(Floor.gridMap[i, j].name == "TreasureRoom")
+                    if(Floor.gridMap[i, j].name.Contains("TreasureRoom"))
                         mapIcon.GetComponent<Image>().color = Color.green;
-                    if(Floor.gridMap[i, j].name == "BonusRoom")
+                    if(Floor.gridMap[i, j].name.Contains("BonusRoom"))
                         mapIcon.GetComponent<Image>().color = Color.yellow;
                 }
             }
@@ -128,8 +128,11 @@ public class Map : MonoBehaviour
     {
         foreach (Object o in GameObject.FindObjectsOfType(typeof(GameObject), true))
         {
-            if ((((GameObject)o).CompareTag("MapIcon") && o.name == "MapIcon" + roomToDisplay.name))
+            if ((((GameObject)o).CompareTag("MapIcon") && o.name == "MapIcon" + roomToDisplay.name)){
+                print("mapIcon name " + o.name);
                 ((GameObject)o).GetComponent<Image>().color = Color.blue;
+            }
+                
         }
     }
 

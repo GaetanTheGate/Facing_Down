@@ -124,7 +124,7 @@ public class Floor : MonoBehaviour
                         if(Game.random.NextDouble() < probaGenerateBonusRoom){
                             nbBonusRoom += 1;
                             probaGenerateBonusRoom = Mathf.Pow((float) nbTreasureRoom/(nbTreasureRoom+2),nbBonusRoom);
-                            gridMap[i,j].name = "BonusRoom";
+                            gridMap[i,j].name = "BonusRoom" + gridMap[i,j].name.Substring(gridMap[i,j].name.IndexOf('-'));
                             gridMap[i,j].GetComponent<RoomHandler>().InitRoom("treasure");
                         }
                         else
@@ -164,7 +164,6 @@ public class Floor : MonoBehaviour
             }
         }
 
-        print("anterooLine " + anteroomLine);
         GameObject anteroom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
         anteroom.name = "Anteroom";
         anteroom.transform.SetParent(GameObject.Find("Floor").transform);
@@ -345,7 +344,7 @@ public class Floor : MonoBehaviour
             Vector2 coordinates = RoomHandler.getCoordinates(processRoomToGenerateTreasureRoom);
 
             if ((side == RoomHandler.side.Right && gridMap[(int) coordinates.x,(int) coordinates.y + 1] == null) || (side == RoomHandler.side.Left && gridMap[(int) coordinates.x,(int) coordinates.y - 1] == null))
-                processRoomToGenerateTreasureRoom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(side ,"TreasureRoom");
+                processRoomToGenerateTreasureRoom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(side ,"TreasureRoom" + '-' + idRoom++ );
             sides.Remove(side);
             if(sides.Count == 0)
                 potentialRoomToGenerateTreasureRoom.Remove(processRoomToGenerateTreasureRoom);
