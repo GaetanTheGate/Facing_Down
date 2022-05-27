@@ -14,6 +14,8 @@ public class PlayerDash : AbstractPlayer, InputListener
     private float chargeTimePassed = 0.0f;
     private float chargeTime = 0.2f;
 
+    public bool canDash = true;
+
     protected override void Initialize()
     {
         player = gameObject.GetComponent<Player>();
@@ -55,15 +57,18 @@ public class PlayerDash : AbstractPlayer, InputListener
     }
 
     public void OnInputPressed() {
+        if (!canDash) return;
         print("onInputPressed");
         chargeTimePassed = 0;
     }
 
     public void OnInputHeld() {
+        if (!canDash) return;
         camManager.SetZoomPercent(Mathf.Min(110.0f, 100 + 10 * (chargeTimePassed / chargeTime)));
     }
 
     public void OnInputReleased() {
+        if (!canDash) return;
         if (bulletTime.isInBulletTime) {
             if (!player.inventory.GetWeapon().CanMove())
                 return;
@@ -97,11 +102,13 @@ public class PlayerDash : AbstractPlayer, InputListener
     }
 
     public void UpdateAfterInput() {
+        if (!canDash) return;
         chargeTimePassed += Time.fixedDeltaTime;
     }
 
     private void ComputeMegaDash()
     {
+        if (!canDash) return;
         stat.UseDashes(2);
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(1.6f);
 
@@ -114,6 +121,7 @@ public class PlayerDash : AbstractPlayer, InputListener
 
     private void ComputeSimpleDash()
     {
+        if (!canDash) return;
         stat.UseDashes(1);
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(1.2f);
 
@@ -126,6 +134,7 @@ public class PlayerDash : AbstractPlayer, InputListener
 
     private void ComputeSpecialMove()
     {
+        if (!canDash) return;
         player.inventory.OnRedirect();
 
         player.inventory.GetWeapon().Movement(pointer.getAngle(), self);

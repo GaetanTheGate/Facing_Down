@@ -13,6 +13,13 @@ public class DamageInfo
     public float amount;
     public DamageType type;
     public float hitCooldown;
+    public enum Effect
+    {
+        None,
+        Stun
+    }
+
+    public Effect effect = Effect.None;
 
     public DamageInfo(Entity source, Entity target, float amount, DamageType type, Velocity knockback, float hitCooldown)
     {

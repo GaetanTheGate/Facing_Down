@@ -17,6 +17,8 @@ public class PlayerAttack : AbstractPlayer, InputListener
     private Entity selfEntity;
     private RotationEntity rotation;
 
+    public bool canAttack = true;
+
     protected override void Initialize()
     {
         self = gameObject.GetComponent<Player>();
@@ -54,10 +56,12 @@ public class PlayerAttack : AbstractPlayer, InputListener
     }
 
     public void OnInputPressed () {
+        if (!canAttack) return;
         chargeTimePassed = 0;
     }
 
     public void OnInputHeld() {
+        if (!canAttack) return;
         if (self.inventory.GetWeapon().IsAuto()) {
             ComputeSimpleAttack();
         }
@@ -68,6 +72,7 @@ public class PlayerAttack : AbstractPlayer, InputListener
     }
 
     public void OnInputReleased() {
+        if (!canAttack) return;
         chargeTimePassed = 0;
         Game.controller.lowSensitivity = false;
 
@@ -82,12 +87,14 @@ public class PlayerAttack : AbstractPlayer, InputListener
     }
 
     public void UpdateAfterInput() {
+        if (!canAttack) return;
         attackRecharge += Time.fixedDeltaTime;
         chargeTimePassed += Time.fixedDeltaTime;
     }
 
     private void ComputeSimpleAttack()
     {
+        if (!canAttack) return;
         if (attackRecharge < self.inventory.GetWeapon().GetCooldown() ||  !self.inventory.GetWeapon().CanAttack())
             return;
 
@@ -101,6 +108,7 @@ public class PlayerAttack : AbstractPlayer, InputListener
 
     private void ComputeSpecial()
     {
+        if (!canAttack) return;
         if ( !self.inventory.GetWeapon().CanSpecial())
             return;
         if (Game.player.stat.GetSpecialLeft() < 3) return;

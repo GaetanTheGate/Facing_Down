@@ -8,6 +8,8 @@ public class PlayerBulletTime : AbstractPlayer, InputListener
 
     private float startTime;
 
+    public bool canBulletTime = true;
+
     protected override void Initialize()
     {
         Debug.Log("INIT");
@@ -15,12 +17,14 @@ public class PlayerBulletTime : AbstractPlayer, InputListener
     }
 
     public void OnInputPressed() {
+        if (!canBulletTime) return;
         if (!isInBulletTime) {
             ActivateBulletTime();
 		}
 	}
 
     public void OnInputReleased() {
+        if (!canBulletTime) return;
         if (isInBulletTime) {
             Game.player.inventory.OnBullettimeEnd();
             EndBulletTime();
@@ -28,10 +32,11 @@ public class PlayerBulletTime : AbstractPlayer, InputListener
 	}
 
     public void OnInputHeld() {
-
+        if (!canBulletTime) return;
     }
 
 	public void UpdateAfterInput() {
+        if (!canBulletTime) return;
         if (isInBulletTime && Game.player.stat.GetSpecialLeft() == 0) {
             Game.player.inventory.OnBullettimeEnd();
             EndBulletTime();
@@ -49,12 +54,14 @@ public class PlayerBulletTime : AbstractPlayer, InputListener
     }
 
 	public void ActivateBulletTime() {
+        if (!canBulletTime) return;
         startTime = Time.time;
         Game.player.inventory.OnBullettimeActivate();
         isInBulletTime = true;
 	}
 
     public void EndBulletTime() {
+        if (!canBulletTime) return;
         isInBulletTime = false;
 	}
 }

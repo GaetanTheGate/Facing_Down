@@ -25,7 +25,9 @@ public class StunShot : ProjectileWeapon
         GameObject stunShot = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(stunShot, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
+        DamageInfo damageInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
+        damageInfo.effect = DamageInfo.Effect.Stun;
+        AddHitAttack(stunShot, damageInfo);
 
         stunShot.AddComponent<ProjectileAttack>();
         stunShot.transform.position = startPos;
@@ -62,7 +64,9 @@ public class StunShot : ProjectileWeapon
         GameObject stunShot = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(stunShot, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
+        DamageInfo damageInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
+        damageInfo.effect = DamageInfo.Effect.Stun;
+        AddHitAttack(stunShot, damageInfo);
 
         stunShot.AddComponent<ProjectileAttack>();
         stunShot.transform.position = startPos;

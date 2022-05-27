@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class StatPlayer : StatEntity
 {
@@ -13,6 +14,10 @@ public class StatPlayer : StatEntity
     public readonly float BASE_SPE_COOLDOWN = 10;
 
     private PlayerIframes playerIframes;
+
+    private PlayerAttack playerAttack;
+    private PlayerDash playerDash;
+    private PlayerBulletTime playerBulletTime;
 
     //public Text hpText;
 
@@ -43,6 +48,11 @@ public class StatPlayer : StatEntity
         specialLeft = maxSpecial;
 
         playerIframes = GetComponentInChildren<PlayerIframes>();
+
+        playerAttack = gameObject.GetComponent<PlayerAttack>();
+        playerDash = gameObject.GetComponent<PlayerDash>();
+        playerBulletTime = gameObject.GetComponent<PlayerBulletTime>();
+
         UI.Init();
         UI.healthBar.UpdateHP();
         UI.specialBar.UpdateSpecial();
@@ -59,7 +69,11 @@ public class StatPlayer : StatEntity
             damage = Game.player.inventory.OnTakeDamage(damage);
             base.TakeDamage(damage);
             //hpText.text = currentHitPoints.ToString();
-            playerIframes.getIframe(Mathf.Min(2f, damage.hitCooldown));
+            if (damage.effect == DamageInfo.Effect.Stun)
+            {
+                stun();
+            }
+            else playerIframes.getIframe(Mathf.Min(2f, damage.hitCooldown));
         }
     }
 
@@ -154,4 +168,20 @@ public class StatPlayer : StatEntity
     public float GetSpecialCooldown() {
         return specialCooldown * Game.player.inventory.GetWeapon().stat.specialCooldownMult;
 	}
+
+    public void stun()
+    {
+        if (playerAttack != null) playerAttack.canAttack = false;
+        if (playerDash != null) playerDash.canDash = false;
+        if (playerBulletTime != null) playerBulletTime.canBulletTime = false;
+        StartCoroutine(waitForStun(2f));
+    }
+
+    private IEnumerator waitForStun(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        if (playerAttack != null) playerAttack.canAttack = true;
+        if (playerDash != null) playerDash.canDash = true;
+        if (playerBulletTime != null) playerBulletTime.canBulletTime = true;
+    }
 }
