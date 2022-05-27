@@ -25,12 +25,6 @@ public class ButtonPlay : MonoBehaviour
 
     public void generateDonjon(){
 
-        foreach(KeyValuePair<string,KeyCode> d in Options.Get().dicoCommandsController){
-            print("idAction " + d.Key);
-            print("Keycode " + d.Value);
-        }
-
-
         initGameManager();
         Tower.generateNextFloor();
     }

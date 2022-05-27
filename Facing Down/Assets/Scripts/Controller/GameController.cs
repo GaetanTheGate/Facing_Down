@@ -141,16 +141,38 @@ public class GameController : MonoBehaviour
                 return false ;
         }
         else if (kc == KeyCode.JoystickButton12){
-            if(Input.GetAxis("Button RT") == 0){
+            if(onAxisButtonRT && Input.GetAxis("Button RT") == 0){
                 onAxisButtonRT = false;
-                return false;
+                return true;
             }
                 
             else
-                return true;
+                return false;
         }
         else
             return Input.GetKeyUp(kc);
+    }
+
+    public static bool checkIfkeyCodeIsPressedOnGUI(KeyCode kc){
+        if(kc == KeyCode.JoystickButton11){
+            if (!onAxisButtonLT && Input.GetAxis("Button LT") > 0){
+                onAxisButtonLT = true;
+                return true;
+            }
+            else
+                return false;
+        }
+        else if (!onAxisButtonRT && kc == KeyCode.JoystickButton12){
+            if(Input.GetAxis("Button RT") > 0){
+                onAxisButtonRT = true;
+                return true;
+            }
+                
+            else
+                return false;
+        }
+        else
+            return Input.GetKey(kc);
     }
 
 
