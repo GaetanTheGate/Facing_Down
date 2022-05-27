@@ -7,22 +7,22 @@
 		},
 		{
 			"ID": "Wings",
-			"NAME": "Wings",
+			"NAME": "Ailes",
 			"DESCRIPTION": "Coups doubles propulsant en arrière. Offre une grande mobilité aérienne."
 		},
 		{
 			"ID": "Daggers",
-			"NAME": "Daggers",
+			"NAME": "Dagues",
 			"DESCRIPTION": "Entailles très rapide avec peu de portée. Enchainer les coups augmentent les chances de coups critique."
 		},
 		{
 			"ID": "WarAxe",
-			"NAME": "WarAxe",
+			"NAME": "Hache de guerre",
 			"DESCRIPTION": "Coups lent à très grande portée. Dégats élevés, mais uniquement sur les lames de la hache."
 		},
 		{
 			"ID": "Gun",
-			"NAME": "Gun",
+			"NAME": "Pistolet",
 			"DESCRIPTION": "Tire des projectiles fin s'arretant sur les ennemis. Cadence de tir très élevée."
 		},
 		{

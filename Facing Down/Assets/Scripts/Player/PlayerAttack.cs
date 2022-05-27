@@ -50,7 +50,7 @@ public class PlayerAttack : AbstractPlayer, InputListener
             rotation.Init();
         }
 
-        Game.controller.Subscribe(Options.Get().dicoCommandsKeyBoard["attack"], this);
+        Game.controller.Subscribe("attack", this);
     }
 
     public void OnInputPressed () {
