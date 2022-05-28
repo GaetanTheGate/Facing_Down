@@ -51,7 +51,7 @@ public class Options
 
     public static Options Get() {
         if (options == null) {
-            if (File.Exists(fullPath)){
+            if (false &&File.Exists(fullPath)){
                 options = JsonUtility.FromJson<Options>(File.ReadAllText(fullPath));
                 options.dicoCommandsController = options.commandsControllerToDictionary();
                 options.dicoCommandsKeyBoard = options.commandsKeyBoardToDictionary();
