@@ -25,7 +25,6 @@ public class BurningCircle : PassiveItem {
 	}
 
 	public override DamageInfo OnDealDamage(DamageInfo damage) {
-		Debug.Log(damage.type);
 		if (damage.type == DamageType.PRIMARY) {
 			weapon.startPos = damage.target.transform.position;
 			weapon.WeaponAttack(0, Game.player.self);
