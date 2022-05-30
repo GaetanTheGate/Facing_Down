@@ -45,7 +45,11 @@ public class StatEntity : MonoBehaviour
 
         if (dmgInfo.source == Game.player.self) dmgInfo = Game.player.inventory.OnDealDamage(dmgInfo);
 
-        if(canTakeDamage) currentHitPoints -= (int)dmgInfo.amount;
+        if (canTakeDamage)
+        {
+            currentHitPoints -= (int)dmgInfo.amount;
+            Game.player.gameCamera.GetComponent<CameraManager>().Shake(0.1f, 0.1f);
+        }
         if(canTakeKnockBack) GetComponent<Rigidbody2D>().velocity += dmgInfo.knockback.GetAsVector2();
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
         if(canTakeDamage && onHit != null && currentHitPoints > 0) onHit.Invoke(dmgInfo);

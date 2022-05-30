@@ -62,12 +62,13 @@ public class StatPlayer : StatEntity
     public override void TakeDamage(DamageInfo damage)
     {
         UI.healthBar.UpdateHP();
-        Debug.Log("TOOK DAMAGE");
+
         if (isDead || (int)damage.amount == 0) return;
         if (!playerIframes.isIframe)
         {
             damage = Game.player.inventory.OnTakeDamage(damage);
             base.TakeDamage(damage);
+            Game.player.gameCamera.GetComponent<CameraManager>().Shake(0.1f, 0.3f);
             //hpText.text = currentHitPoints.ToString();
             if (damage.effect == DamageInfo.Effect.Stun)
             {

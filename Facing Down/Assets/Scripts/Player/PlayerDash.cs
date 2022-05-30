@@ -117,6 +117,7 @@ public class PlayerDash : AbstractPlayer, InputListener
         rb.velocity = new Velocity(stat.GetAcceleration() * 1.5f, pointer.getAngle()).GetAsVector2();
 
         Game.time.SetGameSpeedInstant(1.6f);
+        camManager.Propulse(pointer.getAngle() - 180, 0.5f, 3f);
     }
 
     private void ComputeSimpleDash()
@@ -130,6 +131,7 @@ public class PlayerDash : AbstractPlayer, InputListener
         rb.velocity = new Velocity(stat.GetAcceleration(), pointer.getAngle()).GetAsVector2();
 
         Game.time.SetGameSpeedInstant(1.2f);
+        camManager.Propulse(pointer.getAngle() - 180, 0.5f, 2f);
     }
 
     private void ComputeSpecialMove()
@@ -142,5 +144,6 @@ public class PlayerDash : AbstractPlayer, InputListener
 
         bulletTime.isInBulletTime = false;
         Game.time.SetGameSpeedInstant(2.0f);
+        camManager.Propulse(pointer.getAngle() - 180, 0.5f, 4f);
     }
 }

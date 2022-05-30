@@ -36,4 +36,42 @@ public class CameraManager : MonoBehaviour
         baseZoom = zoom;
         ComputeZoom();
     }
+
+    public void Shake(float duration, float intensity) => StartCoroutine(ShakeCamera(duration, intensity));
+
+    private IEnumerator ShakeCamera(float duration, float intensity)
+    {
+        float elapsed = 0.0f;
+
+        while (elapsed < duration)
+        {
+            float x = Random.Range(-intensity, intensity);
+            float y = Random.Range(-intensity, intensity);
+
+            transform.position += new Vector3(x, y, 0);
+
+            elapsed += Time.deltaTime;
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    public void Propulse(float angle, float duration, float intensity) => StartCoroutine(PropulseCamera(angle, duration, intensity));
+
+    private IEnumerator PropulseCamera(float angle, float duration, float intensity)
+    {
+        float elapsed = 0.0f;
+
+        while (elapsed < duration)
+        {
+            float relativeDuration = (duration - Mathf.Abs(elapsed - duration / 2) * 2) / duration;
+            float x = Mathf.Cos(Mathf.Deg2Rad * angle) * intensity * relativeDuration;
+            float y = Mathf.Sin(Mathf.Deg2Rad * angle) * intensity * relativeDuration;
+
+            transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(x, y, 0), 2 * Time.deltaTime);
+            elapsed += Time.deltaTime;
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
 }
