@@ -14,6 +14,7 @@ public class BurningCircle : PassiveItem {
 	public override void OnPickup() {
 		if (weapon == null) {
 			weapon = new Explosion("Enemy");
+			weapon.SetDmgType(DamageType.SECONDARY);
 			weapon.SetBaseAtk(damage);
 		}
 		weapon.SetBaseRange(rangePerStack * amount);
@@ -24,7 +25,11 @@ public class BurningCircle : PassiveItem {
 	}
 
 	public override DamageInfo OnDealDamage(DamageInfo damage) {
-		if (damage.type == DamageType.PRIMARY) weapon.Attack(0, damage.target);
+		Debug.Log(damage.type);
+		if (damage.type == DamageType.PRIMARY) {
+			weapon.startPos = damage.target.transform.position;
+			weapon.WeaponAttack(0, Game.player.self);
+		}
 		return damage;
 	}
 }
