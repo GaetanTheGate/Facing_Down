@@ -15,7 +15,12 @@ public class Game : MonoBehaviour
     private string playerPath = "Prefabs/Player/Player";
     private void Awake()
     {
-        Physics2D.IgnoreLayerCollision(10, 12, true);
+        Physics2D.IgnoreLayerCollision(10, 11, true);
+        for (int i = 0; i <= 31; i++)
+        {
+            Physics2D.IgnoreLayerCollision(13, i, true);
+        }
+        Physics2D.IgnoreLayerCollision(13, 11, false);
         controller = gameObject.GetComponent<GameController>();
         if (controller == null)
             controller = gameObject.AddComponent<GameController>();
