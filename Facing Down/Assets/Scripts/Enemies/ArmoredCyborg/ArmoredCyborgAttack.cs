@@ -71,8 +71,38 @@ public class ArmoredCyborgAttack : EnemyAttack
 
     private void shoot(Vector2 targetPosition)
     {
-        stunShot.startPos = new Vector3(transform.position.x + 2, transform.position.y, transform.position.z);
-        stunShot.WeaponAttack(Angles.AngleBetweenVector2(transform.position, targetPosition), gameObject.GetComponent<Entity>());
+        float angle = Angles.AngleBetweenVector2(transform.position, targetPosition);
+        Vector3 bulletPos = new Vector3(0, 0, 0);
+        float radius = 1.1f;
+
+        print(angle);
+
+        if (angle >= 0 && angle <= 90)
+        {
+            bulletPos.x = radius * Mathf.Cos((angle) * Mathf.Deg2Rad);
+            bulletPos.y = radius * Mathf.Sin((angle) * Mathf.Deg2Rad);
+        }
+        else if (angle > 90 && angle <= 180)
+        {
+            bulletPos.x = radius * Mathf.Cos((180 - angle) * Mathf.Deg2Rad) * -1;
+            bulletPos.y = radius * Mathf.Sin((180 - angle) * Mathf.Deg2Rad);
+        }
+        else if (angle < 0 && angle >= -90)
+        {
+            bulletPos.x = radius * Mathf.Cos((angle * -1) * Mathf.Deg2Rad);
+            bulletPos.y = radius * Mathf.Sin((angle * -1) * Mathf.Deg2Rad) * -1;
+        }
+        else if (angle < -90 && angle >= -180)
+        {
+            bulletPos.x = radius * Mathf.Cos((180 - angle * -1) * Mathf.Deg2Rad) * -1;
+            bulletPos.y = radius * Mathf.Sin((180 - angle * -1) * Mathf.Deg2Rad) * -1;
+        }
+        print(bulletPos.x + "   " + bulletPos.y);
+        stunShot.startPos = new Vector3(transform.position.x + bulletPos.x, transform.position.y + bulletPos.y, transform.position.z);
+        Attack attack = stunShot.GetAttack(angle, gameObject.GetComponent<Entity>());
+        Physics2D.IgnoreCollision(attack.GetComponent<Collider2D>(), transform.Find("ShieldPivot_y").Find("ShieldPivot_z").Find("Shield").GetComponent<Collider2D>(), true);
+        attack.startAttack();
+        //stunShot.WeaponAttack(angle, gameObject.GetComponent<Entity>());
         StartCoroutine(shootWait(1f));
     }
 
