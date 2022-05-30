@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ButtonOptions : MonoBehaviour
 {
@@ -12,10 +13,13 @@ public class ButtonOptions : MonoBehaviour
         MenuManager.gameObjectOptions.SetActive(true);
 
         ButtonBack.gameObjectsToEnable.Add(MenuManager.gameObjectActions);
+        MenuManager.gameObjectActions.GetComponent<InfoSelectButton>().selectButton = gameObject;
         ButtonBack.gameObjectsToDisable.Add(MenuManager.gameObjectOptions);
 
         loadOptions();
         buttonApply.SetActive(false);
+
+        EventSystem.current.SetSelectedGameObject(GameObject.Find("DropdownLangue"));
         
     }
 

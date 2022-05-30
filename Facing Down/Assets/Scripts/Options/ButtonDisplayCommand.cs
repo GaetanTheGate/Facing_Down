@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ButtonDisplayCommand : MonoBehaviour
 {
@@ -11,12 +12,15 @@ public class ButtonDisplayCommand : MonoBehaviour
     public static GameObject scrollRectContentDisplayCommandController;
     public void displayCommand(){
         ButtonBack.gameObjectsToDisable.Add(contentDisplayCommands);
+        MenuManager.gameObjectOptions.GetComponent<InfoSelectButton>().selectButton = gameObject;
         ButtonBack.gameObjectsToEnable.Add(MenuManager.gameObjectOptions);
 
         contentDisplayCommands.SetActive(true);
         ControllerManager.currentControl.SetActive(true);
         
         ButtonApply.onDisplayCommands = true;
+
+        EventSystem.current.SetSelectedGameObject(GameObject.Find("ButtonRightArrow"));
 
     }
 

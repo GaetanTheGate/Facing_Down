@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ButtonBack : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class ButtonBack : MonoBehaviour
 
     public void back(){
         gameObjectsToEnable[gameObjectsToEnable.Count -1].SetActive(true);
+        EventSystem.current.SetSelectedGameObject(gameObjectsToEnable[gameObjectsToEnable.Count -1].GetComponent<InfoSelectButton>().selectButton);
         gameObjectsToDisable[gameObjectsToDisable.Count - 1].SetActive(false);
 
         if(gameObjectsToDisable[gameObjectsToDisable.Count - 1] == ButtonAdjustVolume.contentVolume)

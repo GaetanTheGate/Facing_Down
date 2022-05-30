@@ -15,13 +15,11 @@ public class ButtonChangeCommand : MonoBehaviour
     void Update(){
         if(canChange){
             if(Input.GetAxis("Button LT") > 0){
-                print("button LT");
                 GetComponentInChildren<Text>().text = "Button LT";
                 canChange = false;
             }
                 
             else if(Input.GetAxis("Button RT") > 0){
-                print("button RT");
                 GetComponentInChildren<Text>().text = "Button RT";
                 canChange = false;
             }

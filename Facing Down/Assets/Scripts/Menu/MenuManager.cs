@@ -20,6 +20,8 @@ public class MenuManager : MonoBehaviour
         gameObjectActions = GameObject.Find("Actions");
         gameObjectOptions = GameObject.Find("Options");
 
+        ToggleSelectableObject.lastSelectableObject = gameObjectActions.GetComponent<InfoSelectButton>().selectButton;
+
         ButtonDisplayCommand.contentDisplayCommands = GameObject.Find("ContentDisplayCommands");
         ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard = GameObject.Find("ScrollRectCommandsKeyBoard");
         ButtonDisplayCommand.scrollRectContentDisplayCommandController = GameObject.Find("ScrollRectCommandsController");
