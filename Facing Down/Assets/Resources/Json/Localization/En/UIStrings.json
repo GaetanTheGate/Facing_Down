@@ -55,11 +55,11 @@
 		},
 		{
 			"ID" : "textOptionCommandsKeyBoard",
-			"TEXT" : "KeyBoard / Mouse:"
+			"TEXT" : "KeyBoard / Mouse"
 		},
 		{
 			"ID" : "textOptionCommandsController",
-			"TEXT" : "Controler:"
+			"TEXT" : "Controller"
 		},
 		{
 			"ID" : "textActionDash",

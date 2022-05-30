@@ -11,11 +11,12 @@ public class ButtonApply : MonoBehaviour
     public void apply(){
 
         ButtonDisplayCommand.contentDisplayCommands.SetActive(true);
-        ButtonDisplayCommand.contentDisplayCommandKeyBoard.SetActive(true);
-        ButtonDisplayCommand.contentDisplayCommandController.SetActive(true);
+        ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard.SetActive(true);
+        ButtonDisplayCommand.scrollRectContentDisplayCommandController.SetActive(true);
         ButtonAdjustVolume.contentVolume.SetActive(true);
 
         Options.Get().langue = GameObject.Find("DropdownLangue").GetComponent<Dropdown>().captionText.text;
+
         Options.Get().masterVolumeValue = GameObject.Find("SliderMasterVolume").GetComponent<Slider>().value;
         Options.Get().musicVolumeValue = GameObject.Find("SliderMusicVolume").GetComponent<Slider>().value;
         Options.Get().soundVolumeValue = GameObject.Find("SliderSoundVolume").GetComponent<Slider>().value;
@@ -42,6 +43,11 @@ public class ButtonApply : MonoBehaviour
                 }
             }
         }
+
+        foreach(GameObject go in ControllerManager.typeController){
+            go.SetActive(false);
+        }
+        ControllerManager.currentControl.SetActive(true);
 
         
         

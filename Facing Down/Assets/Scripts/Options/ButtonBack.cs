@@ -15,7 +15,7 @@ public class ButtonBack : MonoBehaviour
         if(gameObjectsToDisable[gameObjectsToDisable.Count - 1] == ButtonAdjustVolume.contentVolume)
             ButtonApply.onContentVolume = false;
         
-        if(gameObjectsToDisable[gameObjectsToDisable.Count - 1] == ButtonDisplayCommand.contentDisplayCommandKeyBoard)
+        if(gameObjectsToDisable[gameObjectsToDisable.Count - 1] == ButtonDisplayCommand.contentDisplayCommands)
             ButtonApply.onDisplayCommands = false;
         
         gameObjectsToDisable.RemoveAt(gameObjectsToDisable.Count - 1);

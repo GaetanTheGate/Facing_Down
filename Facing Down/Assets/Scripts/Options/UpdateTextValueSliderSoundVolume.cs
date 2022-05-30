@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class updateTextValueSliderSoundVolume : MonoBehaviour
+public class UpdateTextValueSliderSoundVolume : MonoBehaviour
 {
     public void updateSoundVolumeValue(){
         transform.Find("SoundVolumeValueText").GetComponent<Text>().text = ((GetComponent<Slider>().value + 80)*1.25f).ToString();
