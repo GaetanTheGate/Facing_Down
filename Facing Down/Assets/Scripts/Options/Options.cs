@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 [System.Serializable]
 public class Options
@@ -51,10 +52,11 @@ public class Options
 
     public static Options Get() {
         if (options == null) {
-            if (false &&File.Exists(fullPath)){
+            if (File.Exists(fullPath)){
                 options = JsonUtility.FromJson<Options>(File.ReadAllText(fullPath));
                 options.dicoCommandsController = options.commandsControllerToDictionary();
                 options.dicoCommandsKeyBoard = options.commandsKeyBoardToDictionary();
+                verifyJsonOptionsFile();
             } 
             else {
                 options = new Options();
@@ -87,5 +89,93 @@ public class Options
             dicCommandController.Add(keyBinding.action, keyBinding.key);
         }
         return dicCommandController;
+    }
+
+    private static void verifyJsonOptionsFile(){
+        bool reSave = false;
+        if(options.langue == null){
+            options.langue = "En";
+            reSave = true;
+        }
+
+
+        List<string> actionsDefault = new List<string>();
+        actionsDefault.Add("dash");
+        actionsDefault.Add("attack");
+        actionsDefault.Add("bulletTime");
+        actionsDefault.Add("openConsole");
+        actionsDefault.Add("openInventoryMap");
+        actionsDefault.Add("closeUI");
+       
+
+        List<KeyBinding> commandsKeyBoardDefault = new List<KeyBinding>();
+        commandsKeyBoardDefault.Add(new KeyBinding("dash", KeyCode.Mouse0));
+        commandsKeyBoardDefault.Add(new KeyBinding("attack", KeyCode.Mouse1));
+        commandsKeyBoardDefault.Add(new KeyBinding("bulletTime", KeyCode.Space));
+        commandsKeyBoardDefault.Add(new KeyBinding("openConsole", KeyCode.C));
+        commandsKeyBoardDefault.Add(new KeyBinding("openInventoryMap", KeyCode.E));
+        commandsKeyBoardDefault.Add(new KeyBinding("closeUI", KeyCode.Escape));
+
+        if (options.commandsKeyBoard == null){
+            options.commandsKeyBoard = commandsKeyBoardDefault;
+            options.dicoCommandsKeyBoard = options.commandsKeyBoardToDictionary();
+            reSave = true; 
+        }
+        else if(options.commandsKeyBoard.Count < 6){
+
+            List<string> actionsInKeyBoard = new List<string>();
+            foreach(KeyBinding key in options.commandsKeyBoard){
+                actionsInKeyBoard.Add(key.action);
+            }
+
+            IEnumerable<string> keyToAdd = actionsDefault.Except(actionsInKeyBoard);
+            foreach(string action in keyToAdd){
+                foreach(KeyBinding keyBinding in commandsKeyBoardDefault){
+                    if(keyBinding.action == action){
+                        options.commandsKeyBoard.Add(keyBinding);
+                        break;
+                    }
+                }
+            }
+            options.dicoCommandsKeyBoard = options.commandsKeyBoardToDictionary();
+            reSave = true; 
+        }
+
+        List<KeyBinding> commandsControllerDefault = new List<KeyBinding>();
+        commandsControllerDefault.Add(new KeyBinding("dash", KeyCode.A));
+        commandsControllerDefault.Add(new KeyBinding("attack", KeyCode.Z));
+        commandsControllerDefault.Add(new KeyBinding("bulletTime", KeyCode.E));
+        commandsControllerDefault.Add(new KeyBinding("openConsole", KeyCode.R));
+        commandsControllerDefault.Add(new KeyBinding("openInventoryMap", KeyCode.T));
+        commandsControllerDefault.Add(new KeyBinding("closeUI", KeyCode.Y));  
+
+        
+                
+        if (options.commandsController == null){
+            options.commandsController = commandsControllerDefault;
+            options.dicoCommandsController = options.commandsControllerToDictionary();
+            reSave = true; 
+        }
+        else if(options.commandsController.Count < 6){
+            List<string> actionsInController = new List<string>();
+            foreach(KeyBinding key in options.commandsController){
+                actionsInController.Add(key.action);
+            }
+
+            IEnumerable<string> keyToAdd = actionsDefault.Except(actionsInController);
+            foreach(string action in keyToAdd){
+                foreach(KeyBinding keyBinding in commandsControllerDefault){
+                    if(keyBinding.action == action){
+                        options.commandsController.Add(keyBinding);
+                        break;
+                    }
+                }
+            }
+            options.dicoCommandsController = options.commandsControllerToDictionary();
+            reSave = true; 
+        } 
+
+        if(reSave)
+            Save();
     }
 }
