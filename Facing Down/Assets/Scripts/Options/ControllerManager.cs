@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControlerManager : MonoBehaviour
+public class ControllerManager : MonoBehaviour
 {
     public static GameObject currentControl;
-    public static List<GameObject> typeControler = new List<GameObject>(); 
+    public static List<GameObject> typeController = new List<GameObject>(); 
 
 
 }

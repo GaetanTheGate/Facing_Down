@@ -55,11 +55,11 @@
 		},
 		{
 			"ID" : "textOptionCommandsKeyBoard",
-			"TEXT" : "Clavier / Souris :"
+			"TEXT" : "Clavier / Souris"
 		},
 		{
 			"ID" : "textOptionCommandsController",
-			"TEXT" : "Manette :"
+			"TEXT" : "Manette"
 		},
 		{
 			"ID" : "textActionDash",

@@ -7,14 +7,14 @@ public class ButonLeftArrow : MonoBehaviour
 {
     public void goLeft(){
 
-        ControlerManager.currentControl.SetActive(false);
-        if(ControlerManager.typeControler.IndexOf(ControlerManager.currentControl) - 1 < 0)
-            ControlerManager.currentControl = ControlerManager.typeControler[ControlerManager.typeControler.Count - 1];
+        ControllerManager.currentControl.SetActive(false);
+        if(ControllerManager.typeController.IndexOf(ControllerManager.currentControl) - 1 < 0)
+            ControllerManager.currentControl = ControllerManager.typeController[ControllerManager.typeController.Count - 1];
         else
-            ControlerManager.currentControl = ControlerManager.typeControler[ControlerManager.typeControler.IndexOf(ControlerManager.currentControl) - 1];
+            ControllerManager.currentControl = ControllerManager.typeController[ControllerManager.typeController.IndexOf(ControllerManager.currentControl) - 1];
 
-        GameObject.Find("TextControler").GetComponent<Text>().text = Localization.GetUIString(ControlerManager.currentControl.GetComponent<InfoContentDisplayCommand>().idDisplayCommand).TEXT;
+        GameObject.Find("TextController").GetComponent<Text>().text = Localization.GetUIString(ControllerManager.currentControl.GetComponent<InfoContentDisplayCommand>().idDisplayCommand).TEXT;
 
-        ControlerManager.currentControl.SetActive(true);
+        ControllerManager.currentControl.SetActive(true);
     }
 }

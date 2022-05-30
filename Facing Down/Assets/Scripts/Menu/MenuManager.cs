@@ -21,12 +21,12 @@ public class MenuManager : MonoBehaviour
         gameObjectOptions = GameObject.Find("Options");
 
         ButtonDisplayCommand.contentDisplayCommands = GameObject.Find("ContentDisplayCommands");
-        ButtonDisplayCommand.contentDisplayCommandKeyBoard = GameObject.Find("ContentDisplayCommandKeyBoard");
-        ButtonDisplayCommand.contentDisplayCommandController = GameObject.Find("ContentDisplayCommandController");
+        ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard = GameObject.Find("ScrollRectCommandsKeyBoard");
+        ButtonDisplayCommand.scrollRectContentDisplayCommandController = GameObject.Find("ScrollRectCommandsController");
 
-        ControlerManager.typeControler.Add(ButtonDisplayCommand.contentDisplayCommandKeyBoard);
-        ControlerManager.typeControler.Add(ButtonDisplayCommand.contentDisplayCommandController);
-        ControlerManager.currentControl = ControlerManager.typeControler[0];
+        ControllerManager.typeController.Add(ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard);
+        ControllerManager.typeController.Add(ButtonDisplayCommand.scrollRectContentDisplayCommandController);
+        ControllerManager.currentControl = ControllerManager.typeController[0];
 
         ButtonOptions.buttonApply = GameObject.Find("ButtonApply");
         ButtonAdjustVolume.contentVolume = GameObject.Find("ContentVolume");

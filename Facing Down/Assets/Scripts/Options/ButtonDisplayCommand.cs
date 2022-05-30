@@ -7,14 +7,15 @@ public class ButtonDisplayCommand : MonoBehaviour
 {
 
     public static GameObject contentDisplayCommands;
-    public static GameObject contentDisplayCommandKeyBoard;
-    public static GameObject contentDisplayCommandController;
+    public static GameObject scrollRectContentDisplayCommandKeyBoard;
+    public static GameObject scrollRectContentDisplayCommandController;
     public void displayCommand(){
         ButtonBack.gameObjectsToDisable.Add(contentDisplayCommands);
         ButtonBack.gameObjectsToEnable.Add(MenuManager.gameObjectOptions);
 
         contentDisplayCommands.SetActive(true);
-        contentDisplayCommandKeyBoard.SetActive(true);
+        ControllerManager.currentControl.SetActive(true);
+        
         ButtonApply.onDisplayCommands = true;
 
     }

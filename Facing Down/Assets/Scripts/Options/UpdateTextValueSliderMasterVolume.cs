@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class updateTextValueSliderMasterVolume : MonoBehaviour
+public class UpdateTextValueSliderMasterVolume : MonoBehaviour
 {
     public void updateMasterVolumeValue(){
         transform.Find("MasterVolumeValueText").GetComponent<Text>().text = ((GetComponent<Slider>().value + 80)*1.25f).ToString();
