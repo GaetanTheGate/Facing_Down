@@ -14,7 +14,7 @@ public class Daggers : MeleeWeapon
         baseLenght = 45;
         baseEDelay = 0.05f;
         baseSpan = 0.1f;
-        baseCooldown = -0.07f;
+        baseCooldown = -(baseEDelay + baseSpan + baseSDelay) / 2;
 
         stat.addMaxDashes = 2;
         stat.accelerationMult = 0.75f;

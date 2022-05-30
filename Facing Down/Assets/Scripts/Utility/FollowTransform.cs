@@ -44,6 +44,6 @@ public class FollowTransform : MonoBehaviour
 
     public void TeleportToTarget()
     {
-        transform.position = target.position;
+        transform.position = target.position + offset;
     }
 }

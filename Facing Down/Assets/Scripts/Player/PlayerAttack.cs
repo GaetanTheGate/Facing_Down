@@ -8,7 +8,7 @@ public class PlayerAttack : AbstractPlayer, InputListener
     private float chargeTimePassed = 0.0f;
     private float chargeTime = 1.0f;
 
-    private float attackRecharge = 0.0f;
+    private bool isInCooldown = false;
 
     private PlayerBulletTime bulletTime;
     private CameraManager camManager;
@@ -88,22 +88,23 @@ public class PlayerAttack : AbstractPlayer, InputListener
 
     public void UpdateAfterInput() {
         if (!canAttack) return;
-        attackRecharge += Time.fixedDeltaTime;
         chargeTimePassed += Time.fixedDeltaTime;
     }
 
     private void ComputeSimpleAttack()
     {
         if (!canAttack) return;
-        if (attackRecharge < self.inventory.GetWeapon().GetCooldown() ||  !self.inventory.GetWeapon().CanAttack())
+        if (isInCooldown ||  !self.inventory.GetWeapon().CanAttack())
             return;
 
-        attackRecharge = 0.0f;
+        StartCoroutine(PreventAttackFor(self.inventory.GetWeapon().GetCooldown()));
+
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.2f);
 
         self.inventory.GetWeapon().Attack(pointer.getAngle(), selfEntity);
 
         rotation.FlipEntityRelativeToGravity(pointer.getAngle());
+        camManager.Propulse(pointer.getAngle(), 1f, 2f);
     }
 
     private void ComputeSpecial()
@@ -119,5 +120,13 @@ public class PlayerAttack : AbstractPlayer, InputListener
         if(!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.1f);
 
         rotation.FlipEntityRelativeToGravity(pointer.getAngle());
+        camManager.Propulse(pointer.getAngle(), 2f, 3f);
+    }
+
+    private IEnumerator PreventAttackFor(float duration)
+    {
+        isInCooldown = true;
+        yield return new WaitForSeconds(duration);
+        isInCooldown = false;
     }
 }
