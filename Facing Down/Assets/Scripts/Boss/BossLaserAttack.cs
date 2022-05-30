@@ -78,12 +78,13 @@ public class BossLaserAttack : MonoBehaviour
 
     private IEnumerator moveLasers(List<Attack> attackList, float repeatRate)
     {
+        int direction = Random.Range(1, 3) == 1 ? 1 : -1;
         yield return new WaitForSeconds(0.1f);
         while(animator.GetBool("isLaserAttackActive"))
         {
             foreach (Attack attack in attackList)
             {
-                attack.angle += 1;
+                attack.angle += 2  * direction;
             }
             yield return new WaitForSeconds(repeatRate);
         }

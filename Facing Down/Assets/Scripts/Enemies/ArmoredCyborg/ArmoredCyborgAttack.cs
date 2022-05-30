@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ArmoredCyborgAttack : EnemyAttack
 {
+    public float bashRange = 3f;
+
     /*public override void attackPlayer(Vector2 playerPosition)
     {
         if (timePassed >= delay && !isAttacking)
@@ -45,25 +47,24 @@ public class ArmoredCyborgAttack : EnemyAttack
 
     public override void attackPlayer(Vector2 playerPosition)
     {
-        if (timePassed >= delay && !isAttacking)
+        if (timePassed >= delay && !isAttacking && Vector2.Distance(transform.position, playerPosition) <= bashRange)
         {
             isAttacking = true;
             if(canAttack) bash(playerPosition);
-            
         }
     }
 
     private void bash(Vector2 targetPosition)
     {
-        gameObject.transform.Find("ShieldPivot").gameObject.SetActive(false);
+        gameObject.transform.Find("ShieldPivot_y").gameObject.SetActive(false);
         //shield.Attack()
-        StartCoroutine(bashWait(3f));
+        StartCoroutine(bashWait(1f));
     }
 
     protected IEnumerator bashWait(float vulnerableDuration)
     {
         yield return new WaitForSeconds(vulnerableDuration);
-        gameObject.transform.Find("ShieldPivot").gameObject.SetActive(true);
+        gameObject.transform.Find("ShieldPivot_y").gameObject.SetActive(true);
         timePassed = 0f;
         isAttacking = false;
     }

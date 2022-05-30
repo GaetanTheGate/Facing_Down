@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b543da1f2d5ecd445a898f79da22a76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeSpan: 0.1
-  timeGap: 0.005
+  timeSpan: 0.05
+  timeGap: 0.001
 --- !u!61 &8777982008633986855
 BoxCollider2D:
   m_ObjectHideFlags: 0

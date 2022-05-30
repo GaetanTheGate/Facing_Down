@@ -12,4 +12,10 @@ public abstract class ProjectileWeapon : Weapon
     {
 
     }
+
+    protected override void AddHitAttack(GameObject gameObject, DamageInfo dmgInfo)
+    {
+        base.AddHitAttack(gameObject, dmgInfo);
+        gameObject.GetComponent<AttackHit>().dmgInfo.isMelee = false;
+    }
 }

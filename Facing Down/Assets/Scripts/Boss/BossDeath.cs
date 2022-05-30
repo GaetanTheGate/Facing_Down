@@ -13,7 +13,7 @@ public class BossDeath : StateMachineBehaviour
         deathAnimationDuration = 2f;
         canEndState = false;
         animator.SetBool("isDying", true);
-        Game.coroutineStarter.LaunchCoroutine(waitLaserDuration(deathAnimationDuration));
+        Game.coroutineStarter.LaunchCoroutine(waitDeathDuration(deathAnimationDuration));
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -36,7 +36,7 @@ public class BossDeath : StateMachineBehaviour
         animator.SetBool("isDyingFinalExplosion", false);
     }
 
-    private IEnumerator waitLaserDuration(float duration)
+    private IEnumerator waitDeathDuration(float duration)
     {
         yield return new WaitForSeconds(duration);
         canEndState = true;

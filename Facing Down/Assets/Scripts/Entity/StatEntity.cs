@@ -14,7 +14,7 @@ public class StatEntity : MonoBehaviour
     public UnityEvent<DamageInfo> onHit;
     public UnityEvent onDeath;
     private Animator animator;
-
+    
     protected bool isDead = false;
 
     public bool canTakeKnockBack = true;
@@ -30,7 +30,7 @@ public class StatEntity : MonoBehaviour
     public virtual void Start()
     {
         currentHitPoints = GetMaxHP();
-        UI.healthBar.UpdateHP();
+        //UI.healthBar.UpdateHP();
         animator = gameObject.GetComponent<Animator>();
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
     }
@@ -78,8 +78,8 @@ public class StatEntity : MonoBehaviour
 
     public virtual void ModifyMaxHP(int amount) {
         maxHitPoints += amount;
-        if (maxHitPoints <= 0) maxHitPoints = 1;
-        if (maxHitPoints < currentHitPoints) currentHitPoints = maxHitPoints;
+        if (GetMaxHP() <= 0) maxHitPoints = 1;
+        if (GetMaxHP() < currentHitPoints) currentHitPoints = GetMaxHP();
 	}
 
     public virtual int GetMaxHP() {

@@ -17,6 +17,7 @@ public abstract class Weapon : Item {
     protected float baseCooldown = 0.1f;
 
     public WeaponStat stat;
+    protected DamageType dmgType = DamageType.PRIMARY;
 
     protected string attackPath = "Prefabs/Weapons/Katana";
     protected string specialPath = "Prefabs/Weapons/Katana";
@@ -85,11 +86,16 @@ public abstract class Weapon : Item {
     public void SetBaseSpan(float span) => baseSpan = span;
     public void SetBaseEDelay(float span) => baseEDelay = span;
     public void SetBaseCooldown(float cooldown) => baseCooldown = cooldown;
+    public void SetDmgType(DamageType type) => dmgType = type;
 
-    protected void AddHitAttack(GameObject gameObject, DamageInfo dmgInfo)
+    protected float GetBaseDmg(Entity self) => self.GetComponent<StatEntity>().getAtk() / 100 * baseAtk;
+    protected float GetKnockbackIntensity(Entity self, float knockIntensity) => self.GetComponent<StatEntity>().getAtk() / 100 * knockIntensity;
+
+    protected virtual void AddHitAttack(GameObject gameObject, DamageInfo dmgInfo)
     {
         gameObject.AddComponent<AttackHit>();
         gameObject.GetComponent<AttackHit>().dmgInfo = dmgInfo;
+        gameObject.GetComponent<AttackHit>().dmgInfo.type = dmgType;
         gameObject.GetComponent<AttackHit>().layersToHit.Add(target);
     }
 

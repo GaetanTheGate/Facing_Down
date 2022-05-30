@@ -14,4 +14,10 @@ public abstract class MeleeWeapon : Weapon
     {
 
     }
+
+    protected override void AddHitAttack(GameObject gameObject, DamageInfo dmgInfo)
+    {
+        base.AddHitAttack(gameObject, dmgInfo);
+        gameObject.GetComponent<AttackHit>().dmgInfo.isMelee = true;
+    }
 }

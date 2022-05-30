@@ -339,6 +339,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   canTakeKnockBack: 1
+  canTakeDamage: 1
 --- !u!114 &1658784935594729128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentToDestroy: {fileID: 4809945284772985059}
+  particleEffectExplosion: {fileID: 2474711653007251409, guid: f17092f516ff38e4a9dda7d0c185a6e4, type: 3}
 --- !u!114 &4991540456426559249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,7 +433,7 @@ MonoBehaviour:
   - {x: -0.3, y: 0.1, z: 0}
   m_ShapePathHash: 677619253
   m_Mesh: {fileID: 0}
-  m_InstanceId: 114252
+  m_InstanceId: 539944
 --- !u!1 &7464001781562380770
 GameObject:
   m_ObjectHideFlags: 0

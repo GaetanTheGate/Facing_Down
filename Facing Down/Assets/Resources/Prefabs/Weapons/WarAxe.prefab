@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b543da1f2d5ecd445a898f79da22a76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeSpan: 0.5
-  timeGap: 0.01
+  timeSpan: 0.2
+  timeGap: 0.05
 --- !u!82 &4875980541295202306
 AudioSource:
   m_ObjectHideFlags: 0

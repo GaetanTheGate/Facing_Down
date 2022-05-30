@@ -13,6 +13,10 @@ public class Shuriken : ProjectileWeapon
         baseEDelay = 5.0f;
         baseCooldown = -baseEDelay + (baseSpan / 2);
 
+        stat.specialCooldownMult = 0.75f;
+        stat.specialDurationMult = 0.75f;
+        stat.HPMult = 0.75f;
+
         attackPath = "Prefabs/Weapons/Shuriken";
         specialPath = "Prefabs/Weapons/BouncyShuriken";
     }

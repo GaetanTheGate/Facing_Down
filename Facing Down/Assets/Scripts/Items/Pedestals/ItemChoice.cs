@@ -23,18 +23,26 @@ public class ItemChoice {
     /// </summary>
     /// <param name="parent"></param>
     /// <param name="positions"></param>
-    public static ItemChoice SpawnItemChoice (Transform parent, List<Vector2> positions) {
+    public static ItemChoice SpawnItemChoice (Transform parent, List<Vector2> positions, ItemRarity minRarity = ItemRarity.COMMON, ItemRarity maxRarity = ItemRarity.LEGENDARY) {
         List<ItemPedestal> pedestals = new List<ItemPedestal>();
+        List<PassiveItem> items = new List<PassiveItem>();
         foreach (Vector2 position in positions) {
-            pedestals.Add(ItemPedestal.SpawnRandomItemPedestal(parent, position));
+            PassiveItem item;
+            for (item = ItemPool.GetRandomItem(minRarity, maxRarity); items.Contains(item); item = ItemPool.GetRandomItem(minRarity, maxRarity));
+            items.Add(item);
+            pedestals.Add(ItemPedestal.SpawnItemPedestal(item, parent, position));
 		}
         return new ItemChoice(pedestals);
     }
 
     public static ItemChoice SpawnWeaponChoice(Transform parent, List<Vector2> positions) {
         List<ItemPedestal> pedestals = new List<ItemPedestal>();
+        List<Weapon> weapons = new List<Weapon>();
         foreach (Vector2 position in positions) {
-            pedestals.Add(ItemPedestal.SpawnRandomWeaponPedestal(parent, position));
+            Weapon weapon;
+            for (weapon = WeaponPool.GetRandomWeapon(); weapons.Contains(weapon); weapon = WeaponPool.GetRandomWeapon());
+            weapons.Add(weapon);
+            pedestals.Add(ItemPedestal.SpawnItemPedestal(weapon, parent, position));
         }
         return new ItemChoice(pedestals);
     }

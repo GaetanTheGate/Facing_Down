@@ -43,9 +43,9 @@ public class StatPlayer : StatEntity
         specialLeft = maxSpecial;
 
         playerIframes = GetComponentInChildren<PlayerIframes>();
-        //UI.healthBar.UpdateHP();
-        //UI.specialBar.UpdateSpecial();
-        //UI.dashBar.UpdateDashes();
+        UI.healthBar.UpdateHP();
+        UI.specialBar.UpdateSpecial();
+        UI.dashBar.UpdateDashes();
     }
 
     public override void TakeDamage(DamageInfo damage)
@@ -91,9 +91,9 @@ public class StatPlayer : StatEntity
         UI.healthBar.UpdateHP();
 	}
 
-	public override int GetMaxHP() {
+    public override int GetMaxHP() {
         return Mathf.FloorToInt(maxHitPoints * Game.player.inventory.GetWeapon().stat.HPMult);
-	}
+    }
 
 	public int GetMaxDashes() {
         return maxDashes + Game.player.inventory.GetWeapon().stat.addMaxDashes;

@@ -14,7 +14,7 @@ public class StoneArmor : PassiveItem
 
 	public override void OnPickup() {
 		Game.player.stat.ModifyMaxHP(Mathf.FloorToInt(maxHPAdd * Game.player.stat.BASE_HP));
-		Game.player.stat.SetCurrentHP(Game.player.stat.GetCurrentHP() + Mathf.FloorToInt(maxHPAdd * Game.player.stat.BASE_HP));
+		Game.player.stat.SetCurrentHP(Game.player.stat.GetCurrentHP() + Mathf.FloorToInt(maxHPAdd * Game.player.stat.BASE_HP * Game.player.inventory.GetWeapon().stat.HPMult));
 	}
 
 	public override void OnRemove() {

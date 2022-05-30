@@ -14,7 +14,7 @@ public class Inventory
 	/// Initializes values.
 	/// </summary>
 	public Inventory() {
-		weapon = new Katana("Enemy");
+		weapon = new Fist("Enemy");
 		items = new Dictionary<string, PassiveItem>();
 	}
 
@@ -43,9 +43,10 @@ public class Inventory
 	
 	//TODO : give bonuses when changing weapon
 	public void SetWeapon (Weapon weapon) {
-		this.weapon.OnRemove();
-		Game.player.stat.SetCurrentHP(Mathf.CeilToInt(Game.player.stat.GetCurrentHP() * weapon.stat.HPMult / this.weapon.stat.HPMult));
+		Weapon previousWeapon = this.weapon;
+		previousWeapon.OnRemove();
 		this.weapon = weapon;
+		Game.player.stat.SetCurrentHP(Mathf.CeilToInt(Game.player.stat.GetCurrentHP() * weapon.stat.HPMult / previousWeapon.stat.HPMult));
 		this.weapon.OnPickup();
 		UI.healthBar.UpdateHP();
 		UI.dashBar.UpdateDashes();

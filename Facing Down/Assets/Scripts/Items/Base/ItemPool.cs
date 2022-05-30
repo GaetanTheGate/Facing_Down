@@ -9,7 +9,6 @@ public static class ItemPool
 {
 	private static Dictionary<ItemRarity, Dictionary<string, PassiveItem>> items;
 	private static Dictionary<ItemRarity, int> rarityDistribution; //Weights for each rarity.
-	private static int totalRarityWeight;
 
 	/// <summary>
 	/// Initializes values
@@ -18,7 +17,6 @@ public static class ItemPool
     static ItemPool() {
 		items = new Dictionary<ItemRarity, Dictionary<string, PassiveItem>>();
 		rarityDistribution = new Dictionary<ItemRarity, int> { {ItemRarity.COMMON, 7}, {ItemRarity.UNCOMMON, 6}, {ItemRarity.RARE, 4}, {ItemRarity.EPIC, 2}, {ItemRarity.LEGENDARY, 1} };
-		ComputeTotalRarityWeight();
 
 		Add(new FieryAlloy());
 		Add(new MagmaticCoating());
@@ -65,9 +63,10 @@ public static class ItemPool
 	/// <summary>
 	/// Initializes totalRarityWeight from rarityDistribution.
 	/// </summary>
-	private static void ComputeTotalRarityWeight() {
-		totalRarityWeight = 0;
-		foreach (int weight in rarityDistribution.Values) totalRarityWeight += weight;
+	private static int ComputeTotalRarityWeight(ItemRarity minRarity, ItemRarity maxRarity) {
+		int totalRarityWeight = 0;
+		for (ItemRarity r = minRarity; r <= maxRarity; ++r) totalRarityWeight += rarityDistribution[r];
+		return totalRarityWeight;
 	}
 
 	/// <summary>
@@ -75,11 +74,11 @@ public static class ItemPool
 	/// </summary>
 	/// <returns>The choosen rarity.</returns>
 	/// <exception cref="System.Exception">Thrown if no rarity is choosen. Should never happen.</exception>
-	public static ItemRarity GetRandomRarity() {
-		int r = Game.random.Next() % totalRarityWeight;
-		foreach(ItemRarity rarity in rarityDistribution.Keys) {
-			r -= rarityDistribution[rarity];
-			if (r < 0) return rarity;
+	public static ItemRarity GetRandomRarity(ItemRarity minRarity, ItemRarity maxRarity) {
+		int rand = Game.random.Next() % ComputeTotalRarityWeight(minRarity, maxRarity);
+		for (ItemRarity rarity = minRarity; rarity <= maxRarity; ++rarity) {
+			rand -= rarityDistribution[rarity];
+			if (rand < 0) return rarity;
 		}
 		throw new System.Exception("Unable to choose a rarity");
 	}
@@ -88,8 +87,8 @@ public static class ItemPool
 	/// Get a random item, using the rarity distribution.
 	/// </summary>
 	/// <returns>A randomly choosen item from the pool.</returns>
-	public static PassiveItem GetRandomItem() {
-		List<PassiveItem> rarityPool = new List<PassiveItem>(items[GetRandomRarity()].Values);
+	public static PassiveItem GetRandomItem(ItemRarity minRarity = ItemRarity.COMMON, ItemRarity maxRarity = ItemRarity.LEGENDARY) {
+		List<PassiveItem> rarityPool = new List<PassiveItem>(items[GetRandomRarity(minRarity, maxRarity)].Values);
 		return rarityPool[Game.random.Next() % rarityPool.Count];
 	}
 }

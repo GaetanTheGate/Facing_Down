@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class ThrowableAttack : Attack
 {
+    public Transform followTransform;
+    public float followMaxAngle = 10f;
+
     public float rotationSpeed = 0f;
     protected Rigidbody2D rb;
     protected bool hasShot = false;
@@ -20,6 +23,19 @@ public abstract class ThrowableAttack : Attack
         }
         else if (hasShot)
         {
+            Velocity nextVelo = new Velocity(rb.velocity);
+            nextVelo.setSpeed(speed * percentageTime);
+
+            if(followTransform != null)
+            {
+                float angle = Angles.AngleBetweenVector2(transform.position, followTransform.transform.position);
+
+                angle = Mathf.MoveTowardsAngle(nextVelo.getAngle(), angle, followMaxAngle * Time.fixedDeltaTime);
+                nextVelo.setAngle(angle);
+            }
+
+
+            rb.velocity = nextVelo.GetAsVector2();
 
         }
         else
