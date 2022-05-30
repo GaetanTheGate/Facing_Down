@@ -21,7 +21,7 @@ public class DamageInfo
 
     public Effect effect = Effect.None;
 
-    public DamageInfo(Entity source, Entity target, float amount, DamageType type, Velocity knockback, float hitCooldown)
+    public DamageInfo(Entity source, Entity target, float amount, DamageType type, Velocity knockback, float hitCooldown, Effect effect)
     {
         //Debug.Log(source + " hit " + target + " for " + amount + " damage with a " + (type == DamageType.PRIMARY ? "primary" : "secondary") + " attack.");
         this.source = source;
@@ -30,7 +30,10 @@ public class DamageInfo
         this.type = type;
         this.knockback = knockback;
         this.hitCooldown = hitCooldown;
+        this.effect = effect;
     }
+
+    public DamageInfo(Entity source, Entity target, float amount, DamageType type, Velocity knockback, float hitCooldown) : this(source, target, amount, type, knockback, hitCooldown, Effect.None) { }
 
     public DamageInfo(Entity source, Entity target, float amount, DamageType type, Velocity knockback) : this(source, target, amount, type, knockback, baseHitCooldown) { }
 
@@ -46,7 +49,7 @@ public class DamageInfo
 
     public DamageInfo(Entity source, float amount) : this(source, null, amount, DamageType.PRIMARY, new Velocity(), baseHitCooldown) { }
 
-    public DamageInfo(DamageInfo dmgInfo) : this(dmgInfo.source, dmgInfo.target, dmgInfo.amount, dmgInfo.type, dmgInfo.knockback, dmgInfo.hitCooldown) { }
+    public DamageInfo(DamageInfo dmgInfo) : this(dmgInfo.source, dmgInfo.target, dmgInfo.amount, dmgInfo.type, dmgInfo.knockback, dmgInfo.hitCooldown, dmgInfo.effect) { }
 
     public DamageInfo() : this(null, null, 0, DamageType.PRIMARY, null, baseHitCooldown) { }
 }

@@ -49,9 +49,9 @@ public class StatPlayer : StatEntity
 
         playerIframes = GetComponentInChildren<PlayerIframes>();
 
-        playerAttack = gameObject.GetComponent<PlayerAttack>();
-        playerDash = gameObject.GetComponent<PlayerDash>();
-        playerBulletTime = gameObject.GetComponent<PlayerBulletTime>();
+        playerAttack = transform.parent.gameObject.GetComponent<PlayerAttack>();
+        playerDash = transform.parent.gameObject.GetComponent<PlayerDash>();
+        playerBulletTime = transform.parent.gameObject.GetComponent<PlayerBulletTime>();
 
         UI.Init();
         UI.healthBar.UpdateHP();

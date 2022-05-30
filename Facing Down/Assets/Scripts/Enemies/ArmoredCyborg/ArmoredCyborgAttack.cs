@@ -75,8 +75,6 @@ public class ArmoredCyborgAttack : EnemyAttack
         Vector3 bulletPos = new Vector3(0, 0, 0);
         float radius = 1.1f;
 
-        print(angle);
-
         if (angle >= 0 && angle <= 90)
         {
             bulletPos.x = radius * Mathf.Cos((angle) * Mathf.Deg2Rad);
@@ -97,7 +95,6 @@ public class ArmoredCyborgAttack : EnemyAttack
             bulletPos.x = radius * Mathf.Cos((180 - angle * -1) * Mathf.Deg2Rad) * -1;
             bulletPos.y = radius * Mathf.Sin((180 - angle * -1) * Mathf.Deg2Rad) * -1;
         }
-        print(bulletPos.x + "   " + bulletPos.y);
         stunShot.startPos = new Vector3(transform.position.x + bulletPos.x, transform.position.y + bulletPos.y, transform.position.z);
         Attack attack = stunShot.GetAttack(angle, gameObject.GetComponent<Entity>());
         Physics2D.IgnoreCollision(attack.GetComponent<Collider2D>(), transform.Find("ShieldPivot_y").Find("ShieldPivot_z").Find("Shield").GetComponent<Collider2D>(), true);
