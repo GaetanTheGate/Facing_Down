@@ -9,10 +9,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     protected virtual void OnTriggerStay2D(Collider2D collision)
     {
-        print("hello");
         if (isActive)
         {
-            print(collision.tag);
             if (collision.CompareTag("Player"))
             {
                 StatPlayer statPlayer = collision.GetComponent<StatPlayer>();
