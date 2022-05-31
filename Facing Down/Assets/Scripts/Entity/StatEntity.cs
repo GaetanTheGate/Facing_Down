@@ -14,6 +14,9 @@ public class StatEntity : MonoBehaviour
     public UnityEvent<DamageInfo> onHit;
     public UnityEvent onDeath;
     private Animator animator;
+
+    private EnemyAttack enemyAttack;
+    private EnemyMovement enemyMovement;
     
     protected bool isDead = false;
 
@@ -33,6 +36,9 @@ public class StatEntity : MonoBehaviour
         //UI.healthBar.UpdateHP();
         animator = gameObject.GetComponent<Animator>();
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
+
+        enemyAttack = gameObject.GetComponent<EnemyAttack>();
+        enemyMovement = gameObject.GetComponent<EnemyMovement>();
     }
 
     public void Heal(float amount) {
@@ -49,6 +55,10 @@ public class StatEntity : MonoBehaviour
         {
             currentHitPoints -= (int)dmgInfo.amount;
             Game.player.gameCamera.GetComponent<CameraManager>().Shake(0.1f, 0.1f);
+            foreach (Effect effect in dmgInfo.effects)
+            {
+                effect.OnHit(dmgInfo);
+            }
         }
         if(canTakeKnockBack) GetComponent<Rigidbody2D>().velocity += dmgInfo.knockback.GetAsVector2();
         if (animator != null) animator.SetFloat("hp", currentHitPoints);
@@ -99,4 +109,18 @@ public class StatEntity : MonoBehaviour
     }
 
     public bool getIsDead() { return isDead; }
+
+    public virtual void Stun(bool shouldStun)
+    {
+        if (shouldStun)
+        {
+            if (enemyAttack != null) enemyAttack.canAttack = false;
+            if (enemyMovement != null) enemyMovement.canMove = false;
+        }
+        else
+        {
+            if (enemyAttack != null) enemyAttack.canAttack = true;
+            if (enemyMovement != null) enemyMovement.canMove = true;
+        }
+    }
 }

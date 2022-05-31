@@ -20,6 +20,8 @@ public abstract class EnemyMovement : MonoBehaviour
     public float rangeFromPlayerMax = 5f;
     protected bool isFollowingPlayer = false;
 
+    public bool canMove = true;
+
     protected bool isFlipped = false;
 
     protected EnemyAttack enemyAttack;
@@ -45,6 +47,7 @@ public abstract class EnemyMovement : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
+        if (!canMove) return;
         setNextFlag();
 
         if (isFollowingPlayer) followingPlayerBehaviour();
