@@ -13,6 +13,10 @@ public class Shuriken : ProjectileWeapon
         baseEDelay = 5.0f;
         baseCooldown = -baseEDelay + (baseSpan / 2);
 
+        stat.maxDashes = 5;
+        stat.maxSpecial = 4;
+
+        stat.accelerationMult = 1.25f;
         stat.specialCooldownMult = 0.75f;
         stat.specialDurationMult = 0.75f;
         stat.HPMult = 0.75f;

@@ -13,7 +13,9 @@ public class Katana : MeleeWeapon
         baseSpan = 0.2f;
         baseCooldown = 0.0f;
 
-        stat.addMaxDashes = -1;
+        stat.maxDashes = 3;
+        stat.maxSpecial = 4;
+        
         stat.accelerationMult = 1.25f;
         stat.specialCooldownMult = 0.75f;
 

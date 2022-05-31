@@ -15,6 +15,9 @@ public class Gun : MeleeWeapon
 
         isAuto = true;
 
+        stat.maxDashes = 6;
+        stat.maxSpecial = 6;
+
         stat.HPMult = 0.75f;
         stat.specialDurationMult = 1.25f;
         stat.specialCooldownMult = 1.25f;

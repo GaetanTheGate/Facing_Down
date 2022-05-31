@@ -17,9 +17,11 @@ public class Wings : MeleeWeapon
         baseEDelay = 0.1f;
         baseCooldown = - baseEDelay - baseSpan / 2;
 
+        stat.maxDashes = 5;
+        stat.maxSpecial = 4;
+
         stat.accelerationMult = 0.75f;
         stat.HPMult = 0.8f;
-        stat.addMaxDashes = 2;
 
         attackPath = "Prefabs/Weapons/Wings";
         specialPath = "Prefabs/Weapons/Wings";

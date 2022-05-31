@@ -8,8 +8,8 @@ public class StatPlayer : StatEntity
     public readonly int BASE_CRIT_RATE = 5;
     public readonly int BASE_CRIT_DMG = 150;
     public readonly float BASE_ACCELERATION = 10;
-    public readonly int BASE_MAX_DASH = 6;
-    public readonly int BASE_MAX_SPECIAL = 4;
+    public readonly int BASE_MAX_DASH = 0;
+    public readonly int BASE_MAX_SPECIAL = 0;
     public readonly float BASE_SPE_DURATION = 2;
     public readonly float BASE_SPE_COOLDOWN = 10;
 
@@ -113,7 +113,7 @@ public class StatPlayer : StatEntity
     }
 
 	public int GetMaxDashes() {
-        return maxDashes + Game.player.inventory.GetWeapon().stat.addMaxDashes;
+        return maxDashes + Game.player.inventory.GetWeapon().stat.maxDashes;
 	}
 
     public int GetRemainingDashes() {
@@ -136,7 +136,7 @@ public class StatPlayer : StatEntity
 	}
 
     public int GetMaxSpecial() {
-        return maxSpecial + Game.player.inventory.GetWeapon().stat.addMaxSpecial;
+        return maxSpecial + Game.player.inventory.GetWeapon().stat.maxSpecial;
 	}
 
     public float GetSpecialLeft() {

@@ -15,9 +15,10 @@ public class WarAxe : MeleeWeapon
         baseEDelay = 0.1f;
         baseCooldown = 0.1f;
 
+        stat.maxDashes = 5;
+        stat.maxSpecial = 4;
+
         stat.HPMult = 1.25f;
-        stat.addMaxDashes = -2;
-        stat.accelerationMult = 1.25f;
 
         attackPath = "Prefabs/Weapons/WarAxe";
         specialPath = "Prefabs/Weapons/WarAxe";
