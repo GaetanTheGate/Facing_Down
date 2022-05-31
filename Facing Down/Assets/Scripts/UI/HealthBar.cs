@@ -13,10 +13,6 @@ public class HealthBar : MonoBehaviour
 	RectTransform HPFill;
 	Text healthText;
 
-	private void Start() {
-		Init();
-	}
-
 	public void Init()
 	{
 		if(HPFill == null)

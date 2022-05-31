@@ -44,7 +44,7 @@ public class StatPlayer : StatEntity
         maxDashes = BASE_MAX_DASH;
         specialCooldown = BASE_SPE_COOLDOWN;
         specialDuration = BASE_SPE_DURATION;
-        maxSpecial = BASE_MAX_DASH;
+        maxSpecial = BASE_MAX_SPECIAL;
         specialLeft = maxSpecial;
 
         playerIframes = GetComponentInChildren<PlayerIframes>();
@@ -150,7 +150,7 @@ public class StatPlayer : StatEntity
 	}
 
     public void ModifySpecialLeft(float amount) {
-        specialLeft = Mathf.Min(maxSpecial, Mathf.Max(0, specialLeft + amount));
+        specialLeft = Mathf.Min(GetMaxSpecial(), Mathf.Max(0, specialLeft + amount));
         UI.specialBar.UpdateSpecial();
 	}
 

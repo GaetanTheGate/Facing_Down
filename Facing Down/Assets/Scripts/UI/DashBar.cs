@@ -25,10 +25,6 @@ public class DashBar : MonoBehaviour
     /// <summary>
     /// Initializes the prefab, icons and sprites;
     /// </summary>
-    void Start()
-    {
-        Init();
-    }
 
     public void Init()
     {
