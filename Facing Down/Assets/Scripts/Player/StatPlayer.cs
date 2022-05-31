@@ -61,8 +61,6 @@ public class StatPlayer : StatEntity
 
     public override void TakeDamage(DamageInfo damage)
     {
-        UI.healthBar.UpdateHP();
-
         if (isDead || (int)damage.amount == 0) return;
         if (!playerIframes.isIframe)
         {
@@ -76,6 +74,8 @@ public class StatPlayer : StatEntity
             }
             else playerIframes.getIframe(Mathf.Min(2f, damage.hitCooldown));
         }
+
+        UI.healthBar.UpdateHP();
     }
 
     public override void checkIfDead(DamageInfo lastDamageTaken) {

@@ -6,7 +6,7 @@ public class StatEntity : MonoBehaviour
     [SerializeField] protected int maxHitPoints = 10;
     protected int currentHitPoints;
 
-    private float atk;
+    public float atk;
 
     [Min(0.0f)] public float critRate = 5;
     [Min(100.0f)] public float critDmg = 150;
