@@ -247,10 +247,10 @@ MonoBehaviour:
         m_scale: 1
         m_snap: 0
         m_invert: 0
-        m_type: 8
+        m_type: 7
         m_axis: 0
         m_joystick: 0
-        m_gamepadButton: 0
+        m_gamepadButton: 13
         m_gamepadAxis: 6
         m_gamepadIndex: 0
     - m_name: Attack

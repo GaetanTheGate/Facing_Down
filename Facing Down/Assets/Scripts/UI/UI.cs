@@ -83,7 +83,7 @@ public class UI : MonoBehaviour
             }
 	}*/
 
-    private void OnGUI()
+    private void Update()
     {
         if (console.IsToggled())
         {
