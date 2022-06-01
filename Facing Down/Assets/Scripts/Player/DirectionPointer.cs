@@ -18,8 +18,19 @@ public class DirectionPointer : MonoBehaviour
         Vector3 targetScale = target.localScale;
         baseMaxRadius = Mathf.Max(targetScale.x, targetScale.y, targetScale.z);
         transform.localScale = new Vector3(baseMaxRadius, baseMaxRadius, baseMaxRadius);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+
+        SetCursorState(false);
+
+    }
+
+    public void SetCursorState(bool state)
+    {
+        Cursor.visible = state;
+        toMouse = state;
+        if (state)
+            Cursor.lockState = CursorLockMode.Confined;
+        else
+            Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -51,7 +62,7 @@ public class DirectionPointer : MonoBehaviour
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = Camera.main.nearClipPlane;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        nextPosition = new Vector2(mousePos.x, mousePos.y);
+        nextPosition = mousePos;
     }
 
     private void posAsJoystick()

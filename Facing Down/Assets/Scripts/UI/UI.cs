@@ -52,7 +52,7 @@ public class UI : MonoBehaviour
     /// <summary>
     /// Enables/Disables UI elements depending on user input
     /// </summary>
-	private void OnGUI() {
+    /*private void OnGUI() {
             if (console.IsToggled()) {
                 if (GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsKeyBoard["closeUI"]) || 
                     GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsController["closeUI"]) ) {
@@ -81,8 +81,43 @@ public class UI : MonoBehaviour
                             Game.time.SetGameSpeedInstant(0);
                 }
             }
-	}
+	}*/
 
+    private void OnGUI()
+    {
+        if (console.IsToggled())
+        {
+            if (GameController.checkIfkeyCodeIsPressed("Escape"))
+            {
+                console.Toggle();
+            }
+        }
+        else if (inventoryDisplay.IsEnabled())
+        {
+            if (GameController.checkIfkeyCodeIsPressedOnGUI("Escape"))
+            {
+                inventoryDisplay.Disable();
+                map.Disable();
+                LockCursor();
+                Game.time.SetGameSpeedInstant(1);
+            }
+        }
+        else
+        {
+            if (GameController.checkIfkeyCodeIsPressed("Console"))
+            {
+                console.Toggle();
+            }
+            else if (GameController.checkIfkeyCodeIsPressed("Inventory"))
+            {
+                inventoryDisplay.Enable();
+                map.Enable();
+                UnlockCursor();
+                Game.time.SetGameSpeedInstant(0);
+            }
+        }
+    }
+    
     private void LockCursor() {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

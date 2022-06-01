@@ -53,7 +53,7 @@ public class PlayerDash : AbstractPlayer, InputListener
             rotation.Init();
         }
 
-        Game.controller.Subscribe("dash", this);
+        Game.controller.Subscribe("Dash", this);
     }
 
     public void OnInputPressed() {

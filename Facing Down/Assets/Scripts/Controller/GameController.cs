@@ -3,37 +3,39 @@ using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
-
-
     [Range(0.0f, 2.0f)] public float sensibility = 0.8f;
 
     private Vector2 pointer = new Vector2(0.0f, 0.0f);
 
     public bool lowSensitivity = false;
 
-    private List<Dictionary<string, KeyCode>> controlers;
+    //private List<Dictionary<string, KeyCode>> controlers;
 
-    private Dictionary<KeyCode, List<InputListener>> listeners;
-    private Dictionary<KeyCode, bool> keyPress;
-    private Dictionary<KeyCode, bool> keyHold;
-    private Dictionary<KeyCode, bool> keyRelease;
+    private Dictionary<string, List<InputListener>> listeners;
+    private Dictionary<string, bool> keyPress;
+    private Dictionary<string, bool> keyHold;
+    private Dictionary<string, bool> keyRelease;
+
+    private static Dictionary<string, bool> keyAxisState;
 
     private static bool onAxisButtonLT = false;
     private static bool onAxisButtonRT = false;
 
-    public void Init() {
+    public void Init() {/*
         controlers = new List<Dictionary<string, KeyCode>>();
         controlers.Add(Options.Get().dicoCommandsController);
         controlers.Add(Options.Get().dicoCommandsKeyBoard);
+        */
+        listeners = new Dictionary<string, List<InputListener>>();
+        keyPress = new Dictionary<string, bool>();
+        keyHold = new Dictionary<string, bool>();
+        keyRelease = new Dictionary<string, bool>();
 
-        listeners = new Dictionary<KeyCode, List<InputListener>>();
-        keyPress = new Dictionary<KeyCode, bool>();
-        keyHold = new Dictionary<KeyCode, bool>();
-        keyRelease = new Dictionary<KeyCode, bool>();
-	}
+        keyAxisState = new Dictionary<string, bool>();
+    }
 
     public void Subscribe(string action, InputListener listener) {
-        foreach (Dictionary<string, KeyCode> controler in controlers) {
+        /*foreach (Dictionary<string, KeyCode> controler in controlers) {
             if (!controler.ContainsKey(action)) continue;
             KeyCode key = controler[action];
             if (!listeners.ContainsKey(key)) {
@@ -44,7 +46,17 @@ public class GameController : MonoBehaviour
             }
             listeners[key].Add(listener);
         }
-	}
+        */
+        if (!listeners.ContainsKey(action))
+        {
+            listeners.Add(action, new List<InputListener>());
+            keyPress.Add(action, false);
+            keyHold.Add(action, false);
+            keyRelease.Add(action, false);
+            keyAxisState.Add(action, false);
+        }
+        listeners[action].Add(listener);
+    }
 
     // Update is called once per frame
     void Update()
@@ -54,12 +66,12 @@ public class GameController : MonoBehaviour
         ComputeReleased();
 
 
-        pointer.x = Input.GetAxis("Mouse X") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
-        pointer.y = Input.GetAxis("Mouse Y") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
+        pointer.x = Input.GetAxis("Horizontal_Pointeur") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
+        pointer.y = Input.GetAxis("Vertical_Pointeur") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
     }
 
 	private void FixedUpdate() {
-        foreach (KeyCode key in listeners.Keys) {
+        foreach (string key in listeners.Keys) {
             if (keyPress[key]) {
                 foreach (InputListener listener in listeners[key]) {
                     listener.OnInputPressed();
@@ -86,7 +98,7 @@ public class GameController : MonoBehaviour
 	}
 	private void ComputePress()
     {
-        foreach (KeyCode key in listeners.Keys) {
+        foreach (string key in listeners.Keys) {
             if (checkIfkeyCodeIsPressed(key)) {
                 keyPress[key] = true;
                 keyHold[key] = true;
@@ -96,7 +108,7 @@ public class GameController : MonoBehaviour
 
     private void ComputeReleased()
     {
-        foreach (KeyCode key in listeners.Keys) {
+        foreach (string key in listeners.Keys) {
             if (checkIfkeyCodeIsReleased(key)) {
                 keyRelease[key] = true;
                 keyHold[key] = false;
@@ -107,6 +119,53 @@ public class GameController : MonoBehaviour
     public Vector2 getPointer()
     {
         return pointer;
+    }
+
+    private static float triggerLimit = 0.5f;
+
+    public static bool checkIfkeyCodeIsPressed(string key)
+    {
+        bool asButton = false;
+        bool asAxis = false;
+        try
+        {
+            asButton = Input.GetButtonDown(key);
+        }
+        catch { }
+        try
+        {
+            if ( ! keyAxisState[key])
+            {
+                asAxis = ! keyAxisState[key] && (Input.GetAxis(key) >= triggerLimit);
+                if (asAxis)
+                    keyAxisState[key] = true;
+            }
+        }
+        catch { }
+        return asButton || asAxis;
+    }
+
+    public static bool checkIfkeyCodeIsReleased(string key)
+    {
+        bool asButton = false;
+        bool asAxis = false;
+        try
+        {
+            asButton = Input.GetButtonUp(key);
+        }
+        catch { }
+        try
+        {
+            if (keyAxisState[key])
+            {
+                asAxis = keyAxisState[key] && (Input.GetAxis(key) < triggerLimit);
+                if(asAxis)
+                    keyAxisState[key] = false;
+            }
+        }
+        catch { }
+
+        return asButton || asAxis;
     }
 
     public static bool checkIfkeyCodeIsPressed(KeyCode kc){
