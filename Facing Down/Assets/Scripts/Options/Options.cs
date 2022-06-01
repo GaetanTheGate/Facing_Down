@@ -39,12 +39,12 @@ public class Options
         commandsKeyBoard.Add(new KeyBinding("closeUI", KeyCode.Escape));
 
         commandsController = new List<KeyBinding>();
-        commandsController.Add(new KeyBinding("dash", KeyCode.A));
-        commandsController.Add(new KeyBinding("attack", KeyCode.Z));
-        commandsController.Add(new KeyBinding("bulletTime", KeyCode.E));
-        commandsController.Add(new KeyBinding("openConsole", KeyCode.R));
-        commandsController.Add(new KeyBinding("openInventoryMap", KeyCode.T));
-        commandsController.Add(new KeyBinding("closeUI", KeyCode.Y));    
+        commandsController.Add(new KeyBinding("dash", KeyCode.JoystickButton2));
+        commandsController.Add(new KeyBinding("attack", KeyCode.JoystickButton0));
+        commandsController.Add(new KeyBinding("bulletTime", KeyCode.JoystickButton11));
+        commandsController.Add(new KeyBinding("openConsole", KeyCode.JoystickButton7));
+        commandsController.Add(new KeyBinding("toggleInventoryMap", KeyCode.JoystickButton1));
+        commandsController.Add(new KeyBinding("closeConsole", KeyCode.JoystickButton3));    
 
         dicoCommandsKeyBoard = commandsKeyBoardToDictionary();
         dicoCommandsController = commandsControllerToDictionary();
@@ -104,8 +104,8 @@ public class Options
         actionsDefault.Add("attack");
         actionsDefault.Add("bulletTime");
         actionsDefault.Add("openConsole");
-        actionsDefault.Add("openInventoryMap");
-        actionsDefault.Add("closeUI");
+        actionsDefault.Add("toggleInventoryMap");
+        actionsDefault.Add("closeConsole");
        
 
         List<KeyBinding> commandsKeyBoardDefault = new List<KeyBinding>();
@@ -113,8 +113,8 @@ public class Options
         commandsKeyBoardDefault.Add(new KeyBinding("attack", KeyCode.Mouse1));
         commandsKeyBoardDefault.Add(new KeyBinding("bulletTime", KeyCode.Space));
         commandsKeyBoardDefault.Add(new KeyBinding("openConsole", KeyCode.C));
-        commandsKeyBoardDefault.Add(new KeyBinding("openInventoryMap", KeyCode.E));
-        commandsKeyBoardDefault.Add(new KeyBinding("closeUI", KeyCode.Escape));
+        commandsKeyBoardDefault.Add(new KeyBinding("toggleInventoryMap", KeyCode.E));
+        commandsKeyBoardDefault.Add(new KeyBinding("closeConsole", KeyCode.Escape));
 
         if (options.commandsKeyBoard == null){
             options.commandsKeyBoard = commandsKeyBoardDefault;
@@ -142,12 +142,12 @@ public class Options
         }
 
         List<KeyBinding> commandsControllerDefault = new List<KeyBinding>();
-        commandsControllerDefault.Add(new KeyBinding("dash", KeyCode.A));
-        commandsControllerDefault.Add(new KeyBinding("attack", KeyCode.Z));
-        commandsControllerDefault.Add(new KeyBinding("bulletTime", KeyCode.E));
-        commandsControllerDefault.Add(new KeyBinding("openConsole", KeyCode.R));
-        commandsControllerDefault.Add(new KeyBinding("openInventoryMap", KeyCode.T));
-        commandsControllerDefault.Add(new KeyBinding("closeUI", KeyCode.Y));  
+        commandsControllerDefault.Add(new KeyBinding("dash", KeyCode.JoystickButton2));
+        commandsControllerDefault.Add(new KeyBinding("attack", KeyCode.JoystickButton0));
+        commandsControllerDefault.Add(new KeyBinding("bulletTime", KeyCode.JoystickButton11));
+        commandsControllerDefault.Add(new KeyBinding("openConsole", KeyCode.JoystickButton7));
+        commandsControllerDefault.Add(new KeyBinding("toggleInventoryMap", KeyCode.JoystickButton1));
+        commandsControllerDefault.Add(new KeyBinding("closeConsole", KeyCode.JoystickButton3));  
 
         
                 

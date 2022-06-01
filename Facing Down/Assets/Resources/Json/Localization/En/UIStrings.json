@@ -78,12 +78,12 @@
 			"TEXT" : "Open console:"
 		},
 		{
-			"ID" : "textActionOpenInventoryMap",
-			"TEXT" : "Open inventory / map:"
+			"ID" : "textActionToggleInventoryMap",
+			"TEXT" : "Open / Close inventory and map:"
 		},
 		{
-			"ID" : "textActionCloseUI",
-			"TEXT" : "Close UI:"
+			"ID" : "textActionCloseConsole",
+			"TEXT" : "Close console:"
 		},
 		{
 			"ID" : "buttonChangeCommand",
