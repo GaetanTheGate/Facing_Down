@@ -20,7 +20,8 @@ public class ButtonDisplayCommand : MonoBehaviour
         
         ButtonApply.onDisplayCommands = true;
 
-        EventSystem.current.SetSelectedGameObject(GameObject.Find("ButtonRightArrow"));
+        if(ToggleSelectableObject.onController)
+            EventSystem.current.SetSelectedGameObject(GameObject.Find("ButtonRightArrow"));
 
     }
 

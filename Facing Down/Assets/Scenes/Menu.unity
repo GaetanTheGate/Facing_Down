@@ -511,7 +511,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6cd21fd6f40e30cdbe9a2b023537dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastSelectableObject: {fileID: 0}
+  onBack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1936405548}
+        m_TargetAssemblyTypeName: ButtonBack, Assembly-CSharp
+        m_MethodName: back
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &174194258
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,9 +999,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 499939918}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ButtonChangeCommand, Assembly-CSharp
-        m_MethodName: changeCommand
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1972,7 +1986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 1467634375}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &414908523
@@ -2108,9 +2122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 481021943}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ButtonChangeCommand, Assembly-CSharp
-        m_MethodName: changeCommand
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2455,7 +2469,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 439662723}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d58ea81b5b9966e38a268347158296a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -2714,9 +2728,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1869636210}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ButtonChangeCommand, Assembly-CSharp
-        m_MethodName: changeCommand
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3022,7 +3036,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 481021942}
-  - component: {fileID: 481021943}
   m_Layer: 5
   m_Name: KeyBinding
   m_TagString: Untagged
@@ -3051,18 +3064,6 @@ RectTransform:
   m_AnchoredPosition: {x: 450, y: 0}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &481021943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 481021941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db5cc83affde3e37984728674301af0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &484658739
 GameObject:
   m_ObjectHideFlags: 0
@@ -3163,7 +3164,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 499939917}
-  - component: {fileID: 499939918}
   m_Layer: 5
   m_Name: KeyBinding
   m_TagString: Untagged
@@ -3192,18 +3192,6 @@ RectTransform:
   m_AnchoredPosition: {x: 450, y: 0}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &499939918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 499939916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db5cc83affde3e37984728674301af0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &511323348
 GameObject:
   m_ObjectHideFlags: 0
@@ -6006,7 +5994,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 988638650}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d58ea81b5b9966e38a268347158296a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -6442,7 +6430,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1056761405}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d58ea81b5b9966e38a268347158296a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -8070,7 +8058,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1267681729}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d58ea81b5b9966e38a268347158296a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -9426,7 +9414,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1458905520}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d58ea81b5b9966e38a268347158296a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -11879,7 +11867,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1869636209}
-  - component: {fileID: 1869636210}
   m_Layer: 5
   m_Name: KeyBinding
   m_TagString: Untagged
@@ -11908,18 +11895,6 @@ RectTransform:
   m_AnchoredPosition: {x: 450, y: 0}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1869636210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869636208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db5cc83affde3e37984728674301af0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1881622703
 GameObject:
   m_ObjectHideFlags: 0
@@ -12396,7 +12371,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1957297151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d58ea81b5b9966e38a268347158296a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:

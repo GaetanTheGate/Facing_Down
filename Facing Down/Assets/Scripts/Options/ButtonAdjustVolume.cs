@@ -16,7 +16,8 @@ public class ButtonAdjustVolume : MonoBehaviour
         contentVolume.SetActive(true);
         ButtonApply.onContentVolume = true;
 
-        EventSystem.current.SetSelectedGameObject(GameObject.Find("SliderMasterVolume"));
+        if(ToggleSelectableObject.onController)
+            EventSystem.current.SetSelectedGameObject(GameObject.Find("SliderMasterVolume"));
 
     }
 

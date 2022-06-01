@@ -10,8 +10,12 @@ public class ButtonBack : MonoBehaviour
     public static List<GameObject> gameObjectsToDisable = new List<GameObject>();
 
     public void back(){
+        if(gameObjectsToEnable.Count == 0)
+            return;
+        
         gameObjectsToEnable[gameObjectsToEnable.Count -1].SetActive(true);
-        EventSystem.current.SetSelectedGameObject(gameObjectsToEnable[gameObjectsToEnable.Count -1].GetComponent<InfoSelectButton>().selectButton);
+        if(ToggleSelectableObject.onController)
+            EventSystem.current.SetSelectedGameObject(gameObjectsToEnable[gameObjectsToEnable.Count -1].GetComponent<InfoSelectButton>().selectButton);
         gameObjectsToDisable[gameObjectsToDisable.Count - 1].SetActive(false);
 
         if(gameObjectsToDisable[gameObjectsToDisable.Count - 1] == ButtonAdjustVolume.contentVolume)
