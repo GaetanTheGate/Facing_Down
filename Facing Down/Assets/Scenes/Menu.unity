@@ -889,7 +889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 253015486}
   m_Layer: 5
-  m_Name: CommandCloseUI
+  m_Name: CommandCloseConsole
   m_TagString: Option
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -999,9 +999,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 499939918}
         m_TargetAssemblyTypeName: ButtonChangeCommand, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: changeCommand
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1124,7 +1124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: closeUI
+  idAction: closeConsole
 --- !u!114 &278806418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2122,9 +2122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 481021943}
         m_TargetAssemblyTypeName: ButtonChangeCommand, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: changeCommand
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2728,9 +2728,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1869636210}
         m_TargetAssemblyTypeName: ButtonChangeCommand, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: changeCommand
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3036,6 +3036,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 481021942}
+  - component: {fileID: 481021943}
   m_Layer: 5
   m_Name: KeyBinding
   m_TagString: Untagged
@@ -3064,6 +3065,18 @@ RectTransform:
   m_AnchoredPosition: {x: 450, y: 0}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &481021943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481021941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5cc83affde3e37984728674301af0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &484658739
 GameObject:
   m_ObjectHideFlags: 0
@@ -3164,6 +3177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 499939917}
+  - component: {fileID: 499939918}
   m_Layer: 5
   m_Name: KeyBinding
   m_TagString: Untagged
@@ -3192,6 +3206,18 @@ RectTransform:
   m_AnchoredPosition: {x: 450, y: 0}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &499939918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499939916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5cc83affde3e37984728674301af0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &511323348
 GameObject:
   m_ObjectHideFlags: 0
@@ -5609,7 +5635,7 @@ GameObject:
   m_Component:
   - component: {fileID: 935028480}
   m_Layer: 5
-  m_Name: CommandOpenInventory/Map
+  m_Name: CommandToggleInventory/Map
   m_TagString: Option
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5853,7 +5879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: closeUI
+  idAction: closeConsole
 --- !u!114 &979258297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7121,7 +7147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1150163481}
   m_Layer: 5
-  m_Name: CommandOpenInventory/Map
+  m_Name: CommandToggleInventory/Map
   m_TagString: Option
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7783,7 +7809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: openInventoryMap
+  idAction: toggleInventoryMap
 --- !u!114 &1217172217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10581,7 +10607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: openInventoryMap
+  idAction: toggleInventoryMap
 --- !u!114 &1624314657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11867,6 +11893,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1869636209}
+  - component: {fileID: 1869636210}
   m_Layer: 5
   m_Name: KeyBinding
   m_TagString: Untagged
@@ -11895,6 +11922,18 @@ RectTransform:
   m_AnchoredPosition: {x: 450, y: 0}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1869636210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869636208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5cc83affde3e37984728674301af0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1881622703
 GameObject:
   m_ObjectHideFlags: 0
@@ -12883,7 +12922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2027062347}
   m_Layer: 5
-  m_Name: CommandCloseUI
+  m_Name: CommandCloseConsole
   m_TagString: Option
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
