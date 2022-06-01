@@ -63,7 +63,6 @@ public class EnergyBall : ProjectileWeapon
                 
         }
         
-        Debug.Log(following.gameObject.name);
         GameObject energyBall = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
