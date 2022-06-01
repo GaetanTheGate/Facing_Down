@@ -172,4 +172,10 @@ public class Wings : MeleeWeapon
 
         canMove = true;
     }
+
+	//PASSIVE EFFECTS
+	public override void OnPickup() {
+        Game.player.stat.ModifyMaxDashes(1);
+        Game.player.stat.ModifySpecialCooldown(0.90f);
+	}
 }

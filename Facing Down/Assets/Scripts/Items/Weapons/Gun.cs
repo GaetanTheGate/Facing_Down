@@ -121,4 +121,10 @@ public class Gun : MeleeWeapon
         if ( ! canMove )
             Game.coroutineStarter.LaunchCoroutine(SetVelocityToZeroLoop(self));
     }
+
+    //PASSIVE EFFECTS
+    public override void OnPickup() {
+        Game.player.stat.ModifyMaxSpecial(1);
+        Game.player.stat.ModifySpecialDuration(Game.player.stat.BASE_SPE_DURATION * 0.10f);
+    }
 }

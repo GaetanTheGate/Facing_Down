@@ -126,4 +126,10 @@ public class WarAxe : MeleeWeapon
 
         return swing.GetComponent<SwingAttack>();
     }
+
+    //PASSIVE EFFECTS
+    public override void OnPickup() {
+        Game.player.stat.ModifyMaxHP(Mathf.FloorToInt(Game.player.stat.BASE_HP * 0.10f));
+        Game.player.stat.ModifyAtk(Game.player.stat.BASE_ATK * 0.10f);
+    }
 }

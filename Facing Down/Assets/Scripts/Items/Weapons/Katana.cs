@@ -139,4 +139,10 @@ public class Katana : MeleeWeapon
 
         return laser.GetComponent<LaserAttack>();
     }
+
+    //PASSIVE EFFECTS
+    public override void OnPickup() {
+        Game.player.stat.ModifyAcceleration(0.1f * Game.player.stat.BASE_ACCELERATION);
+        Game.player.stat.ModifySpecialCooldown(-0.1f * Game.player.stat.GetSpecialCooldown());
+    }
 }

@@ -179,4 +179,10 @@ public class Daggers : MeleeWeapon
 
         return attack.GetComponent<CompositeAttack>();
     }
+
+    //PASSIVE EFFECTS
+    public override void OnPickup() {
+        Game.player.stat.ModifyCritRate(5);
+        Game.player.stat.ModifyCritDamage(10);
+    }
 }

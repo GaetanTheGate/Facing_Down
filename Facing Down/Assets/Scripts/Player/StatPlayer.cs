@@ -12,6 +12,8 @@ public class StatPlayer : StatEntity
     public readonly int BASE_MAX_SPECIAL = 0;
     public readonly float BASE_SPE_DURATION = 2;
     public readonly float BASE_SPE_COOLDOWN = 10;
+    public readonly float BASE_CRITRATE = 5;
+    public readonly float BASE_CRITDAMAGE = 150;
 
     private PlayerIframes playerIframes;
 
@@ -48,6 +50,8 @@ public class StatPlayer : StatEntity
         specialDuration = BASE_SPE_DURATION;
         maxSpecial = BASE_MAX_SPECIAL;
         specialLeft = maxSpecial;
+        critDmg = BASE_CRIT_DMG;
+        critRate = BASE_CRIT_RATE;
 
         playerIframes = GetComponentInChildren<PlayerIframes>();
 

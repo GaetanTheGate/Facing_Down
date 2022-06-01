@@ -143,4 +143,10 @@ public class Shuriken : ProjectileWeapon
 
         self.GetComponent<Rigidbody2D>().freezeRotation = true;
     }
+
+    //PASSIVE EFFECTS
+    public override void OnPickup() {
+        Game.player.stat.ModifyMaxDashes(1);
+        Game.player.stat.ModifyAtk(Game.player.stat.BASE_ATK * 0.1f);
+    }
 }
