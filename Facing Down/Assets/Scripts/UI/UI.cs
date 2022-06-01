@@ -94,7 +94,7 @@ public class UI : MonoBehaviour
         }
         else if (inventoryDisplay.IsEnabled())
         {
-            if (GameController.checkIfkeyCodeIsPressedOnGUI("Escape"))
+            if (GameController.checkIfkeyCodeIsPressed("Escape"))
             {
                 inventoryDisplay.Disable();
                 map.Disable();
