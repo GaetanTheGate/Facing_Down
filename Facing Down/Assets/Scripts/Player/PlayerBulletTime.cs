@@ -12,7 +12,6 @@ public class PlayerBulletTime : AbstractPlayer, InputListener
 
     protected override void Initialize()
     {
-        Debug.Log("INIT");
         Game.controller.Subscribe("bulletTime", this);
     }
 

@@ -49,7 +49,6 @@ public class SpecialBar : MonoBehaviour
 	}
 
     private void UpdateMaxSpecial() {
-        Debug.Log("MAX SPECIAL UPDATED FROM " + currentMaxSpecial + " TO " + Game.player.stat.GetMaxSpecial());
         int newMaxSpecial = Game.player.stat.GetMaxSpecial();
         if (currentMaxSpecial > newMaxSpecial) {
             for (int i = Mathf.Max(0, newMaxSpecial); i < Mathf.Min(currentMaxSpecial, maxIcons); ++i) {

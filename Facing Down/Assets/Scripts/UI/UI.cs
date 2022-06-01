@@ -63,7 +63,6 @@ public class UI : MonoBehaviour
             else if (inventoryDisplay.IsEnabled()) {
                 if ((GameController.checkIfkeyCodeIsPressed(Options.Get().dicoCommandsKeyBoard["toggleInventoryMap"]) || 
                     GameController.checkIfkeyCodeIsPressed(Options.Get().dicoCommandsController["toggleInventoryMap"])) && canToogle) {
-                        print("detoggle");
                         inventoryDisplay.Disable();
                         map.Disable();
                         LockCursor();
@@ -78,8 +77,7 @@ public class UI : MonoBehaviour
                         console.Toggle();
                 }
                 else if ((GameController.checkIfkeyCodeIsPressed(Options.Get().dicoCommandsKeyBoard["toggleInventoryMap"]) || 
-                        GameController.checkIfkeyCodeIsPressed(Options.Get().dicoCommandsController["toggleInventoryMap"] )) && canToogle){
-                            print("toggle");
+                        GameController.checkIfkeyCodeIsPressed(Options.Get().dicoCommandsController["toggleInventoryMap"] )) && canToogle){ 
                             inventoryDisplay.Enable();
                             map.Enable();
                             UnlockCursor();

@@ -128,7 +128,6 @@ public class GameController : MonoBehaviour
                 return false;
         }
         else{
-            print("key " + kc + " " + Input.GetKeyDown(kc));
             return Input.GetKeyDown(kc);
         }
             
