@@ -9,7 +9,6 @@ public class Game : MonoBehaviour
     public static TimeManager time;
     public static Player player;
 
-
     public static RoomHandler currentRoom;
 
     private string playerPath = "Prefabs/Player/Player";

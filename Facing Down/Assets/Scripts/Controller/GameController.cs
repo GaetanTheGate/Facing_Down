@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Luminosity.IO;
 
 public class GameController : MonoBehaviour
 {
@@ -66,8 +67,8 @@ public class GameController : MonoBehaviour
         ComputeReleased();
 
 
-        pointer.x = Input.GetAxis("Horizontal_Pointeur") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
-        pointer.y = Input.GetAxis("Vertical_Pointeur") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
+        pointer.x = InputManager.GetAxis("Horizontal_Pointeur") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
+        pointer.y = InputManager.GetAxis("Vertical_Pointeur") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
     }
 
 	private void FixedUpdate() {
@@ -129,14 +130,14 @@ public class GameController : MonoBehaviour
         bool asAxis = false;
         try
         {
-            asButton = Input.GetButtonDown(key);
+            asButton = InputManager.GetButtonDown(key);
         }
         catch { }
         try
         {
             if ( ! keyAxisState[key])
             {
-                asAxis = ! keyAxisState[key] && (Input.GetAxis(key) >= triggerLimit);
+                asAxis = ! keyAxisState[key] && (InputManager.GetAxis(key) >= triggerLimit);
                 if (asAxis)
                     keyAxisState[key] = true;
             }
@@ -151,14 +152,14 @@ public class GameController : MonoBehaviour
         bool asAxis = false;
         try
         {
-            asButton = Input.GetButtonUp(key);
+            asButton = InputManager.GetButtonUp(key);
         }
         catch { }
         try
         {
             if (keyAxisState[key])
             {
-                asAxis = keyAxisState[key] && (Input.GetAxis(key) < triggerLimit);
+                //asAxis = keyAxisState[key] && (InputManager.GetAxis(key) < triggerLimit);
                 if(asAxis)
                     keyAxisState[key] = false;
             }
@@ -168,31 +169,36 @@ public class GameController : MonoBehaviour
         return asButton || asAxis;
     }
 
-    public static bool checkIfkeyCodeIsPressed(KeyCode kc){
-        if(kc == KeyCode.JoystickButton11){
-            if (!onAxisButtonLT && Input.GetAxis("Button LT") > 0){
+    public static bool checkIfkeyCodeIsPressed(KeyCode kc)
+    {
+        if (kc == KeyCode.JoystickButton11)
+        {
+            if (!onAxisButtonLT && InputManager.GetAxis("Button LT") > 0)
+            {
                 onAxisButtonLT = true;
                 return true;
             }
             else
                 return false;
         }
-        else if (!onAxisButtonRT && kc == KeyCode.JoystickButton12){
-            if(Input.GetAxis("Button RT") > 0){
+        else if (!onAxisButtonRT && kc == KeyCode.JoystickButton12)
+        {
+            if (InputManager.GetAxis("Button RT") > 0)
+            {
                 onAxisButtonRT = true;
                 return true;
             }
-                
+
             else
                 return false;
         }
         else
-            return Input.GetKeyDown(kc);
+            return InputManager.GetKeyDown(kc);
     }
 
     public static bool checkIfkeyCodeIsReleased(KeyCode kc){
         if(kc == KeyCode.JoystickButton11){
-            if (onAxisButtonLT && Input.GetAxis("Button LT") == 0){
+            if (onAxisButtonLT && InputManager.GetAxis("Button LT") == 0){
                 onAxisButtonLT = false;
                 return true;
             }
@@ -201,7 +207,7 @@ public class GameController : MonoBehaviour
                 return false ;
         }
         else if (kc == KeyCode.JoystickButton12){
-            if(onAxisButtonRT && Input.GetAxis("Button RT") == 0){
+            if(onAxisButtonRT && InputManager.GetAxis("Button RT") == 0){
                 onAxisButtonRT = false;
                 return true;
             }
@@ -210,29 +216,34 @@ public class GameController : MonoBehaviour
                 return false;
         }
         else
-            return Input.GetKeyUp(kc);
+            return InputManager.GetKeyUp(kc);
     }
 
-    public static bool checkIfkeyCodeIsPressedOnGUI(KeyCode kc){
-        if(kc == KeyCode.JoystickButton11){
-            if (!onAxisButtonLT && Input.GetAxis("Button LT") > 0){
+    public static bool checkIfkeyCodeIsPressedOnGUI(KeyCode kc)
+    {
+        if (kc == KeyCode.JoystickButton11)
+        {
+            if (!onAxisButtonLT && Input.GetAxis("Button LT") > 0)
+            {
                 onAxisButtonLT = true;
                 return true;
             }
             else
                 return false;
         }
-        else if (!onAxisButtonRT && kc == KeyCode.JoystickButton12){
-            if(Input.GetAxis("Button RT") > 0){
+        else if (!onAxisButtonRT && kc == KeyCode.JoystickButton12)
+        {
+            if (InputManager.GetAxis("Button RT") > 0)
+            {
                 onAxisButtonRT = true;
                 return true;
             }
-                
+
             else
                 return false;
         }
         else
-            return Input.GetKey(kc);
+            return InputManager.GetKey(kc);
     }
 
 
