@@ -185,4 +185,15 @@ public class Daggers : MeleeWeapon
         Game.player.stat.ModifyCritRate(5);
         Game.player.stat.ModifyCritDamage(10);
     }
+
+	public override DamageInfo OnDealDamage(DamageInfo damage) {
+        Game.player.stat.ModifyCritRate(5);
+        Game.coroutineStarter.StartCoroutine(startCritReduceRoutine());
+        return damage;
+	}
+
+    private IEnumerator startCritReduceRoutine() {
+        yield return new WaitForSeconds(5);
+        Game.player.stat.ModifyCritRate(-5);
+    }
 }

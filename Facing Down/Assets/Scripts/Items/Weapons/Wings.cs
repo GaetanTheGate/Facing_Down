@@ -178,4 +178,21 @@ public class Wings : MeleeWeapon
         Game.player.stat.ModifyMaxDashes(1);
         Game.player.stat.ModifySpecialCooldown(0.90f);
 	}
+
+    private float lastLeftGround = 0;
+    private float maxAirTimeBuff = 30;
+	public override void OnGroundCollisionLeave() {
+        lastLeftGround = Time.time;
+	}
+
+	public override void OnGroundCollisionEnter() {
+        lastLeftGround = 0;
+	}
+
+	public override DamageInfo OnDealDamage(DamageInfo damage) {
+        if (lastLeftGround == 0) return damage;
+        damage.amount *= 1 + (Time.time - lastLeftGround) / maxAirTimeBuff;
+        Debug.Log("DAMAGE UP BY " + (Time.time - lastLeftGround) / maxAirTimeBuff);
+        return damage;
+	}
 }

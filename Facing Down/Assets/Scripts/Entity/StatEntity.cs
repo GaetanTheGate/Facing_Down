@@ -42,11 +42,11 @@ public class StatEntity : MonoBehaviour
     }
 
     public void ModifyCritRate(float amount) {
-        critRate = Mathf.Min(100, critRate + amount);
+        critRate += amount;
 	}
 
     public float GetCritRate() {
-        return critRate;
+        return Mathf.Min(critRate, 100);
 	}
 
     public void ModifyCritDamage(float amount) {

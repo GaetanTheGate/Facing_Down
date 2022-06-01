@@ -145,4 +145,9 @@ public class Katana : MeleeWeapon
         Game.player.stat.ModifyAcceleration(0.1f * Game.player.stat.BASE_ACCELERATION);
         Game.player.stat.ModifySpecialCooldown(-0.1f * Game.player.stat.GetSpecialCooldown());
     }
+
+	public override DamageInfo OnDealDamage(DamageInfo damage) {
+        damage.amount *= 1 + new Velocity(Game.player.self.GetComponent<Rigidbody2D>().velocity).getSpeed() / Game.player.stat.maxSpeed;
+        return damage;
+	}
 }
