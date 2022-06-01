@@ -141,6 +141,11 @@ public class StatPlayer : StatEntity
         UI.dashBar.UpdateDashes();
 	}
 
+    public void ResetSpecial() {
+        specialLeft = GetMaxSpecial();
+        UI.specialBar.UpdateSpecial();
+	}
+
     public int GetMaxSpecial() {
         return maxSpecial + Game.player.inventory.GetWeapon().stat.maxSpecial;
 	}
