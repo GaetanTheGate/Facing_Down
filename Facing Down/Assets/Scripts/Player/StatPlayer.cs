@@ -19,6 +19,8 @@ public class StatPlayer : StatEntity
     private PlayerDash playerDash;
     private PlayerBulletTime playerBulletTime;
 
+    public bool canIframe = true;
+
     //public Text hpText;
 
     private float acceleration;
@@ -68,11 +70,11 @@ public class StatPlayer : StatEntity
             base.TakeDamage(damage);
             Game.player.gameCamera.GetComponent<CameraManager>().Shake(0.1f, 0.3f);
             //hpText.text = currentHitPoints.ToString();
-            if (damage.effect == DamageInfo.Effect.Stun)
+            foreach (Effect effect in damage.effects)
             {
-                stun();
+                effect.OnHit(damage);
             }
-            else playerIframes.getIframe(Mathf.Min(2f, damage.hitCooldown));
+            if (canIframe) playerIframes.getIframe(Mathf.Min(2f, damage.hitCooldown));
         }
 
         UI.healthBar.UpdateHP();
@@ -170,19 +172,19 @@ public class StatPlayer : StatEntity
         return specialCooldown * Game.player.inventory.GetWeapon().stat.specialCooldownMult;
 	}
 
-    public void stun()
+    public override void Stun(bool shouldStun)
     {
-        if (playerAttack != null) playerAttack.canAttack = false;
-        if (playerDash != null) playerDash.canDash = false;
-        if (playerBulletTime != null) playerBulletTime.canBulletTime = false;
-        StartCoroutine(waitForStun(2f));
-    }
-
-    private IEnumerator waitForStun(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        if (playerAttack != null) playerAttack.canAttack = true;
-        if (playerDash != null) playerDash.canDash = true;
-        if (playerBulletTime != null) playerBulletTime.canBulletTime = true;
+        if (shouldStun)
+        {
+            if (playerAttack != null) playerAttack.canAttack = false;
+            if (playerDash != null) playerDash.canDash = false;
+            if (playerBulletTime != null) playerBulletTime.canBulletTime = false;
+        }
+        else
+        {
+            if (playerAttack != null) playerAttack.canAttack = true;
+            if (playerDash != null) playerDash.canDash = true;
+            if (playerBulletTime != null) playerBulletTime.canBulletTime = true;
+        }
     }
 }

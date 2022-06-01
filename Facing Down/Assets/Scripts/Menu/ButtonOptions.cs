@@ -19,7 +19,8 @@ public class ButtonOptions : MonoBehaviour
         loadOptions();
         buttonApply.SetActive(false);
 
-        EventSystem.current.SetSelectedGameObject(GameObject.Find("DropdownLangue"));
+        if(ToggleSelectableObject.onController)
+            EventSystem.current.SetSelectedGameObject(GameObject.Find("DropdownLangue"));
         
     }
 

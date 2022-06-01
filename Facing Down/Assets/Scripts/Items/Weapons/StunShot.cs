@@ -26,7 +26,7 @@ public class StunShot : ProjectileWeapon
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
         DamageInfo damageInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
-        damageInfo.effect = DamageInfo.Effect.Stun;
+        damageInfo.effects.Add(new StunEffect());
         AddHitAttack(stunShot, damageInfo);
 
         stunShot.AddComponent<ProjectileAttack>();
@@ -65,7 +65,7 @@ public class StunShot : ProjectileWeapon
 
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
         DamageInfo damageInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
-        damageInfo.effect = DamageInfo.Effect.Stun;
+        damageInfo.effects.Add(new StunEffect());
         AddHitAttack(stunShot, damageInfo);
 
         stunShot.AddComponent<ProjectileAttack>();
