@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// Behaviour for the UI element displaying an item in the inventory
 /// </summary>
-public class ItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class ItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler {
 	private static ItemDisplay prefab;
 	private PassiveItem item;
 
@@ -36,11 +36,27 @@ public class ItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
 	//Displays or hide the UI's ItemPreview when the pointer hovers the item
 	public void OnPointerEnter(PointerEventData eventData) {
+		enableItemDisplay();
+	}
+
+	public void OnPointerExit(PointerEventData eventData) {
+		disableItemDisplay();
+	}
+
+	public void OnSelect(BaseEventData data){
+		enableItemDisplay();
+	}
+
+	public void OnDeselect(BaseEventData data){
+		disableItemDisplay();
+	}
+
+	public void enableItemDisplay(){
 		UI.itemPreview.gameObject.SetActive(true);
 		UI.itemPreview.SetItem(item);
 	}
 
-	public void OnPointerExit(PointerEventData eventData) {
+	public void disableItemDisplay(){
 		UI.itemPreview.gameObject.SetActive(false);
 	}
 }

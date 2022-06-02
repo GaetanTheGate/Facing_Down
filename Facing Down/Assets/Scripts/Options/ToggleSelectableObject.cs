@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.PlayerLoop;
 
 public class ToggleSelectableObject : MonoBehaviour
 {

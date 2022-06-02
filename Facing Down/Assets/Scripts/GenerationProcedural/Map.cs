@@ -30,7 +30,7 @@ public class Map : MonoBehaviour
                         mapIcon.GetComponent<Image>().color = Color.red;
                     if(Floor.gridMap[i, j].name == "TreasureRoom")
                         mapIcon.GetComponent<Image>().color = Color.green;
-                    if(Floor.gridMap[i, j].name == "BonusRoom")
+                    if(Floor.gridMap[i, j].name.Contains("BonusRoom"))
                         mapIcon.GetComponent<Image>().color = Color.yellow;
                 }
             }

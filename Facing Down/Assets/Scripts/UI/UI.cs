@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 
 public class UI : MonoBehaviour
 {
@@ -51,6 +51,8 @@ public class UI : MonoBehaviour
     /// Enables/Disables UI elements depending on user input
     /// </summary>
 	private void Update() {
+            print("event " + EventSystem.current);
+            print("selectable item : " + EventSystem.current.currentSelectedGameObject);
             if (GameController.checkIfkeyCodeIsReleased(Options.Get().dicoCommandsKeyBoard["toggleInventoryMap"]) || GameController.checkIfkeyCodeIsReleased(Options.Get().dicoCommandsController["toggleInventoryMap"]))
                 canToogle = true; 
 
@@ -83,6 +85,12 @@ public class UI : MonoBehaviour
                             UnlockCursor();
                             Game.time.SetGameSpeedInstant(0);
                             canToogle = false;
+                            if (ToggleSelectableObject.onController){
+                                if(GameObject.Find("Inventory").transform.GetChild(0).transform.childCount > 0){
+                                    EventSystem.current.SetSelectedGameObject(GameObject.Find("Inventory").transform.GetChild(0).transform.GetChild(0).gameObject);
+                                }
+                            }
+                            
                 }
             }
 	}

@@ -124,7 +124,7 @@ public class Floor : MonoBehaviour
                         if(Game.random.NextDouble() < probaGenerateBonusRoom){
                             nbBonusRoom += 1;
                             probaGenerateBonusRoom = Mathf.Pow((float) nbTreasureRoom/(nbTreasureRoom+2),nbBonusRoom);
-                            gridMap[i,j].name = "BonusRoom";
+                            gridMap[i,j].name = "BonusRoom" + '-' + idRoom++;
                             gridMap[i,j].GetComponent<RoomHandler>().InitRoom("treasure");
                         }
                         else

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class ButtonPlay : MonoBehaviour
 {
@@ -13,9 +14,11 @@ public class ButtonPlay : MonoBehaviour
         ui = Instantiate(ui);
         ui.name = "UI";
 
+
         GameObject gameManager = Resources.Load(gamePath, typeof(GameObject)) as GameObject;
         gameManager = Instantiate(gameManager);
         gameManager.name = "Game";
+
 
         DontDestroyOnLoad(gameManager);
         DontDestroyOnLoad(ui);
@@ -24,7 +27,6 @@ public class ButtonPlay : MonoBehaviour
     }
 
     public void generateDonjon(){
-
         initGameManager();
         Tower.generateNextFloor();
     }
