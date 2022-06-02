@@ -8,27 +8,27 @@
 		{
 			"ID": "Wings",
 			"NAME": "Ailes",
-			"DESCRIPTION": "Coups doubles propulsant en arriËre. Offre une grande mobilitÈ aÈrienne."
+			"DESCRIPTION": "Coups doubles propulsant en arri√®re. Offre une grande mobilit√© a√©rienne. Rester en l'air augmente les d√©g√¢ts."
 		},
 		{
 			"ID": "Daggers",
 			"NAME": "Dagues",
-			"DESCRIPTION": "Entailles trËs rapide avec peu de portÈe. Enchainer les coups augmentent les chances de coups critique."
+			"DESCRIPTION": "Entailles tr√®s rapide avec peu de port√©e. Enchainer les coups augmentent les chances de coups critique."
 		},
 		{
 			"ID": "WarAxe",
 			"NAME": "Hache de guerre",
-			"DESCRIPTION": "Coups lent ‡ trËs grande portÈe. DÈgats ÈlevÈs, mais uniquement sur les lames de la hache."
+			"DESCRIPTION": "D√©gats √©lev√©s, mais uniquement sur les lames de la hache. Subir trop de d√©g√¢ts augmente l'attaque."
 		},
 		{
 			"ID": "Gun",
 			"NAME": "Pistolet",
-			"DESCRIPTION": "Tire des projectiles fin s'arretant sur les ennemis. Cadence de tir trËs ÈlevÈe."
+			"DESCRIPTION": "Tire des projectiles fins. Cadence de tir tr√®s √©lev√©e, dont la pr√©cision augmente avec le temps."
 		},
 		{
 			"ID": "Shuriken",
 			"NAME": "Shuriken",
-			"DESCRIPTION": "Envoie un projectile rapide et large transpersant les ennemis."
+			"DESCRIPTION": "Envoie un projectile rapide, large et per√ßant. √âliminer rapidement deux ennemis augmente les d√©g√¢ts"
 		}
 	]
 }

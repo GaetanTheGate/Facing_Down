@@ -8,7 +8,7 @@
 		{
 			"ID": "Wings",
 			"NAME": "Wings",
-			"DESCRIPTION": "Two wings propulsing backwards. Gives a high air mobility."
+			"DESCRIPTION": "Two wings propulsing backwards. Gives a high air mobility. Staying airborne increases damage."
 		},
 		{
 			"ID": "Daggers",
@@ -18,17 +18,17 @@
 		{
 			"ID": "WarAxe",
 			"NAME": "WarAxe",
-			"DESCRIPTION": "Slow swings with a very high reach. High damage, but only on the Axe's blades."
+			"DESCRIPTION": "High damage, but only on the Axe's blades. Taking too much damage increases yours."
 		},
 		{
 			"ID": "Gun",
 			"NAME": "Gun",
-			"DESCRIPTION": "Fire small bullets that stops on hit. Very high firing rate."
+			"DESCRIPTION": "Fire small but quick bullets. Very high firing rate, with a precision increasing with time firing."
 		},
 		{
 			"ID": "Shuriken",
 			"NAME": "Shuriken",
-			"DESCRIPTION": "Sends a fast and large projectile able to go throught enemies."
+			"DESCRIPTION": "Sends a fast, large and piercing projectile. Killing two enemies quickly increases your damage."
 		}
 	]
 }
