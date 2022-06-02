@@ -35,8 +35,8 @@ public class Options
         commandsKeyBoard.Add(new KeyBinding("attack", KeyCode.Mouse1));
         commandsKeyBoard.Add(new KeyBinding("bulletTime", KeyCode.Space));
         commandsKeyBoard.Add(new KeyBinding("openConsole", KeyCode.C));
-        commandsKeyBoard.Add(new KeyBinding("openInventoryMap", KeyCode.E));
-        commandsKeyBoard.Add(new KeyBinding("closeUI", KeyCode.Escape));
+        commandsKeyBoard.Add(new KeyBinding("toggleInventoryMap", KeyCode.E));
+        commandsKeyBoard.Add(new KeyBinding("closeConsole", KeyCode.Escape));
 
         commandsController = new List<KeyBinding>();
         commandsController.Add(new KeyBinding("dash", KeyCode.JoystickButton2));

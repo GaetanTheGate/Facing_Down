@@ -12,10 +12,10 @@ public class MagmaticCoating : PassiveItem
 	}
 
 	public override void OnPickup() {
-		Game.player.stat.critRate += critRate;
+		Game.player.stat.ModifyCritRate(critRate);
 	}
 
 	public override void OnRemove() {
-		Game.player.stat.critRate -= critRate;
+		Game.player.stat.ModifyCritRate(-critRate);
 	}
 }

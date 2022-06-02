@@ -8,8 +8,8 @@ public class StatEntity : MonoBehaviour
 
     public float atk;
 
-    [Min(0.0f)] public float critRate = 5;
-    [Min(100.0f)] public float critDmg = 150;
+    protected float critRate = 0;
+    protected float critDmg = 150;
 
     public UnityEvent<DamageInfo> onHit;
     public UnityEvent onDeath;
@@ -40,6 +40,22 @@ public class StatEntity : MonoBehaviour
         enemyAttack = gameObject.GetComponent<EnemyAttack>();
         enemyMovement = gameObject.GetComponent<EnemyMovement>();
     }
+
+    public void ModifyCritRate(float amount) {
+        critRate += amount;
+	}
+
+    public float GetCritRate() {
+        return Mathf.Min(critRate, 100);
+	}
+
+    public void ModifyCritDamage(float amount) {
+        critDmg += amount;
+	}
+
+    public float GetCritDamage() {
+        return critDmg;
+	}
 
     public void Heal(float amount) {
         currentHitPoints = Mathf.Min(GetMaxHP(), currentHitPoints + Mathf.CeilToInt(amount));

@@ -143,4 +143,28 @@ public class Shuriken : ProjectileWeapon
 
         self.GetComponent<Rigidbody2D>().freezeRotation = true;
     }
+
+    //PASSIVE EFFECTS
+    public override void OnPickup() {
+        Game.player.stat.ModifyMaxDashes(1);
+        Game.player.stat.ModifyAtk(Game.player.stat.BASE_ATK * 0.1f);
+    }
+
+    private int activeBuffs = 0;
+    private float buffDuration = 5;
+    private float buffStrength = 2;
+
+	public override void OnEnemyKill(Entity enemy) {
+        ++activeBuffs;
+        Game.coroutineStarter.StartCoroutine(startBuffDecayRoutine());
+	}
+	public override DamageInfo OnDealDamage(DamageInfo damage) {
+        if (activeBuffs > 1) damage.amount *= buffStrength;
+        return base.OnTakeDamage(damage);
+    }
+
+    private IEnumerator startBuffDecayRoutine() {
+        yield return new WaitForSeconds(buffDuration);
+        --activeBuffs;
+    }
 }

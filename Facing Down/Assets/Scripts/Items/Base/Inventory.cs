@@ -48,9 +48,9 @@ public class Inventory
 		this.weapon = weapon;
 		Game.player.stat.SetCurrentHP(Mathf.CeilToInt(Game.player.stat.GetCurrentHP() * weapon.stat.HPMult / previousWeapon.stat.HPMult));
 		this.weapon.OnPickup();
+		Game.player.stat.ResetSpecial();
 		UI.healthBar.UpdateHP();
 		UI.dashBar.UpdateDashes();
-		UI.specialBar.UpdateSpecial();
 	}
 
 	public Weapon GetWeapon() => weapon;
@@ -100,6 +100,13 @@ public class Inventory
 			damage = item.OnDealDamage(damage);
 		}
 		return damage;
+	}
+
+	public void OnAttack() {
+		weapon.OnAttack();
+		foreach(PassiveItem item in items.Values) {
+			item.OnAttack();
+		}
 	}
 
 	/// <summary>
