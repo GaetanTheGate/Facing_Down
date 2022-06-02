@@ -257,8 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHitPoints: 1000
-  baseAtk: 100
-  atkMultipler: 1
+  atk: 200
   critRate: 5
   critDmg: 150
   onHit:

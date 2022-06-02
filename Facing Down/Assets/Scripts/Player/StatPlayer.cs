@@ -70,10 +70,6 @@ public class StatPlayer : StatEntity
             base.TakeDamage(damage);
             Game.player.gameCamera.GetComponent<CameraManager>().Shake(0.1f, 0.3f);
             //hpText.text = currentHitPoints.ToString();
-            foreach (Effect effect in damage.effects)
-            {
-                effect.OnHit(damage);
-            }
             if (canIframe) playerIframes.getIframe(Mathf.Min(2f, damage.hitCooldown));
         }
 
