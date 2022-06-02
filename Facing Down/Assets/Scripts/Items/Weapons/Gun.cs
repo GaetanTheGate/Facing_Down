@@ -5,6 +5,10 @@ using UnityEngine;
 public class Gun : MeleeWeapon
 {
     public Gun() : this("Enemy") { }
+
+    private float maxSpread = 5f;
+    private float spread = 5f;
+
     public Gun(string target) : base(target, "Gun")
     {
         attackWeapon = new Bullet(target);
@@ -53,7 +57,7 @@ public class Gun : MeleeWeapon
         gun.GetComponent<GunAttack>().followEntity = forceUnFollow;
 
         float randomAngle = angle;
-        randomAngle += Random.Range(-5.0f, 5.0f);
+        randomAngle += Random.Range(-spread, spread);
 
         gun.GetComponent<GunAttack>().angle = randomAngle;
         gun.GetComponent<GunAttack>().attack = attackWeapon;
@@ -126,5 +130,15 @@ public class Gun : MeleeWeapon
     public override void OnPickup() {
         Game.player.stat.ModifyMaxSpecial(1);
         Game.player.stat.ModifySpecialDuration(Game.player.stat.BASE_SPE_DURATION * 0.10f);
+    }
+
+	public override void OnAttack() {
+        spread = Mathf.Max(0, spread - 0.2f);
+        Game.coroutineStarter.StartCoroutine(startBuffDecay());
+    }
+
+    private IEnumerator startBuffDecay() {
+        yield return new WaitForSeconds(5);
+        spread = Mathf.Min(maxSpread, spread + 0.2f);
     }
 }

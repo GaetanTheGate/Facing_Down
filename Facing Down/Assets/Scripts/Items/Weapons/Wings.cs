@@ -192,7 +192,6 @@ public class Wings : MeleeWeapon
 	public override DamageInfo OnDealDamage(DamageInfo damage) {
         if (lastLeftGround == 0) return damage;
         damage.amount *= 1 + (Time.time - lastLeftGround) / maxAirTimeBuff;
-        Debug.Log("DAMAGE UP BY " + (Time.time - lastLeftGround) / maxAirTimeBuff);
         return damage;
 	}
 }
