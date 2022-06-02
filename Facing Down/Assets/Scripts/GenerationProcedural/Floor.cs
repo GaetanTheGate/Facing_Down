@@ -164,7 +164,6 @@ public class Floor : MonoBehaviour
             }
         }
 
-        print("anterooLine " + anteroomLine);
         GameObject anteroom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
         anteroom.name = "Anteroom";
         anteroom.transform.SetParent(GameObject.Find("Floor").transform);
