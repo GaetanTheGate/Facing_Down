@@ -102,10 +102,10 @@ public class Inventory
 		return damage;
 	}
 
-	public void OnAttack() {
-		weapon.OnAttack();
+	public void BeforeAttack() {
+		weapon.BeforeAttack();
 		foreach(PassiveItem item in items.Values) {
-			item.OnAttack();
+			item.BeforeAttack();
 		}
 	}
 

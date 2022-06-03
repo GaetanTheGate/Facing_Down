@@ -52,7 +52,7 @@ public abstract class Item{
 
     public virtual DamageInfo OnDealDamage(DamageInfo damage) { return damage; }
 
-    public virtual void OnAttack() {}
+    public virtual void BeforeAttack() {}
 
     /// <summary>
     /// Effect when the player dies.

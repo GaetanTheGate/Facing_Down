@@ -6,8 +6,8 @@ public class Gun : MeleeWeapon
 {
     public Gun() : this("Enemy") { }
 
-    private float maxSpread = 5f;
-    private float spread = 5f;
+    private float maxSpread = 45f;
+    private float spread = 0f;
 
     public Gun(string target) : base(target, "Gun")
     {
@@ -127,14 +127,17 @@ public class Gun : MeleeWeapon
     }
 
     //PASSIVE EFFECTS
+
+    private float lastAttackTime = 0;
     public override void OnPickup() {
         Game.player.stat.ModifyMaxSpecial(1);
         Game.player.stat.ModifySpecialDuration(Game.player.stat.BASE_SPE_DURATION * 0.10f);
     }
 
-	public override void OnAttack() {
-        spread = Mathf.Max(0, spread - 0.2f);
-        Game.coroutineStarter.StartCoroutine(startBuffDecay());
+	public override void BeforeAttack() {
+        if (lastAttackTime + 2 < Time.time) spread = 0;
+        spread = Mathf.Min(maxSpread, spread + 0.4f);
+        lastAttackTime = Time.time;
     }
 
     private IEnumerator startBuffDecay() {

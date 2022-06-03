@@ -101,8 +101,8 @@ public class PlayerAttack : AbstractPlayer, InputListener
 
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.2f);
 
+        Game.player.inventory.BeforeAttack();
         self.inventory.GetWeapon().Attack(pointer.getAngle(), selfEntity);
-        Game.player.inventory.OnAttack();
 
         rotation.FlipEntityRelativeToGravity(pointer.getAngle());
         camManager.Propulse(pointer.getAngle(), 1f, 2f);

@@ -67,7 +67,7 @@ public class PrintItem : PassiveItem
 		Debug.Log("BULLET TIME ENDED NATURALLY");
 	}
 
-	public override void OnAttack() {
+	public override void BeforeAttack() {
 		Debug.Log("ATTACKED");
 	}
 }
