@@ -67,6 +67,7 @@ public class Options
             target.CreateNewAction(action.Name).Copy(action);
         }
 
+        target.Initialize();
         return target;
     }
 
@@ -84,6 +85,7 @@ public class Options
             target.CreateNewAction(action.Name).Copy(action);
         }
 
+        target.Initialize();
         return target;
     }
 
@@ -115,6 +117,7 @@ public class Options
                     target.GetAction(action.Name).CreateNewBinding().Copy(binding);
         }
 
+        target.Initialize();
         return target;
     }
 
