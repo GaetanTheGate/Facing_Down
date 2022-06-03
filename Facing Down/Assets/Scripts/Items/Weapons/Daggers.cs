@@ -24,6 +24,8 @@ public class Daggers : MeleeWeapon
 
         attackPath = "Prefabs/Weapons/Daggers";
         specialPath = "Prefabs/Weapons/Daggers";
+        attackAudio = Resources.Load<AudioClip>("Sound_Effects/swish-11");
+        specialAudio = Resources.Load<AudioClip>("Sound_Effects/swish-13");
     }
 
     private HalfSlashAttack.Way way = HalfSlashAttack.Way.CounterClockwise;
@@ -99,6 +101,8 @@ public class Daggers : MeleeWeapon
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
 
+        swing.GetComponent<HalfSlashAttack>().audioClip = attackAudio;
+
         swing.GetComponent<HalfSlashAttack>().src = self;
         swing.GetComponent<HalfSlashAttack>().acceleration = 3.0f;
         swing.GetComponent<HalfSlashAttack>().range = baseRange;
@@ -124,6 +128,8 @@ public class Daggers : MeleeWeapon
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
 
+        swing.GetComponent<HalfSlashAttack>().audioClip = specialAudio;
+
         swing.GetComponent<HalfSlashAttack>().src = self;
         swing.GetComponent<HalfSlashAttack>().acceleration = 3.0f;
         swing.GetComponent<HalfSlashAttack>().range = baseRange * 0.75f;
@@ -143,12 +149,15 @@ public class Daggers : MeleeWeapon
     private Attack GetFinalSpecial(float angle, Entity self)
     {
         GameObject swing1 = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
+
         float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
         DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 2, new Velocity(0.5f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
         AddHitAttack(swing1, dmgInfo);
 
         swing1.transform.position = startPos;
         swing1.AddComponent<HalfSlashAttack>();
+
+        swing1.GetComponent<HalfSlashAttack>().audioClip = attackAudio;
 
         swing1.GetComponent<HalfSlashAttack>().src = self;
         swing1.GetComponent<HalfSlashAttack>().acceleration = 1.5f;

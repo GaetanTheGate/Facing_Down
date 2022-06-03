@@ -21,6 +21,8 @@ public class Katana : MeleeWeapon
 
         attackPath = "Prefabs/Weapons/Katana";
         specialPath = "Prefabs/Weapons/KatanaDash";
+        attackAudio = Resources.Load<AudioClip>("Sound_Effects/sword_swing");
+        specialAudio = Resources.Load<AudioClip>("Sound_Effects/sword_swing");
     }
 
     private SlashAttack.Way way = SlashAttack.Way.CounterClockwise;
@@ -102,6 +104,8 @@ public class Katana : MeleeWeapon
         swing.transform.position = startPos;
         swing.AddComponent<SlashAttack>();
 
+        swing.GetComponent<SlashAttack>().audioClip = attackAudio;
+
         swing.GetComponent<SlashAttack>().src = self;
         swing.GetComponent<SlashAttack>().acceleration = 3.0f;
         swing.GetComponent<SlashAttack>().angle = angle;
@@ -127,6 +131,7 @@ public class Katana : MeleeWeapon
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();
 
+        laser.GetComponent<LaserAttack>().audioClip = specialAudio;
 
         laser.GetComponent<LaserAttack>().src = self;
         laser.GetComponent<LaserAttack>().angle = angle;

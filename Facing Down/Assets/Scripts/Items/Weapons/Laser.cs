@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Laser : MeleeWeapon
 {
-    public Laser() : this("Enemy") { }
-    public Laser(string target) : base(target, "Laser")
+    public Laser() : this("Enemy", "Laser") { }
+    public Laser(string target) : this(target, "Laser") { }
+    
+    public Laser(string target, string id) : base(target, id)
     {
         baseAtk = 100;
         baseRange = 50;
@@ -16,6 +18,8 @@ public class Laser : MeleeWeapon
 
         attackPath = "Prefabs/Weapons/Laser";
         specialPath = "Prefabs/Weapons/Laser";
+        attackAudio = Resources.Load<AudioClip>("Sound_Effects/Laser Weapons Sound Pack/continuous_beam_3");
+        specialAudio = Resources.Load<AudioClip>("Sound_Effects/Laser Weapons Sound Pack/continuous_beam_3");
     }
 
     public float hitPerSecond = 10;
@@ -30,6 +34,8 @@ public class Laser : MeleeWeapon
 
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();
+
+        laser.GetComponent<LaserAttack>().audioClip = attackAudio;
 
         laser.GetComponent<LaserAttack>().src = self;
         laser.GetComponent<LaserAttack>().angle = angle;
@@ -56,6 +62,8 @@ public class Laser : MeleeWeapon
 
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();
+
+        laser.GetComponent<LaserAttack>().audioClip = specialAudio;
 
         laser.GetComponent<LaserAttack>().src = self;
         laser.GetComponent<LaserAttack>().angle = angle;

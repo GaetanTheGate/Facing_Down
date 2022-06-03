@@ -18,6 +18,8 @@ public class Bullet : ProjectileWeapon
 
         attackPath = "Prefabs/Weapons/Bullet";
         specialPath = "Prefabs/Weapons/Bullet";
+        attackAudio = Resources.Load<AudioClip>("Sound_Effects/Laser Weapons Sound Pack/light_blast_5");
+        specialAudio = Resources.Load<AudioClip>("Sound_Effects/Laser Weapons Sound Pack/light_blast_5");
     }
 
     public override Attack GetAttack(float angle, Entity self)
@@ -29,6 +31,8 @@ public class Bullet : ProjectileWeapon
 
         bullet.AddComponent<ProjectileAttack>();
         bullet.transform.position = startPos;
+
+        bullet.GetComponent<ProjectileAttack>().audioClip = attackAudio;
 
         bullet.GetComponent<ProjectileAttack>().src = self;
         bullet.GetComponent<ProjectileAttack>().layersToDestroyOn.Add(target);
@@ -73,6 +77,7 @@ public class Bullet : ProjectileWeapon
         for (int i = 1; i < numberOfShot; ++i)
         {
             GameObject newBullet = GameObject.Instantiate(bullet);
+            if (i % 3 == 1) newBullet.GetComponent<ProjectileAttack>().audioClip = specialAudio;
             newBullet.GetComponent<ProjectileAttack>().angle = Random.Range(angle - angleRange, angle + angleRange);
             newBullet.GetComponent<ProjectileAttack>().startDelay = baseSDelay + i * (1.0f / numberOfShot);
             newBullet.GetComponent<AttackHit>().dmgInfo = dmgInfo;
