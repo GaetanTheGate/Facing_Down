@@ -18,7 +18,7 @@ public class Entity : AbstractEntity
             }
             else if (rb.CompareTag("Enemy"))
             {
-                rb.mass = 10;
+                rb.mass = 100;
             }
         }
         return rb;

@@ -7,13 +7,13 @@ public class StunEffect : Effect
     private float stunDuration;
     private string effectPath;
 
-    public StunEffect(float stunDuration)
+    public StunEffect(int id, float stunDuration) : base(id)
     {
         this.stunDuration = stunDuration;
         this.effectPath = "Prefabs/Particle_effects/StunStars";
     }
 
-    public StunEffect() : this(2f) { }
+    public StunEffect() : this(1, 2f) { }
 
     public override void OnHit(DamageInfo damageInfo)
     {
@@ -35,6 +35,7 @@ public class StunEffect : Effect
         StatPlayer statPlayer = null;
         if (target is StatPlayer) statPlayer = (StatPlayer)target;
         if (statPlayer != null) statPlayer.canIframe = false;
+        target.activeEffects.Add(this.id);
         target.Stun(true);
 
         GameObject stunStarsEffect = GameObject.Instantiate(Resources.Load<GameObject>(effectPath), target.transform);
@@ -44,6 +45,7 @@ public class StunEffect : Effect
         main.startLifetime = duration;
         yield return new WaitForSeconds(duration);
         target.Stun(false);
+        target.activeEffects.Remove(this.id);
         if (statPlayer != null) statPlayer.canIframe = true;
     }
 }
