@@ -76,9 +76,6 @@ public class RoomHandler : MonoBehaviour
                 fileToChooseFrom.Add(o);
         }
 
-        foreach (Object o in fileToChooseFrom)
-            print(o.name);
-
         GameObject baseRoom = Instantiate((GameObject)fileToChooseFrom[Game.random.Next(0, fileToChooseFrom.Count)]);
         baseRoom.name.Replace("(Clone)", "");
         baseRoom.transform.SetParent(transform);
@@ -97,9 +94,6 @@ public class RoomHandler : MonoBehaviour
             if (isFileCorrect(o, category))
                 fileToChooseFrom.Add(o);
         }
-
-        foreach (Object o in fileToChooseFrom)
-            print(o.name);
 
         GameObject roomInfo = Instantiate( (GameObject) fileToChooseFrom[Game.random.Next(0, fileToChooseFrom.Count)]);
         roomInfo.name.Replace("(Clone)", "");

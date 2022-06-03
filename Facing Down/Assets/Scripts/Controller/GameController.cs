@@ -66,9 +66,11 @@ public class GameController : MonoBehaviour
         ComputePress();
         ComputeReleased();
 
-
-        pointer.x = InputManager.GetAxis("Horizontal_Pointeur") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
-        pointer.y = InputManager.GetAxis("Vertical_Pointeur") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
+        pointer.x = InputManager.PlayerOneControlScheme.GetAction("Horizontal_Pointeur").GetAxis() * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
+        pointer.y = InputManager.PlayerOneControlScheme.GetAction("Vertical_Pointeur").GetAxis() * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
+        
+        //pointer.x = InputManager.GetAxis("Horizontal_Pointeur") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
+        //pointer.y = InputManager.GetAxis("Vertical_Pointeur") * Game.controller.sensibility * (lowSensitivity ? 0.5f : 1.0f);
     }
 
 	private void FixedUpdate() {
@@ -130,14 +132,16 @@ public class GameController : MonoBehaviour
         bool asAxis = false;
         try
         {
-            asButton = InputManager.GetButtonDown(key);
+            //asButton = InputManager.GetButtonDown(key);
+            asButton = InputManager.PlayerOneControlScheme.GetAction(key).GetButtonDown();
         }
         catch { }
         try
         {
             if ( ! keyAxisState[key])
             {
-                asAxis = ! keyAxisState[key] && (InputManager.GetAxis(key) >= triggerLimit);
+                //asAxis = ! keyAxisState[key] && (InputManager.GetAxis(key) >= triggerLimit);
+                asAxis = !keyAxisState[key] && (InputManager.PlayerOneControlScheme.GetAction(key).GetAxis() >= triggerLimit);
                 if (asAxis)
                     keyAxisState[key] = true;
             }
@@ -152,7 +156,8 @@ public class GameController : MonoBehaviour
         bool asAxis = false;
         try
         {
-            asButton = InputManager.GetButtonUp(key);
+            //asButton = InputManager.GetButtonUp(key);
+            asButton = InputManager.PlayerOneControlScheme.GetAction(key).GetButtonUp();
         }
         catch { }
         try
@@ -160,7 +165,8 @@ public class GameController : MonoBehaviour
             if (keyAxisState[key])
             {
                 //asAxis = keyAxisState[key] && (InputManager.GetAxis(key) < triggerLimit);
-                if(asAxis)
+                asAxis = keyAxisState[key] && (InputManager.PlayerOneControlScheme.GetAction(key).GetAxis() < triggerLimit);
+                if (asAxis)
                     keyAxisState[key] = false;
             }
         }

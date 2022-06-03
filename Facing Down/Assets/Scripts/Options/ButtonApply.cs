@@ -20,7 +20,7 @@ public class ButtonApply : MonoBehaviour
         Options.Get().masterVolumeValue = GameObject.Find("SliderMasterVolume").GetComponent<Slider>().value;
         Options.Get().musicVolumeValue = GameObject.Find("SliderMusicVolume").GetComponent<Slider>().value;
         Options.Get().soundVolumeValue = GameObject.Find("SliderSoundVolume").GetComponent<Slider>().value;
-
+        /*
         GameObject commandsKeyBoard = GameObject.Find("ContentDisplayCommandKeyBoard").gameObject;
         for (int i = 0; i < commandsKeyBoard.transform.childCount; ++i) {
             GameObject command = commandsKeyBoard.transform.GetChild(i).gameObject;
@@ -43,7 +43,7 @@ public class ButtonApply : MonoBehaviour
                 }
             }
         }
-
+        */
         foreach(GameObject go in ControllerManager.typeController){
             go.SetActive(false);
         }

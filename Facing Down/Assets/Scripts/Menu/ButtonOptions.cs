@@ -54,9 +54,9 @@ public class ButtonOptions : MonoBehaviour
         //load keyBinding
         ButtonDisplayCommand.contentDisplayCommands.SetActive(true);
 
-        ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard.SetActive(true);
+        ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard.SetActive(true);/*
         GameObject contentDisplayCommandKeyBoard = ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard.transform.Find("Viewport").Find("ContentDisplayCommandKeyBoard").gameObject;
-
+        
         foreach(KeyBinding keyBinding in Options.Get().commandsKeyBoard){
             foreach(Transform child in contentDisplayCommandKeyBoard.transform){
                 GameObject action = child.Find("Action").gameObject;
@@ -78,10 +78,10 @@ public class ButtonOptions : MonoBehaviour
                     child.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text = ButtonChangeCommand.keycodeControllerToSTring(keyBinding.key);
             }
         }
+        */
         ButtonDisplayCommand.scrollRectContentDisplayCommandController.SetActive(false);
-
-        ButtonDisplayCommand.contentDisplayCommands.SetActive(false);
         
+        ButtonDisplayCommand.contentDisplayCommands.SetActive(false);
     }
 
     void Start(){

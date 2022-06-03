@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Luminosity.IO;
 
 public class ToggleSelectableObject : MonoBehaviour
 {
@@ -30,55 +31,20 @@ public class ToggleSelectableObject : MonoBehaviour
                     
     }
 
-    public bool checkIfController(){
-        if (Input.GetKey(KeyCode.JoystickButton0))
-            return true;
-        else if (Input.GetKey(KeyCode.JoystickButton1))
-            return true;
-        else if (Input.GetKey(KeyCode.JoystickButton2))
-            return true;
-        else if (Input.GetKey(KeyCode.JoystickButton3))
-            return true;
-        else if (Input.GetKey(KeyCode.JoystickButton4))
-            return true;
-        else if (Input.GetKey(KeyCode.JoystickButton5))
-            return true;
-        else if (Input.GetKey(KeyCode.JoystickButton6))
-            return true;
-        else if (Input.GetKey(KeyCode.JoystickButton7))
-            return true;
-        else if (Input.GetKey(KeyCode.JoystickButton8))
-            return true;
-        else if (Input.GetKey(KeyCode.JoystickButton9))
-            return true;
-        else if (Input.GetKey(KeyCode.JoystickButton10))
-            return true;
-        else if (Input.GetAxis("Button LT") > 0)
-            return true;
-        else if (Input.GetAxis("Button RT") > 0)
-            return true;
-        else if (Input.GetAxis("RightJoystickHorizontal") != 0)
-            return true;
-        else if (Input.GetAxis("RightJoystickVertical") != 0)
-            return true;
-        else if (Input.GetAxis("DiresctionalPadHorizontal") != 0)
-            return true;
-        else if (Input.GetAxis("DirectionalPadVertical") != 0)
-            return true;
-        else if (Input.GetAxis("LeftJoystickHorizontal") != 0)
-            return true;
-        else if (Input.GetAxis("LeftJoystickVertical") != 0)
-            return true;
-        else
-            return false;
+    public bool checkIfController()
+    {
+        //return InputManager.GetControlScheme("Player_Controller").AnyInput;
+        foreach(InputAction action in InputManager.GetControlScheme("Player_Controller").Actions)
+            if (action.GetButton())
+                return true;
+        return false;
     }
 
-    public bool checkIfKeyBoard(){
-        if (Input.GetAxis("Mouse X") != 0)
-            return true;
-        else if (Input.GetAxis("Mouse Y") != 0)
-            return true;
-        else
-            return false;
+    public bool checkIfKeyBoard()
+    {
+        foreach (InputAction action in InputManager.GetControlScheme("Player_KeyBoard").Actions)
+            if (action.GetButton())
+                return true;
+        return false;
     } 
 }
