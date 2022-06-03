@@ -52,11 +52,10 @@ public class ItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 	}
 
 	public void enableItemDisplay(){
-		UI.itemPreview.gameObject.SetActive(true);
 		UI.itemPreview.SetItem(item);
 	}
 
 	public void disableItemDisplay(){
-		UI.itemPreview.gameObject.SetActive(false);
+		UI.itemPreview.SetItem(Game.player.inventory.GetWeapon());
 	}
 }

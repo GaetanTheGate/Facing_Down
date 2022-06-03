@@ -52,10 +52,11 @@ public class InventoryDisplay : MonoBehaviour
 
     public void Enable() {
         display.SetActive(true);
-        if (UI.itemPreview.gameObject.activeSelf) UI.itemPreview.gameObject.SetActive(false);
-	}
+        UI.itemPreview.gameObject.SetActive(true);
+        UI.itemPreview.SetItem(Game.player.inventory.GetWeapon());
+    }
 
-	public void Disable() {
+    public void Disable() {
         UI.itemPreview.gameObject.SetActive(false);
         display.SetActive(false);
 	}
