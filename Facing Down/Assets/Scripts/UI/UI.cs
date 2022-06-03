@@ -51,8 +51,6 @@ public class UI : MonoBehaviour
     /// Enables/Disables UI elements depending on user input
     /// </summary>
 	private void Update() {
-            print("event " + EventSystem.current);
-            print("selectable item : " + EventSystem.current.currentSelectedGameObject);
             if (GameController.checkIfkeyCodeIsReleased(Options.Get().dicoCommandsKeyBoard["toggleInventoryMap"]) || GameController.checkIfkeyCodeIsReleased(Options.Get().dicoCommandsController["toggleInventoryMap"]))
                 canToogle = true; 
 
