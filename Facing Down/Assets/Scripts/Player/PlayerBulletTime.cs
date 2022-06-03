@@ -46,7 +46,7 @@ public class PlayerBulletTime : AbstractPlayer, InputListener
     }
 
 	public void UpdateAfterInput() {
-        if (!canBulletTime) return;
+        //if (!canBulletTime) return;
         if (isInBulletTime && Game.player.stat.GetSpecialLeft() == 0) {
             Game.player.inventory.OnBullettimeEnd();
             EndBulletTime();

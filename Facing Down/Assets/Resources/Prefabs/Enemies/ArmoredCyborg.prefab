@@ -444,8 +444,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHitPoints: 100
   atk: 100
-  critRate: 5
-  critDmg: 150
   onHit:
     m_PersistentCalls:
       m_Calls:
@@ -514,6 +512,7 @@ MonoBehaviour:
         m_CallState: 2
   canTakeKnockBack: 1
   canTakeDamage: 1
+  activeEffects: 
 --- !u!114 &191769382907067283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,7 +539,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dd646d21a0503c4e93704e379ed42c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleEffect: {fileID: 8353703914142437710, guid: 1f14abaa6231f254886095272bf9dd08, type: 3}
+  particleEffect1: {fileID: 8353703914142437710, guid: 1f14abaa6231f254886095272bf9dd08, type: 3}
+  particleEffect2: {fileID: 8353703914142437710, guid: a9f6e66b5aad5c54b88e33be0b6be30b, type: 3}
 --- !u!114 &2105378182240658454
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -174,6 +174,7 @@ MonoBehaviour:
   angleViewDistance: 135
   rangeFromPlayerMin: 4
   rangeFromPlayerMax: 5
+  canMove: 1
 --- !u!114 &8955980329516502246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 189ecb9923fe42d4494a32ff9248ec21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canAttack: 1
 --- !u!114 &6929326470232871702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,8 +202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHitPoints: 500
   atk: 100
-  critRate: 5
-  critDmg: 150
   onHit:
     m_PersistentCalls:
       m_Calls:
@@ -270,6 +270,7 @@ MonoBehaviour:
         m_CallState: 2
   canTakeKnockBack: 1
   canTakeDamage: 1
+  activeEffects: 
 --- !u!114 &1658784935594729128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,6 +297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a97cbc674f4e142bf83a24c55cdd00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleEffect1: {fileID: 8353703914142437710, guid: 1f14abaa6231f254886095272bf9dd08, type: 3}
+  particleEffect2: {fileID: 8353703914142437710, guid: a9f6e66b5aad5c54b88e33be0b6be30b, type: 3}
 --- !u!114 &8309871192987567555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,7 +366,7 @@ MonoBehaviour:
   - {x: -0.3, y: 0.1, z: 0}
   m_ShapePathHash: 677619253
   m_Mesh: {fileID: 0}
-  m_InstanceId: 27854
+  m_InstanceId: 244096
 --- !u!1 &7464001781562380770
 GameObject:
   m_ObjectHideFlags: 0
