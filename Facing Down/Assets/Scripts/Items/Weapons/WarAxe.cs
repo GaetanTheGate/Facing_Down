@@ -134,12 +134,13 @@ public class WarAxe : MeleeWeapon
         Game.player.stat.ModifyAtk(Game.player.stat.BASE_ATK * 0.10f);
     }
 
+    private readonly float hpTheshold = 0.25f;
     private int activeBuffs = 0;
-    private float buffDuration = 5;
-    private float buffStrength = 2;
+    private readonly float buffDuration = 5;
+    private readonly float buffStrength = 2;
 
 	public override DamageInfo OnTakeDamage(DamageInfo damage) {
-        if (Game.player.stat.GetCurrentHP() < Game.player.stat.GetMaxHP() / 2) {
+        if (Game.player.stat.GetCurrentHP() < Game.player.stat.GetMaxHP() * hpTheshold) {
             ++activeBuffs;
             Game.coroutineStarter.StartCoroutine(startBuffDecayRoutine());
         }
