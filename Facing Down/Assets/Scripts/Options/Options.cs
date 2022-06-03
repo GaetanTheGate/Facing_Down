@@ -232,12 +232,20 @@ public class Options
         }
         else
         {
-            if (!keyInput.Name.Equals("Player_KeyBoard"))
+            try
             {
-                keyInput.Name = "Player_KeyBoard";
+                if (!keyInput.Name.Equals("Player_KeyBoard"))
+                {
+                    keyInput.Name = "Player_KeyBoard";
+                    hasBeenChanged = true;
+                }
+                hasBeenChanged = VerifyValidityOfControl(keyInput, InputManager.GetControlScheme("Default_KeyBoard")) || hasBeenChanged;
+            }
+            catch
+            {
+                keyInput = CreateCopyOfControl("Default_KeyBoard", "Player_KeyBoard");
                 hasBeenChanged = true;
             }
-            hasBeenChanged = VerifyValidityOfControl(keyInput, InputManager.GetControlScheme("Default_KeyBoard")) || hasBeenChanged;
         }
 
         if (controllerInput == null)
@@ -247,12 +255,21 @@ public class Options
         }
         else
         {
-            if (!controllerInput.Name.Equals("Player_Controller"))
+            try
             {
-                controllerInput.Name = "Player_Controller";
+                if (!controllerInput.Name.Equals("Player_Controller"))
+                {
+                    controllerInput.Name = "Player_Controller";
+                    hasBeenChanged = true;
+                }
+
+                hasBeenChanged = VerifyValidityOfControl(controllerInput, InputManager.GetControlScheme("Default_Controller")) || hasBeenChanged;
+            }
+            catch
+            {
+                controllerInput = CreateCopyOfControl("Default_Controller", "Player_Controller");
                 hasBeenChanged = true;
             }
-            hasBeenChanged = VerifyValidityOfControl(controllerInput, InputManager.GetControlScheme("Default_Controller")) || hasBeenChanged;
         }
 
 
