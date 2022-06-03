@@ -10,6 +10,8 @@ public class ButtonPlay : MonoBehaviour
     private static string gamePath = "Prefabs/Game/Game";
     private static string UIPath = "Prefabs/UI/UI";
     public static void initGameManager(){
+        SceneManager.LoadScene("Floor");
+
         GameObject ui = Resources.Load(UIPath, typeof(GameObject)) as GameObject;
         ui = Instantiate(ui);
         ui.name = "UI";
@@ -22,11 +24,11 @@ public class ButtonPlay : MonoBehaviour
 
         DontDestroyOnLoad(gameManager);
         DontDestroyOnLoad(ui);
-
-        SceneManager.LoadScene("Floor");
+        
     }
 
     public void generateDonjon(){
+        
         initGameManager();
         Tower.generateNextFloor();
     }
