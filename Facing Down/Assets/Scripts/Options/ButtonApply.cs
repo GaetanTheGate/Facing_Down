@@ -60,8 +60,8 @@ public class ButtonApply : MonoBehaviour
             ButtonAdjustVolume.contentVolume.SetActive(false);
             onContentVolume = false;
         }
-            
 
+        Options.SetControlToPlayer();
         Options.Save();
 
         print("options sauvegardées");

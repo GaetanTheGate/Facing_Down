@@ -130,6 +130,11 @@ public class Options
         control.Initialize();
     }
 
+    public static void SetControlToPlayer()
+    {
+        SetControlToPlayer("Player");
+    }
+
     public static Options Get()
     {
         if (options == null)
