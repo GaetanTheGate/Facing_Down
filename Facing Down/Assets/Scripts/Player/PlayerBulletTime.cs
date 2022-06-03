@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerBulletTime : AbstractPlayer, InputListener
 {
-    public bool isInBulletTime = true;
+    public bool isInBulletTime = false;
 
     //private float startTime;
     public float duration = 0.25f;
@@ -77,7 +77,6 @@ public class PlayerBulletTime : AbstractPlayer, InputListener
 
     void Update()
     {
-        print(isInBulletTime);
         if (isInBulletTime)
         {
             count += 0.01f;
