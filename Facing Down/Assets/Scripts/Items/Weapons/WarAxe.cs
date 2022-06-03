@@ -15,9 +15,10 @@ public class WarAxe : MeleeWeapon
         baseEDelay = 0.1f;
         baseCooldown = 0.1f;
 
+        stat.maxDashes = 5;
+        stat.maxSpecial = 4;
+
         stat.HPMult = 1.25f;
-        stat.addMaxDashes = -2;
-        stat.accelerationMult = 1.25f;
 
         attackPath = "Prefabs/Weapons/WarAxe";
         specialPath = "Prefabs/Weapons/WarAxe";
@@ -124,5 +125,35 @@ public class WarAxe : MeleeWeapon
         swing.GetComponent<SwingAttack>().onEndAttack += nextSpin;
 
         return swing.GetComponent<SwingAttack>();
+    }
+
+    //PASSIVE EFFECTS
+    public override void OnPickup() {
+        Game.player.stat.ModifyMaxHP(Mathf.FloorToInt(Game.player.stat.BASE_HP * 0.10f));
+        Game.player.stat.SetCurrentHP(Game.player.stat.GetCurrentHP() + Mathf.FloorToInt(0.10f * Game.player.stat.BASE_HP * Game.player.inventory.GetWeapon().stat.HPMult));
+        Game.player.stat.ModifyAtk(Game.player.stat.BASE_ATK * 0.10f);
+    }
+
+    private readonly float hpTheshold = 0.25f;
+    private int activeBuffs = 0;
+    private readonly float buffDuration = 5;
+    private readonly float buffStrength = 2;
+
+	public override DamageInfo OnTakeDamage(DamageInfo damage) {
+        if (Game.player.stat.GetCurrentHP() < Game.player.stat.GetMaxHP() * hpTheshold) {
+            ++activeBuffs;
+            Game.coroutineStarter.StartCoroutine(startBuffDecayRoutine());
+        }
+        return base.OnTakeDamage(damage);
+	}
+
+	public override DamageInfo OnDealDamage(DamageInfo damage) {
+        if (activeBuffs > 0) damage.amount *= buffStrength;
+		return damage;
+	}
+
+    private IEnumerator startBuffDecayRoutine() {
+        yield return new WaitForSeconds(buffDuration);
+        --activeBuffs;
     }
 }

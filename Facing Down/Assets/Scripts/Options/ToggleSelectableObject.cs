@@ -2,32 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using Luminosity.IO;
+using UnityEngine.PlayerLoop;
 
 public class ToggleSelectableObject : MonoBehaviour
 {
     public static GameObject lastSelectableObject;
-    public bool onKeyBoard = true;
-    public bool onController = false;
+    public static bool onKeyBoard = true;
+    public static bool onController = false;
+
+    public UnityEvent onBack;
 
     void Update(){
         if(onController)
             lastSelectableObject = EventSystem.current.currentSelectedGameObject;
 
         if(onKeyBoard && !onController && checkIfController()){
-            print("manette");
             EventSystem.current.SetSelectedGameObject(lastSelectableObject);
             onController = true;
             onKeyBoard = false;
         }
             
         else if(onController && !onKeyBoard && checkIfKeyBoard()){
-            print("clavier");
             EventSystem.current.SetSelectedGameObject(null);
             onKeyBoard = true;
             onController = false;
         }
+
+        if(Input.GetButtonDown("Cancel") && !ButtonChangeCommand.canChange)
+            onBack.Invoke();
                     
     }
 

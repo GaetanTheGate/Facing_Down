@@ -415,6 +415,7 @@ MonoBehaviour:
   angleViewDistance: 135
   rangeFromPlayerMin: 4
   rangeFromPlayerMax: 5
+  canMove: 1
 --- !u!114 &2059908327788420333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd567e81a8d59b469393a4bcaf88154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canAttack: 1
   bashRange: 3
 --- !u!114 &1374748546280540413
 MonoBehaviour:
@@ -441,6 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHitPoints: 100
+  atk: 100
   critRate: 5
   critDmg: 150
   onHit:

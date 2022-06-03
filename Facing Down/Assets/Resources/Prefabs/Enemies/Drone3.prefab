@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHitPoints: 500
+  atk: 100
   critRate: 5
   critDmg: 150
   onHit:
@@ -362,7 +363,7 @@ MonoBehaviour:
   - {x: -0.3, y: 0.1, z: 0}
   m_ShapePathHash: 677619253
   m_Mesh: {fileID: 0}
-  m_InstanceId: 201166
+  m_InstanceId: 27854
 --- !u!1 &7464001781562380770
 GameObject:
   m_ObjectHideFlags: 0

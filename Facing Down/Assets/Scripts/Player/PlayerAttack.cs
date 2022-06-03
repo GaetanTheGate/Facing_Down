@@ -101,6 +101,7 @@ public class PlayerAttack : AbstractPlayer, InputListener
 
         if (!bulletTime.isInBulletTime) Game.time.SetGameSpeedInstant(0.2f);
 
+        Game.player.inventory.BeforeAttack();
         self.inventory.GetWeapon().Attack(pointer.getAngle(), selfEntity);
 
         rotation.FlipEntityRelativeToGravity(pointer.getAngle());

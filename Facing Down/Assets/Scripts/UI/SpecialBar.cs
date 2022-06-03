@@ -18,11 +18,6 @@ public class SpecialBar : MonoBehaviour
     private int currentMaxSpecial;
     private float currentSpecialLeft;
 
-    void Start()
-    {
-        Init();
-    }
-
     public void Init()
     {
         specialChargePrefab = Resources.Load<GameObject>("Prefabs/UI/Components/SpecialCharge");
@@ -96,7 +91,7 @@ public class SpecialBar : MonoBehaviour
         }
 
         if (Game.player.stat.GetSpecialLeft() >= maxIcons + 1)
-            specialChargePlus.transform.Find("SpecialPlusFill").gameObject.SetActive(true);
+        specialChargePlus.transform.Find("SpecialPlusFill").gameObject.SetActive(true);
         else specialChargePlus.transform.Find("SpecialPlusFill").gameObject.SetActive(false);
 
         currentSpecialLeft = newSpecialLeft;

@@ -16,9 +16,10 @@ public class Daggers : MeleeWeapon
         baseSpan = 0.1f;
         baseCooldown = -(baseEDelay + baseSpan + baseSDelay) / 2;
 
-        stat.addMaxDashes = 2;
+        stat.maxDashes = 8;
+        stat.maxSpecial = 6;
+
         stat.accelerationMult = 0.75f;
-        stat.addMaxSpecial = 2;
         stat.specialCooldownMult = 0.75f;
 
         attackPath = "Prefabs/Weapons/Daggers";
@@ -177,5 +178,22 @@ public class Daggers : MeleeWeapon
         attack.GetComponent<CompositeAttack>().attackList.Add(swing2.GetComponent<HalfSlashAttack>());
 
         return attack.GetComponent<CompositeAttack>();
+    }
+
+    //PASSIVE EFFECTS
+    public override void OnPickup() {
+        Game.player.stat.ModifyCritRate(5);
+        Game.player.stat.ModifyCritDamage(10);
+    }
+
+	public override DamageInfo OnDealDamage(DamageInfo damage) {
+        Game.player.stat.ModifyCritRate(5);
+        Game.coroutineStarter.StartCoroutine(startCritReduceRoutine());
+        return damage;
+	}
+
+    private IEnumerator startCritReduceRoutine() {
+        yield return new WaitForSeconds(5);
+        Game.player.stat.ModifyCritRate(-5);
     }
 }

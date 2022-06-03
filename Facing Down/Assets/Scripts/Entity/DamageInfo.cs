@@ -13,15 +13,10 @@ public class DamageInfo
     public float amount;
     public DamageType type;
     public float hitCooldown;
-    public enum Effect
-    {
-        None,
-        Stun
-    }
 
-    public Effect effect = Effect.None;
+    public List<Effect> effects = new List<Effect>();
 
-    public DamageInfo(Entity source, Entity target, float amount, DamageType type, Velocity knockback, float hitCooldown)
+    public DamageInfo(Entity source, Entity target, float amount, DamageType type, Velocity knockback, float hitCooldown, List<Effect> effects)
     {
         //Debug.Log(source + " hit " + target + " for " + amount + " damage with a " + (type == DamageType.PRIMARY ? "primary" : "secondary") + " attack.");
         this.source = source;
@@ -30,7 +25,14 @@ public class DamageInfo
         this.type = type;
         this.knockback = knockback;
         this.hitCooldown = hitCooldown;
+        if(effects != null)
+            foreach (Effect effect in effects)
+            {
+                this.effects.Add(effect);
+            }
     }
+
+    public DamageInfo(Entity source, Entity target, float amount, DamageType type, Velocity knockback, float hitCooldown) : this(source, target, amount, type, knockback, hitCooldown, null) { }
 
     public DamageInfo(Entity source, Entity target, float amount, DamageType type, Velocity knockback) : this(source, target, amount, type, knockback, baseHitCooldown) { }
 
@@ -46,7 +48,7 @@ public class DamageInfo
 
     public DamageInfo(Entity source, float amount) : this(source, null, amount, DamageType.PRIMARY, new Velocity(), baseHitCooldown) { }
 
-    public DamageInfo(DamageInfo dmgInfo) : this(dmgInfo.source, dmgInfo.target, dmgInfo.amount, dmgInfo.type, dmgInfo.knockback, dmgInfo.hitCooldown) { }
+    public DamageInfo(DamageInfo dmgInfo) : this(dmgInfo.source, dmgInfo.target, dmgInfo.amount, dmgInfo.type, dmgInfo.knockback, dmgInfo.hitCooldown, dmgInfo.effects) { }
 
     public DamageInfo() : this(null, null, 0, DamageType.PRIMARY, null, baseHitCooldown) { }
 }

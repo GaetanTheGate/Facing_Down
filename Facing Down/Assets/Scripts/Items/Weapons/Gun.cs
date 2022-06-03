@@ -5,6 +5,10 @@ using UnityEngine;
 public class Gun : MeleeWeapon
 {
     public Gun() : this("Enemy") { }
+
+    private float maxSpread = 45f;
+    private float spread = 0f;
+
     public Gun(string target) : base(target, "Gun")
     {
         attackWeapon = new Bullet(target);
@@ -14,6 +18,9 @@ public class Gun : MeleeWeapon
         baseCooldown = 0.0f;
 
         isAuto = true;
+
+        stat.maxDashes = 6;
+        stat.maxSpecial = 6;
 
         stat.HPMult = 0.75f;
         stat.specialDurationMult = 1.25f;
@@ -50,7 +57,7 @@ public class Gun : MeleeWeapon
         gun.GetComponent<GunAttack>().followEntity = forceUnFollow;
 
         float randomAngle = angle;
-        randomAngle += Random.Range(-5.0f, 5.0f);
+        randomAngle += Random.Range(-spread, spread);
 
         gun.GetComponent<GunAttack>().angle = randomAngle;
         gun.GetComponent<GunAttack>().attack = attackWeapon;
@@ -117,5 +124,24 @@ public class Gun : MeleeWeapon
 
         if ( ! canMove )
             Game.coroutineStarter.LaunchCoroutine(SetVelocityToZeroLoop(self));
+    }
+
+    //PASSIVE EFFECTS
+
+    private float lastAttackTime = 0;
+    public override void OnPickup() {
+        Game.player.stat.ModifyMaxSpecial(1);
+        Game.player.stat.ModifySpecialDuration(Game.player.stat.BASE_SPE_DURATION * 0.10f);
+    }
+
+	public override void BeforeAttack() {
+        if (lastAttackTime + 2 < Time.time) spread = 0;
+        spread = Mathf.Min(maxSpread, spread + 0.4f);
+        lastAttackTime = Time.time;
+    }
+
+    private IEnumerator startBuffDecay() {
+        yield return new WaitForSeconds(5);
+        spread = Mathf.Min(maxSpread, spread + 0.2f);
     }
 }

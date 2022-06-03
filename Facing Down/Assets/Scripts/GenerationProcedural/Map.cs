@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Map : MonoBehaviour
 {
 
-    private static string mapIconPath = "IconMap/moldRoom";
+    private static string mapIconPath = "Sprites/IconMap/moldRoom";
 
     private static string oneDoor = "1Door";
     private static string twoDoorsConfig1 = "2Doors1";
@@ -30,7 +30,7 @@ public class Map : MonoBehaviour
                         mapIcon.GetComponent<Image>().color = Color.red;
                     if(Floor.gridMap[i, j].name == "TreasureRoom")
                         mapIcon.GetComponent<Image>().color = Color.green;
-                    if(Floor.gridMap[i, j].name == "BonusRoom")
+                    if(Floor.gridMap[i, j].name.Contains("BonusRoom"))
                         mapIcon.GetComponent<Image>().color = Color.yellow;
                 }
             }

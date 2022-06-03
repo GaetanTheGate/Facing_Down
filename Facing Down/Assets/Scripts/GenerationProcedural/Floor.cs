@@ -124,7 +124,7 @@ public class Floor : MonoBehaviour
                         if(Game.random.NextDouble() < probaGenerateBonusRoom){
                             nbBonusRoom += 1;
                             probaGenerateBonusRoom = Mathf.Pow((float) nbTreasureRoom/(nbTreasureRoom+2),nbBonusRoom);
-                            gridMap[i,j].name = "BonusRoom";
+                            gridMap[i,j].name = "BonusRoom" + '-' + idRoom++;
                             gridMap[i,j].GetComponent<RoomHandler>().InitRoom("treasure");
                         }
                         else
@@ -164,7 +164,6 @@ public class Floor : MonoBehaviour
             }
         }
 
-        print("anterooLine " + anteroomLine);
         GameObject anteroom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
         anteroom.name = "Anteroom";
         anteroom.transform.SetParent(GameObject.Find("Floor").transform);

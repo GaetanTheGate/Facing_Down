@@ -17,9 +17,11 @@ public class Wings : MeleeWeapon
         baseEDelay = 0.1f;
         baseCooldown = - baseEDelay - baseSpan / 2;
 
+        stat.maxDashes = 5;
+        stat.maxSpecial = 4;
+
         stat.accelerationMult = 0.75f;
         stat.HPMult = 0.8f;
-        stat.addMaxDashes = 2;
 
         attackPath = "Prefabs/Weapons/Wings";
         specialPath = "Prefabs/Weapons/Wings";
@@ -170,4 +172,26 @@ public class Wings : MeleeWeapon
 
         canMove = true;
     }
+
+	//PASSIVE EFFECTS
+	public override void OnPickup() {
+        Game.player.stat.ModifyMaxDashes(1);
+        Game.player.stat.ModifySpecialCooldown(0.90f);
+	}
+
+    private float lastLeftGround = 0;
+    private float maxAirTimeBuff = 30;
+	public override void OnGroundCollisionLeave() {
+        lastLeftGround = Time.time;
+	}
+
+	public override void OnGroundCollisionEnter() {
+        lastLeftGround = 0;
+	}
+
+	public override DamageInfo OnDealDamage(DamageInfo damage) {
+        if (lastLeftGround == 0) return damage;
+        damage.amount *= 1 + (Time.time - lastLeftGround) / maxAirTimeBuff;
+        return damage;
+	}
 }

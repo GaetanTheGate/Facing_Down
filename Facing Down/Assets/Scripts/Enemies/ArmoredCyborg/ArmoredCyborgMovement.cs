@@ -30,13 +30,8 @@ public class ArmoredCyborgMovement : EnemyMovement
 
     public override void FixedUpdate()
     {
-        setNextFlag();
+        base.FixedUpdate();
 
-        if (isFollowingPlayer) followingPlayerBehaviour();
-
-        if (!isFollowingPlayer) notFollowingPlayerBehaviour();
-
-        animator.SetFloat("speed", rb.velocity.x);
         if (rb.velocity.x < 0.3 && rb.velocity.x > -0.3) animator.speed = 1;
         else animator.speed = Mathf.Abs(rb.velocity.x);
 

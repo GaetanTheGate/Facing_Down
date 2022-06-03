@@ -15,6 +15,8 @@ public class MenuManager : MonoBehaviour
     void Awake(){
         Localization.Init();
 
+        DontDestroyOnLoad(GameObject.Find("ToogleSelectableObject")); 
+
         audioMixer = audioMixerEditor;
 
         gameObjectActions = GameObject.Find("Actions");

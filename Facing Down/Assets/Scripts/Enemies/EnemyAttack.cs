@@ -7,7 +7,7 @@ public abstract class EnemyAttack : MonoBehaviour
     protected float delay = 2f;
     protected float timePassed = 0f;
     protected bool isAttacking = false;
-    protected bool canAttack = true;
+    public bool canAttack = true;
 
     
 

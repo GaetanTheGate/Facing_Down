@@ -13,7 +13,9 @@ public class Katana : MeleeWeapon
         baseSpan = 0.2f;
         baseCooldown = 0.0f;
 
-        stat.addMaxDashes = -1;
+        stat.maxDashes = 3;
+        stat.maxSpecial = 4;
+        
         stat.accelerationMult = 1.25f;
         stat.specialCooldownMult = 0.75f;
 
@@ -137,4 +139,15 @@ public class Katana : MeleeWeapon
 
         return laser.GetComponent<LaserAttack>();
     }
+
+    //PASSIVE EFFECTS
+    public override void OnPickup() {
+        Game.player.stat.ModifyAcceleration(0.1f * Game.player.stat.BASE_ACCELERATION);
+        Game.player.stat.ModifySpecialCooldown(-0.1f * Game.player.stat.GetSpecialCooldown());
+    }
+
+	public override DamageInfo OnDealDamage(DamageInfo damage) {
+        damage.amount *= 1 + new Velocity(Game.player.self.GetComponent<Rigidbody2D>().velocity).getSpeed() / Game.player.stat.maxSpeed;
+        return damage;
+	}
 }

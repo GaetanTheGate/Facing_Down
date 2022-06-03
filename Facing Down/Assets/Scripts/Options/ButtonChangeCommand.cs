@@ -2,30 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System;
 
 public class ButtonChangeCommand : MonoBehaviour
 {   
-    private bool canChange = false;
+    public static bool canChange = false;
 
     public void changeCommand(){
         canChange = true;
+        GetComponentInChildren<Text>().text = "";
+        StartCoroutine(waitForKey());
     }
 
-    void Update(){
-        if(canChange){
-            if(Input.GetAxis("Button LT") > 0){
-                GetComponentInChildren<Text>().text = "Button LT";
+
+    //https://forum.unity.com/threads/waiting-for-input-in-a-custom-function.474387/
+    private IEnumerator waitForKey()
+    {
+        bool done = false;
+        while(!done){
+            KeyValuePair<bool, string> result = checkIfAxesIsTrigger();
+            if(result.Key){
+                GetComponentInChildren<Text>().text = result.Value;
+                done = true;
                 canChange = false;
             }
                 
-            else if(Input.GetAxis("Button RT") > 0){
-                GetComponentInChildren<Text>().text = "Button RT";
-                canChange = false;
-            }
-                
-            else {
-                GetComponentInChildren<Text>().text = "";
+            else{
                 foreach(KeyCode kc in Enum.GetValues(typeof(KeyCode))){
                     if(Input.GetKeyDown(kc)){
                         string text ;
@@ -34,15 +37,44 @@ public class ButtonChangeCommand : MonoBehaviour
                         else
                             text = kc.ToString();
                         GetComponentInChildren<Text>().text = text;
+                        done = true;
                         canChange = false;
                         break;
                     }
                 }
             }
-                
+            yield return null;
         }
+        
     }
 
+    public void submitUp(){
+        StartCoroutine(waitForSubmitUp());
+    }
+
+    private IEnumerator waitForSubmitUp(){
+        bool done = false;
+        while(!done){
+            if(Input.GetButtonUp("Submit")){
+                GetComponentInChildren<Button>().onClick.Invoke();
+                done = true;
+            }
+                
+            yield return null;
+        }
+        
+    }
+
+    public KeyValuePair<bool, string> checkIfAxesIsTrigger(){
+        KeyValuePair<bool, string> result;
+        if(Input.GetAxis("Button LT") > 0)
+            result = new KeyValuePair<bool, string>(true,"Button LT");
+        else if (Input.GetAxis("Button RT") > 0)
+            result = new KeyValuePair<bool, string>(true,"Button RT");
+        else
+            result = new KeyValuePair<bool, string>(false,"");
+        return result;
+    }
 
 
     void Start(){

@@ -13,7 +13,7 @@ public class Drone3Attack : EnemyAttack
     }
     public override void attackPlayer(Vector2 playerPosition)
     {
-        if (timePassed >= delay && !isAttacking)
+        if (timePassed >= delay && !isAttacking && canAttack)
         {
             isAttacking = true;
             if (Vector2.Angle(playerPosition, gameObject.transform.position) > 10f)
@@ -41,7 +41,7 @@ public class Drone3Attack : EnemyAttack
     protected IEnumerator startAttackAnimationRoutine(float duration, Vector2 targetPosition)
     {
         yield return new WaitForSeconds(duration);
-        if(canAttack) fire(targetPosition);
+        fire(targetPosition);
     }
 
     protected void fire(Vector2 targetPosition)

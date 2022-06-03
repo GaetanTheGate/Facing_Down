@@ -66,4 +66,8 @@ public class PrintItem : PassiveItem
 	public override void OnBullettimeEnd() {
 		Debug.Log("BULLET TIME ENDED NATURALLY");
 	}
+
+	public override void BeforeAttack() {
+		Debug.Log("ATTACKED");
+	}
 }

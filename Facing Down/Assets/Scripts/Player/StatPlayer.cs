@@ -8,16 +8,20 @@ public class StatPlayer : StatEntity
     public readonly int BASE_CRIT_RATE = 5;
     public readonly int BASE_CRIT_DMG = 150;
     public readonly float BASE_ACCELERATION = 10;
-    public readonly int BASE_MAX_DASH = 6;
-    public readonly int BASE_MAX_SPECIAL = 4;
+    public readonly int BASE_MAX_DASH = 0;
+    public readonly int BASE_MAX_SPECIAL = 0;
     public readonly float BASE_SPE_DURATION = 2;
     public readonly float BASE_SPE_COOLDOWN = 10;
+    public readonly float BASE_CRITRATE = 5;
+    public readonly float BASE_CRITDAMAGE = 150;
 
     private PlayerIframes playerIframes;
 
     private PlayerAttack playerAttack;
     private PlayerDash playerDash;
     private PlayerBulletTime playerBulletTime;
+
+    public bool canIframe = true;
 
     //public Text hpText;
 
@@ -44,14 +48,16 @@ public class StatPlayer : StatEntity
         maxDashes = BASE_MAX_DASH;
         specialCooldown = BASE_SPE_COOLDOWN;
         specialDuration = BASE_SPE_DURATION;
-        maxSpecial = BASE_MAX_DASH;
+        maxSpecial = BASE_MAX_SPECIAL;
         specialLeft = maxSpecial;
+        critDmg = BASE_CRIT_DMG;
+        critRate = BASE_CRIT_RATE;
 
         playerIframes = GetComponentInChildren<PlayerIframes>();
 
-        playerAttack = gameObject.GetComponent<PlayerAttack>();
-        playerDash = gameObject.GetComponent<PlayerDash>();
-        playerBulletTime = gameObject.GetComponent<PlayerBulletTime>();
+        playerAttack = transform.parent.gameObject.GetComponent<PlayerAttack>();
+        playerDash = transform.parent.gameObject.GetComponent<PlayerDash>();
+        playerBulletTime = transform.parent.gameObject.GetComponent<PlayerBulletTime>();
 
         UI.Init();
         UI.healthBar.UpdateHP();
@@ -61,8 +67,6 @@ public class StatPlayer : StatEntity
 
     public override void TakeDamage(DamageInfo damage)
     {
-        UI.healthBar.UpdateHP();
-
         if (isDead || (int)damage.amount == 0) return;
         if (!playerIframes.isIframe)
         {
@@ -70,12 +74,10 @@ public class StatPlayer : StatEntity
             base.TakeDamage(damage);
             Game.player.gameCamera.GetComponent<CameraManager>().Shake(0.1f, 0.3f);
             //hpText.text = currentHitPoints.ToString();
-            if (damage.effect == DamageInfo.Effect.Stun)
-            {
-                stun();
-            }
-            else playerIframes.getIframe(Mathf.Min(2f, damage.hitCooldown));
+            if (canIframe) playerIframes.getIframe(Mathf.Min(2f, damage.hitCooldown));
         }
+
+        UI.healthBar.UpdateHP();
     }
 
     public override void checkIfDead(DamageInfo lastDamageTaken) {
@@ -113,7 +115,7 @@ public class StatPlayer : StatEntity
     }
 
 	public int GetMaxDashes() {
-        return maxDashes + Game.player.inventory.GetWeapon().stat.addMaxDashes;
+        return maxDashes + Game.player.inventory.GetWeapon().stat.maxDashes;
 	}
 
     public int GetRemainingDashes() {
@@ -135,8 +137,13 @@ public class StatPlayer : StatEntity
         UI.dashBar.UpdateDashes();
 	}
 
+    public void ResetSpecial() {
+        specialLeft = GetMaxSpecial();
+        UI.specialBar.UpdateSpecial();
+	}
+
     public int GetMaxSpecial() {
-        return maxSpecial + Game.player.inventory.GetWeapon().stat.addMaxSpecial;
+        return maxSpecial + Game.player.inventory.GetWeapon().stat.maxSpecial;
 	}
 
     public float GetSpecialLeft() {
@@ -150,7 +157,7 @@ public class StatPlayer : StatEntity
 	}
 
     public void ModifySpecialLeft(float amount) {
-        specialLeft = Mathf.Min(maxSpecial, Mathf.Max(0, specialLeft + amount));
+        specialLeft = Mathf.Min(GetMaxSpecial(), Mathf.Max(0, specialLeft + amount));
         UI.specialBar.UpdateSpecial();
 	}
 
@@ -170,19 +177,19 @@ public class StatPlayer : StatEntity
         return specialCooldown * Game.player.inventory.GetWeapon().stat.specialCooldownMult;
 	}
 
-    public void stun()
+    public override void Stun(bool shouldStun)
     {
-        if (playerAttack != null) playerAttack.canAttack = false;
-        if (playerDash != null) playerDash.canDash = false;
-        if (playerBulletTime != null) playerBulletTime.canBulletTime = false;
-        StartCoroutine(waitForStun(2f));
-    }
-
-    private IEnumerator waitForStun(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        if (playerAttack != null) playerAttack.canAttack = true;
-        if (playerDash != null) playerDash.canDash = true;
-        if (playerBulletTime != null) playerBulletTime.canBulletTime = true;
+        if (shouldStun)
+        {
+            if (playerAttack != null) playerAttack.canAttack = false;
+            if (playerDash != null) playerDash.canDash = false;
+            if (playerBulletTime != null) playerBulletTime.canBulletTime = false;
+        }
+        else
+        {
+            if (playerAttack != null) playerAttack.canAttack = true;
+            if (playerDash != null) playerDash.canDash = true;
+            if (playerBulletTime != null) playerBulletTime.canBulletTime = true;
+        }
     }
 }

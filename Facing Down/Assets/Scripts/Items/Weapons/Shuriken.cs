@@ -13,6 +13,10 @@ public class Shuriken : ProjectileWeapon
         baseEDelay = 5.0f;
         baseCooldown = -baseEDelay + (baseSpan / 2);
 
+        stat.maxDashes = 5;
+        stat.maxSpecial = 4;
+
+        stat.accelerationMult = 1.25f;
         stat.specialCooldownMult = 0.75f;
         stat.specialDurationMult = 0.75f;
         stat.HPMult = 0.75f;
@@ -138,5 +142,29 @@ public class Shuriken : ProjectileWeapon
         yield return new WaitForSeconds(delay);
 
         self.GetComponent<Rigidbody2D>().freezeRotation = true;
+    }
+
+    //PASSIVE EFFECTS
+    public override void OnPickup() {
+        Game.player.stat.ModifyMaxDashes(1);
+        Game.player.stat.ModifyAtk(Game.player.stat.BASE_ATK * 0.1f);
+    }
+
+    private int activeBuffs = 0;
+    private float buffDuration = 5;
+    private float buffStrength = 2;
+
+	public override void OnEnemyKill(Entity enemy) {
+        ++activeBuffs;
+        Game.coroutineStarter.StartCoroutine(startBuffDecayRoutine());
+	}
+	public override DamageInfo OnDealDamage(DamageInfo damage) {
+        if (activeBuffs > 1) damage.amount *= buffStrength;
+        return base.OnTakeDamage(damage);
+    }
+
+    private IEnumerator startBuffDecayRoutine() {
+        yield return new WaitForSeconds(buffDuration);
+        --activeBuffs;
     }
 }
