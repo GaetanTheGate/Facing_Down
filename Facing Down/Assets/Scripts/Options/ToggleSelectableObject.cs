@@ -39,18 +39,10 @@ public class ToggleSelectableObject : MonoBehaviour
     public bool checkIfController()
     {
         return InputManager.GetControlScheme("Player_Controller").AnyInput;
-        foreach(InputAction action in InputManager.GetControlScheme("Player_Controller").Actions)
-            if (action.GetButton())
-                return true;
-        return false;
     }
 
     public bool checkIfKeyBoard()
     {
         return InputManager.GetControlScheme("Player_KeyBoard").AnyInput;
-        foreach (InputAction action in InputManager.GetControlScheme("Player_KeyBoard").Actions)
-            if (action.GetButton())
-                return true;
-        return false;
     } 
 }
