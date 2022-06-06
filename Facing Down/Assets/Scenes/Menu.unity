@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: attack
+  idAction: Attack
 --- !u!114 &155128576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1096,7 +1096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: closeConsole
+  idAction: Escape
 --- !u!114 &278806418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,7 +1328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: bulletTime
+  idAction: BulletTime
 --- !u!114 &315382128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1939,12 +1939,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
+  m_HorizontalAxis: joy_0_axis_0
+  m_VerticalAxis: joy_0_axis_1
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
+  m_RepeatDelay: 0.2
   m_ForceModuleActive: 0
 --- !u!114 &414908522
 MonoBehaviour:
@@ -2456,7 +2456,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0, g: 0, b: 1, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3399,7 +3399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: openConsole
+  idAction: Console
 --- !u!114 &512004207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4086,19 +4086,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onBack:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1936405548}
-        m_TargetAssemblyTypeName: ButtonBack, Assembly-CSharp
-        m_MethodName: back
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!4 &594889240
 Transform:
   m_ObjectHideFlags: 0
@@ -4337,7 +4325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: dash
+  idAction: Dash
 --- !u!114 &642861542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4522,7 +4510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: dash
+  idAction: Dash
 --- !u!114 &710359640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5909,7 +5897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: closeConsole
+  idAction: Escape
 --- !u!114 &979258297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6065,7 +6053,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0, g: 0, b: 1, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -6501,7 +6489,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0, g: 0, b: 1, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -7357,7 +7345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: bulletTime
+  idAction: BulletTime
 --- !u!114 &1175313272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7839,7 +7827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: toggleInventoryMap
+  idAction: Inventory
 --- !u!114 &1217172217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8023,7 +8011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: attack
+  idAction: Attack
 --- !u!114 &1263732572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8129,7 +8117,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0, g: 0, b: 1, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -9485,7 +9473,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0, g: 0, b: 1, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -10637,7 +10625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: toggleInventoryMap
+  idAction: Inventory
 --- !u!114 &1624314657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11542,7 +11530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bb6e4429a416f3dbd39b2caad5d2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idAction: openConsole
+  idAction: Console
 --- !u!114 &1845680376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12092,6 +12080,103 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893687181}
   m_CullTransparentMesh: 1
+--- !u!1001 &1912310045
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7322553657196032057, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032057, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032057, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032057, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032057, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032057, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032057, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032057, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032057, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032057, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032057, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032058, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_controlSchemes.Array.data[0].m_isExpanded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032058, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_controlSchemes.Array.data[1].m_isExpanded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032058, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_controlSchemes.Array.data[2].m_isExpanded
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032059, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_defaultProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: e26d66d8ddc6c564286e06a89f52175f, type: 2}
+    - target: {fileID: 7322553657196032059, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_profiles.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032059, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_profiles.Array.data[0].IsExpanded
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032059, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_profiles.Array.data[0].GamepadProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: e26d66d8ddc6c564286e06a89f52175f, type: 2}
+    - target: {fileID: 7322553657196032059, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_profiles.Array.data[0].Constraints.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032059, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_profiles.Array.data[0].Constraints.Array.data[0].Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032059, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_profiles.Array.data[0].Constraints.Array.data[0].Content
+      value: Wireless
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322553657196032061, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
+      propertyPath: m_Name
+      value: InputManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5795d00221d3e6d43b38d4b2cdd350c4, type: 3}
 --- !u!1 &1928070560
 GameObject:
   m_ObjectHideFlags: 0
@@ -12455,7 +12540,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0, g: 0, b: 1, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

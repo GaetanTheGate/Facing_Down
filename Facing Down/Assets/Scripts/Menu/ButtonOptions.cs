@@ -57,13 +57,11 @@ public class ButtonOptions : MonoBehaviour
 
         ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard.SetActive(true);
         GameObject contentDisplayCommandKeyBoard = ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard.transform.Find("Viewport").Find("ContentDisplayCommandKeyBoard").gameObject;
-
-        foreach(KeyBinding keyBinding in Options.Get().commandsKeyBoard){
-            foreach(Transform child in contentDisplayCommandKeyBoard.transform){
-                GameObject action = child.Find("Action").gameObject;
-                if(keyBinding.action == action.GetComponent<InfoAction>().idAction)
-                    child.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text = keyBinding.key.ToString();
-            }
+        
+        for (int i = 0; i < contentDisplayCommandKeyBoard.transform.childCount; ++i) {
+            GameObject command = contentDisplayCommandKeyBoard.transform.GetChild(i).gameObject;
+            string stringKeyCode = Options.Get().keyInput.GetAction(command.transform.Find("Action").GetComponent<InfoAction>().idAction).GetBinding(0).Positive.ToString();
+            command.transform.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text = stringKeyCode;
         }
 
         ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard.SetActive(false);
@@ -72,17 +70,15 @@ public class ButtonOptions : MonoBehaviour
        
         GameObject contentDisplayCommandController = ButtonDisplayCommand.scrollRectContentDisplayCommandController.transform.Find("Viewport").Find("ContentDisplayCommandController").gameObject;
 
-        foreach(KeyBinding keyBinding in Options.Get().commandsController){
-            foreach(Transform child in contentDisplayCommandController.transform){
-                GameObject action = child.Find("Action").gameObject;
-                if(keyBinding.action == action.GetComponent<InfoAction>().idAction)
-                    child.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text = ButtonChangeCommand.keycodeControllerToSTring(keyBinding.key);
-            }
+        for (int i = 0; i < contentDisplayCommandController.transform.childCount; ++i) {
+            GameObject command = contentDisplayCommandController.transform.GetChild(i).gameObject;
+            KeyCode keyCodeController = Options.Get().controllerInput.GetAction(command.transform.Find("Action").GetComponent<InfoAction>().idAction).GetBinding(0).Positive;
+            command.transform.Find("KeyBinding").transform.Find("TextKey").GetComponent<Text>().text = ButtonChangeCommand.keycodeControllerToSTring(keyCodeController);
         }
-        ButtonDisplayCommand.scrollRectContentDisplayCommandController.SetActive(false);
-
-        ButtonDisplayCommand.contentDisplayCommands.SetActive(false);
         
+        ButtonDisplayCommand.scrollRectContentDisplayCommandController.SetActive(false);
+        
+        ButtonDisplayCommand.contentDisplayCommands.SetActive(false);
     }
 
     void Start(){

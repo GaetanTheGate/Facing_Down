@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Luminosity.IO;
 using System;
 
 public class ButtonChangeCommand : MonoBehaviour
@@ -67,9 +68,9 @@ public class ButtonChangeCommand : MonoBehaviour
 
     public KeyValuePair<bool, string> checkIfAxesIsTrigger(){
         KeyValuePair<bool, string> result;
-        if(Input.GetAxis("Button LT") > 0)
+        if(Input.GetAxis("joy_0_axis_2") > 0)
             result = new KeyValuePair<bool, string>(true,"Button LT");
-        else if (Input.GetAxis("Button RT") > 0)
+        else if (Input.GetAxis("joy_0_axis_5") > 0)
             result = new KeyValuePair<bool, string>(true,"Button RT");
         else
             result = new KeyValuePair<bool, string>(false,"");
@@ -117,12 +118,6 @@ public class ButtonChangeCommand : MonoBehaviour
             case KeyCode.JoystickButton10:
                 bouton = "Bouton joystick droit";
                 break;
-            case KeyCode.JoystickButton11:
-                bouton = "Button LT";
-                break;
-            case KeyCode.JoystickButton12:
-                bouton = "Button RT";
-                break;
             default :
                 bouton = kc.ToString();
                 break;
@@ -131,54 +126,42 @@ public class ButtonChangeCommand : MonoBehaviour
         return bouton;
     }
 
-    public static KeyCode stringToKeyCode(string text){
-        KeyCode kc = KeyCode.None;
+    public static GamepadButton stringControllerToKeyCode(string text){
+        GamepadButton button = GamepadButton.Start;
         switch(text){
             case "Bouton A":
-                kc = KeyCode.JoystickButton0;
+                button = GamepadButton.ActionBottom;
                 break;
             case "Bouton B":
-                kc = KeyCode.JoystickButton1;
+                button = GamepadButton.ActionRight;
                 break;
             case "Bouton X":
-                kc = KeyCode.JoystickButton2;
+                button = GamepadButton.ActionLeft;
                 break;
             case "Bouton Y":
-                kc = KeyCode.JoystickButton3;
+                button = GamepadButton.ActionTop;
                 break;
             case "Bouton LB":
-                kc = KeyCode.JoystickButton4;
+                button = GamepadButton.LeftBumper;
                 break;
             case "Bouton RB":
-                kc = KeyCode.JoystickButton5;
+                button = GamepadButton.RightBumper;
                 break;
             case "Bouton start":
-                kc = KeyCode.JoystickButton6;
+                button = GamepadButton.Start;
                 break;
             case "Bouton select":
-                kc = KeyCode.JoystickButton7;
-                break;
-            case "Bouton xBox":
-                kc = KeyCode.JoystickButton8;
+                button = GamepadButton.Back;
                 break;
             case "Bouton joystick gauche":
-                kc = KeyCode.JoystickButton9;
+                button = GamepadButton.LeftStick;
                 break;
             case "Bouton joystick droit":
-                kc = KeyCode.JoystickButton10;
-                break;
-            case "Button LT":
-                kc = KeyCode.JoystickButton11;
-                break;
-            case "Button RT":
-                kc = KeyCode.JoystickButton12;
-                break;
-            default :
-                kc = KeyCode.None;
+                button = GamepadButton.RightStick;
                 break;
         }
 
-        return kc;
+        return button;
     }
 
 

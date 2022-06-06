@@ -118,8 +118,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHitPoints: 10
-  baseAtk: 100
-  atkMultipler: 1
   critRate: 5
   critDmg: 150
   onHit:
@@ -130,12 +128,9 @@ MonoBehaviour:
       m_Calls: []
   canTakeKnockBack: 1
   canTakeDamage: 1
+  minAcceleration: 1
   maxAcceleration: 20
   maxSpeed: 50
-  maxDashes: 10
-  specialCooldown: 10
-  specialDuration: 2
-  maxSpecial: 4
 --- !u!114 &657911100868528698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,7 +216,7 @@ MonoBehaviour:
   - {x: -0.2, y: 0.2, z: 0}
   m_ShapePathHash: 816645463
   m_Mesh: {fileID: 0}
-  m_InstanceId: 49240
+  m_InstanceId: 90024
 --- !u!1 &657911101350130789
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,8 +409,8 @@ Camera:
   m_GameObject: {fileID: 657911102247193320}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

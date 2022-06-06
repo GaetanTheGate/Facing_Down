@@ -52,7 +52,7 @@ public class PlayerAttack : AbstractPlayer, InputListener
             rotation.Init();
         }
 
-        Game.controller.Subscribe("attack", this);
+        Game.controller.Subscribe("Attack", this);
     }
 
     public void OnInputPressed () {

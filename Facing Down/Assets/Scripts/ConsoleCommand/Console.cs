@@ -61,6 +61,7 @@ public class Console : MonoBehaviour
 			toggled = true;
 			Game.time.SetGameSpeedInstant(0f);
 			input.Select();
+			EventSystem.current.SetSelectedGameObject(input.gameObject);
 		}
 	}
 

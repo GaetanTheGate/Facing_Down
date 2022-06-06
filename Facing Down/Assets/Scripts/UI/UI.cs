@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+
 
 public class UI : MonoBehaviour
 {
@@ -14,7 +14,9 @@ public class UI : MonoBehaviour
 
     public static MapDisplay map;
 
-    private static bool canToogle = true;
+    private void Start() {
+        Init();
+    }
 
     public static void Init()
     {
@@ -50,50 +52,72 @@ public class UI : MonoBehaviour
     /// <summary>
     /// Enables/Disables UI elements depending on user input
     /// </summary>
-	private void Update() {
-            if (GameController.checkIfkeyCodeIsReleased(Options.Get().dicoCommandsKeyBoard["toggleInventoryMap"]) || GameController.checkIfkeyCodeIsReleased(Options.Get().dicoCommandsController["toggleInventoryMap"]))
-                canToogle = true; 
-
+    /*private void OnGUI() {
             if (console.IsToggled()) {
-                if (GameController.checkIfkeyCodeIsPressed(Options.Get().dicoCommandsKeyBoard["closeConsole"]) || 
-                    GameController.checkIfkeyCodeIsPressed(Options.Get().dicoCommandsController["closeConsole"]) ) {
+                if (GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsKeyBoard["closeUI"]) || 
+                    GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsController["closeUI"]) ) {
                         console.Toggle();
                 }
             }
             else if (inventoryDisplay.IsEnabled()) {
-                if ((GameController.checkIfkeyCodeIsPressed(Options.Get().dicoCommandsKeyBoard["toggleInventoryMap"]) || 
-                    GameController.checkIfkeyCodeIsPressed(Options.Get().dicoCommandsController["toggleInventoryMap"])) && canToogle) {
+                if (GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsKeyBoard["closeUI"]) || 
+                    GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsController["closeUI"])) {
                         inventoryDisplay.Disable();
                         map.Disable();
                         LockCursor();
                         Game.time.SetGameSpeedInstant(1);
-                        canToogle = false;
 				}
             }
             else {
-                
-                if (GameController.checkIfkeyCodeIsPressed(Options.Get().dicoCommandsKeyBoard["openConsole"]) || 
-                    GameController.checkIfkeyCodeIsPressed(Options.Get().dicoCommandsController["openConsole"]) ) {
+                if (GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsKeyBoard["openConsole"]) || 
+                    GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsController["openConsole"]) ) {
                         console.Toggle();
                 }
-                else if ((GameController.checkIfkeyCodeIsPressed(Options.Get().dicoCommandsKeyBoard["toggleInventoryMap"]) || 
-                        GameController.checkIfkeyCodeIsPressed(Options.Get().dicoCommandsController["toggleInventoryMap"] )) && canToogle){ 
+                else if (GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsKeyBoard["openInventoryMap"]) || 
+                        GameController.checkIfkeyCodeIsPressedOnGUI(Options.Get().dicoCommandsController["openInventoryMap"] )){
                             inventoryDisplay.Enable();
                             map.Enable();
                             UnlockCursor();
                             Game.time.SetGameSpeedInstant(0);
-                            canToogle = false;
-                            if (ToggleSelectableObject.onController){
-                                if(GameObject.Find("Inventory").transform.GetChild(0).transform.childCount > 0){
-                                    EventSystem.current.SetSelectedGameObject(GameObject.Find("Inventory").transform.GetChild(0).transform.GetChild(0).gameObject);
-                                }
-                            }
-                            
                 }
             }
-	}
+	}*/
 
-
+    private void Update()
+    {
+        if (console.IsToggled())
+        {
+            if (GameController.checkIfkeyCodeIsPressed("Escape"))
+            {
+                console.Toggle();
+            }
+        }
+        else if (inventoryDisplay.IsEnabled())
+        {
+            if (GameController.checkIfkeyCodeIsPressed("Escape"))
+            {
+                inventoryDisplay.Disable();
+                map.Disable();
+                LockCursor();
+                Game.time.SetGameSpeedInstant(1);
+            }
+        }
+        else
+        {
+            if (GameController.checkIfkeyCodeIsPressed("Console"))
+            {
+                console.Toggle();
+            }
+            else if (GameController.checkIfkeyCodeIsPressed("Inventory"))
+            {
+                inventoryDisplay.Enable();
+                map.Enable();
+                UnlockCursor();
+                Game.time.SetGameSpeedInstant(0);
+            }
+        }
+    }
+    
     private void LockCursor() {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
