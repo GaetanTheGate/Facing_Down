@@ -27,6 +27,7 @@ public class AttackHit : MonoBehaviour
         {
             if (collision.gameObject.layer.Equals(LayerMask.NameToLayer(layer)))
             {
+                if (dmgInfo.source == null) return;
                 if (dmgInfo.isMelee && IsBlocked(dmgInfo.source.gameObject.transform.position, collision.transform.position))
                     continue;
 
