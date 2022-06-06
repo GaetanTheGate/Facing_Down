@@ -5,7 +5,7 @@ using UnityEngine;
 public class NextFloorRoomHandler : BaseRoomHandler
 {
     public override void OnEnterRoom()
-    {
-        Tower.generateNextFloor();
+    {   
+        Game.coroutineStarter.LaunchCoroutine(Tower.changeFloor());        
     }
 }

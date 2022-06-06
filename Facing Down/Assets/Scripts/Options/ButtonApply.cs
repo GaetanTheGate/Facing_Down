@@ -30,7 +30,7 @@ public class ButtonApply : MonoBehaviour
             InputManager.GetControlScheme("Player_KeyBoard").GetAction(command.transform.Find("Action").GetComponent<InfoAction>().idAction).GetBinding(0).Positive = (KeyCode)System.Enum.Parse(typeof(KeyCode), stringKeyCode);
         }
 
-        GameObject commandsController = GameObject.Find("ContentDisplayCommandController").gameObject;
+        /*GameObject commandsController = GameObject.Find("ContentDisplayCommandController").gameObject;
         GenericGamepadProfileSelector inputManager = GameObject.Find("InputManager").GetComponent<GenericGamepadProfileSelector>();
         for (int i = 0; i < commandsController.transform.childCount; ++i) {
             GameObject command = commandsController.transform.GetChild(i).gameObject;
@@ -47,7 +47,7 @@ public class ButtonApply : MonoBehaviour
                 Options.Get().keyInput.GetAction(command.transform.Find("Action").GetComponent<InfoAction>().idAction).GetBinding(0).GamepadButton = ButtonChangeCommand.stringControllerToKeyCode(stringKeyCode);
                 InputManager.GetControlScheme("Player_Controller").GetAction(command.transform.Find("Action").GetComponent<InfoAction>().idAction).GetBinding(0).GamepadButton = ButtonChangeCommand.stringControllerToKeyCode(stringKeyCode);
             }
-        }
+        }*/
 
         
         foreach(GameObject go in ControllerManager.typeController){
