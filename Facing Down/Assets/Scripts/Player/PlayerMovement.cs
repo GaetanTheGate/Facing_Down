@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         movement = Input.GetAxis("Horizontal");
         if (Input.GetButtonDown("Jump") && numberOfJumps < maxJumps)
@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
             numberOfJumps += 1;          
             isJumping = true;
         }
-    }
+    }*/
 
     private void FixedUpdate()
     {

@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using Luminosity.IO;
 using UnityEngine.PlayerLoop;
+using System;
 
 public class ToggleSelectableObject : MonoBehaviour
 {
@@ -39,9 +40,12 @@ public class ToggleSelectableObject : MonoBehaviour
     public bool checkIfController()
     {
         //return InputManager.GetControlScheme("Player_Controller").AnyInput;
-        foreach (InputAction action in InputManager.GetControlScheme("Player_Controller").Actions)
+        foreach (InputAction action in InputManager.GetControlScheme("Player_Controller").Actions){
             if (action.GetButton())
                 return true;
+            else if (action.GetAxis() > 0)
+                return true;
+        }
         return false;
     }
 

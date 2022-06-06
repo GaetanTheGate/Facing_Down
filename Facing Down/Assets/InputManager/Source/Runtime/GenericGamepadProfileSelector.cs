@@ -23,6 +23,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 
 namespace Luminosity.IO
 {
@@ -55,7 +56,7 @@ namespace Luminosity.IO
         private List<Profile> m_profiles = null;
 
 #if UNITY_EDITOR
-        public Profile GetProfile(int index)
+         public Profile GetProfile(int index)
         {
             if(index >= 0 && index < m_profiles.Count)
                 return m_profiles[index];
@@ -89,6 +90,8 @@ namespace Luminosity.IO
                 Debug.LogFormat("No profile found for '{0}'.", gamepadName);
             }
         }
+
+    
 
         private bool IsMatch(Profile entry, string gamepadName)
         {
