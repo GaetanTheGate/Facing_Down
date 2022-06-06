@@ -9,7 +9,6 @@ public class ArmoredCyborgMovement : EnemyMovement
     //private ArmoredCyborgAttack armoredCyborgAttack;
     private EntityCollisionStructure entityCollisionStructure;
     private bool isAtBorder;
-    private bool isShieldFlipped;
 
     // Start is called before the first frame update
     public override void Start()
@@ -27,7 +26,6 @@ public class ArmoredCyborgMovement : EnemyMovement
         nextFlag = flags[0];
         rangeFromPlayerMax = 1.5f;
         isAtBorder = false;
-        isShieldFlipped = false;
     }
 
     public override void FixedUpdate()
@@ -118,12 +116,7 @@ public class ArmoredCyborgMovement : EnemyMovement
 
         Transform shieldTransform = gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").Find("Shield");
 
-        if ( (gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").localRotation.z > 0.5f && !isShieldFlipped) || 
-            (gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").localRotation.z <= 0.5f && isShieldFlipped) )
-        {
-            shieldTransform.localScale = new Vector3(shieldTransform.localScale.x, shieldTransform.localScale.y * -1, shieldTransform.localScale.z);
-            isShieldFlipped = !isShieldFlipped;
-        } 
+        shieldTransform.localScale = new Vector3(shieldTransform.localScale.x, Mathf.Abs(shieldTransform.localScale.y) * gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").localRotation.z > 0.5f ? -1 : 1, shieldTransform.localScale.z);
     }
 
     public void childTriggerExitGround()

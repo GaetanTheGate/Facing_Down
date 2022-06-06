@@ -33,6 +33,8 @@ public abstract class Attack : MonoBehaviour
             GetComponent<SpriteRenderer>().color = new Color(color.r, color.g, color.b, 0);
 
         //audioSource = gameObject.GetComponent<AudioSource>();
+
+        onEndAttack += removeAttackFromList;
     }
 
     public void startAttack()
@@ -48,6 +50,15 @@ public abstract class Attack : MonoBehaviour
 
         if (GetComponent<SpriteRenderer>() != null)
             GetComponent<SpriteRenderer>().color = color;
+
+        if (src != null)
+            src.attacks.Add(this);
+    }
+
+    public void removeAttackFromList(Entity self, float angle)
+    {
+        if (src != null)
+            src.attacks.Remove(this);
     }
 
     protected abstract void onStart();
@@ -86,7 +97,7 @@ public abstract class Attack : MonoBehaviour
             if (audioClip != null)
             {
                 GameObject soundEffect = new GameObject("Sound Effect");
-                soundEffect.transform.parent = src.transform;
+                if (src != null) soundEffect.transform.parent = src.transform;
                 soundEffect.AddComponent<AudioSource>();
                 soundEffect.GetComponent<AudioSource>().volume = 0.5f;
                 soundEffect.GetComponent<AudioSource>().PlayOneShot(audioClip);
