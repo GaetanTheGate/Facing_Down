@@ -17,6 +17,7 @@ public class PowerSaver : PassiveItem
 	}
 
 	public override void OnBullettimeEnd() {
-		Game.player.stat.ModifySpecialLeft(initialSpecialLeft * (1 - Mathf.Pow(1 - specialRetrieved, amount)));
+		Debug.Log((1 - Mathf.Pow(1 - specialRetrieved, amount)));
+		Game.player.stat.ModifySpecialLeft((initialSpecialLeft - Game.player.stat.GetSpecialLeft()) * (1 - Mathf.Pow(1 - specialRetrieved, amount)));
 	}
 }
