@@ -20,5 +20,14 @@ public class EnemyDeath : MonoBehaviour
         //if (Game.currentRoom != null && GetComponent<RoomHandler>() != null) Game.currentRoom.GetComponent<RoomHandler>().CheckIfRoomIsFinish();
         //BroadcastMessage("deathEvent");
         isDead = true;
+
+        if(GetComponent<Entity>() != null)
+        {
+            print("total = " + GetComponent<Entity>().attacks.Count);
+            foreach (Attack attack in GetComponent<Entity>().attacks)
+            {
+                if (attack is MeleeAttack) Destroy(attack.gameObject);
+            }
+        }
     }
 }

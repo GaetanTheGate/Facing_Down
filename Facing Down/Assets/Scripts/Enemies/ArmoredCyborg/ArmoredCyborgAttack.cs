@@ -6,51 +6,14 @@ public class ArmoredCyborgAttack : EnemyAttack
 {
     public float bashRange = 3f;
     private StunShot stunShot;
+    private Shield shieldForAttack;
 
     public override void Start()
     {
         base.Start();
         stunShot = new StunShot("Player");
+        shieldForAttack = new Shield("Player");
     }
-
-    /*public override void attackPlayer(Vector2 playerPosition)
-    {
-        if (timePassed >= delay && !isAttacking)
-        {
-            isAttacking = true;
-            if (Vector2.Angle(playerPosition, gameObject.transform.position) > 10f)
-            {
-                if (playerPosition.y > gameObject.transform.position.y)
-                {
-                    animator.SetTrigger("attackUp");
-                    StartCoroutine(startAttackAnimationRoutine(animator.GetCurrentAnimatorStateInfo(0).length, playerPosition));
-                }
-                else
-                {
-                    animator.SetTrigger("attackDown");
-                    StartCoroutine(startAttackAnimationRoutine(animator.GetCurrentAnimatorStateInfo(0).length, playerPosition));
-                }
-            }
-            else
-            {
-                animator.SetTrigger("attackForward");
-                StartCoroutine(startAttackAnimationRoutine(animator.GetCurrentAnimatorStateInfo(0).length, playerPosition));
-            }
-            timePassed = 0f;
-        }
-    }
-
-    protected IEnumerator startAttackAnimationRoutine(float duration, Vector2 targetPosition)
-    {
-        yield return new WaitForSeconds(duration);
-        if(canAttack) fire(targetPosition);
-    }
-
-    protected void fire(Vector2 targetPosition)
-    {
-        bullet.Attack(Angles.AngleBetweenVector2(gameObject.transform.position, targetPosition), gameObject.GetComponent<Entity>());
-        isAttacking = false;
-    }*/
 
     public override void attackPlayer(Vector2 playerPosition)
     {
@@ -64,8 +27,14 @@ public class ArmoredCyborgAttack : EnemyAttack
 
     private void bash(Vector2 targetPosition)
     {
+        Transform originalShield = gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").Find("Shield");
         gameObject.transform.Find("ShieldPivot_y").gameObject.SetActive(false);
-        //shield.Attack()
+
+        shieldForAttack.startPos = originalShield.position;
+        Attack attack = shieldForAttack.GetAttack(Angles.AngleBetweenVector2(transform.position, targetPosition), gameObject.GetComponent<Entity>());
+        attack.transform.localScale = new Vector3(attack.transform.localScale.x, Mathf.Abs(attack.transform.localScale.y) * originalShield.localScale.y > 0 ? 1 : -1, attack.transform.localScale.z);
+        attack.startAttack();
+
         StartCoroutine(bashWait(1f));
     }
 

@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Entity : AbstractEntity
 {
+    public List<Attack> attacks = new List<Attack>();
 
     public static Rigidbody2D initRigidBody(GameObject gameObject)
     {
