@@ -18,7 +18,6 @@ public class MenuManager : MonoBehaviour
     public static GenericGamepadProfileSelector.Profile profile;
 
     void Awake(){
-        chooseGameProfileAccordingToOS();
         Localization.Init();
 
         DontDestroyOnLoad(GameObject.Find("ToogleSelectableObject")); 
@@ -70,15 +69,6 @@ public class MenuManager : MonoBehaviour
         
     }
 
-    private static void chooseGameProfileAccordingToOS(){
-        GenericGamepadProfileSelector inputManager = GameObject.Find("InputManager").GetComponent<GenericGamepadProfileSelector>();
-        if(System.Environment.OSVersion.Platform.ToString().Contains("Win"))
-            profile = inputManager.GetProfile(0);
-        else if (System.Environment.OSVersion.Platform.ToString().Contains("Unix"))
-            profile = inputManager.GetProfile(1);
-        else
-            profile = inputManager.GetProfile(2);
-    }
 
 
 }

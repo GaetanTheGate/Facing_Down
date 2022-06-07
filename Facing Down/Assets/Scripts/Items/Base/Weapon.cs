@@ -5,6 +5,9 @@ using UnityEngine;
 public abstract class Weapon : Item {
     protected string target;
 
+    public AudioClip attackAudio;
+    public AudioClip specialAudio;
+
     public Weapon(string target, string id) : base(id) { 
         this.target = target;
         //this.stat = ; 

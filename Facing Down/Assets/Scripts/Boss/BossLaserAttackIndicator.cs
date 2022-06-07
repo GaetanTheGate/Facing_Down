@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossLaserAttackIndicator : MonoBehaviour
 {
     private Animator animator;
-    private Laser laser;
+    private LaserIndicator laserIndicator;
     private Entity entity;
     public List<Attack> laserIndicators;
     bool wasDoneOnce = false;
@@ -13,24 +13,24 @@ public class BossLaserAttackIndicator : MonoBehaviour
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
-        laser = new Laser("Player");
+        laserIndicator = new LaserIndicator("Player");
         entity = GetComponent<Entity>();
     }
 
     private List<Attack> laserAttackIndicator(float angleOffset, float duration)
     {
 
-        laser.SetBaseAtk(0);
-        laser.SetBaseSDelay(0);
-        laser.SetBaseSpan(0.1f);
-        laser.SetBaseLenght(0.1f);
-        laser.SetBaseEDelay(duration);
+        laserIndicator.SetBaseAtk(0);
+        laserIndicator.SetBaseSDelay(0);
+        laserIndicator.SetBaseSpan(0.1f);
+        laserIndicator.SetBaseLenght(0.1f);
+        laserIndicator.SetBaseEDelay(duration);
         List<Attack> attackList = new List<Attack>
         {
-            laser.GetAttack(45 + angleOffset, entity),
-            laser.GetAttack(135 + angleOffset, entity),
-            laser.GetAttack(225 + angleOffset, entity),
-            laser.GetAttack(315 + angleOffset, entity)
+            laserIndicator.GetAttack(45 + angleOffset, entity),
+            laserIndicator.GetAttack(135 + angleOffset, entity),
+            laserIndicator.GetAttack(225 + angleOffset, entity),
+            laserIndicator.GetAttack(315 + angleOffset, entity)
         };
         foreach (Attack attack in attackList)
         {

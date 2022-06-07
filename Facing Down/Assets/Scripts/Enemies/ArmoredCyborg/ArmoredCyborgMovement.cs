@@ -113,6 +113,10 @@ public class ArmoredCyborgMovement : EnemyMovement
             gameObject.transform.Find("ShieldPivot_y").localRotation = Quaternion.Euler(0, 180, 0);
         else
             gameObject.transform.Find("ShieldPivot_y").localRotation = Quaternion.Euler(0, 0, 0);
+
+        Transform shieldTransform = gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").Find("Shield");
+
+        shieldTransform.localScale = new Vector3(shieldTransform.localScale.x, Mathf.Abs(shieldTransform.localScale.y) * gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").localRotation.z > 0.5f ? -1 : 1, shieldTransform.localScale.z);
     }
 
     public void childTriggerExitGround()

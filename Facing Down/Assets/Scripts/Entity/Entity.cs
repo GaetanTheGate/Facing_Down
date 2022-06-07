@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Entity : AbstractEntity
 {
+    public List<Attack> attacks = new List<Attack>();
 
     public static Rigidbody2D initRigidBody(GameObject gameObject)
     {
@@ -18,7 +20,7 @@ public class Entity : AbstractEntity
             }
             else if (rb.CompareTag("Enemy"))
             {
-                rb.mass = 10;
+                rb.mass = 100;
             }
         }
         return rb;

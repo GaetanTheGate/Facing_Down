@@ -14,10 +14,6 @@ public class UI : MonoBehaviour
 
     public static MapDisplay map;
 
-    private void Start() {
-        Init();
-    }
-
     public static void Init()
     {
         GameObject gameObject = UnityEngine.Object.FindObjectsOfType<UI>()[0].gameObject;
@@ -94,7 +90,7 @@ public class UI : MonoBehaviour
         }
         else if (inventoryDisplay.IsEnabled())
         {
-            if (GameController.checkIfkeyCodeIsPressed("Escape"))
+            if (GameController.checkIfkeyCodeIsPressed("Inventory"))
             {
                 inventoryDisplay.Disable();
                 map.Disable();

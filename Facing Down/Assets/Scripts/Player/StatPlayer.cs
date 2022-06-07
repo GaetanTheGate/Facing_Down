@@ -183,7 +183,12 @@ public class StatPlayer : StatEntity
         {
             if (playerAttack != null) playerAttack.canAttack = false;
             if (playerDash != null) playerDash.canDash = false;
-            if (playerBulletTime != null) playerBulletTime.canBulletTime = false;
+            if (playerBulletTime != null) 
+            {
+                playerBulletTime.isInBulletTime = false;
+                Game.time.SetGameSpeedInstant(1);
+                playerBulletTime.canBulletTime = false;
+            }
         }
         else
         {

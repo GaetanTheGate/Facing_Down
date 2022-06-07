@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class StatEntity : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class StatEntity : MonoBehaviour
     public bool canTakeKnockBack = true;
     public bool canTakeDamage = true;
 
+    public List<int> activeEffects;
+
     public void InitStats(int maxHP, float atk, float critRate = 0, float critDamage = 150) {
         this.maxHitPoints = maxHP;
         this.atk = atk;
@@ -39,6 +42,8 @@ public class StatEntity : MonoBehaviour
 
         enemyAttack = gameObject.GetComponent<EnemyAttack>();
         enemyMovement = gameObject.GetComponent<EnemyMovement>();
+
+        activeEffects = new List<int>();
     }
 
     public void ModifyCritRate(float amount) {
@@ -73,6 +78,8 @@ public class StatEntity : MonoBehaviour
             Game.player.gameCamera.GetComponent<CameraManager>().Shake(0.1f, 0.1f);
             foreach (Effect effect in dmgInfo.effects)
             {
+                if (activeEffects.Contains(effect.id)) continue;
+                print("doesn't contain effect");
                 effect.OnHit(dmgInfo);
             }
         }

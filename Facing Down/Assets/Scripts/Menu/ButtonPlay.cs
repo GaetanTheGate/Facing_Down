@@ -30,7 +30,7 @@ public class ButtonPlay : MonoBehaviour
     public void generateDonjon(){
         
         initGameManager();
-        Tower.generateNextFloor();
+        Tower.generateFloor();
     }
 
     void Start(){

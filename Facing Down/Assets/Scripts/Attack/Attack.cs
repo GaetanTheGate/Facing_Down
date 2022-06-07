@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class Attack : MonoBehaviour
@@ -13,6 +14,10 @@ public abstract class Attack : MonoBehaviour
     public float endDelay = 0.0f;
     public Entity src;
 
+    //public AudioSource audioSource;
+    public AudioClip audioClip;
+    private bool hasStartedAttacking = false;
+
     public float acceleration = 2.0f;
 
     public delegate void endAttackEvent(Entity self, float angle);
@@ -26,6 +31,10 @@ public abstract class Attack : MonoBehaviour
         //gameObject.SetActive(false);
         if (GetComponent<SpriteRenderer>() != null)
             GetComponent<SpriteRenderer>().color = new Color(color.r, color.g, color.b, 0);
+
+        //audioSource = gameObject.GetComponent<AudioSource>();
+
+        onEndAttack += removeAttackFromList;
     }
 
     public void startAttack()
@@ -41,6 +50,15 @@ public abstract class Attack : MonoBehaviour
 
         if (GetComponent<SpriteRenderer>() != null)
             GetComponent<SpriteRenderer>().color = color;
+
+        if (src != null)
+            src.attacks.Add(this);
+    }
+
+    public void removeAttackFromList(Entity self, float angle)
+    {
+        if (src != null)
+            src.attacks.Remove(this);
     }
 
     protected abstract void onStart();
@@ -53,6 +71,12 @@ public abstract class Attack : MonoBehaviour
         timePassed += Time.fixedDeltaTime;
         if (timePassed - startDelay >= timeSpan + endDelay)
         {
+            /*if (audioSource != null)
+            {
+                audioSource.loop = false;
+                audioSource.clip = null;
+                audioSource.Stop();
+            }*/
             attackEnd();
             if (onEndAttack != null) onEndAttack(src, angle);
             if (isUsingEndAnimation) gameObject.GetComponent<Animator>().SetBool("isDead", true);
@@ -62,6 +86,24 @@ public abstract class Attack : MonoBehaviour
         float percentageTime = (timePassed - startDelay) / timeSpan;
         percentageTime = percentageTime > 1 ? 1 : percentageTime;
         percentageTime = percentageTime < 0 ? 0 : percentageTime;
+        if(!hasStartedAttacking && percentageTime > 0)
+        {
+            hasStartedAttacking = true;
+            /*if(audioSource != null && audioClip != null)
+            {
+                audioSource.clip = audioClip;
+                audioSource.PlayOneShot(audioClip);
+            }*/
+            if (audioClip != null)
+            {
+                GameObject soundEffect = new GameObject("Sound Effect");
+                if (src != null) soundEffect.transform.parent = src.transform;
+                soundEffect.AddComponent<AudioSource>();
+                soundEffect.GetComponent<AudioSource>().volume = 0.5f;
+                soundEffect.GetComponent<AudioSource>().PlayOneShot(audioClip);
+                Destroy(soundEffect, audioClip.length);
+            }
+        }
 
         ComputeAttack(Mathf.Pow(percentageTime, acceleration));
     }

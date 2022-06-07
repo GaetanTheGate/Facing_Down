@@ -9,25 +9,25 @@ public class Floor : MonoBehaviour
     public static int nbRoomWidth = 7;
     public static int nbRoomHeight = 15; 
 
-    public static int nbRoom = (nbRoomHeight * nbRoomWidth) / 3;
+    public static int nbRoom;
 
 
-    public static int nbTreasureRoom = nbRoom / 3;
-    public static int nbBonusRoom = 1;
-    public static float probaGenerateBonusRoom = Mathf.Pow((float) nbTreasureRoom/(nbTreasureRoom+2),nbBonusRoom); 
+    public static int nbTreasureRoom;
+    public static int nbBonusRoom;
+    public static float probaGenerateBonusRoom; 
 
-    public static int idRoom = 0;
+    public static int idRoom;
 
 
     public static float probDown = 0.66f;
     private static GameObject initRoom;
     
 
-    public static List<GameObject> processRooms = new List<GameObject>();
-    public static Dictionary<GameObject,List<RoomHandler.side>> validSideOfRoom = new Dictionary<GameObject, List<RoomHandler.side>>();
+    public static List<GameObject> processRooms;
+    public static Dictionary<GameObject,List<RoomHandler.side>> validSideOfRoom;
 
-    public static List<GameObject> processTreasureRooms = new List<GameObject>();
-    public static Dictionary<GameObject,RoomHandler.side> sideToGenerateTreasureRoom = new Dictionary<GameObject, RoomHandler.side>();
+    public static List<GameObject> processTreasureRooms;
+    public static Dictionary<GameObject,RoomHandler.side> sideToGenerateTreasureRoom;
     
     
     public static GameObject[,] gridMap = new GameObject[nbRoomHeight, nbRoomWidth];
@@ -138,7 +138,7 @@ public class Floor : MonoBehaviour
 
         Game.coroutineStarter.LaunchCoroutine(WaitForAstarScan());
         initRoom.GetComponent<RoomHandler>().SetAsStart();
-        Game.player.transform.position = initRoom.GetComponent<RoomHandler>().transform.position;
+        Game.player.self.transform.position = initRoom.GetComponent<RoomHandler>().transform.position;
     }
 
     private static IEnumerator WaitForAstarScan()
@@ -163,6 +163,7 @@ public class Floor : MonoBehaviour
                 break;
             }
         }
+
 
         GameObject anteroom = Instantiate(Resources.Load(moldRoomPath, typeof(GameObject)) as GameObject);
         anteroom.name = "Anteroom";
@@ -362,20 +363,20 @@ public class Floor : MonoBehaviour
     }
 
     public static void resetVar(){
-        nbRoom = (nbRoomHeight * nbRoomWidth) / 3;
+        nbRoom = 15;
         idRoom = 0;
+        nbTreasureRoom = nbRoom / 3;
         processRooms = new List<GameObject>();
         validSideOfRoom = new Dictionary<GameObject, List<RoomHandler.side>>();
+        processTreasureRooms = new List<GameObject>();
         gridMap = new GameObject[nbRoomHeight, nbRoomWidth];
         initRoom = null;
+        nbBonusRoom = 1;
+        probaGenerateBonusRoom = Mathf.Pow((float) nbTreasureRoom/(nbTreasureRoom+2),nbBonusRoom);
+        sideToGenerateTreasureRoom = new Dictionary<GameObject, RoomHandler.side>();
     }
 
-    public static IEnumerator changeFloor(){
-        destroyFloor();
-        yield return new WaitForSeconds(1);
-        Tower.generateNextFloor();
-        UI.map.Init();
-    }
+    
 
 
     public static LayerMask removeAllLayerInLayerMask(LayerMask layerMask){

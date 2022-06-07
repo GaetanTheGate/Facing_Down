@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class WarAxe : MeleeWeapon
 {
+    private bool isFirstSpin = true;
+    private GameObject axeAudio;
+
     public WarAxe() : this("Enemy") { }
     public WarAxe(string target) : base(target, "WarAxe")
     {
@@ -22,6 +25,8 @@ public class WarAxe : MeleeWeapon
 
         attackPath = "Prefabs/Weapons/WarAxe";
         specialPath = "Prefabs/Weapons/WarAxe";
+        attackAudio = Resources.Load<AudioClip>("Sound_Effects/axe_swing_1");
+        specialAudio = Resources.Load<AudioClip>("Sound_Effects/axe_swing_2");
     }
 
     private SwingAttack.Way way = SwingAttack.Way.CounterClockwise;
@@ -48,6 +53,8 @@ public class WarAxe : MeleeWeapon
     {
         if (self.GetComponent<EntityCollisionStructure>().isGrounded)
         {
+            GameObject.Destroy(axeAudio);
+            isFirstSpin = true;
             canAttack = true;
             return;
         }
@@ -61,6 +68,20 @@ public class WarAxe : MeleeWeapon
 
         swing.transform.position = startPos;
         swing.AddComponent<SwingAttack>();
+
+        if (isFirstSpin)
+        {
+            isFirstSpin = false;
+            axeAudio = new GameObject("Axe Audio");
+            axeAudio.transform.parent = self.transform;
+            axeAudio.AddComponent<AudioSource>();
+
+            axeAudio.GetComponent<AudioSource>().volume = 0.5f;
+            axeAudio.GetComponent<AudioSource>().clip = specialAudio;
+            axeAudio.GetComponent<AudioSource>().loop = true;
+            axeAudio.GetComponent<AudioSource>().Play();
+        }
+        
 
         swing.GetComponent<SwingAttack>().src = self;
         swing.GetComponent<SwingAttack>().acceleration = 1f;
@@ -86,6 +107,8 @@ public class WarAxe : MeleeWeapon
         swing.transform.position = startPos;
         swing.AddComponent<SwingAttack>();
 
+        swing.GetComponent<SwingAttack>().audioClip = attackAudio;
+
         swing.GetComponent<SwingAttack>().src = self;
         swing.GetComponent<SwingAttack>().acceleration = 0.7f;
         swing.GetComponent<SwingAttack>().angle = angle;
@@ -110,6 +133,8 @@ public class WarAxe : MeleeWeapon
 
         swing.transform.position = startPos;
         swing.AddComponent<SwingAttack>();
+
+        swing.GetComponent<SwingAttack>().audioClip = null;
 
         swing.GetComponent<SwingAttack>().src = self;
         swing.GetComponent<SwingAttack>().acceleration = 0.6f;
