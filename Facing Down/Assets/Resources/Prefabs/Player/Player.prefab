@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 657911100868528697}
+  - component: {fileID: 3648129618777745418}
   - component: {fileID: 657911100868528696}
   - component: {fileID: 657911100868528699}
   - component: {fileID: 657911100868528692}
@@ -38,6 +39,25 @@ Transform:
   m_Father: {fileID: 657911101350130795}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &3648129618777745418
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657911100868528694}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6354c92d9aca97342b6db56e6ca9b4b5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &657911100868528696
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -78,7 +98,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1062266681453288945, guid: 47722a6efb77bd7468558fa224749369, type: 3}
+  m_Sprite: {fileID: -2311659948842064771, guid: 35fd9a4abf598644cb34f100283e894d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,8 +122,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.15}
-  m_Size: {x: 0.35, y: 0.65}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.45, y: 0.95}
   m_Direction: 0
 --- !u!114 &657911100868528692
 MonoBehaviour:
@@ -118,8 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHitPoints: 10
-  critRate: 5
-  critDmg: 150
+  atk: 0
   onHit:
     m_PersistentCalls:
       m_Calls: []
@@ -128,6 +147,8 @@ MonoBehaviour:
       m_Calls: []
   canTakeKnockBack: 1
   canTakeDamage: 1
+  activeEffects: 
+  canIframe: 1
   minAcceleration: 1
   maxAcceleration: 20
   maxSpeed: 50
@@ -158,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307d637f88383ae4dba0a45ca98b4880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attacks: []
 --- !u!114 &657911100868528695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +238,7 @@ MonoBehaviour:
   - {x: -0.2, y: 0.2, z: 0}
   m_ShapePathHash: 816645463
   m_Mesh: {fileID: 0}
-  m_InstanceId: 90024
+  m_InstanceId: 124748
 --- !u!1 &657911101350130789
 GameObject:
   m_ObjectHideFlags: 0
