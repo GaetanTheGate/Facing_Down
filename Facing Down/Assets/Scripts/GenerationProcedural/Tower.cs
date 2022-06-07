@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Tower : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class Tower : MonoBehaviour
             Floor.resetVar();
             Floor.generateFloor();
             nbFloor -= 1;
+        }
+
+        else{
+            TextEndScene.text = Localization.GetUIString("textEndSceneWin").TEXT;
+            SceneManager.LoadScene("EndScene");
         }
     }
 

@@ -92,6 +92,7 @@ public class PlayerDash : AbstractPlayer, InputListener
                 Game.time.SetGameSpeedInstant(1.2f);
             }
 
+            self.GetComponent<Animator>().SetBool("HasDashed", true);
             rotation.FlipEntityRelativeToGravity(pointer.getAngle());
             rotation.RotateEntityRelativeToFlip(pointer.getAngle());
 

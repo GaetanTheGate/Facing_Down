@@ -27,7 +27,7 @@ public class ButtonPlay : MonoBehaviour
         
     }
 
-    public void generateDonjon(){
+    public static void generateDonjon(){
         
         initGameManager();
         Tower.generateFloor();

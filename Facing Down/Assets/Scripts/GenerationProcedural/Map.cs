@@ -28,7 +28,7 @@ public class Map : MonoBehaviour
                         mapIcon.GetComponent<Image>().color = Color.blue;
                     if(Floor.gridMap[i, j].name == "BossRoom")
                         mapIcon.GetComponent<Image>().color = Color.red;
-                    if(Floor.gridMap[i, j].name == "TreasureRoom")
+                    if(Floor.gridMap[i, j].name.Contains("TreasureRoom"))
                         mapIcon.GetComponent<Image>().color = Color.green;
                     if(Floor.gridMap[i, j].name.Contains("BonusRoom"))
                         mapIcon.GetComponent<Image>().color = Color.yellow;
