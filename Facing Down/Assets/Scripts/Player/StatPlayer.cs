@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class StatPlayer : StatEntity
 {
@@ -87,6 +88,8 @@ public class StatPlayer : StatEntity
             if (currentHitPoints <= 0) {
                 if (onDeath != null) onDeath.Invoke();
                 isDead = true;
+                TextEndScene.text = Localization.GetUIString("textEndSceneDead").TEXT;
+                SceneManager.LoadScene("EndScene");
             }
         }
     }
