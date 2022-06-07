@@ -14,6 +14,9 @@ public class Tower : MonoBehaviour
             Floor.generateFloor();
             nbFloor -= 1;
         }
+
+        else
+            print("vous avez gagné"); 
     }
 
 }
