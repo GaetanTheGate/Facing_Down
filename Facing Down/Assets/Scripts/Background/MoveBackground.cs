@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Comparers;
 
 public class MoveBackground : MonoBehaviour
 {
-    public GameObject mainCamera = GameObject.Find("Main Camera");
-
+    
     void Start(){
-        gameObject.transform.position = Game.currentRoom.transform.position;
+        gameObject.transform.position = Game.player.self.transform.position;
     }
 
-    public static void move(Vector3 fromPosition, Vector3 toPosition){
-        
+    void Update(){
+        gameObject.transform.position = Game.player.self.transform.position;
     }
+
 }

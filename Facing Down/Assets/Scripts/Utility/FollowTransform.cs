@@ -12,7 +12,7 @@ public class FollowTransform : MonoBehaviour
     [Min(0.1f)] private float max_min_speed_multiplier = 4f;
 
     // Start is called before the first frame update
-    void Start()
+    void Init()
     {
         transform.position = target.position + offset;
     }
@@ -35,6 +35,7 @@ public class FollowTransform : MonoBehaviour
         else
             howQuick = acceleration * max_min_speed_multiplier;
         transform.position = Vector3.Lerp(transform.position, target.position + offset, howQuick * Time.deltaTime) ;
+        
     }
 
     public void SetTarget(Transform target)
