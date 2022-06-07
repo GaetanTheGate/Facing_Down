@@ -345,7 +345,7 @@ public class Floor : MonoBehaviour
             Vector2 coordinates = RoomHandler.getCoordinates(processRoomToGenerateTreasureRoom);
 
             if ((side == RoomHandler.side.Right && gridMap[(int) coordinates.x,(int) coordinates.y + 1] == null) || (side == RoomHandler.side.Left && gridMap[(int) coordinates.x,(int) coordinates.y - 1] == null))
-                processRoomToGenerateTreasureRoom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(side ,"TreasureRoom");
+                processRoomToGenerateTreasureRoom.GetComponent<RoomHandler>().generateSpecificRoomOnSide(side ,"TreasureRoom-" + idRoom++);
             sides.Remove(side);
             if(sides.Count == 0)
                 potentialRoomToGenerateTreasureRoom.Remove(processRoomToGenerateTreasureRoom);
