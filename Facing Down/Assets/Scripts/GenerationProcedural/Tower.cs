@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Tower : MonoBehaviour
 {
@@ -15,8 +16,10 @@ public class Tower : MonoBehaviour
             nbFloor -= 1;
         }
 
-        else
-            print("vous avez gagné"); 
+        else{
+            TextEndScene.text = Localization.GetUIString("textEndSceneWin").TEXT;
+            SceneManager.LoadScene("EndScene");
+        }
     }
 
     public static IEnumerator changeFloor(){

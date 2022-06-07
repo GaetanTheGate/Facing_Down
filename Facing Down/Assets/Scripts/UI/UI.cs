@@ -119,7 +119,7 @@ public class UI : MonoBehaviour
         Cursor.visible = false;
 	}
 
-    private void UnlockCursor() {
+    public static void UnlockCursor() {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }

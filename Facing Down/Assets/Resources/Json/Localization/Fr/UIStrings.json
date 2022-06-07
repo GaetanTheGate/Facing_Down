@@ -88,6 +88,18 @@
 		{
 			"ID" : "buttonChangeCommand",
 			"TEXT" : "Changer"
+		},
+		{
+			"ID" : "buttonNewGeneration",
+			"TEXT" : "Nouvelle Génération"
+		},
+		{
+			"ID" : "textEndSceneDead",
+			"TEXT" : "Fin du jeu"
+		},
+		{
+			"ID" : "textEndSceneWin",
+			"TEXT" : "Victoire"
 		}
 	]
 }
