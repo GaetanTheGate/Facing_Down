@@ -17,6 +17,8 @@ public class EnergyBall : ProjectileWeapon
 
         attackPath = "Prefabs/Weapons/EnergyBall";
         specialPath = "Prefabs/Weapons/EnergyBall";
+        attackAudio = Resources.Load<AudioClip>("Sound_Effects/energy_ball");
+        specialAudio = Resources.Load<AudioClip>("Sound_Effects/energy_ball");
     }
 
     public override Attack GetAttack(float angle, Entity self)
@@ -28,6 +30,8 @@ public class EnergyBall : ProjectileWeapon
 
         energyBall.AddComponent<ProjectileAttack>();
         energyBall.transform.position = startPos;
+
+        energyBall.GetComponent<ProjectileAttack>().audioClip = attackAudio;
 
         energyBall.GetComponent<ProjectileAttack>().src = self;
         energyBall.GetComponent<ProjectileAttack>().layersToDestroyOn.Add(target);
@@ -70,6 +74,8 @@ public class EnergyBall : ProjectileWeapon
 
         energyBall.AddComponent<ProjectileAttack>();
         energyBall.transform.position = startPos;
+
+        energyBall.GetComponent<ProjectileAttack>().audioClip = specialAudio;
 
         energyBall.GetComponent<ProjectileAttack>().src = self;
         energyBall.GetComponent<ProjectileAttack>().layersToDestroyOn.Add(target);

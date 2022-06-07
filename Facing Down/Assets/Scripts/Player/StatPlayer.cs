@@ -39,6 +39,8 @@ public class StatPlayer : StatEntity
     private int maxSpecial;
     private float specialLeft;
 
+    private AudioClip hurtAudio;
+
     public override void Start()
     {
         InitStats(BASE_HP, BASE_ATK, BASE_CRIT_RATE, BASE_CRIT_DMG);
@@ -64,6 +66,8 @@ public class StatPlayer : StatEntity
         UI.healthBar.UpdateHP();
         UI.specialBar.UpdateSpecial();
         UI.dashBar.UpdateDashes();
+
+        hurtAudio = Resources.Load<AudioClip>("Sound_Effects/hurt");
     }
 
     public override void TakeDamage(DamageInfo damage)
@@ -73,6 +77,13 @@ public class StatPlayer : StatEntity
         {
             damage = Game.player.inventory.OnTakeDamage(damage);
             base.TakeDamage(damage);
+
+            GameObject playerAudio = new GameObject("Player Audio");
+            playerAudio.transform.parent = transform;
+            playerAudio.AddComponent<AudioSource>();
+            playerAudio.GetComponent<AudioSource>().PlayOneShot(hurtAudio);
+            Destroy(playerAudio, 1f);
+
             Game.player.gameCamera.GetComponent<CameraManager>().Shake(0.1f, 0.3f);
             //hpText.text = currentHitPoints.ToString();
             if (canIframe) playerIframes.getIframe(Mathf.Min(2f, damage.hitCooldown));

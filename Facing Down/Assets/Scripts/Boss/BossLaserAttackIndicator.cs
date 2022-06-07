@@ -24,7 +24,7 @@ public class BossLaserAttackIndicator : MonoBehaviour
         laserIndicator.SetBaseSDelay(0);
         laserIndicator.SetBaseSpan(0.1f);
         laserIndicator.SetBaseLenght(0.1f);
-        laserIndicator.SetBaseEDelay(duration);
+        laserIndicator.SetBaseEDelay(duration - 0.1f);
         List<Attack> attackList = new List<Attack>
         {
             laserIndicator.GetAttack(45 + angleOffset, entity),

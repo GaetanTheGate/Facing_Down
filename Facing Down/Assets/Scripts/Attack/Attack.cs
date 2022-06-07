@@ -23,6 +23,9 @@ public abstract class Attack : MonoBehaviour
     public delegate void endAttackEvent(Entity self, float angle);
     public event endAttackEvent onEndAttack;
 
+    public delegate void startAttackEvent(Entity self, float angle);
+    public event startAttackEvent onStartAttack;
+
 
     public bool isUsingEndAnimation = false;
 
@@ -103,6 +106,8 @@ public abstract class Attack : MonoBehaviour
                 soundEffect.GetComponent<AudioSource>().PlayOneShot(audioClip);
                 Destroy(soundEffect, audioClip.length);
             }
+
+            if (onStartAttack != null) onStartAttack(src, angle);
         }
 
         ComputeAttack(Mathf.Pow(percentageTime, acceleration));

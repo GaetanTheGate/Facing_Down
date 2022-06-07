@@ -9,6 +9,8 @@ public class EnemyDeath : MonoBehaviour
     protected bool isDead = false;
     protected Animator animator;
 
+    public ParticleSystem particleEffectExplosion;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -29,5 +31,10 @@ public class EnemyDeath : MonoBehaviour
                 if (attack is MeleeAttack) Destroy(attack.gameObject);
             }
         }
+    }
+
+    protected virtual void explode()
+    {
+        Instantiate(particleEffectExplosion, transform.position, Quaternion.identity);
     }
 }

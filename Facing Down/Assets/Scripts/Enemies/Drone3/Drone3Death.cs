@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Drone3Death : EnemyDeath
 {
-    public ParticleSystem particleEffectExplosion;
-
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (isDead)
@@ -23,7 +21,7 @@ public class Drone3Death : EnemyDeath
     private IEnumerator startWaitingRoutine()
     {
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        Instantiate(particleEffectExplosion, transform.position, Quaternion.identity);
+        explode();
         Destroy(parentToDestroy);
     }
 }
