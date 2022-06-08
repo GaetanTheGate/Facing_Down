@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
@@ -11,6 +11,8 @@ public class UI : MonoBehaviour
     public static DashBar dashBar;
     public static Console console;
     public static ItemPreview itemPreview;
+
+    public static GameObject buttonMenu;
 
     public static MapDisplay map;
 
@@ -31,7 +33,8 @@ public class UI : MonoBehaviour
             map = gameObject.GetComponentInChildren<MapDisplay>();
         if (itemPreview == null)
             itemPreview = gameObject.GetComponentInChildren<ItemPreview>();
-
+        if (buttonMenu == null)
+            buttonMenu = gameObject.transform.Find("ButtonMenu").gameObject;
 
         inventoryDisplay.Init();
         inventoryDisplay.Disable();
@@ -40,6 +43,7 @@ public class UI : MonoBehaviour
         dashBar.Init();
         map.Init();
         map.Disable();
+        buttonMenu.SetActive(false);
 
         itemPreview.Init();
         itemPreview.gameObject.SetActive(false);
@@ -94,6 +98,7 @@ public class UI : MonoBehaviour
             {
                 inventoryDisplay.Disable();
                 map.Disable();
+                buttonMenu.SetActive(false);
                 LockCursor();
                 Game.time.SetGameSpeedInstant(1);
             }
@@ -108,6 +113,7 @@ public class UI : MonoBehaviour
             {
                 inventoryDisplay.Enable();
                 map.Enable();
+                buttonMenu.SetActive(true);
                 UnlockCursor();
                 Game.time.SetGameSpeedInstant(0);
             }

@@ -15,12 +15,13 @@ public class MenuManager : MonoBehaviour
     public AudioMixer audioMixerEditor;
     public static AudioMixer audioMixer;
 
-    public static GenericGamepadProfileSelector.Profile profile;
+    public static bool isInputManager = false;
 
     void Awake(){
-        Localization.Init();
+        if(!isInputManager)
+            createInputManager();
 
-        DontDestroyOnLoad(GameObject.Find("ToogleSelectableObject")); 
+        Localization.Init();
 
         audioMixer = audioMixerEditor;
 
@@ -51,11 +52,12 @@ public class MenuManager : MonoBehaviour
 
 
     public static void applyOptions(){
-
         audioMixer.SetFloat("masterVolume", Options.Get().masterVolumeValue);
         audioMixer.SetFloat("musicVolume", Options.Get().musicVolumeValue);
         audioMixer.SetFloat("soundVolume", Options.Get().soundVolumeValue);
 
+    
+        print("InputManager " + InputManager.GetControlScheme("Player_KeyBoard"));
         
         foreach(InputAction action in Options.Get().keyInput.Actions){
             InputManager.GetControlScheme("Player_KeyBoard").GetAction(action.Name).GetBinding(0).Positive = action.GetBinding(0).Positive;
@@ -67,6 +69,13 @@ public class MenuManager : MonoBehaviour
             InputManager.GetControlScheme("Player_Controller").GetAction(action.Name).GetBinding(0).GamepadAxis = action.GetBinding(0).GamepadAxis;
         }*/
         
+    }
+
+    public void createInputManager(){
+        GameObject inputManager = Resources.Load("Prefabs/InputManager/InputManager" , typeof(GameObject)) as GameObject;
+        inputManager = Instantiate(inputManager);
+        inputManager.name = "InputManager";
+        isInputManager = true;
     }
 
 
