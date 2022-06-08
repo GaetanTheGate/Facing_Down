@@ -18,6 +18,7 @@ public class Tower : MonoBehaviour
 
         else{
             TextEndScene.text = Localization.GetUIString("textEndSceneWin").TEXT;
+            EndSceneReset.destroy();
             SceneManager.LoadScene("EndScene");
         }
     }

@@ -101,6 +101,7 @@ public class StatPlayer : StatEntity
                 if (onDeath != null) onDeath.Invoke();
                 isDead = true;
                 TextEndScene.text = Localization.GetUIString("textEndSceneDead").TEXT;
+                EndSceneReset.destroy();
                 SceneManager.LoadScene("EndScene");
             }
         }
