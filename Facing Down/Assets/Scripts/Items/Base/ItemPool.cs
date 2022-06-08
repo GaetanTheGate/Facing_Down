@@ -37,6 +37,7 @@ public static class ItemPool
 		Add(new PowerSaver());
 		//Add(new OverchargedCoil());
 		Add(new BurningCircle());
+		Add(new HornOfPlenty());
 	}
 
 	/// <summary>
