@@ -18,6 +18,8 @@ public class StunShot : ProjectileWeapon
 
         attackPath = "Prefabs/Weapons/StunShot";
         specialPath = "Prefabs/Weapons/StunShot";
+        attackAudio = Resources.Load<AudioClip>("Sound_Effects/energy_ball");
+        specialAudio = Resources.Load<AudioClip>("Sound_Effects/energy_ball");
     }
 
     public override Attack GetAttack(float angle, Entity self)
@@ -31,6 +33,8 @@ public class StunShot : ProjectileWeapon
 
         stunShot.AddComponent<ProjectileAttack>();
         stunShot.transform.position = startPos;
+
+        stunShot.GetComponent<ProjectileAttack>().audioClip = attackAudio;
 
         stunShot.GetComponent<ProjectileAttack>().src = self;
         stunShot.GetComponent<ProjectileAttack>().layersToDestroyOn.Add(target);
@@ -70,6 +74,8 @@ public class StunShot : ProjectileWeapon
 
         stunShot.AddComponent<ProjectileAttack>();
         stunShot.transform.position = startPos;
+
+        stunShot.GetComponent<ProjectileAttack>().audioClip = specialAudio;
 
         stunShot.GetComponent<ProjectileAttack>().src = self;
         stunShot.GetComponent<ProjectileAttack>().layersToDestroyOn.Add(target);
