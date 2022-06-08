@@ -5,7 +5,7 @@ using UnityEngine;
 public class ControllerManager : MonoBehaviour
 {
     public static GameObject currentControl;
-    public static List<GameObject> typeController = new List<GameObject>(); 
+    public static List<GameObject> typeController; 
 
 
 }

@@ -34,9 +34,11 @@ public class MenuManager : MonoBehaviour
         ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard = GameObject.Find("ScrollRectCommandsKeyBoard");
         ButtonDisplayCommand.scrollRectContentDisplayCommandController = GameObject.Find("ScrollRectCommandsController");
 
+        ControllerManager.typeController = new List<GameObject>();
         ControllerManager.typeController.Add(ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard);
         ControllerManager.typeController.Add(ButtonDisplayCommand.scrollRectContentDisplayCommandController);
         ControllerManager.currentControl = ControllerManager.typeController[0];
+    
 
         ButtonOptions.buttonApply = GameObject.Find("ButtonApply");
         ButtonAdjustVolume.contentVolume = GameObject.Find("ContentVolume");
@@ -56,8 +58,6 @@ public class MenuManager : MonoBehaviour
         audioMixer.SetFloat("musicVolume", Options.Get().musicVolumeValue);
         audioMixer.SetFloat("soundVolume", Options.Get().soundVolumeValue);
 
-    
-        print("InputManager " + InputManager.GetControlScheme("Player_KeyBoard"));
         
         foreach(InputAction action in Options.Get().keyInput.Actions){
             InputManager.GetControlScheme("Player_KeyBoard").GetAction(action.Name).GetBinding(0).Positive = action.GetBinding(0).Positive;
