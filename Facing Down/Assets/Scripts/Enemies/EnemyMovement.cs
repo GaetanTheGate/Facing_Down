@@ -28,6 +28,8 @@ public abstract class EnemyMovement : MonoBehaviour
 
     protected bool isWaiting = false;
 
+    private bool hasIsFlippedAnimatorParameter = false;
+
     //ASTAR
     protected Path path;
     protected Seeker seeker;
@@ -41,20 +43,29 @@ public abstract class EnemyMovement : MonoBehaviour
         playerTransform = player.transform;
         animator = gameObject.GetComponent<Animator>();
 
+        foreach (AnimatorControllerParameter parameter in animator.parameters)
+        {
+            if (parameter.name == "isFlipped") hasIsFlippedAnimatorParameter = true;
+        }
+
         seeker = gameObject.GetComponent<Seeker>();
         InvokeRepeating("updatePath", 0f, 0.2f);
     }
 
     public virtual void FixedUpdate()
     {
-        if (!canMove) return;
+        if (!canMove) 
+        {
+            rb.velocity = new Vector2(0, 0);
+            return;
+        }
         setNextFlag();
 
         if (isFollowingPlayer) followingPlayerBehaviour();
 
         if (!isFollowingPlayer) notFollowingPlayerBehaviour();
 
-        animator.SetFloat("speed", rb.velocity.x);
+        if(animator != null) animator.SetFloat("speed", rb.velocity.x);
     }
 
     protected void onPathComputed(Path p)
@@ -115,7 +126,7 @@ public abstract class EnemyMovement : MonoBehaviour
         if ((!isFlipped && rb.velocity.x < 0) || (isFlipped && rb.velocity.x > 0))
         {
             isFlipped = !isFlipped;
-            animator.SetBool("isFlipped", isFlipped);
+            if(animator != null && hasIsFlippedAnimatorParameter) animator.SetBool("isFlipped", isFlipped);
             gameObject.transform.localScale = new Vector2(-gameObject.transform.localScale.x, gameObject.transform.localScale.y);
         }
         nextFlag = flags[tempNext];

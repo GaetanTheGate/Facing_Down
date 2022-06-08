@@ -40,7 +40,7 @@ public class StunEffect : Effect
 
         GameObject stunStarsEffect = GameObject.Instantiate(Resources.Load<GameObject>(effectPath), target.transform);
         //stunStarsEffect.transform.parent = target.transform;
-        stunStarsEffect.transform.localPosition = new Vector3(0, 0.2f, 0);
+        stunStarsEffect.transform.localPosition = new Vector3(0, 0.5f, 0);
         ParticleSystem.MainModule main = stunStarsEffect.GetComponent<ParticleSystem>().main;
         main.startLifetime = duration;
         yield return new WaitForSeconds(duration);

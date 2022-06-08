@@ -23,6 +23,8 @@ public class Shuriken : ProjectileWeapon
 
         attackPath = "Prefabs/Weapons/Shuriken";
         specialPath = "Prefabs/Weapons/BouncyShuriken";
+        attackAudio = Resources.Load<AudioClip>("Sound_Effects/swish-10");
+        specialAudio = Resources.Load<AudioClip>("Sound_Effects/swish-10");
     }
 
     private float hitPerSecond = 3;
@@ -36,6 +38,8 @@ public class Shuriken : ProjectileWeapon
 
         shuriken.AddComponent<ProjectileAttack>();
         shuriken.transform.position = startPos;
+
+        shuriken.GetComponent<ProjectileAttack>().audioClip = attackAudio;
 
         shuriken.GetComponent<ProjectileAttack>().src = self;
 
@@ -62,6 +66,8 @@ public class Shuriken : ProjectileWeapon
 
         shuriken.AddComponent<ProjectileAttack>();
         shuriken.transform.position = startPos;
+
+        shuriken.GetComponent<ProjectileAttack>().audioClip = specialAudio;
 
         shuriken.GetComponent<ProjectileAttack>().src = self;
 

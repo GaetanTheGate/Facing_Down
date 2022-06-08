@@ -25,6 +25,8 @@ public class Wings : MeleeWeapon
 
         attackPath = "Prefabs/Weapons/Wings";
         specialPath = "Prefabs/Weapons/Wings";
+        attackAudio = Resources.Load<AudioClip>("Sound_Effects/wing_flap_1");
+        specialAudio = Resources.Load<AudioClip>("Sound_Effects/wing_flap_2");
     }
 
 
@@ -45,6 +47,8 @@ public class Wings : MeleeWeapon
 
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
+
+        swing.GetComponent<HalfSlashAttack>().audioClip = attackAudio;
 
         swing.GetComponent<HalfSlashAttack>().src = self;
         swing.GetComponent<HalfSlashAttack>().startDelay = baseSDelay;
@@ -83,6 +87,8 @@ public class Wings : MeleeWeapon
 
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
+
+        swing.GetComponent<HalfSlashAttack>().audioClip = specialAudio;
 
         swing.GetComponent<HalfSlashAttack>().src = self;
         swing.GetComponent<HalfSlashAttack>().startDelay = baseSDelay * 2;

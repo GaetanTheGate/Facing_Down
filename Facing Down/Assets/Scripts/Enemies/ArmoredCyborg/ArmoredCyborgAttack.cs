@@ -28,11 +28,12 @@ public class ArmoredCyborgAttack : EnemyAttack
     private void bash(Vector2 targetPosition)
     {
         Transform originalShield = gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").Find("Shield");
-        gameObject.transform.Find("ShieldPivot_y").gameObject.SetActive(false);
 
         shieldForAttack.startPos = originalShield.position;
-        Attack attack = shieldForAttack.GetAttack(Angles.AngleBetweenVector2(transform.position, targetPosition), gameObject.GetComponent<Entity>());
+        Attack attack = shieldForAttack.GetAttack(gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").localRotation.eulerAngles.z, gameObject.GetComponent<Entity>());
         attack.transform.localScale = new Vector3(attack.transform.localScale.x, Mathf.Abs(attack.transform.localScale.y) * originalShield.localScale.y > 0 ? 1 : -1, attack.transform.localScale.z);
+
+        gameObject.transform.Find("ShieldPivot_y").gameObject.SetActive(false);
         attack.startAttack();
 
         StartCoroutine(bashWait(1f));

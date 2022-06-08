@@ -26,6 +26,8 @@ public class StatEntity : MonoBehaviour
 
     public List<int> activeEffects;
 
+    private bool hasHpAnimatorParameter = false;
+
     public void InitStats(int maxHP, float atk, float critRate = 0, float critDamage = 150) {
         this.maxHitPoints = maxHP;
         this.atk = atk;
@@ -38,7 +40,11 @@ public class StatEntity : MonoBehaviour
         currentHitPoints = GetMaxHP();
         //UI.healthBar.UpdateHP();
         animator = gameObject.GetComponent<Animator>();
-        if (animator != null) animator.SetFloat("hp", currentHitPoints);
+        foreach (AnimatorControllerParameter parameter in animator.parameters)
+        {
+            if (parameter.name == "hp") hasHpAnimatorParameter = true;
+        }
+        if (animator != null && hasHpAnimatorParameter) animator.SetFloat("hp", currentHitPoints);
 
         enemyAttack = gameObject.GetComponent<EnemyAttack>();
         enemyMovement = gameObject.GetComponent<EnemyMovement>();
@@ -84,7 +90,7 @@ public class StatEntity : MonoBehaviour
             }
         }
         if(canTakeKnockBack) GetComponent<Rigidbody2D>().velocity += dmgInfo.knockback.GetAsVector2();
-        if (animator != null) animator.SetFloat("hp", currentHitPoints);
+        if (animator != null && hasHpAnimatorParameter) animator.SetFloat("hp", currentHitPoints);
         if(canTakeDamage && onHit != null && currentHitPoints > 0) onHit.Invoke(dmgInfo);
         checkIfDead(dmgInfo);
     }

@@ -22,7 +22,7 @@ public class Katana : MeleeWeapon
         attackPath = "Prefabs/Weapons/Katana";
         specialPath = "Prefabs/Weapons/KatanaDash";
         attackAudio = Resources.Load<AudioClip>("Sound_Effects/sword_swing");
-        specialAudio = Resources.Load<AudioClip>("Sound_Effects/sword_swing");
+        specialAudio = Resources.Load<AudioClip>("Sound_Effects/katana_dash");
     }
 
     private SlashAttack.Way way = SlashAttack.Way.CounterClockwise;
