@@ -40,7 +40,7 @@ public class Game : MonoBehaviour
         if (coroutineStarter == null)
             coroutineStarter = gameObject.AddComponent<CoroutineStarter>();
     }
-
+    /*
     private void FixedUpdate()
     {
         if(Random.Range(0, 1000) == 0)
@@ -64,5 +64,5 @@ public class Game : MonoBehaviour
 
             Destroy(gameObject, 0.5f);
         }
-    }
+    }*/
 }
