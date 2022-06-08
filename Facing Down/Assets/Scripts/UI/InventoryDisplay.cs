@@ -33,7 +33,7 @@ public class InventoryDisplay : MonoBehaviour
     /// </summary>
     /// <param name="item">The item to be removed. Should be an item from the player's inventory.</param>
     public void RemoveItemDisplay(PassiveItem item) {
-        Destroy(itemDisplays[item.GetID()]);
+        Destroy(itemDisplays[item.GetID()].gameObject);
         itemDisplays.Remove(item.GetID());
         int index = 0;
         foreach (string ID in itemDisplays.Keys) {
