@@ -257,7 +257,7 @@ MonoBehaviour:
   - {x: -0.25, y: -0.28, z: 0}
   m_ShapePathHash: 1694021701
   m_Mesh: {fileID: 0}
-  m_InstanceId: 212550
+  m_InstanceId: 263514
 --- !u!114 &6749147495121741057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,7 +421,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 8
   m_Sprite: {fileID: 21300000, guid: e774d8f7068574141b1c3f37275ff165, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
