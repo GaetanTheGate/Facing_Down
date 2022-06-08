@@ -23,8 +23,10 @@ public class Tower : MonoBehaviour
     }
 
     public static IEnumerator changeFloor(){
+        Game.player.gameCamera.enabled = false;
         Floor.destroyFloor();
         yield return new WaitForSeconds(1);
+        Game.player.gameCamera.enabled = true;
         Tower.generateFloor();
         UI.map.Init();
     }

@@ -97,6 +97,7 @@ public class StatPlayer : StatEntity
         {
             Game.player.inventory.OnDeath();
             if (currentHitPoints <= 0) {
+                print("mort");
                 if (onDeath != null) onDeath.Invoke();
                 isDead = true;
                 TextEndScene.text = Localization.GetUIString("textEndSceneDead").TEXT;
