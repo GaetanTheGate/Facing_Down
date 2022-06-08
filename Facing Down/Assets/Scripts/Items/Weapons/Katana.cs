@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Katana : MeleeWeapon
 {
+    private bool hasBeenGrounded = true;
+
     public Katana() : this("Enemy") { }
     public Katana(string target) : base(target, "Katana")
     {
@@ -31,6 +33,13 @@ public class Katana : MeleeWeapon
     {
 
         GetAttack(angle, self).startAttack();
+
+        if (hasBeenGrounded)
+        {
+            Vector2 addedForce = new Velocity(10, angle).GetAsVector2();
+            self.GetComponent<Rigidbody2D>().velocity += addedForce;
+            hasBeenGrounded = false;
+        }
 
         if (way == SlashAttack.Way.Clockwise)
             way = SlashAttack.Way.CounterClockwise;
@@ -155,4 +164,9 @@ public class Katana : MeleeWeapon
         damage.amount *= 1 + new Velocity(Game.player.self.GetComponent<Rigidbody2D>().velocity).getSpeed() / Game.player.stat.maxSpeed;
         return damage;
 	}
+
+    public override void OnGroundCollisionEnter()
+    {
+        hasBeenGrounded = true;
+    }
 }
