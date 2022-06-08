@@ -29,6 +29,11 @@
 			"ID": "Shuriken",
 			"NAME": "Shuriken",
 			"DESCRIPTION": "Sends a fast, large and piercing projectile. Killing two enemies quickly increases your damage."
+		},
+		{
+			"ID": "Fist",
+			"NAME": "Fist",
+			"DESCRIPTION": "Your fists. Bad at everything, take a weapon or face the consequences of your choices."
 		}
 	]
 }
