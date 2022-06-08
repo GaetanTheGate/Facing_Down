@@ -20547,6 +20547,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5322204722969448974}
     m_Modifications:
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapeLightFalloffSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapeLightFalloffOffset.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[0].x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[0].y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[1].x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[1].y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[2].x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[2].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[3].x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[3].y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5833493621244874069, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_Name
       value: Door Light
@@ -20626,6 +20666,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5322204723522888209}
     m_Modifications:
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapeLightFalloffSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapeLightFalloffOffset.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[0].x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[0].y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[1].x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[1].y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[2].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[2].y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[3].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[3].y
+      value: -4
+      objectReference: {fileID: 0}
     - target: {fileID: 5833493621244874069, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_Name
       value: Door Light
@@ -20652,7 +20732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalRotation.x
@@ -20664,7 +20744,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -20676,7 +20756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
@@ -20709,6 +20789,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5322204723330092914}
     m_Modifications:
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapeLightFalloffSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapeLightFalloffOffset.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[0].x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[0].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[1].x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[1].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[2].x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[2].y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[3].x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[3].y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5833493621244874069, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_Name
       value: Door Light
@@ -20731,7 +20851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalRotation.x
@@ -20743,7 +20863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -20755,7 +20875,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
@@ -20788,6 +20908,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5322204723147765908}
     m_Modifications:
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapeLightFalloffSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapeLightFalloffOffset.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapeLightFalloffOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[0].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[0].y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[1].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[1].y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[2].x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[2].y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[3].x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 125992892733723534, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
+      propertyPath: m_ShapePath.Array.data[3].y
+      value: -4
+      objectReference: {fileID: 0}
     - target: {fileID: 5833493621244874069, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_Name
       value: Door Light
@@ -20810,7 +20974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalRotation.x
@@ -20818,11 +20982,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -20834,7 +20998,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7153208041672021752, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 270
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d279aedafb61764ba045a0bf57d9f46, type: 3}
