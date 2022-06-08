@@ -29,6 +29,11 @@
 			"ID": "Shuriken",
 			"NAME": "Shuriken",
 			"DESCRIPTION": "Envoie un projectile rapide, large et perçant. Éliminer rapidement deux ennemis augmente les dégâts"
+		},
+		{
+			"ID": "Fist",
+			"NAME": "Poings",
+			"DESCRIPTION": "Vos poings. Sont mauvais en tout, prenez une autre arme ou subissez les conséquences de vos choix."
 		}
 	]
 }

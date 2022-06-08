@@ -15,12 +15,13 @@ public class MenuManager : MonoBehaviour
     public AudioMixer audioMixerEditor;
     public static AudioMixer audioMixer;
 
-    public static GenericGamepadProfileSelector.Profile profile;
+    public static bool isInputManager = false;
 
     void Awake(){
-        Localization.Init();
+        if(!isInputManager)
+            createInputManager();
 
-        DontDestroyOnLoad(GameObject.Find("ToogleSelectableObject")); 
+        Localization.Init();
 
         audioMixer = audioMixerEditor;
 
@@ -33,9 +34,11 @@ public class MenuManager : MonoBehaviour
         ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard = GameObject.Find("ScrollRectCommandsKeyBoard");
         ButtonDisplayCommand.scrollRectContentDisplayCommandController = GameObject.Find("ScrollRectCommandsController");
 
+        ControllerManager.typeController = new List<GameObject>();
         ControllerManager.typeController.Add(ButtonDisplayCommand.scrollRectContentDisplayCommandKeyBoard);
         ControllerManager.typeController.Add(ButtonDisplayCommand.scrollRectContentDisplayCommandController);
         ControllerManager.currentControl = ControllerManager.typeController[0];
+    
 
         ButtonOptions.buttonApply = GameObject.Find("ButtonApply");
         ButtonAdjustVolume.contentVolume = GameObject.Find("ContentVolume");
@@ -51,7 +54,6 @@ public class MenuManager : MonoBehaviour
 
 
     public static void applyOptions(){
-
         audioMixer.SetFloat("masterVolume", Options.Get().masterVolumeValue);
         audioMixer.SetFloat("musicVolume", Options.Get().musicVolumeValue);
         audioMixer.SetFloat("soundVolume", Options.Get().soundVolumeValue);
@@ -67,6 +69,13 @@ public class MenuManager : MonoBehaviour
             InputManager.GetControlScheme("Player_Controller").GetAction(action.Name).GetBinding(0).GamepadAxis = action.GetBinding(0).GamepadAxis;
         }*/
         
+    }
+
+    public void createInputManager(){
+        GameObject inputManager = Resources.Load("Prefabs/InputManager/InputManager" , typeof(GameObject)) as GameObject;
+        inputManager = Instantiate(inputManager);
+        inputManager.name = "InputManager";
+        isInputManager = true;
     }
 
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fist : MeleeWeapon
 {
     public Fist() : this("Enemy") { }
-    public Fist(string target) : base(target, "Daggers")
+    public Fist(string target) : base(target, "Fist")
     {
         baseAtk = 100;
         baseRange = 1f;
