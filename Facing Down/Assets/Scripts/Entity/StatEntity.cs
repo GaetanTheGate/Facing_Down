@@ -96,7 +96,7 @@ public class StatEntity : MonoBehaviour
     }
 
     public virtual void checkIfDead(DamageInfo lastDamageTaken) {
-        if (onDeath != null && currentHitPoints <= 0) {
+        if (currentHitPoints <= 0) {
             if (lastDamageTaken != null && lastDamageTaken.source == Game.player.self) {
                 Game.player.inventory.OnEnemyKill(gameObject.GetComponent<Entity>());
                 if (Random.value > 0.5) {
@@ -106,7 +106,7 @@ public class StatEntity : MonoBehaviour
                     Game.player.stat.ModifySpecialLeft(0.5f);
 				}
             }
-            onDeath.Invoke();
+            if (onDeath != null) onDeath.Invoke();
             isDead = true;
         }
     }
