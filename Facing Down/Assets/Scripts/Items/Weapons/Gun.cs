@@ -14,7 +14,7 @@ public class Gun : MeleeWeapon
         attackWeapon = new Bullet(target);
         specialWeapon = new Laser(target);
 
-        attackWeapon.SetBaseAtk(10);
+        attackWeapon.SetBaseAtk(40);
         specialWeapon.SetBaseAtk(150);
         specialWeapon.SetBaseSDelay(0);
         specialWeapon.SetBaseSpan(0.2f);
