@@ -17,8 +17,8 @@ public class DimensionBreaker : MeleeWeapon
 
         isAuto = true;
 
-        attackPath = "Prefabs/Weapons/Gun";
-        specialPath = "Prefabs/Weapons/Gun";
+        attackPath = "Prefabs/Items/Weapons/Gun";
+        specialPath = "Prefabs/Items/Weapons/Gun";
     }
 
     private Weapon attackWeapon;

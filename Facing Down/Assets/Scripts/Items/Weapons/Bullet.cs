@@ -16,8 +16,8 @@ public class Bullet : ProjectileWeapon
         baseEDelay = 5.0f;
         baseCooldown = - baseEDelay + 0.1f;
 
-        attackPath = "Prefabs/Weapons/Bullet";
-        specialPath = "Prefabs/Weapons/Bullet";
+        attackPath = "Prefabs/Items/Weapons/Bullet";
+        specialPath = "Prefabs/Items/Weapons/Bullet";
         attackAudio = Resources.Load<AudioClip>("Sound_Effects/Laser Weapons Sound Pack/light_blast_5");
         specialAudio = Resources.Load<AudioClip>("Sound_Effects/Laser Weapons Sound Pack/light_blast_5");
     }

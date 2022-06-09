@@ -15,8 +15,8 @@ public class EnergyBall : ProjectileWeapon
         baseEDelay = 7.0f;
         baseCooldown = -9;
 
-        attackPath = "Prefabs/Weapons/EnergyBall";
-        specialPath = "Prefabs/Weapons/EnergyBall";
+        attackPath = "Prefabs/Items/Weapons/EnergyBall";
+        specialPath = "Prefabs/Items/Weapons/EnergyBall";
         attackAudio = Resources.Load<AudioClip>("Sound_Effects/energy_ball");
         specialAudio = Resources.Load<AudioClip>("Sound_Effects/energy_ball");
     }

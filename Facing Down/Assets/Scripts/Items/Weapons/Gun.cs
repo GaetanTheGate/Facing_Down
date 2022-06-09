@@ -32,8 +32,8 @@ public class Gun : MeleeWeapon
         stat.specialDurationMult = 1.25f;
         stat.specialCooldownMult = 1.25f;
 
-        attackPath = "Prefabs/Weapons/Gun";
-        specialPath = "Prefabs/Weapons/Gun";
+        attackPath = "Prefabs/Items/Weapons/Gun";
+        specialPath = "Prefabs/Items/Weapons/Gun";
     }
 
     private Weapon attackWeapon;

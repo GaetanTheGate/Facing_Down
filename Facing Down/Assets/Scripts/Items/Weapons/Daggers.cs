@@ -22,8 +22,8 @@ public class Daggers : MeleeWeapon
         stat.accelerationMult = 0.75f;
         stat.specialCooldownMult = 0.75f;
 
-        attackPath = "Prefabs/Weapons/Daggers";
-        specialPath = "Prefabs/Weapons/Daggers";
+        attackPath = "Prefabs/Items/Weapons/Daggers";
+        specialPath = "Prefabs/Items/Weapons/Daggers";
         attackAudio = Resources.Load<AudioClip>("Sound_Effects/swish-11");
         specialAudio = Resources.Load<AudioClip>("Sound_Effects/swish-13");
     }

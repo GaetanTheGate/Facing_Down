@@ -14,8 +14,8 @@ public class Shield : MeleeWeapon
         baseEDelay = 1f;
         baseCooldown = 0.0f;
 
-        attackPath = "Prefabs/Weapons/Shield";
-        specialPath = "Prefabs/Weapons/Shield";
+        attackPath = "Prefabs/Items/Weapons/Shield";
+        specialPath = "Prefabs/Items/Weapons/Shield";
         attackAudio = Resources.Load<AudioClip>("Sound_Effects/sword_swing");
         specialAudio = Resources.Load<AudioClip>("Sound_Effects/sword_swing");
     }

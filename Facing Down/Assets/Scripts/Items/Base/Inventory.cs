@@ -14,7 +14,7 @@ public class Inventory
 	/// Initializes values.
 	/// </summary>
 	public Inventory() {
-		weapon = new StunShot("Enemy");
+		weapon = new Fist("Enemy");
 		items = new Dictionary<string, PassiveItem>();
 	}
 

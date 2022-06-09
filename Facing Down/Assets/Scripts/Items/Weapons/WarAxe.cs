@@ -23,8 +23,8 @@ public class WarAxe : MeleeWeapon
 
         stat.HPMult = 1.25f;
 
-        attackPath = "Prefabs/Weapons/WarAxe";
-        specialPath = "Prefabs/Weapons/WarAxe";
+        attackPath = "Prefabs/Items/Weapons/WarAxe";
+        specialPath = "Prefabs/Items/Weapons/WarAxe";
         attackAudio = Resources.Load<AudioClip>("Sound_Effects/axe_swing_1");
         specialAudio = Resources.Load<AudioClip>("Sound_Effects/axe_swing_2");
     }

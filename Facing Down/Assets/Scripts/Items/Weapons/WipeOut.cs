@@ -15,8 +15,8 @@ public class WipeOut : MeleeWeapon
         baseRange = 100.0f;
         baseLenght = 0.0f;
 
-        attackPath = "Prefabs/Weapons/Laser";
-        specialPath = "Prefabs/Weapons/Laser";
+        attackPath = "Prefabs/Items/Weapons/Laser";
+        specialPath = "Prefabs/Items/Weapons/Laser";
     }
 
     public override Attack GetAttack(float angle, Entity self)

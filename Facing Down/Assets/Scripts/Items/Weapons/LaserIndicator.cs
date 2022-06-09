@@ -14,8 +14,8 @@ public class LaserIndicator : Laser
         baseEDelay = 0.2f;
         baseCooldown = 0.1f;
 
-        attackPath = "Prefabs/Weapons/Laser";
-        specialPath = "Prefabs/Weapons/Laser";
+        attackPath = "Prefabs/Items/Weapons/Laser";
+        specialPath = "Prefabs/Items/Weapons/Laser";
         attackAudio = Resources.Load<AudioClip>("Sound_Effects/bip_low");
         specialAudio = Resources.Load<AudioClip>("Sound_Effects/bip_low");
     }

@@ -14,8 +14,8 @@ public class QuickLaser : MeleeWeapon
         baseEDelay = 0.1f;
         baseCooldown = 0.1f;
 
-        attackPath = "Prefabs/Weapons/Laser";
-        specialPath = "Prefabs/Weapons/Laser";
+        attackPath = "Prefabs/Items/Weapons/Laser";
+        specialPath = "Prefabs/Items/Weapons/Laser";
     }
 
     public override Attack GetAttack(float angle, Entity self)

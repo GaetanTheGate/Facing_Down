@@ -17,8 +17,8 @@ public class Grenade : ProjectileWeapon
 
         baseSpeed = 15f;
 
-        attackPath = "Prefabs/Weapons/Grenade";
-        specialPath = "Prefabs/Weapons/Grenade";
+        attackPath = "Prefabs/Items/Weapons/Grenade";
+        specialPath = "Prefabs/Items/Weapons/Grenade";
     }
 
     private Weapon attackWeapon;

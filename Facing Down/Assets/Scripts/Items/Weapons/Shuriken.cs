@@ -21,8 +21,8 @@ public class Shuriken : ProjectileWeapon
         stat.specialDurationMult = 0.75f;
         stat.HPMult = 0.75f;
 
-        attackPath = "Prefabs/Weapons/Shuriken";
-        specialPath = "Prefabs/Weapons/BouncyShuriken";
+        attackPath = "Prefabs/Items/Weapons/Shuriken";
+        specialPath = "Prefabs/Items/Weapons/BouncyShuriken";
         attackAudio = Resources.Load<AudioClip>("Sound_Effects/swish-10");
         specialAudio = Resources.Load<AudioClip>("Sound_Effects/swish-10");
     }

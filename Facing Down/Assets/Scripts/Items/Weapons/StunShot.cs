@@ -16,8 +16,8 @@ public class StunShot : ProjectileWeapon
         baseEDelay = 7.0f;
         baseCooldown = -9;
 
-        attackPath = "Prefabs/Weapons/StunShot";
-        specialPath = "Prefabs/Weapons/StunShot";
+        attackPath = "Prefabs/Items/Weapons/StunShot";
+        specialPath = "Prefabs/Items/Weapons/StunShot";
         attackAudio = Resources.Load<AudioClip>("Sound_Effects/energy_ball");
         specialAudio = Resources.Load<AudioClip>("Sound_Effects/energy_ball");
     }

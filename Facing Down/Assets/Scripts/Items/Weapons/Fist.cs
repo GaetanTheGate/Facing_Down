@@ -15,8 +15,8 @@ public class Fist : MeleeWeapon
         baseSDelay = 0.025f;
         baseCooldown = -(baseEDelay + baseSpan + baseSDelay)/2;
 
-        attackPath = "Prefabs/Weapons/Fist";
-        specialPath = "Prefabs/Weapons/Fist";
+        attackPath = "Prefabs/Items/Weapons/Fist";
+        specialPath = "Prefabs/Items/Weapons/Fist";
     }
 
     private HalfSlashAttack.Way way = HalfSlashAttack.Way.CounterClockwise;

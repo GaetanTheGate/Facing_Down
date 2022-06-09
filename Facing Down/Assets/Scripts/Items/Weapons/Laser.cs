@@ -16,8 +16,8 @@ public class Laser : MeleeWeapon
         baseEDelay = 0.2f;
         baseCooldown = 0.1f;
 
-        attackPath = "Prefabs/Weapons/Laser";
-        specialPath = "Prefabs/Weapons/Laser";
+        attackPath = "Prefabs/Items/Weapons/Laser";
+        specialPath = "Prefabs/Items/Weapons/Laser";
         attackAudio = Resources.Load<AudioClip>("Sound_Effects/Laser Weapons Sound Pack/continuous_beam_3");
         specialAudio = Resources.Load<AudioClip>("Sound_Effects/Laser Weapons Sound Pack/continuous_beam_3");
     }

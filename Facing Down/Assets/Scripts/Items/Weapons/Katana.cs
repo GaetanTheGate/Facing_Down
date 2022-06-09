@@ -21,8 +21,8 @@ public class Katana : MeleeWeapon
         stat.accelerationMult = 1.25f;
         stat.specialCooldownMult = 0.75f;
 
-        attackPath = "Prefabs/Weapons/Katana";
-        specialPath = "Prefabs/Weapons/KatanaDash";
+        attackPath = "Prefabs/Items/Weapons/Katana";
+        specialPath = "Prefabs/Items/Weapons/KatanaDash";
         attackAudio = Resources.Load<AudioClip>("Sound_Effects/sword_swing");
         specialAudio = Resources.Load<AudioClip>("Sound_Effects/katana_dash");
     }

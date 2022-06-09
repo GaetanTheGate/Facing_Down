@@ -23,8 +23,8 @@ public class Wings : MeleeWeapon
         stat.accelerationMult = 0.75f;
         stat.HPMult = 0.8f;
 
-        attackPath = "Prefabs/Weapons/Wings";
-        specialPath = "Prefabs/Weapons/Wings";
+        attackPath = "Prefabs/Items/Weapons/Wings";
+        specialPath = "Prefabs/Items/Weapons/Wings";
         attackAudio = Resources.Load<AudioClip>("Sound_Effects/wing_flap_1");
         specialAudio = Resources.Load<AudioClip>("Sound_Effects/wing_flap_2");
     }
