@@ -64,7 +64,7 @@ public class WarAxe : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = GetBaseDmg(self);
-        AddHitAttack(swing, new DamageInfo(self, dmg * 0.5f, new Velocity(0.5f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
+        AddHitAttack(swing, new DamageInfo(self, dmg * 0.5f, new Velocity(GetKnockbackIntensity(self, 1f), angle), baseSDelay + baseSpan + baseEDelay));
 
         swing.transform.position = startPos;
         swing.AddComponent<SwingAttack>();
@@ -102,7 +102,7 @@ public class WarAxe : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = GetBaseDmg(self);
-        AddHitAttack(swing, new DamageInfo(self, dmg, new Velocity(5 * dmg, angle), baseSDelay + baseSpan + baseEDelay));
+        AddHitAttack(swing, new DamageInfo(self, dmg, new Velocity(GetKnockbackIntensity(self, 5), angle), baseSDelay + baseSpan + baseEDelay));
 
         swing.transform.position = startPos;
         swing.AddComponent<SwingAttack>();
@@ -129,7 +129,7 @@ public class WarAxe : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = GetBaseDmg(self);
-        AddHitAttack(swing, new DamageInfo(self, dmg * 2, new Velocity(5 * dmg, angle), baseSDelay + baseSpan + baseEDelay));
+        AddHitAttack(swing, new DamageInfo(self, dmg * 2, new Velocity(GetKnockbackIntensity(self, 5), angle), baseSDelay + baseSpan + baseEDelay));
 
         swing.transform.position = startPos;
         swing.AddComponent<SwingAttack>();

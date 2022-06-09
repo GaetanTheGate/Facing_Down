@@ -27,7 +27,7 @@ public class StunShot : ProjectileWeapon
         GameObject stunShot = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = GetBaseDmg(self);
-        DamageInfo damageInfo = new DamageInfo(self, dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
+        DamageInfo damageInfo = new DamageInfo(self, dmg, new Velocity(GetKnockbackIntensity(self, 0.125f), angle), baseSDelay + baseSpan + baseEDelay);
         damageInfo.effects.Add(new StunEffect());
         AddHitAttack(stunShot, damageInfo);
 
@@ -68,7 +68,7 @@ public class StunShot : ProjectileWeapon
         GameObject stunShot = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = GetBaseDmg(self);
-        DamageInfo damageInfo = new DamageInfo(self, dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
+        DamageInfo damageInfo = new DamageInfo(self, dmg, new Velocity(GetKnockbackIntensity(self, 0.125f), angle), baseSDelay + baseSpan + baseEDelay);
         damageInfo.effects.Add(new StunEffect());
         AddHitAttack(stunShot, damageInfo);
 

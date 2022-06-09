@@ -96,7 +96,7 @@ public class Daggers : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = GetBaseDmg(self);
-        AddHitAttack(swing, new DamageInfo(self, dmg * 0.75f, new Velocity(0.25f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
+        AddHitAttack(swing, new DamageInfo(self, dmg * 0.75f, new Velocity(GetKnockbackIntensity(self, 0.25f), angle), baseSDelay + baseSpan + baseEDelay));
 
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
@@ -123,7 +123,7 @@ public class Daggers : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = GetBaseDmg(self);
-        AddHitAttack(swing, new DamageInfo(self, dmg * 0.5f, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
+        AddHitAttack(swing, new DamageInfo(self, dmg * 0.5f, new Velocity(GetKnockbackIntensity(self, 0.125f), angle), baseSDelay + baseSpan + baseEDelay));
 
         swing.transform.position = startPos;
         swing.AddComponent<HalfSlashAttack>();
@@ -151,7 +151,7 @@ public class Daggers : MeleeWeapon
         GameObject swing1 = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = GetBaseDmg(self);
-        DamageInfo dmgInfo = new DamageInfo(self, dmg * 2, new Velocity(0.5f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
+        DamageInfo dmgInfo = new DamageInfo(self, dmg * 2, new Velocity(GetKnockbackIntensity(self, 0.5f), angle), baseSDelay + baseSpan + baseEDelay);
         AddHitAttack(swing1, dmgInfo);
 
         swing1.transform.position = startPos;

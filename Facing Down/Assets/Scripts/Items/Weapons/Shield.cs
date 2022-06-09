@@ -44,7 +44,7 @@ public class Shield : MeleeWeapon
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
         float dmg = GetBaseDmg(self);
-        AddHitAttack(swing, new DamageInfo(self, dmg, new Velocity(2 * dmg, angle), baseSDelay + baseSpan + baseEDelay));
+        AddHitAttack(swing, new DamageInfo(self, dmg, new Velocity(GetKnockbackIntensity(self, 2f), angle), baseSDelay + baseSpan + baseEDelay));
 
         swing.transform.position = startPos;
         swing.AddComponent<DirectAttack>();
@@ -68,26 +68,7 @@ public class Shield : MeleeWeapon
 
     public override Attack GetSpecial(float angle, Entity self)
     {
-        GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
-
-        float dmg = GetBaseDmg(self);
-        AddHitAttack(laser, new DamageInfo(self, dmg * 5, new Velocity(0.5f * dmg, angle), 1)) ;
-
-        laser.transform.position = startPos;
-        laser.AddComponent<LaserAttack>();
-
-        laser.GetComponent<LaserAttack>().audioClip = specialAudio;
-
-        laser.GetComponent<LaserAttack>().src = self;
-        laser.GetComponent<LaserAttack>().angle = angle;
-        laser.GetComponent<LaserAttack>().range = baseRange * 3;
-        laser.GetComponent<LaserAttack>().lenght = self.transform.localScale.x;
-        laser.GetComponent<LaserAttack>().startDelay = 0;
-        laser.GetComponent<LaserAttack>().timeSpan = 0;
-        laser.GetComponent<LaserAttack>().endDelay = 0.05f;
-        laser.GetComponent<LaserAttack>().followEntity = false;
-
-        return laser.GetComponent<LaserAttack>();
+        return GetAttack(angle, self);
     }
 
     //PASSIVE EFFECTS

@@ -12,7 +12,7 @@ public class ObsidianShard : PassiveItem
 	}
 
 	public override void OnEnemyKill(Entity enemy) {
-		QuickLaser laser = new QuickLaser("Enemy");
+		Laser laser = new Laser("Enemy");
 		laser.SetBaseAtk(baseAtk * amount);
 		
 		Entity closestEnemy = null;
