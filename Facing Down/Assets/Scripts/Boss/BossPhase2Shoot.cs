@@ -12,6 +12,7 @@ public class BossPhase2Shoot : StateMachineBehaviour
     {
         playerPosition = Game.player.self.gameObject.transform.position;
         bullet = new Bullet("Player");
+        bullet.SetBaseAtk(30);
         bullet.startPos = animator.transform.Find("Cannon").transform.position;
         bullet.WeaponSpecial(Angles.AngleBetweenVector2(animator.transform.position, playerPosition), animator.GetComponent<Entity>());
         animator.SetTrigger("idle");
