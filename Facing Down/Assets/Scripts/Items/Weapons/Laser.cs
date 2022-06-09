@@ -28,8 +28,8 @@ public class Laser : MeleeWeapon
     {
         GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
+        float dmg = GetBaseDmg(self);
+        DamageInfo dmgInfo = new DamageInfo(self, dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
         AddHitAttack(laser, dmgInfo);
 
         laser.transform.position = startPos;
@@ -56,8 +56,8 @@ public class Laser : MeleeWeapon
 
         GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * lenghtAtk, new Velocity(0.125f * dmg, angle), lenghtAtk);
+        float dmg = GetBaseDmg(self);
+        DamageInfo dmgInfo = new DamageInfo(self, dmg * lenghtAtk, new Velocity(0.125f * dmg, angle), lenghtAtk);
         AddHitAttack(laser, dmgInfo);
 
         laser.transform.position = startPos;

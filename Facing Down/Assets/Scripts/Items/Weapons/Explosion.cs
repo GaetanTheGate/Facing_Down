@@ -24,8 +24,8 @@ public class Explosion : MeleeWeapon
     {
         GameObject explosion = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(1f, angle), baseSDelay + baseSpan + baseEDelay);
+        float dmg = GetBaseDmg(self);
+        DamageInfo dmgInfo = new DamageInfo(self, dmg, new Velocity(1f, angle), baseSDelay + baseSpan + baseEDelay);
         AddHitAttack(explosion, dmgInfo);
 
         explosion.transform.position = startPos;
@@ -47,8 +47,8 @@ public class Explosion : MeleeWeapon
     {
         GameObject explosion = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, dmg * baseAtk * 0.1f, new Velocity(1f, angle), 0.1f);
+        float dmg = GetBaseDmg(self);
+        DamageInfo dmgInfo = new DamageInfo(self, dmg * 0.1f, new Velocity(1f, angle), 0.1f);
         AddHitAttack(explosion, dmgInfo);
 
         explosion.transform.position = startPos;

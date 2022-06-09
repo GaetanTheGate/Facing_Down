@@ -23,8 +23,9 @@ public class WipeOut : MeleeWeapon
     {
         GameObject explosion = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(1f, angle), baseSDelay + baseSpan + baseEDelay);
+        float dmg = GetBaseDmg(self);
+        DamageInfo dmgInfo = new DamageInfo(self, dmg, new Velocity(1f, angle), baseSDelay + baseSpan + baseEDelay);
+        dmgInfo.isMelee = false;
         AddHitAttack(explosion, dmgInfo);
 
         explosion.transform.position = startPos;
@@ -48,8 +49,9 @@ public class WipeOut : MeleeWeapon
     {
         GameObject explosion = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg / hitPerSecond, new Velocity(1f, angle), 1f / hitPerSecond);
+        float dmg = GetBaseDmg(self);
+        DamageInfo dmgInfo = new DamageInfo(self, dmg / hitPerSecond, new Velocity(1f, angle), 1f / hitPerSecond);
+        dmgInfo.isMelee = false;
         AddHitAttack(explosion, dmgInfo);
 
         explosion.transform.position = startPos;

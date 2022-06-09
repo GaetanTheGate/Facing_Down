@@ -34,6 +34,9 @@ public class RoomInfoHandler : MonoBehaviour
 
         if (!isOver)
         {
+            if(Game.player != null && Game.player.inventory != null)
+                Game.player.inventory.OnRoomStart();
+
             nextWaveRank = 0;
             GetComponentInChildren<ActiveWhenEnemy>(true).SetGameObjectState(true);
             NoMoreEnemy();

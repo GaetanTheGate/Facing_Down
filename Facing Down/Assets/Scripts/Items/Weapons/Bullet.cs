@@ -26,8 +26,8 @@ public class Bullet : ProjectileWeapon
     {
         GameObject bullet = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(bullet, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
+        float dmg = GetBaseDmg(self);
+        AddHitAttack(bullet, new DamageInfo(self, dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
 
         bullet.AddComponent<ProjectileAttack>();
         bullet.transform.position = startPos;
@@ -53,8 +53,8 @@ public class Bullet : ProjectileWeapon
     {
         GameObject bullet = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
+        float dmg = GetBaseDmg(self);
+        DamageInfo dmgInfo = new DamageInfo(self, dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
         AddHitAttack(bullet, dmgInfo);
 
         bullet.AddComponent<ProjectileAttack>();

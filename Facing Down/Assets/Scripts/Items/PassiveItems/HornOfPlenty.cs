@@ -13,6 +13,6 @@ public class HornOfPlenty : PassiveItem
 	}
 
 	public override void OnRoomFinish() {
-		Game.player.stat.Heal(amount * healAmount * Game.player.stat.GetMaxHP());
+		Game.player.stat.Heal(amount * healAmount * Game.player.stat.GetRawMaxHP());
 	}
 }

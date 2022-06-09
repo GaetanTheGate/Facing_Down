@@ -213,4 +213,11 @@ public class StatPlayer : StatEntity
             if (playerBulletTime != null) playerBulletTime.canBulletTime = true;
         }
     }
+
+    public int GetRawMaxHP() => maxHitPoints;
+
+    public override void Heal(float amount)
+    {
+        base.Heal(amount / Game.player.inventory.GetWeapon().stat.HPMult);
+    }
 }

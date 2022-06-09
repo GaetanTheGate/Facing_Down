@@ -25,8 +25,8 @@ public class EnergyBall : ProjectileWeapon
     {
         GameObject energyBall = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(energyBall, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
+        float dmg = GetBaseDmg(self);
+        AddHitAttack(energyBall, new DamageInfo(self, dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
 
         energyBall.AddComponent<ProjectileAttack>();
         energyBall.transform.position = startPos;
@@ -69,8 +69,8 @@ public class EnergyBall : ProjectileWeapon
         
         GameObject energyBall = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(energyBall, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
+        float dmg = GetBaseDmg(self);
+        AddHitAttack(energyBall, new DamageInfo(self, dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay));
 
         energyBall.AddComponent<ProjectileAttack>();
         energyBall.transform.position = startPos;

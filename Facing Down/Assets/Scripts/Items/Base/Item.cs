@@ -68,6 +68,8 @@ public abstract class Item{
 
     public virtual void OnBullettimeActivate() {}
 
+    public virtual void OnRoomStart() { }
+
     public virtual void OnRoomFinish() {}
 
     public virtual void OnDash() {}

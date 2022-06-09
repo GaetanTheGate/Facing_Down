@@ -151,6 +151,15 @@ public class Inventory
 		}
 	}
 
+	public void OnRoomStart()
+	{
+		weapon.OnRoomStart();
+		foreach (PassiveItem item in items.Values)
+		{
+			item.OnRoomStart();
+		}
+	}
+
 	public void OnRoomFinish() {
 		weapon.OnRoomFinish();
 		foreach (PassiveItem item in items.Values) {

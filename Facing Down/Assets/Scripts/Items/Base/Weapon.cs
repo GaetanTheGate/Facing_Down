@@ -91,7 +91,7 @@ public abstract class Weapon : Item {
     public void SetBaseCooldown(float cooldown) => baseCooldown = cooldown;
     public void SetDmgType(DamageType type) => dmgType = type;
 
-    protected float GetBaseDmg(Entity self) => self.GetComponent<StatEntity>().getAtk() / 100 * baseAtk;
+    protected float GetBaseDmg(Entity self) => self.GetComponent<StatEntity>().GetComputedDmg() / 100 * baseAtk;
     protected float GetKnockbackIntensity(Entity self, float knockIntensity) => self.GetComponent<StatEntity>().getAtk() / 100 * knockIntensity;
 
     protected virtual void AddHitAttack(GameObject gameObject, DamageInfo dmgInfo)

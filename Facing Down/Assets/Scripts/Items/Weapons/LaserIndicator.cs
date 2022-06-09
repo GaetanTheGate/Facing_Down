@@ -22,32 +22,22 @@ public class LaserIndicator : Laser
 
     public override Attack GetAttack(float angle, Entity self)
     {
-        GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
+        Attack attack = base.GetAttack(angle, self);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle), baseSDelay + baseSpan + baseEDelay);
-        AddHitAttack(laser, dmgInfo);
+        attack.GetComponent<LaserAttack>().audioClip = null;
+        attack.GetComponent<LaserAttack>().onStartAttack += startBeepingSound;
 
-        laser.transform.position = startPos;
-        laser.AddComponent<LaserAttack>();
+        return attack;
+    }
 
-        laser.GetComponent<LaserAttack>().audioClip = null;
+    public override Attack GetSpecial(float angle, Entity self)
+    {
+        Attack attack = base.GetSpecial(angle, self);
 
-        laser.GetComponent<LaserAttack>().src = self;
-        laser.GetComponent<LaserAttack>().angle = angle;
-        laser.GetComponent<LaserAttack>().range = baseRange;
-        laser.GetComponent<LaserAttack>().lenght = baseLenght;
-        laser.GetComponent<LaserAttack>().startDelay = baseSDelay;
-        laser.GetComponent<LaserAttack>().timeSpan = baseSpan;
-        laser.GetComponent<LaserAttack>().endDelay = baseEDelay;
+        attack.GetComponent<LaserAttack>().audioClip = null;
+        attack.GetComponent<LaserAttack>().onStartAttack += startBeepingSound;
 
-        laser.GetComponent<LaserAttack>().followEntity = forceUnFollow;
-
-        laser.GetComponent<LaserAttack>().onStartAttack += startBeepingSound;
-
-        
-
-        return laser.GetComponent<LaserAttack>();
+        return attack;
     }
 
     private void startBeepingSound(Entity self, float angle)

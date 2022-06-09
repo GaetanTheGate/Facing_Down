@@ -68,7 +68,7 @@ public class StatEntity : MonoBehaviour
         return critDmg;
 	}
 
-    public void Heal(float amount) {
+    public virtual void Heal(float amount) {
         currentHitPoints = Mathf.Min(GetMaxHP(), currentHitPoints + Mathf.CeilToInt(amount));
 	}
 
@@ -100,7 +100,7 @@ public class StatEntity : MonoBehaviour
             if (lastDamageTaken != null && lastDamageTaken.source == Game.player.self) {
                 Game.player.inventory.OnEnemyKill(gameObject.GetComponent<Entity>());
                 if (Random.value > 0.5) {
-                    Game.player.stat.Heal(Game.player.stat.GetMaxHP() / 100);
+                    Game.player.stat.Heal(Game.player.stat.GetRawMaxHP() / 100);
 				}
                 else {
                     Game.player.stat.ModifySpecialLeft(0.5f);
@@ -151,5 +151,13 @@ public class StatEntity : MonoBehaviour
             if (enemyAttack != null) enemyAttack.canAttack = true;
             if (enemyMovement != null) enemyMovement.canMove = true;
         }
+    }
+
+    public float GetComputedDmg()
+    {
+        if (Random.Range(0f, 100f) <= critRate)
+            return atk * critDmg / 100;
+        else
+            return atk;
     }
 }

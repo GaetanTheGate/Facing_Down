@@ -7,7 +7,7 @@ public class Shuriken : ProjectileWeapon
     public Shuriken() : this("Enemy") { }
     public Shuriken(string target) : base(target, "Shuriken")
     {
-        baseAtk = 50f;
+        baseAtk = 75f;
         baseSpeed = 25.0f;
         baseSpan = 0.2f;
         baseEDelay = 5.0f;
@@ -33,8 +33,8 @@ public class Shuriken : ProjectileWeapon
     {
         GameObject shuriken = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(shuriken, new DamageInfo(self, baseAtk * dmg, new Velocity(1.0f * dmg, angle), 1f / hitPerSecond));
+        float dmg = GetBaseDmg(self);
+        AddHitAttack(shuriken, new DamageInfo(self, dmg, new Velocity(1.0f * dmg, angle), 1f / hitPerSecond));
 
         shuriken.AddComponent<ProjectileAttack>();
         shuriken.transform.position = startPos;
@@ -60,8 +60,8 @@ public class Shuriken : ProjectileWeapon
     {
         GameObject shuriken = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        DamageInfo dmgInfo = new DamageInfo(self, baseAtk * dmg * 2, new Velocity(1.0f * dmg, angle), 1f / hitPerSecond);
+        float dmg = GetBaseDmg(self);
+        DamageInfo dmgInfo = new DamageInfo(self, dmg * 2, new Velocity(1.0f * dmg, angle), 1f / hitPerSecond);
         AddHitAttack(shuriken, dmgInfo);
 
         shuriken.AddComponent<ProjectileAttack>();

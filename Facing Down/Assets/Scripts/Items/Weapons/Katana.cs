@@ -16,7 +16,7 @@ public class Katana : MeleeWeapon
         baseCooldown = 0.0f;
 
         stat.maxDashes = 3;
-        stat.maxSpecial = 4;
+        stat.maxSpecial = 7;
         
         stat.accelerationMult = 1.25f;
         stat.specialCooldownMult = 0.75f;
@@ -107,8 +107,8 @@ public class Katana : MeleeWeapon
 
         GameObject swing = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(swing, new DamageInfo(self, baseAtk * dmg, new Velocity(2 * dmg, angle), baseSDelay + baseSpan + baseEDelay));
+        float dmg = GetBaseDmg(self);
+        AddHitAttack(swing, new DamageInfo(self, dmg, new Velocity(2 * dmg, angle), baseSDelay + baseSpan + baseEDelay));
 
         swing.transform.position = startPos;
         swing.AddComponent<SlashAttack>();
@@ -134,8 +134,8 @@ public class Katana : MeleeWeapon
     {
         GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg * 5, new Velocity(0.5f * dmg, angle), 1)) ;
+        float dmg = GetBaseDmg(self);
+        AddHitAttack(laser, new DamageInfo(self, dmg, new Velocity(0.5f * dmg, angle), 1)) ;
 
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();

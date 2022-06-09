@@ -47,6 +47,11 @@ public class PrintItem : PassiveItem
 		Debug.Log("BULLET TIME ACTIVATED");
 	}
 
+	public override void OnRoomStart()
+	{
+		Debug.Log("ROOM STARTED");
+	}
+
 	public override void OnRoomFinish() {
 		Debug.Log("ROOM FINISHED");
 	}

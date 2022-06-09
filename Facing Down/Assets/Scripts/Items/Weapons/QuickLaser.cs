@@ -22,8 +22,8 @@ public class QuickLaser : MeleeWeapon
     {
         GameObject laser = GameObject.Instantiate(Resources.Load(attackPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg, new Velocity(0.125f * dmg, angle)));
+        float dmg = GetBaseDmg(self);
+        AddHitAttack(laser, new DamageInfo(self, dmg, new Velocity(0.125f * dmg, angle)));
 
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();
@@ -44,8 +44,8 @@ public class QuickLaser : MeleeWeapon
     {
         GameObject laser = GameObject.Instantiate(Resources.Load(specialPath, typeof(GameObject)) as GameObject);
 
-        float dmg = self.GetComponent<StatEntity>().getAtk() / 100;
-        AddHitAttack(laser, new DamageInfo(self, baseAtk * dmg * 5, new Velocity(0.5f * dmg, angle)));
+        float dmg = GetBaseDmg(self);
+        AddHitAttack(laser, new DamageInfo(self, dmg * 5, new Velocity(0.5f * dmg, angle)));
 
         laser.transform.position = startPos;
         laser.AddComponent<LaserAttack>();
