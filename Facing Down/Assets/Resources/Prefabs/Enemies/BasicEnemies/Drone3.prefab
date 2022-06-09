@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad009292beaab1d4a989b19a796968c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 500
+  maxHitPoints: 200
   atk: 100
   onHit:
     m_PersistentCalls:
@@ -367,7 +367,7 @@ MonoBehaviour:
   - {x: -0.3, y: 0.1, z: 0}
   m_ShapePathHash: 677619253
   m_Mesh: {fileID: 0}
-  m_InstanceId: 335654
+  m_InstanceId: 74630
 --- !u!1 &7464001781562380770
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,4 +618,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea306f8bb28f8b942ae5ddad6188bcff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10

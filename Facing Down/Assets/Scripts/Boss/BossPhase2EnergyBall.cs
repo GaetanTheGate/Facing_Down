@@ -13,6 +13,7 @@ public class BossPhase2EnergyBall : StateMachineBehaviour
         playerPosition = Game.player.self.gameObject.transform.position;
         energyBall = new EnergyBall("Player");
         Transform cannon = animator.transform.Find("Cannon");
+        energyBall.SetBaseAtk(50);
         energyBall.startPos = cannon.position;
         energyBall.WeaponSpecial(Angles.AngleBetweenVector2(cannon.position, playerPosition), animator.GetComponent<Entity>());
         animator.SetTrigger("idle");

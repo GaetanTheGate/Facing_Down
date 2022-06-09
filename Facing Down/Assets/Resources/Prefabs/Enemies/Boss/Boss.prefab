@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307d637f88383ae4dba0a45ca98b4880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attacks: []
 --- !u!114 &5020886612260108186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6c174e2bb80679459f749894560d38c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
 --- !u!114 &57929617020628038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,10 +257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad009292beaab1d4a989b19a796968c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 1000
-  atk: 200
-  critRate: 5
-  critDmg: 150
+  maxHitPoints: 2000
+  atk: 100
   onHit:
     m_PersistentCalls:
       m_Calls:
@@ -304,6 +303,7 @@ MonoBehaviour:
         m_CallState: 2
   canTakeKnockBack: 0
   canTakeDamage: 1
+  activeEffects: 
 --- !u!114 &2202224303238259629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,7 +362,7 @@ MonoBehaviour:
   - {x: -0.37264138, y: 0.050023075, z: 0}
   m_ShapePathHash: 1886672136
   m_Mesh: {fileID: 0}
-  m_InstanceId: 345104
+  m_InstanceId: 74752
 --- !u!114 &5011643412276628236
 MonoBehaviour:
   m_ObjectHideFlags: 0

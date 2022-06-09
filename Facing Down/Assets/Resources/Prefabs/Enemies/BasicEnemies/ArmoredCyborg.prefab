@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307d637f88383ae4dba0a45ca98b4880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attacks: []
 --- !u!114 &3892112616059550847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad009292beaab1d4a989b19a796968c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 100
+  maxHitPoints: 300
   atk: 100
   onHit:
     m_PersistentCalls:
@@ -737,4 +738,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e49f8f96f6b69a94398bd3ea414d520f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 15

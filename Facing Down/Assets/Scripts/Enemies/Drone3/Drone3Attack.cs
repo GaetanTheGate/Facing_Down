@@ -46,6 +46,7 @@ public class Drone3Attack : EnemyAttack
 
     protected void fire(Vector2 targetPosition)
     {
+        bullet.SetBaseAtk(20);
         bullet.Attack(Angles.AngleBetweenVector2(gameObject.transform.position, targetPosition), gameObject.GetComponent<Entity>());
         isAttacking = false;
     }

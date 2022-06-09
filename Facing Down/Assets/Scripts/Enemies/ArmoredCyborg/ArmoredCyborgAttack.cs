@@ -29,6 +29,7 @@ public class ArmoredCyborgAttack : EnemyAttack
     {
         Transform originalShield = gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").Find("Shield");
 
+        shieldForAttack.SetBaseAtk(50);
         shieldForAttack.startPos = originalShield.position;
         Attack attack = shieldForAttack.GetAttack(gameObject.transform.Find("ShieldPivot_y").Find("ShieldPivot_z").localRotation.eulerAngles.z, gameObject.GetComponent<Entity>());
         attack.transform.localScale = new Vector3(attack.transform.localScale.x, Mathf.Abs(attack.transform.localScale.y) * originalShield.localScale.y > 0 ? 1 : -1, attack.transform.localScale.z);
@@ -65,6 +66,7 @@ public class ArmoredCyborgAttack : EnemyAttack
             bulletPos.x = radius * Mathf.Cos((180 - angle * -1) * Mathf.Deg2Rad) * -1;
             bulletPos.y = radius * Mathf.Sin((180 - angle * -1) * Mathf.Deg2Rad) * -1;
         }
+        stunShot.SetBaseAtk(5);
         stunShot.startPos = new Vector3(transform.position.x + bulletPos.x, transform.position.y + bulletPos.y, transform.position.z);
         Attack attack = stunShot.GetAttack(angle, gameObject.GetComponent<Entity>());
         Physics2D.IgnoreCollision(attack.GetComponent<Collider2D>(), transform.Find("ShieldPivot_y").Find("ShieldPivot_z").Find("Shield").GetComponent<Collider2D>(), true);
