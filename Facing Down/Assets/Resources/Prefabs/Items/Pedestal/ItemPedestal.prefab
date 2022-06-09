@@ -101,6 +101,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8848578365522737016, guid: 8c35bff233a88534ebb64ea8a8f7c3ee, type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8848578365522737016, guid: 8c35bff233a88534ebb64ea8a8f7c3ee, type: 3}
+      propertyPath: m_LightType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8848578365522737016, guid: 8c35bff233a88534ebb64ea8a8f7c3ee, type: 3}
+      propertyPath: m_ShapeLightFalloffSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8848578365522737016, guid: 8c35bff233a88534ebb64ea8a8f7c3ee, type: 3}
+      propertyPath: m_ShapeLightFalloffOffset.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8848578365522737016, guid: 8c35bff233a88534ebb64ea8a8f7c3ee, type: 3}
+      propertyPath: m_ShapePath.Array.data[2].y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8848578365522737016, guid: 8c35bff233a88534ebb64ea8a8f7c3ee, type: 3}
+      propertyPath: m_ShapePath.Array.data[3].y
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c35bff233a88534ebb64ea8a8f7c3ee, type: 3}
 --- !u!4 &4283692606601037329 stripped

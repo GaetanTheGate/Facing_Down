@@ -35,8 +35,9 @@ public class ShadowCaster2DTileMap : MonoBehaviour
             shadowCaster.transform.parent = gameObject.transform;
             //
             shadowCaster.transform.localPosition = new Vector3(0, 0, 0);
+            shadowCaster.transform.localRotation = Quaternion.Euler(0, 0, 0);
             //
-            
+
             ShadowCaster2D shadowCasterComponent = shadowCaster.AddComponent<ShadowCaster2D>();
             
             shadowCasterComponent.selfShadows = this.selfShadows;
