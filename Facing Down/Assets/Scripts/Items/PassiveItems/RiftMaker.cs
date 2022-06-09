@@ -20,6 +20,6 @@ public class RiftMaker : PassiveItem
 	}
 
 	public override void OnGroundCollisionLeave() {
-		CreateRift();
+		//CreateRift();
 	}
 }

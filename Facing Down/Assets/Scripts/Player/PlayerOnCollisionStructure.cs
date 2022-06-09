@@ -21,10 +21,24 @@ public class PlayerOnCollisionStructure : AbstractPlayer
         }
     }
 
+    private void Start()
+    {
+        StartCoroutine(endFixedUpdateCheckCollisions());
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        onStayCollide();
+        //onStayCollide();
+    }
+
+    private IEnumerator endFixedUpdateCheckCollisions()
+    {
+        while (true)
+        {
+            yield return new WaitForFixedUpdate();
+            onStayCollide();
+        }
     }
 
     public void onStayCollide()
@@ -48,7 +62,7 @@ public class PlayerOnCollisionStructure : AbstractPlayer
         //comportement au moment de la collision avec le sol
         else if (entityCollisionStructure.isGrounded && entityCollisionStructure.isEnteringGround)
         {
-
+            
         }
         
 

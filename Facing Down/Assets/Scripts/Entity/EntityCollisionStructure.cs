@@ -33,8 +33,16 @@ public class EntityCollisionStructure : AbstractEntity
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (!isGrounded) isEnteringGround = false;
+        if (!isWalled) isEnteringWall = false;
+        if (!isCeilinged) isEnteringCeiling = false;
+     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
         if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Terrain")))
         {
             contactNormalsRelativeToGravity = new List<Vector2>();
@@ -44,18 +52,21 @@ public class EntityCollisionStructure : AbstractEntity
                 //angle = Mathf.Round(angle);
                 if (angle <= 180.0f && angle >= 135.0f)
                 {
+                    if (isGrounded) continue;
                     isEnteringGround = true;
                     isGroundFirstFrame = false;
                 }
 
                 else if (angle < 135.0f && angle >= 45.0f)
                 {
+                    if (isWalled) continue;
                     isEnteringWall = true;
                     isWallFirstFrame = false;
                 }
 
                 else if (angle <= 45.0f && angle >= 0.0f)
                 {
+                    if (isCeilinged) continue;
                     isEnteringCeiling = true;
                     isCeilingFirstFrame = false;
                 }
@@ -85,18 +96,9 @@ public class EntityCollisionStructure : AbstractEntity
 
     public virtual void checkCollisionOnStay(Collision2D col)
     {
-        bool groundedTest = false;
-        bool walledTest = false;
-        bool ceilingedTest = false;
-        bool isEnteringGroundTest = false;
-        bool isEnteringWallTest = false;
-        bool isEnteringCeilingTest = false;
 
         if (col.gameObject.layer.Equals(LayerMask.NameToLayer("Terrain")))
         {
-            groundedTest = false;
-            walledTest = false;
-            ceilingedTest = false;
             contactNormalsRelativeToGravity = new List<Vector2>();
             foreach (ContactPoint2D contact in col.contacts)
             {
@@ -104,37 +106,32 @@ public class EntityCollisionStructure : AbstractEntity
                 //angle = Mathf.Round(angle);
                 if (angle <= 180.0f && angle >= 135.0f)
                 {
-                    groundedTest = true;
-                    if (isGroundFirstFrame) isEnteringGroundTest = true;
+                    isGrounded = true;
+                    if (isGroundFirstFrame) isEnteringGround = true;
+                    else isEnteringGround = false;
                     //if (isGrounded == false) statPlayer.numberOfDashes = 0;
                 }
 
                 else if (angle < 135.0f && angle >= 45.0f)
                 {
-                    walledTest = true;
-                    if (isWallFirstFrame) isEnteringWallTest = true;
+                    isWalled = true;
+                    if (isWallFirstFrame) isEnteringWall = true;
+                    else isEnteringWall = false;
                 }
 
                 else if (angle <= 45.0f && angle >= 0.0f)
                 {
-                    ceilingedTest = true;
-                    if (isCeilingFirstFrame) isEnteringCeilingTest = true;
+                    isCeilinged = true;
+                    if (isCeilingFirstFrame) isEnteringCeiling = true;
+                    else isEnteringCeiling = false;
                 }
 
                 contactNormalsRelativeToGravity.Add(new Velocity(contact.normal).SubToAngle(gravityEntity.gravity.getAngle() - 270).GetAsVector2());
             }
 
-
-            isGrounded = groundedTest;
-            isWalled = walledTest;
-            isCeilinged = ceilingedTest;
-            isEnteringGround = isEnteringGroundTest;
-            isEnteringWall = isEnteringWallTest;
-            isEnteringCeiling = isEnteringCeilingTest;
-
-            isGroundFirstFrame = !isGrounded;
-            isWallFirstFrame = !isWalled;
-            isCeilingFirstFrame = !isCeilinged;
+            isGroundFirstFrame = !this.isGrounded;
+            isWallFirstFrame = !this.isWalled;
+            isCeilingFirstFrame = !this.isCeilinged;
             //if (isEnteringGround || isEnteringCeiling || isEnteringWall)
             //Game.player.inventory.OnGroundCollisionEnter();
             //print("ground, wall, ceiling : " + isEnteringGround + " " + isEnteringWall + " " + isEnteringCeiling);
@@ -162,12 +159,12 @@ public class EntityCollisionStructure : AbstractEntity
             isGrounded = false;
             isWalled = false;
             isCeilinged = false;
-            isEnteringGround = false;
-            isEnteringWall = false;
-            isEnteringCeiling = false;
-            isGroundFirstFrame = true;
-            isWallFirstFrame = true;
-            isCeilingFirstFrame = true;
+            //isEnteringGround = false;
+            //isEnteringWall = false;
+            //isEnteringCeiling = false;
+            //isGroundFirstFrame = true;
+            //isWallFirstFrame = true;
+            //isCeilingFirstFrame = true;
         }
         /*if (col.collider.CompareTag("Traps"))
         {
