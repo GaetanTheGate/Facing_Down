@@ -46,9 +46,18 @@ public class ArmoredCyborgMovement : EnemyMovement
 
     public override void moveFollowingPlayer()
     {
+        
         if (!isAtBorder)
         {
-            if (Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax)
+            bool shouldMove = true;
+            if (path.vectorPath.Count > currentWayPoint + 1)
+            {
+                if (!((!isFlipped && (new Vector2(path.vectorPath[currentWayPoint + 1].x - transform.position.x, 0).normalized * movementSpeed).x > 0) || (isFlipped && (new Vector2(path.vectorPath[currentWayPoint + 1].x - transform.position.x, 0).normalized * movementSpeed).x < 0)))
+                {
+                    shouldMove = false;
+                }
+            }
+            if (shouldMove && Vector2.Distance(nextFlag.position, transform.position) >= rangeFromPlayerMax)
             {
                 rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(path.vectorPath[currentWayPoint].x - transform.position.x, 0).normalized * movementSpeed, 5 * Time.deltaTime);
                 if (Vector2.Distance(transform.position, path.vectorPath[currentWayPoint]) < 1f) currentWayPoint++;
