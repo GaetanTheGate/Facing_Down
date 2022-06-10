@@ -7,6 +7,7 @@ public class MusicManager : MonoBehaviour
 {
     public AudioMixerGroup audioMixer;
     public List<AudioClip> musicList;
+    public bool playAtRandom = true;
 
     private AudioSource audioSource;
     private int currentMusicIndex;
@@ -28,7 +29,8 @@ public class MusicManager : MonoBehaviour
     {
         if (!audioSource.isPlaying)
         {
-            currentMusicIndex = Random.Range(0, musicList.Count);
+            if (playAtRandom) currentMusicIndex = Random.Range(0, musicList.Count);
+            else currentMusicIndex = (currentMusicIndex + 1 ) % musicList.Count;
             audioSource.clip = musicList[currentMusicIndex];
             audioSource.Play();
         }
