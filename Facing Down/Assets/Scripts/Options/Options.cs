@@ -40,9 +40,9 @@ public class Options
     }
 
     private void SetLanguageToDefault() => langue = "En";
-    private void SetMasterVolumeToDefault() => masterVolumeValue = 100f;
-    private void SetMusicVolumeToDefault() => musicVolumeValue = 100f;
-    private void SetSoundVolumeToDefault() => soundVolumeValue = 100f;
+    private void SetMasterVolumeToDefault() => masterVolumeValue = 0f;
+    private void SetMusicVolumeToDefault() => musicVolumeValue = 0f;
+    private void SetSoundVolumeToDefault() => soundVolumeValue = 0f;
     private void SetPlayerContolToDefault()
     {
         keyInput = CreateCopyOfControl("Default_KeyBoard", "Player_KeyBoard");
@@ -180,19 +180,19 @@ public class Options
 
         hasBeenChanged = VerifyLanguage() || hasBeenChanged;
 
-        if(options.masterVolumeValue < 0 || masterVolumeValue > 100)
+        if(options.masterVolumeValue < -80 || masterVolumeValue > 0)
         {
             SetMasterVolumeToDefault();
             hasBeenChanged = true;
         }
 
-        if (options.musicVolumeValue < 0 || musicVolumeValue > 100)
+        if (options.musicVolumeValue < -80 || musicVolumeValue > 0)
         {
             SetMusicVolumeToDefault();
             hasBeenChanged = true;
         }
 
-        if (soundVolumeValue < 0 || soundVolumeValue > 100)
+        if (soundVolumeValue < -80 || soundVolumeValue > 0)
         {
             SetSoundVolumeToDefault();
             hasBeenChanged = true;
