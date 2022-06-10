@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class ButtonNewGeneration : MonoBehaviour
 {
     public void newGeneration(){
-        Tower.nbFloor = 3;
         ButtonPlay.generateDonjon();
     }
 

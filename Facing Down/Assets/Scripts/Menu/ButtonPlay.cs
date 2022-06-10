@@ -28,8 +28,8 @@ public class ButtonPlay : MonoBehaviour
     }
 
     public static void generateDonjon(){
-        
         initGameManager();
+        Tower.nbFloor = 3;
         Tower.generateFloor();
     }
 
