@@ -16,7 +16,7 @@ public class TimeManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    public void LateUpdate()
     {
         ComputeTimeSpeed();
     }
