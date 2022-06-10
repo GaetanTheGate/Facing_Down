@@ -30,6 +30,7 @@ public class Laser : MeleeWeapon
 
         float dmg = GetBaseDmg(self);
         DamageInfo dmgInfo = new DamageInfo(self, dmg, new Velocity(GetKnockbackIntensity(self, 0.25f), angle), baseSDelay + baseSpan + baseEDelay);
+        dmgInfo.isMelee = false;
         AddHitAttack(laser, dmgInfo);
 
         laser.transform.position = startPos;
@@ -58,6 +59,7 @@ public class Laser : MeleeWeapon
 
         float dmg = GetBaseDmg(self);
         DamageInfo dmgInfo = new DamageInfo(self, dmg * lenghtAtk, new Velocity(GetKnockbackIntensity(self, 0.125f), angle), lenghtAtk);
+        dmgInfo.isMelee = false;
         AddHitAttack(laser, dmgInfo);
 
         laser.transform.position = startPos;

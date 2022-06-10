@@ -17,7 +17,7 @@ public class MusicManager : MonoBehaviour
     {
         gameObject.AddComponent<AudioSource>();
         audioSource = gameObject.GetComponent<AudioSource>();
-        audioSource.volume = 0.7f;
+        audioSource.volume = 1f;
         audioSource.outputAudioMixerGroup = audioMixer;
         currentMusicIndex = 0;
         audioSource.clip = musicList[currentMusicIndex];
