@@ -13,6 +13,7 @@ public class BossDeath : StateMachineBehaviour
         deathAnimationDuration = 2f;
         canEndState = false;
         animator.SetBool("isDying", true);
+        Game.coroutineStarter.LaunchCoroutine(slowTime(1f));
         Game.coroutineStarter.LaunchCoroutine(waitDeathDuration(deathAnimationDuration));
     }
 
@@ -40,5 +41,16 @@ public class BossDeath : StateMachineBehaviour
     {
         yield return new WaitForSeconds(duration);
         canEndState = true;
+    }
+
+    private IEnumerator slowTime(float duration)
+    {
+        float timePassed = 0f;
+        while(timePassed < duration)
+        {
+            Game.time.SetGameSpeedInstant(0.2f);
+            yield return new WaitForEndOfFrame();
+            timePassed += Time.deltaTime;
+        }
     }
 }
